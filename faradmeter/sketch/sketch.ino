@@ -1,4 +1,7 @@
 int LED = 9;
+double R1 = 21500.0; // measured resistance of resistor R1 (see schematic.png)
+double R2 = 982.0; // measured resistance of resistor R2 (see schematic.png)
+
 void setup() {
     pinMode(LED, OUTPUT);
 
@@ -6,10 +9,6 @@ void setup() {
 }
 
 void loop() {
-    //digitalWrite(LED, HIGH);
-    //delay(500);
-    //digitalWrite(LED, LOW);
-    //delay(500);
     digitalWrite(LED, LOW);
     delay(1000);
     digitalWrite(LED, HIGH);
@@ -34,7 +33,7 @@ void loop() {
     pinMode(A4, INPUT);
     pinMode(A3, INPUT);
 
-    double res = 21500.0;
+    double res = R1;
     long start = micros();
     long prev = start;
     long now = prev;
@@ -45,7 +44,7 @@ void loop() {
             pinMode(A4, INPUT);
             pinMode(A3, OUTPUT);
             digitalWrite(A3, 1);
-            res = 982.0;
+            res = R2;
         }
         delayMicroseconds(100);
         waited += 1;
