@@ -10,5 +10,5 @@ while True:
     except OSError:
         print
         print "OSError, assuming it's being programmed, waiting"
-        time.sleep(5)
+        time.sleep(6)
         print "starting"

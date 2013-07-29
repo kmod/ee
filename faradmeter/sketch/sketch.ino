@@ -1,10 +1,15 @@
+#include <LiquidCrystal.h>
+
 int LED = 9;
 double R1 = 21500.0; // measured resistance of resistor R1 (see schematic.png)
 double R2 = 982.0; // measured resistance of resistor R2 (see schematic.png)
+LiquidCrystal lcd(8, 11, 4, 5, 6, 7);
 
 void setup() {
     pinMode(LED, OUTPUT);
+    lcd.begin(16, 2);
 
+    lcd.print("booting...");
     Serial.begin(9600);
 }
 
@@ -20,11 +25,12 @@ void loop() {
     digitalWrite(A4, 0);
     digitalWrite(A3, 0);
 
-    int input = 1023;
-    while (input > 3) {
-        input = analogRead(A5);
+    int start_input = 1023;
+    long start = micros();
+    while (start_input > 3 && (micros() - start) < 1000000) {
+        start_input = analogRead(A5);
         Serial.print("Driving low, ");
-        Serial.println(input);
+        Serial.println(start_input);
         delay(1);
     }
 
@@ -34,9 +40,10 @@ void loop() {
     pinMode(A3, INPUT);
 
     double res = R1;
-    long start = micros();
+    start = micros();
     long prev = start;
     long now = prev;
+    int input;
     pinMode(A4, OUTPUT);
     digitalWrite(A4, 1);
     while (true) {
@@ -67,7 +74,7 @@ void loop() {
     double elapsed = 0.000001 * (prev - start);
     driven /= elapsed;
 
-    double rc = elapsed / log(1023.0 / (1023 - input));
+    double rc = elapsed / log((1023.0 - start_input) / (1023 - input));
     Serial.print("RC constant: ");
     Serial.print(rc * 1000000.0);
     Serial.println("us");
@@ -80,11 +87,17 @@ void loop() {
 
     Serial.print("Capacitance: ");
     double cap_uF = cap * 1000.0 * 1000.0;
+    lcd.home();
     if (cap_uF > 1) {
+        lcd.print(cap_uF);
+        lcd.print("uF");
         Serial.print(cap_uF);
         Serial.println("uF");
     } else {
         Serial.print(cap_uF * 1000.0);
         Serial.println("nF");
+        lcd.print(cap_uF * 1000.0);
+        lcd.print("nF");
     }
+    lcd.print("    ");
 }
