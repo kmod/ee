@@ -1,0 +1,9 @@
+connection diagram here
+http://arduino.cc/en/Tutorial/ArduinoISP
+note: connect D10 directly to reset line, with no cap between!
+
+then, program like this:
+/opt/arduino-1.0.5/hardware/tools/avrdude -C/opt/arduino-1.0.5/hardware/tools/avrdude.conf -patmega328 -cstk500v1 -P/dev/ttyUSB0 -b19200 -e -Ulock:w:0x3F:m -Uefuse:w:0x05:m -Uhfuse:w:0xde:m -Ulfuse:w:0xff:m -v -v -Uflash:w:/opt/arduino-1.0.5/hardware/arduino/bootloaders/optiboot/optiboot_atmega328.hex
+
+if it complains about not knowing about the atmega328, just copy the configuration for the atmega328p, and change the signature to 0x1e 0x95 0x14; this is already in the avrduderc file, which can be used by doing
+ln -sf ~/Dropbox/ee/avrduderc ~/.avrduderc
