@@ -49,10 +49,13 @@ Set color_layer 21 16; #Set tPlace to white
 Set color_layer 22 14; #Set bPlace to yellow
 Set color_layer 51 6; #Set tDocu to mellow yellow
 
-Assign F7 'Ripup; Move';
+# Assign F7 'Ripup; Move';
+Assign F7 'Ripup;';
 Assign AF7 'Ripup @;';
-Assign F8 'AUTO; Ratsnest; Move';
-Assign AF8 'Ripup; Auto; Ratsnest; Move';
+# Assign F8 'AUTO; Ratsnest; Move';
+Assign F8 'AUTO; Ratsnest';
+# Assign AF8 'Ripup; Auto; Ratsnest; Move';
+Assign AF8 'Ripup; Auto; Ratsnest';
 
 SCH:
 Grid Default;
