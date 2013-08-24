@@ -2439,7 +2439,7 @@ LilyPad 1206- DIO-09912&lt;br&gt;
 <instance part="SUPPLY1" gate="1" x="27.94" y="68.58"/>
 <instance part="GND1" gate="1" x="38.1" y="7.62"/>
 <instance part="Y1" gate="G$1" x="40.64" y="43.18" rot="R270"/>
-<instance part="GND2" gate="1" x="30.48" y="35.56"/>
+<instance part="GND2" gate="1" x="25.4" y="27.94"/>
 <instance part="GND3" gate="1" x="30.48" y="50.8"/>
 <instance part="U$1" gate="G$1" x="124.46" y="50.8"/>
 <instance part="JP1" gate="G$1" x="-5.08" y="55.88" rot="R180"/>
@@ -2455,8 +2455,8 @@ LilyPad 1206- DIO-09912&lt;br&gt;
 <instance part="D1" gate="G$1" x="-2.54" y="10.16"/>
 <instance part="C5" gate="G$1" x="38.1" y="55.88" rot="R90"/>
 <instance part="C6" gate="G$1" x="17.78" y="76.2" rot="R180"/>
-<instance part="C1" gate="G$1" x="38.1" y="40.64" rot="R90"/>
-<instance part="C2" gate="G$1" x="38.1" y="45.72" rot="R90"/>
+<instance part="C1" gate="G$1" x="33.02" y="38.1" rot="R180"/>
+<instance part="C2" gate="G$1" x="22.86" y="38.1" rot="R180"/>
 <instance part="C3" gate="G$1" x="38.1" y="22.86" rot="R180"/>
 <instance part="SUPPLY5" gate="1" x="38.1" y="27.94"/>
 <instance part="R3" gate="G$1" x="7.62" y="17.78" rot="R90"/>
@@ -2483,11 +2483,10 @@ LilyPad 1206- DIO-09912&lt;br&gt;
 <junction x="38.1" y="17.78"/>
 </segment>
 <segment>
-<wire x1="33.02" y1="45.72" x2="33.02" y2="43.18" width="0.1524" layer="91"/>
-<wire x1="33.02" y1="43.18" x2="33.02" y2="40.64" width="0.1524" layer="91"/>
-<wire x1="33.02" y1="43.18" x2="30.48" y2="43.18" width="0.1524" layer="91"/>
-<wire x1="30.48" y1="43.18" x2="30.48" y2="38.1" width="0.1524" layer="91"/>
-<junction x="33.02" y="43.18"/>
+<wire x1="22.86" y1="33.02" x2="25.4" y2="33.02" width="0.1524" layer="91"/>
+<wire x1="25.4" y1="33.02" x2="33.02" y2="33.02" width="0.1524" layer="91"/>
+<wire x1="25.4" y1="33.02" x2="25.4" y2="30.48" width="0.1524" layer="91"/>
+<junction x="25.4" y="33.02"/>
 <pinref part="GND2" gate="1" pin="GND"/>
 <pinref part="C1" gate="G$1" pin="1"/>
 <pinref part="C2" gate="G$1" pin="1"/>
@@ -2568,16 +2567,19 @@ LilyPad 1206- DIO-09912&lt;br&gt;
 <segment>
 <pinref part="U1" gate="G$1" pin="PB7(XTAL2/TOSC2)"/>
 <pinref part="Y1" gate="G$1" pin="2"/>
-<junction x="40.64" y="40.64"/>
 <pinref part="C1" gate="G$1" pin="2"/>
+<wire x1="33.02" y1="40.64" x2="40.64" y2="40.64" width="0.1524" layer="91"/>
+<junction x="40.64" y="40.64"/>
 </segment>
 </net>
 <net name="N$3" class="0">
 <segment>
 <pinref part="U1" gate="G$1" pin="PB6(XTAL1/TOSC1)"/>
 <pinref part="Y1" gate="G$1" pin="1"/>
-<junction x="40.64" y="45.72"/>
 <pinref part="C2" gate="G$1" pin="2"/>
+<junction x="40.64" y="45.72"/>
+<wire x1="40.64" y1="45.72" x2="22.86" y2="45.72" width="0.1524" layer="91"/>
+<wire x1="22.86" y1="45.72" x2="22.86" y2="40.64" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$26" class="0">
