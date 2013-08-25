@@ -3,7 +3,7 @@
 int LED = 9;
 double R1 = 21500.0; // measured resistance of resistor R1 (see schematic.png)
 double R2 = 982.0; // measured resistance of resistor R2 (see schematic.png)
-LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
+LiquidCrystal lcd(8, 11, 4, 5, 6, 7);
 
 void setup() {
     pinMode(LED, OUTPUT);
