@@ -74,11 +74,12 @@ void setup() {
 #define DELAY() delay(100)
 
 int led_on = 0;
-unsigned long cur_delay = 5000;
+unsigned long cur_delay = 15000;
 int last_speedup = 0;
 unsigned long vhalf = 200;
 
 int _ = 0;
+int last_nwaits = 40;
 
 void pulse1(int l, int h, int s, bool rising) {
     int pwr;
@@ -127,11 +128,10 @@ void pulse1(int l, int h, int s, bool rising) {
         Serial.write((char)0);
     }*/
 
-    if (cur_delay > 400) {
+    if (cur_delay > 1000) {
         while ((micros() - start) < cur_delay) {
         }
     } else {
-        static int last_nwaits = 20;
         int nwaits = max(4, last_nwaits - 4);
 
         for (int i = 0; i < nwaits; i++) {
@@ -141,12 +141,12 @@ void pulse1(int l, int h, int s, bool rising) {
         int r = 0;
         while (true) {
             r = analogRead(s);
-            if (rising == 1 && r > 500)
+            if (rising == 1 && r > 320)
                 break;
-            if (rising == 0 && r < 200)
+            if (rising == 0 && r < 250)
                 break;
             nwaits++;
-            if (nwaits > 50)
+            if (nwaits > cur_delay / 10)
                 break;
         }
 
@@ -169,7 +169,7 @@ void pulse1(int l, int h, int s, bool rising) {
 
     int now = millis();
     if (now - last_speedup > pwr / 8) {
-        cur_delay = max(400, cur_delay - 50);
+        cur_delay = max(1000, cur_delay - 50);
         last_speedup = now;
     }
 
@@ -211,5 +211,6 @@ void loop() {
     }
     int rps = (int)(1000000.0 / (micros() - start));
     Serial.write((char)rps);
+    Serial.write((char)last_nwaits);
     Serial.write((char)0);
 }
