@@ -7,3 +7,6 @@ then, program like this:
 
 if it complains about not knowing about the atmega328, just copy the configuration for the atmega328p, and change the signature to 0x1e 0x95 0x14; this is already in the avrduderc file, which can be used by doing
 ln -sf ~/Dropbox/ee/avrduderc ~/.avrduderc
+
+
+Note: for my programmer, I increased the baud rate to 57600 (this speeds programming from about 30s to 17s; higher baud rates seem to have issues), so you need to change the baud rate in the above command

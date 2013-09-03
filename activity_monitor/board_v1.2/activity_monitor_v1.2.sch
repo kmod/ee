@@ -1770,7 +1770,7 @@ MAX3223-MAX3243.pdf</description>
 </class>
 </classes>
 <parts>
-<part name="U1" library="kmod" deviceset="74HC04_HEX_INVERTER" device="TSSOP14"/>
+<part name="U1" library="kmod" deviceset="74HC04_HEX_INVERTER" device="TSSOP14" value=""/>
 <part name="JP1" library="SparkFun-Connectors" deviceset="M08" device="1X08"/>
 <part name="GND1" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="SUPPLY1" library="SparkFun-Aesthetics" deviceset="VCC" device=""/>

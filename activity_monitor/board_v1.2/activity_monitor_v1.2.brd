@@ -524,7 +524,7 @@ Please make sure your boards conform to these design rules.</description>
 </pass>
 </autorouter>
 <elements>
-<element name="U1" library="kmod" package="TSSOP14" value="74HC04_HEX_INVERTERTSSOP14" x="13.97" y="11.43" rot="MR0"/>
+<element name="U1" library="kmod" package="TSSOP14" value="" x="13.97" y="11.43" rot="MR0"/>
 <element name="JP1" library="SparkFun-Connectors" package="1X08" value="" x="20.32" y="2.54" rot="R180"/>
 <element name="L0A" library="SparkFun-LED" package="LED-0603" value="" x="6.35" y="13.97" rot="R90"/>
 <element name="L1A" library="SparkFun-LED" package="LED-0603" value="" x="10.16" y="13.97" rot="R90"/>
