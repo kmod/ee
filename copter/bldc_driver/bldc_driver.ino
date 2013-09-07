@@ -85,10 +85,14 @@ void pulse1(int l, int h, int s, bool rising) {
     int pwr;
     if (cur_delay > 5000)
         pwr = 60;
-    else if (cur_delay > 2000)
+    else if (cur_delay > 1000)
         pwr = 100;
-    else
-        pwr = 160;
+    else {
+        if (last_nwaits < 10)
+            pwr = 255;
+        else
+            pwr = 150;
+    }
 
     analogWrite(PWM, pwr);
     unsigned long start = micros();
@@ -96,8 +100,8 @@ void pulse1(int l, int h, int s, bool rising) {
     led_on ^= 1;
     digitalWrite(LED, led_on);
 
-    int vhalf_meas = analogRead(VREF)/2;
-    vhalf = (vhalf * 7 + vhalf_meas) / 8;
+    //int vhalf_meas = analogRead(VREF)/2;
+    //vhalf = (vhalf * 7 + vhalf_meas) / 8;
 
     //const int N = 5;
     //int reads[N];
@@ -132,18 +136,19 @@ void pulse1(int l, int h, int s, bool rising) {
         while ((micros() - start) < cur_delay) {
         }
     } else {
-        int nwaits = max(4, last_nwaits - 4);
+        int nwaits = max(3, last_nwaits - 3);
 
         for (int i = 0; i < nwaits; i++) {
-            _ = analogRead(s);
+            _ = digitalRead(s);
         }
 
         int r = 0;
         while (true) {
-            r = analogRead(s);
-            if (rising == 1 && r > 320)
+            r = digitalRead(s);
+            //Serial.write((char)r);
+            if (rising == 1 && r == 1)
                 break;
-            if (rising == 0 && r < 250)
+            if (rising == 0 && r == 0)
                 break;
             nwaits++;
             if (nwaits > cur_delay / 10)
@@ -161,7 +166,7 @@ void pulse1(int l, int h, int s, bool rising) {
         //Serial.write((char)nwaits);
         //Serial.write((char)0);
         for (int i = 0; i < last_nwaits; i++) {
-            _ = analogRead(s);
+            _ = digitalRead(s);
         }
         //while ((micros() - start) < cur_delay) {
         //}
