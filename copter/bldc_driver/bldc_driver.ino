@@ -80,12 +80,15 @@ int last_speedup = 0;
 unsigned long vhalf = 200;
 
 int _ = 0;
-unsigned long last_nwaits = 40;
+unsigned long last_nwaits = 200;
 
 void microDelay() __attribute__ ((noinline));
 void microDelay() {
     asm volatile("nop");
 }
+
+#define DELAY() microDelay()
+//#define DELAY() delayMicroseconds(1)
 
 void pulse1(int l, int h, int s, bool rising) {
     int pwr;
@@ -94,8 +97,8 @@ void pulse1(int l, int h, int s, bool rising) {
     else if (cur_delay > 1000)
         pwr = 100;
     else {
-        if (last_nwaits < 20)
-            pwr = 255;
+        if (last_nwaits < 150)
+            pwr = 200;
         else
             pwr = 150;
     }
@@ -142,22 +145,22 @@ void pulse1(int l, int h, int s, bool rising) {
         while ((micros() - start) < cur_delay) {
         }
     } else {
-        unsigned long nwaits = max(5, last_nwaits - 3);
+        unsigned long nwaits = max(4, last_nwaits - 4);
 
         for (unsigned long i = 0; i < nwaits; i++) {
-            microDelay();
+            DELAY();
         }
 
         int r = 0;
         while (true) {
-            microDelay();
+            DELAY();
             r = (PINC >> s) & 1;
             nwaits++;
             if (rising == 1 && r == 1)
                 break;
             if (rising == 0 && r == 0)
                 break;
-            if (nwaits > cur_delay / 10)
+            if (nwaits > last_nwaits * 2 + 4)
                 break;
         }
 
@@ -172,7 +175,7 @@ void pulse1(int l, int h, int s, bool rising) {
         //Serial.write((char)nwaits);
         //Serial.write((char)0);
         for (unsigned long i = 0; i < last_nwaits; i++) {
-            microDelay();
+            DELAY();
         }
         //while ((micros() - start) < cur_delay) {
         //}
@@ -224,6 +227,8 @@ void loop() {
     if (rps >= 256)
         Serial.write((char)(rps>>8));
     Serial.write((char)rps);
+    if (last_nwaits >= 256)
+        Serial.write((char)(last_nwaits>>8));
     Serial.write((char)last_nwaits);
     Serial.write((char)0);
 }
