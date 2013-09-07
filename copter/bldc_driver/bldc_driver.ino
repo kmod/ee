@@ -1,26 +1,25 @@
 #define PWM 3
-#define VREF A5
 
 #define UL 6
 #define UH 11
-#define US A4
+#define US 4
 
 
 #define REVERSE
 #ifdef REVERSE
 #define VL 8
 #define VH 9
-#define VS A2
+#define VS 2
 #define WL 7
 #define WH 10
-#define WS A3
+#define WS 3
 #else
 #define VL 7
 #define VH 10
-#define VS A3
+#define VS 3
 #define WL 8
 #define WH 9
-#define WS A2
+#define WS 2
 #endif
 
 #define LED 13
@@ -64,14 +63,16 @@ void setup() {
     // http://www.extremeelectronics.co.in/avrtutorials/images/ADPS.gif
     // 0b100 is 16, giving 1MHz
     ADCSRA = ADCSRA & 0b11111000 | 0b010;
+
+    pinMode(A1, INPUT);
+    pinMode(A2, INPUT);
+    pinMode(A3, INPUT);
+    pinMode(A4, INPUT);
+    pinMode(A5, INPUT);
 }
 
-#define IN(pin) pinMode((pin), INPUT); digitalWrite((pin), 0)
-#define SOFTHIGH(pin) pinMode((pin), INPUT); digitalWrite((pin), 1)
-#define HIGH(pin) pinMode((pin), OUTPUT); digitalWrite((pin), 1)
-#define LOW(pin) pinMode((pin), OUTPUT); digitalWrite((pin), 0)
-
-#define DELAY() delay(100)
+#define HIGH(pin) digitalWrite((pin), 1)
+#define LOW(pin) digitalWrite((pin), 0)
 
 int led_on = 0;
 unsigned long cur_delay = 15000;
@@ -79,7 +80,12 @@ int last_speedup = 0;
 unsigned long vhalf = 200;
 
 int _ = 0;
-int last_nwaits = 40;
+unsigned long last_nwaits = 40;
+
+void microDelay() __attribute__ ((noinline));
+void microDelay() {
+    asm volatile("nop");
+}
 
 void pulse1(int l, int h, int s, bool rising) {
     int pwr;
@@ -88,14 +94,13 @@ void pulse1(int l, int h, int s, bool rising) {
     else if (cur_delay > 1000)
         pwr = 100;
     else {
-        if (last_nwaits < 10)
+        if (last_nwaits < 20)
             pwr = 255;
         else
             pwr = 150;
     }
 
     analogWrite(PWM, pwr);
-    unsigned long start = micros();
 
     led_on ^= 1;
     digitalWrite(LED, led_on);
@@ -133,24 +138,25 @@ void pulse1(int l, int h, int s, bool rising) {
     }*/
 
     if (cur_delay > 1000) {
+        unsigned long start = micros();
         while ((micros() - start) < cur_delay) {
         }
     } else {
-        int nwaits = max(3, last_nwaits - 3);
+        unsigned long nwaits = max(5, last_nwaits - 3);
 
-        for (int i = 0; i < nwaits; i++) {
-            _ = digitalRead(s);
+        for (unsigned long i = 0; i < nwaits; i++) {
+            microDelay();
         }
 
         int r = 0;
         while (true) {
-            r = digitalRead(s);
-            //Serial.write((char)r);
+            microDelay();
+            r = (PINC >> s) & 1;
+            nwaits++;
             if (rising == 1 && r == 1)
                 break;
             if (rising == 0 && r == 0)
                 break;
-            nwaits++;
             if (nwaits > cur_delay / 10)
                 break;
         }
@@ -165,8 +171,8 @@ void pulse1(int l, int h, int s, bool rising) {
         //Serial.write((char)(r>>2));
         //Serial.write((char)nwaits);
         //Serial.write((char)0);
-        for (int i = 0; i < last_nwaits; i++) {
-            _ = digitalRead(s);
+        for (unsigned long i = 0; i < last_nwaits; i++) {
+            microDelay();
         }
         //while ((micros() - start) < cur_delay) {
         //}
@@ -214,7 +220,9 @@ void loop() {
         pulse(WL, VH, US, 0);
         pulse(UL, VH, WS, 1);
     }
-    int rps = (int)(1000000.0 / (micros() - start));
+    unsigned long rps = (int)(1000000.0 / (micros() - start));
+    if (rps >= 256)
+        Serial.write((char)(rps>>8));
     Serial.write((char)rps);
     Serial.write((char)last_nwaits);
     Serial.write((char)0);
