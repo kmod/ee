@@ -26,6 +26,7 @@ Assign F3 'Group';
 Assign F4 'Delete';
 Assign F5 'Name';
 Assign F6 'Value';
+ASSIGN C+V PASTE;
 
 BRD:
 ASSIGN C+E ERRORS;
