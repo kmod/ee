@@ -9,9 +9,17 @@ class Controller(object):
         self.ser = serial.Serial("/dev/ttyUSB0", br, timeout=1)
         self.on_read = []
 
+        self._started = threading.Event()
+
         t = threading.Thread(target=self.read_thread)
         t.setDaemon(True)
         t.start()
+
+        while not self._started.isSet():
+            # Give the atmega some time to exit the bootloader,
+            # and wait until it responds to a command
+            self.readShiftReg()
+            time.sleep(.1)
 
     def read_thread(self):
         try:
@@ -19,8 +27,11 @@ class Controller(object):
                 try:
                     c = self.ser.read(1)
                     if c:
-                        for callback in self.on_read:
-                            callback(c)
+                        if not self._started.isSet():
+                            self._started.set()
+                        else:
+                            for callback in self.on_read:
+                                callback(c)
                 except OSError:
                     print
                     print "OSError, assuming it's being programmed, waiting"
