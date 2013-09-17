@@ -27,21 +27,21 @@ t.setDaemon(True)
 t.start()
 
 def reset():
-    ser.write("s\x02\x00")
+    ser.write("s\x0d\x00")
     ser.flush()
     time.sleep(.1)
-    ser.write("s\x05\x01")
+    ser.write("s\x0a\x01")
     ser.flush()
     time.sleep(.1)
-    ser.write("s\x05\x00")
+    ser.write("s\x0a\x00")
     ser.flush()
     time.sleep(.1)
 
 def send_bit(b):
-    ser.write("s\x02\x00") # SCK = 0
-    ser.write("s\x04" + chr(b)) # MOSI = b
-    ser.write("s\x02\x01") # SCK = 1
-    ser.write('i\x03')
+    ser.write("s\x0d\x00") # SCK = 0
+    ser.write("s\x0b" + chr(b)) # MOSI = b
+    ser.write("s\x0d\x01") # SCK = 1
+    ser.write('i\x0c')
     ser.flush()
 
 def send_byte(b):

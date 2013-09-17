@@ -1,12 +1,8 @@
 void setup() {
     pinMode(10, OUTPUT);
-    analogWrite(10, 50);
+    pinMode(11, OUTPUT);
+    pinMode(12, INPUT);
     pinMode(13, OUTPUT);
-
-    pinMode(2, OUTPUT);
-    pinMode(3, INPUT);
-    pinMode(4, OUTPUT);
-    pinMode(5, OUTPUT);
 
     Serial.begin(115200);
 
