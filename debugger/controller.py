@@ -5,8 +5,7 @@ import threading
 import time
 
 class Controller(object):
-    def __init__(self):
-        br = 115200
+    def __init__(self, br=115200):
         self.ser = serial.Serial("/dev/ttyUSB0", br, timeout=1)
         self.on_read = []
 
@@ -31,29 +30,31 @@ class Controller(object):
             os._exit(1)
             raise
 
+    def _write(self, s):
+        # print repr(s)
+        self.ser.write(s)
+        self.ser.flush()
+
     def pinMode(self, port, mode):
-        if mode.lower().startswith("in"):
+        if mode in (0, 1):
+            pass
+        elif mode.lower().startswith("in"):
             mode = 0
         elif mode.lower().startswith("out"):
             mode = 1
         else:
             mode = int(mode)
             assert mode in (0,1), mode
-        self.ser.write("m" + chr(port) + chr(mode))
-        self.ser.flush()
+        self._write("m" + chr(port) + chr(mode))
 
     def digitalWrite(self, port, value):
-        self.ser.write("s" + chr(port) + chr(value))
-        self.ser.flush()
+        self._write("s" + chr(port) + chr(value))
 
     def digitalRead(self, port):
-        self.ser.write("r" + chr(port))
-        self.ser.flush()
+        self._write("r" + chr(port))
 
     def shiftIn(self, port):
-        self.ser.write("i" + chr(port))
-        self.ser.flush()
+        self._write("i" + chr(port))
 
     def readShiftReg(self):
-        self.ser.write("v")
-        self.ser.flush()
+        self._write("v")

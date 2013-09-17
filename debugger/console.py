@@ -10,10 +10,19 @@ from controller import Controller
 
 ctlr = Controller()
 
+started = threading.Event()
+def first_read(c):
+    ctlr.on_read.remove(first_read)
+    ctlr.on_read.append(on_read)
+    started.set()
 def on_read(c):
     sys.stdout.write("\033[34m%02x\033[0m\n" % ord(c))
     sys.stdout.flush()
-ctlr.on_read.append(on_read)
+ctlr.on_read.append(first_read)
+
+while not started.isSet():
+    ctlr.digitalRead(0)
+    time.sleep(.1)
 
 while True:
     l = raw_input()
