@@ -11,4 +11,4 @@ ln -sf ~/Dropbox/ee/avrduderc ~/.avrduderc
 
 Note: for my programmer, I increased the baud rate to 57600 (this speeds programming from about 30s to 17s; higher baud rates seem to have issues), so you need to change the baud rate in the above command.  updated command:
 
-/opt/arduino-1.0.5/hardware/tools/avrdude -C/opt/arduino-1.0.5/hardware/tools/avrdude.conf -patmega328 -cstk500v1 -P/dev/ttyUSB0 -b57600 -e -Ulock:w:0x3F:m -Uefuse:w:0x05:m -Uhfuse:w:0xde:m -Ulfuse:w:0xff:m -v -v -Uflash:w:/opt/arduino-1.0.5/hardware/arduino/bootloaders/optiboot/optiboot_atmega328.hex
+/opt/arduino-1.0.5/hardware/tools/avrdude -C/opt/arduino-1.0.5/hardware/tools/avrdude.conf -patmega328p -cstk500v1 -P/dev/ttyUSB0 -b57600 -e -Ulock:w:0x3F:m -Uefuse:w:0x05:m -Uhfuse:w:0xde:m -Ulfuse:w:0xff:m -v -v -Uflash:w:/opt/arduino-1.0.5/hardware/arduino/bootloaders/optiboot/optiboot_atmega328.hex
