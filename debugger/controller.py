@@ -12,7 +12,7 @@ class Controller(object):
         self.bytes_read = 0
         self.bytes_written = 0
 
-        self.ser = serial.Serial("/dev/ttyUSB0", br, timeout=1)
+        self.ser = serial.Serial("/dev/ttyUSB1", br)
         self.on_read = []
         self.q = Queue.Queue()
 
@@ -31,8 +31,12 @@ class Controller(object):
         try:
             while True:
                 try:
-                    c = self.ser.read(1)
-                    if c:
+                    self.ser.timeout = 0
+                    s = self.ser.read(1024)
+                    while not s:
+                        self.ser.timeout = 1
+                        s = self.ser.read(1)
+                    for c in s:
                         self.bytes_read += 1
                         if not self._started.isSet():
                             assert c == chr(0xae)

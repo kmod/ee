@@ -11,25 +11,31 @@ from debugger.controller import Controller
 class JtagController(object):
     def __init__(self):
         self.state = None
-        self.ctlr = Controller(autoflush=False)
+        self.ctlr = Controller(autoflush=0, br=115200)
 
         self.npulses = 0
 
-        self.buf = ""
-        self._verify_queue = Queue.Queue(maxsize=4)
+        self._verify_queue = Queue.Queue()
 
         t = threading.Thread(target=self._verify_thread)
         t.setDaemon(True)
         t.start()
 
+    def sleep_micros(self, micros):
+        for i in xrange(0, micros, 100):
+            self.ctlr._write(chr(1<<4))
+
     def pulse(self, tms, tdi, get_tdo=True):
         data = (tms << 7) | (tdi << 6) | (get_tdo << 5)
         self.ctlr._write(chr(data))
-        self.ctlr.flush()
         self.npulses += 1
 
     def queue_verify(self, nbits, tdo, tdo_mask):
-        self._verify_queue.put((nbits, tdo, tdo_mask))
+        try:
+            self._verify_queue.put((nbits, tdo, tdo_mask), timeout=0)
+        except Queue.Full:
+            self.ctlr.flush()
+            self._verify_queue.put((nbits, tdo, tdo_mask))
 
     def _verify_thread(self):
         while True:
@@ -37,6 +43,7 @@ class JtagController(object):
 
             got_tdo = 0
             for i in xrange(nbits):
+                # print i, nbits
                 d = ord(self.ctlr.q.get())
                 if d:
                     got_tdo |= 1 << i
@@ -166,9 +173,6 @@ def main(fn):
     endir = None
     enddr = None
 
-    sir = 0
-    sdr = 0
-
     f = open(fn)
     cur = ""
     for l in f:
@@ -209,10 +213,7 @@ def main(fn):
                 assert args[0].lower() == ctlr.state, ctlr.state
                 del args[0]
 
-            mult = 1.0 / 1000000 # 1MHz
-            to_sleep = mult * int(args[0])
-            to_sleep = min(0.001, to_sleep*10) # to be safe
-            time.sleep(to_sleep)
+            ctlr.sleep_micros(int(args[0]))
         elif cmd == "STATE":
             for new_state in args:
                 new_state = new_state.lower()
