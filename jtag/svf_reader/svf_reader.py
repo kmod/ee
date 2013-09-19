@@ -42,7 +42,9 @@ class JtagController(object):
         self.ctlr._write(s)
 
     def sleep_micros(self, micros):
-        for i in xrange(0, micros, 20):
+        # The 'correct' value here is 22, but
+        # overclock it to 50 which seems to work (100 seems stable).
+        for i in xrange(0, micros, 50):
             self._write(chr(1<<4))
 
     def pulse(self, tms, tdi, get_tdo=True):
