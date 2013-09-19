@@ -8,6 +8,8 @@ import traceback
 class Controller(object):
     def __init__(self, br=500000, autoflush=True):
         self.autoflush = autoflush
+        self.bytes_read = 0
+        self.bytes_written = 0
 
         self.ser = serial.Serial("/dev/ttyUSB0", br, timeout=1)
         self.on_read = []
@@ -30,6 +32,7 @@ class Controller(object):
                 try:
                     c = self.ser.read(1)
                     if c:
+                        self.bytes_read += 1
                         if not self._started.isSet():
                             self._started.set()
                         else:
@@ -49,6 +52,7 @@ class Controller(object):
         self.ser.flush()
 
     def _write(self, s):
+        self.bytes_written += len(s)
         # print repr(s)
         self.ser.write(s)
         if self.autoflush:
@@ -67,7 +71,9 @@ class Controller(object):
         self._write("m" + chr(port) + chr(mode))
 
     def digitalWrite(self, port, value):
-        self._write("s" + chr(port) + chr(value))
+        assert value in (0,1)
+        self._write(chr(0x80 | (value << 6) | port))
+        # self._write("s" + chr(port) + chr(value))
 
     def digitalRead(self, port):
         self._write("r" + chr(port))

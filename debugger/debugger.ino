@@ -6,7 +6,7 @@ void setup() {
     Serial.begin(500000);
 }
 
-int blocking_read() {
+char blocking_read() {
     while (Serial.available() == 0) {
         //delayMicroseconds(1);
     }
@@ -15,9 +15,15 @@ int blocking_read() {
 
 int shiftreg = 0;
 void loop() {
-    int cmd = blocking_read();
+    char cmd = blocking_read();
 
     int val, port;
+    if (cmd & 0x80) {
+        port = cmd & 0x3f;
+        val = (cmd >> 6) & 1;
+        digitalWrite(port, val);
+        return;
+    }
     switch (cmd) {
         case 'm':
             port = blocking_read();
