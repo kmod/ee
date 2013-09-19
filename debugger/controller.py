@@ -1,4 +1,5 @@
 import os
+import Queue
 import serial # pip install pyserial
 import sys
 import threading
@@ -13,6 +14,7 @@ class Controller(object):
 
         self.ser = serial.Serial("/dev/ttyUSB0", br, timeout=1)
         self.on_read = []
+        self.q = Queue.Queue()
 
         self._started = threading.Event()
 
@@ -22,8 +24,7 @@ class Controller(object):
 
         while not self._started.isSet():
             # Give the atmega some time to exit the bootloader,
-            # and wait until it responds to a command
-            self.readShiftReg()
+            # and gives the magic word
             time.sleep(.1)
 
     def read_thread(self):
@@ -34,10 +35,12 @@ class Controller(object):
                     if c:
                         self.bytes_read += 1
                         if not self._started.isSet():
+                            assert c == chr(0xae)
                             self._started.set()
                         else:
                             for callback in self.on_read:
                                 callback(c)
+                            self.q.put(c)
                 except OSError:
                     print
                     print "OSError, assuming it's being programmed, waiting"

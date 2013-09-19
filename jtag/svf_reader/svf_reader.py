@@ -7,67 +7,30 @@ import time
 
 from debugger.controller import Controller
 
-class SpiController(object):
-    def __init__(self):
-        self.ctlr = Controller(autoflush=False)
-        self.ctlr.on_read.append(self._on_read)
-        self.q = Queue.Queue()
-
-        self.TDO = 5
-        self.TCK = 4
-        self.TMS = 3
-        self.TDI = 2
-        self.DBG1 = 6
-        self.DBG2 = 7
-
-        self.ctlr.pinMode(self.TDO, "input")
-        self.ctlr.pinMode(self.TCK, "output")
-        self.ctlr.pinMode(self.TMS, "output")
-        self.ctlr.pinMode(self.TDI, "output")
-        self.ctlr.pinMode(self.DBG1, "output")
-        self.ctlr.pinMode(self.DBG2, "output")
-
-        self.npulses = 0
-
-    def _on_read(self, c):
-        self.q.put(c)
-
-    def pulse(self, tms, tdi, get_tdo=True, async=False):
-        self.npulses += 1
-
-        DELAY = 0.0
-        self.ctlr.digitalWrite(self.TMS, tms)
-        self.ctlr.digitalWrite(self.TDI, tdi)
-        time.sleep(DELAY)
-
-        self.ctlr.digitalWrite(self.TCK, 1)
-        time.sleep(DELAY)
-        self.ctlr.digitalWrite(self.TCK, 0)
-        time.sleep(DELAY)
-
-        if get_tdo:
-            self.ctlr.digitalRead(self.TDO)
-            if not async:
-                self.ctlr.flush()
-                b = ord(self.q.get())
-                return b
-
-    def async_read(self):
-        return ord(self.q.get())
-
 class JtagController(object):
     def __init__(self):
         self.state = None
-        self.ctlr = SpiController()
+        self.ctlr = Controller()
 
-        self.pulse = self.ctlr.pulse
+        self.npulses = 0
+
+    def pulse(self, tms, tdi, get_tdo=True, async=False):
+        data = (tms << 7) | (tdi << 6) | (get_tdo << 5)
+        self.ctlr._write(chr(data))
+        if get_tdo:
+            if not async:
+                return self.async_read()
+        self.npulses += 1
+
+    def async_read(self):
+        return ord(self.ctlr.q.get())
 
     def send(self, nbits, tdi, tdo_mask):
         assert self.state in ("irshift", "drshift"), self.state
         rtn = 0
         last_read = 0
         for i in xrange(nbits):
-            BATCH = 20
+            BATCH = 1024
             if i >= BATCH and i % BATCH == 0:
                 # Make sure the ATmega has responded with the first byte
                 # of one batch before moving on to the next.
@@ -75,7 +38,7 @@ class JtagController(object):
                 # the final byte of the batch makes it slower.
                 for j in xrange(last_read, i-BATCH+1):
                     bitmask = (1<<j)
-                    b = self.ctlr.async_read()
+                    b = self.async_read()
                     if b and j != nbits - 1:
                         rtn |= bitmask
                 last_read = i-BATCH+1
@@ -85,7 +48,7 @@ class JtagController(object):
 
         for j in xrange(last_read, nbits):
             bitmask = (1<<j)
-            b = self.ctlr.async_read()
+            b = self.async_read()
             if b and j != nbits - 1:
                 rtn |= bitmask
 
@@ -108,83 +71,83 @@ class JtagController(object):
             if self.state is None:
                 assert new_state == "reset"
                 for i in xrange(5):
-                    b = self.ctlr.pulse(1, 0, get_tdo=False)
+                    b = self.pulse(1, 0, get_tdo=False)
                 self.state = "reset"
             elif self.state == "reset":
-                b = self.ctlr.pulse(0, 0, get_tdo=False)
+                b = self.pulse(0, 0, get_tdo=False)
                 self.state = "idle"
             elif self.state == "idle":
-                b = self.ctlr.pulse(1, 0, get_tdo=False)
+                b = self.pulse(1, 0, get_tdo=False)
                 self.state = "drselect"
             elif self.state == "irpause":
-                b = self.ctlr.pulse(1, 0, get_tdo=False)
+                b = self.pulse(1, 0, get_tdo=False)
                 self.state = "irexit2"
             elif self.state == "irexit2":
                 if new_state in ("irupdate", "idle") or new_state.startswith("dr"):
-                    b = self.ctlr.pulse(1, 0, get_tdo=False)
+                    b = self.pulse(1, 0, get_tdo=False)
                     self.state = "irupdate"
                 else:
                     raise Exception(new_state)
             elif self.state == "irupdate" or self.state == "drupdate":
                 if new_state == "idle":
-                    b = self.ctlr.pulse(0, 0, get_tdo=False)
+                    b = self.pulse(0, 0, get_tdo=False)
                     self.state = "idle"
                 else:
-                    b = self.ctlr.pulse(1, 0, get_tdo=False)
+                    b = self.pulse(1, 0, get_tdo=False)
                     self.state = "drselect"
             elif self.state == "drselect":
                 if new_state.startswith("dr"):
-                    b = self.ctlr.pulse(0, 0, get_tdo=False)
+                    b = self.pulse(0, 0, get_tdo=False)
                     self.state = "drcapture"
                 else:
-                    b = self.ctlr.pulse(1, 0, get_tdo=False)
+                    b = self.pulse(1, 0, get_tdo=False)
                     self.state = "irselect"
             elif self.state == "irselect":
                 assert new_state.startswith("ir")
-                b = self.ctlr.pulse(0, 0, get_tdo=False)
+                b = self.pulse(0, 0, get_tdo=False)
                 self.state = "ircapture"
             elif self.state == "drcapture":
                 if new_state in ("drexit1", "drpause"):
-                    b = self.ctlr.pulse(1, 0, get_tdo=False)
+                    b = self.pulse(1, 0, get_tdo=False)
                     self.state = "drexit1"
                 elif new_state == "drshift":
-                    b = self.ctlr.pulse(0, 0, get_tdo=True)
+                    b = self.pulse(0, 0, get_tdo=True)
                     self.state = "drshift"
                 else:
                     raise Exception(new_state)
             elif self.state == "ircapture":
                 if new_state in ("irexit1", "irpause"):
-                    b = self.ctlr.pulse(1, 0, get_tdo=False)
+                    b = self.pulse(1, 0, get_tdo=False)
                     self.state = "irexit1"
                 elif new_state == "irshift":
-                    b = self.ctlr.pulse(0, 0, get_tdo=True)
+                    b = self.pulse(0, 0, get_tdo=True)
                     self.state = "irshift"
                 else:
                     raise Exception(new_state)
             elif self.state == "drexit1":
                 if new_state == "drpause":
-                    b = self.ctlr.pulse(0, 0, get_tdo=False)
+                    b = self.pulse(0, 0, get_tdo=False)
                     self.state = "drpause"
                 elif new_state in ("idle", "drupdate"):
-                    b = self.ctlr.pulse(1, 0, get_tdo=False)
+                    b = self.pulse(1, 0, get_tdo=False)
                     self.state = "drupdate"
                 else:
                     raise Exception(new_state)
             elif self.state == "irexit1":
                 if new_state == "irpause":
-                    b = self.ctlr.pulse(0, 0, get_tdo=False)
+                    b = self.pulse(0, 0, get_tdo=False)
                     self.state = "irpause"
                 elif new_state == "idle":
-                    b = self.ctlr.pulse(1, 0, get_tdo=False)
+                    b = self.pulse(1, 0, get_tdo=False)
                     self.state = "irupdate"
                 else:
                     raise Exception(new_state)
             elif self.state == "drpause":
-                b = self.ctlr.pulse(1, 0, get_tdo=False)
+                b = self.pulse(1, 0, get_tdo=False)
                 self.state = "drexit2"
             elif self.state == "drexit2":
                 if new_state in ("drupdate", "idle", "irshift"):
-                    b = self.ctlr.pulse(1, 0, get_tdo=False)
+                    b = self.pulse(1, 0, get_tdo=False)
                     self.state = "drupdate"
                 else:
                     raise Exception(new_state)
@@ -288,8 +251,8 @@ def main(fn):
         else:
             raise Exception(l)
 
-    print "Took %.1fs to program, sent %d pulses" % (time.time() - start, ctlr.ctlr.npulses)
-    print "Sent %d bytes, received %d" % (ctlr.ctlr.ctlr.bytes_written, ctlr.ctlr.ctlr.bytes_read)
+    print "Took %.1fs to program, sent %d pulses" % (time.time() - start, ctlr.npulses)
+    print "Sent %d bytes, received %d" % (ctlr.ctlr.bytes_written, ctlr.ctlr.bytes_read)
 
 if __name__ == "__main__":
     fn = sys.argv[1]
