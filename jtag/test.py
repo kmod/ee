@@ -43,7 +43,9 @@ def main():
         time.sleep(DELAY)
 
         ctlr.digitalRead(TDO)
-        return q.get()
+        b = ord(q.get())
+        print "pulse", tms, tdi, b
+        return b
 
     def idcode1():
         # Move to Test-Logic Reset
@@ -146,7 +148,7 @@ def main():
         data[26] = val # drive pin 2 high
 
         for i in xrange(97):
-            print i, "%02x" % ord(b)
+            print i, "%02x" % b
             b = pulse(1 if i == 96 else 0, data[i])
         ctlr.digitalWrite(DBG1, 0)
 
@@ -154,10 +156,10 @@ def main():
         # pulse(1, 0) # move to Run-Test/Idle
 
 
-    # idcode1()
-    reset()
-    extest(0)
-    extest(1)
+    idcode1()
+    # reset()
+    # extest(0)
+    # extest(1)
 
 
 if __name__ == "__main__":
