@@ -30,7 +30,7 @@ class SpiController(object):
     def _on_read(self, c):
         self.q.put(c)
 
-    def pulse(self, tms, tdi, tdo=True):
+    def pulse(self, tms, tdi, async=False):
         DELAY = 0.0
         self.ctlr.digitalWrite(self.TMS, tms)
         self.ctlr.digitalWrite(self.TDI, tdi)
@@ -41,11 +41,13 @@ class SpiController(object):
         self.ctlr.digitalWrite(self.TCK, 0)
         time.sleep(DELAY)
 
-        if tdo:
-            self.ctlr.digitalRead(self.TDO)
+        self.ctlr.digitalRead(self.TDO)
+        if not async:
             b = ord(self.q.get())
-            # print "pulse", tms, tdi, b
             return b
+
+    def async_read(self):
+        return ord(self.q.get())
 
 class JtagController(object):
     def __init__(self):
@@ -59,9 +61,12 @@ class JtagController(object):
         rtn = 0
         for i in xrange(nbits):
             bitmask = (1<<i)
-            get_tdo = (i==nbits+1) or bool(tdo_mask & (1<<(i+1)))
-            b = self.pulse(1 if i == nbits-1 else 0, 1 if (tdi & bitmask) else 0, tdo=get_tdo)
-            if b and i != nbits -1:
+            self.pulse(1 if i == nbits-1 else 0, 1 if (tdi & bitmask) else 0, async=True)
+
+        for i in xrange(nbits):
+            bitmask = (1<<i)
+            b = self.ctlr.async_read()
+            if b and i != nbits - 1:
                 rtn |= bitmask
 
         if self.state == "irshift":
