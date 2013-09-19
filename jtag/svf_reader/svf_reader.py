@@ -77,88 +77,87 @@ class JtagController(object):
         else:
             assert new_state != "reset"
 
-        b = None
         while new_state != self.state:
             if self.state is None:
                 assert new_state == "reset"
                 for i in xrange(5):
-                    b = self.pulse(1, 0, get_tdo=False)
+                    self.pulse(1, 0, get_tdo=False)
                 self.state = "reset"
             elif self.state == "reset":
-                b = self.pulse(0, 0, get_tdo=False)
+                self.pulse(0, 0, get_tdo=False)
                 self.state = "idle"
             elif self.state == "idle":
-                b = self.pulse(1, 0, get_tdo=False)
+                self.pulse(1, 0, get_tdo=False)
                 self.state = "drselect"
             elif self.state == "irpause":
-                b = self.pulse(1, 0, get_tdo=False)
+                self.pulse(1, 0, get_tdo=False)
                 self.state = "irexit2"
             elif self.state == "irexit2":
                 if new_state in ("irupdate", "idle") or new_state.startswith("dr"):
-                    b = self.pulse(1, 0, get_tdo=False)
+                    self.pulse(1, 0, get_tdo=False)
                     self.state = "irupdate"
                 else:
                     raise Exception(new_state)
             elif self.state == "irupdate" or self.state == "drupdate":
                 if new_state == "idle":
-                    b = self.pulse(0, 0, get_tdo=False)
+                    self.pulse(0, 0, get_tdo=False)
                     self.state = "idle"
                 else:
-                    b = self.pulse(1, 0, get_tdo=False)
+                    self.pulse(1, 0, get_tdo=False)
                     self.state = "drselect"
             elif self.state == "drselect":
                 if new_state.startswith("dr"):
-                    b = self.pulse(0, 0, get_tdo=False)
+                    self.pulse(0, 0, get_tdo=False)
                     self.state = "drcapture"
                 else:
-                    b = self.pulse(1, 0, get_tdo=False)
+                    self.pulse(1, 0, get_tdo=False)
                     self.state = "irselect"
             elif self.state == "irselect":
                 assert new_state.startswith("ir")
-                b = self.pulse(0, 0, get_tdo=False)
+                self.pulse(0, 0, get_tdo=False)
                 self.state = "ircapture"
             elif self.state == "drcapture":
                 if new_state in ("drexit1", "drpause"):
-                    b = self.pulse(1, 0, get_tdo=False)
+                    self.pulse(1, 0, get_tdo=False)
                     self.state = "drexit1"
                 elif new_state == "drshift":
-                    b = self.pulse(0, 0, get_tdo=True)
+                    self.pulse(0, 0, get_tdo=True)
                     self.state = "drshift"
                 else:
                     raise Exception(new_state)
             elif self.state == "ircapture":
                 if new_state in ("irexit1", "irpause"):
-                    b = self.pulse(1, 0, get_tdo=False)
+                    self.pulse(1, 0, get_tdo=False)
                     self.state = "irexit1"
                 elif new_state == "irshift":
-                    b = self.pulse(0, 0, get_tdo=True)
+                    self.pulse(0, 0, get_tdo=True)
                     self.state = "irshift"
                 else:
                     raise Exception(new_state)
             elif self.state == "drexit1":
                 if new_state == "drpause":
-                    b = self.pulse(0, 0, get_tdo=False)
+                    self.pulse(0, 0, get_tdo=False)
                     self.state = "drpause"
                 elif new_state in ("idle", "drupdate"):
-                    b = self.pulse(1, 0, get_tdo=False)
+                    self.pulse(1, 0, get_tdo=False)
                     self.state = "drupdate"
                 else:
                     raise Exception(new_state)
             elif self.state == "irexit1":
                 if new_state == "irpause":
-                    b = self.pulse(0, 0, get_tdo=False)
+                    self.pulse(0, 0, get_tdo=False)
                     self.state = "irpause"
                 elif new_state == "idle":
-                    b = self.pulse(1, 0, get_tdo=False)
+                    self.pulse(1, 0, get_tdo=False)
                     self.state = "irupdate"
                 else:
                     raise Exception(new_state)
             elif self.state == "drpause":
-                b = self.pulse(1, 0, get_tdo=False)
+                self.pulse(1, 0, get_tdo=False)
                 self.state = "drexit2"
             elif self.state == "drexit2":
                 if new_state in ("drupdate", "idle", "irshift"):
-                    b = self.pulse(1, 0, get_tdo=False)
+                    self.pulse(1, 0, get_tdo=False)
                     self.state = "drupdate"
                 else:
                     raise Exception(new_state)
@@ -220,9 +219,9 @@ def main(fn):
                 ctlr.goto(new_state)
         elif cmd == "SIR" or cmd == "SDR":
             if cmd == "SIR":
-                b = ctlr.goto("irshift")
+                ctlr.goto("irshift")
             else:
-                b = ctlr.goto("drshift")
+                ctlr.goto("drshift")
 
             tdi = None
             tdo = 0
