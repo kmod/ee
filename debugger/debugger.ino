@@ -3,7 +3,7 @@
 // I use it to test out new protocols and debug by hand.
 
 void setup() {
-    Serial.begin(115200);
+    Serial.begin(500000);
 }
 
 int blocking_read() {

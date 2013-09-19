@@ -3,9 +3,10 @@ import serial # pip install pyserial
 import sys
 import threading
 import time
+import traceback
 
 class Controller(object):
-    def __init__(self, br=115200):
+    def __init__(self, br=500000):
         self.ser = serial.Serial("/dev/ttyUSB0", br, timeout=1)
         self.on_read = []
 
@@ -38,6 +39,7 @@ class Controller(object):
                     time.sleep(6)
                     print "starting"
         except:
+            traceback.print_exc()
             os._exit(1)
             raise
 
