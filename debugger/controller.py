@@ -39,7 +39,7 @@ class Controller(object):
                     for c in s:
                         self.bytes_read += 1
                         if not self._started.isSet():
-                            assert c == chr(0xae)
+                            assert c == chr(0xae), repr(c)
                             self._started.set()
                         else:
                             for callback in self.on_read:

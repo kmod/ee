@@ -13,22 +13,23 @@ class JtagController(object):
         self.state = None
         self.ctlr = Controller(autoflush=0, br=500000)
 
+        self.buf = None
+
         self.npulses = 0
         self.est_buf = 0
-        self.EST_SPEED = 22000.0
+        self.EST_SPEED = 15000.0
         self.last_est = time.time()
 
-        self._verify_queue = Queue.Queue(maxsize=4)
+        self._verify_queue = Queue.Queue(maxsize=1)
 
         t = threading.Thread(target=self._verify_thread)
         t.setDaemon(True)
         t.start()
 
     def _write(self, s):
+        # print bin(ord(s))[2:].rjust(8, '0')
         assert len(s) < 10
         cost = len(s)
-        if s == chr(1<<4):
-            cost = 0.5
         while True:
             now = time.time()
             new_est = self.est_buf - self.EST_SPEED * (now - self.last_est)
@@ -42,21 +43,33 @@ class JtagController(object):
         self.ctlr._write(s)
 
     def sleep_micros(self, micros):
+        assert self.state in ("drpause", "idle", "irpause"), self.state
+
         # The 'correct' value here is 22, but
         # overclock it to 50 which seems to work (100 seems stable).
         for i in xrange(0, micros, 50):
-            self._write(chr(1<<4))
+            self.pulse(0, 0, get_tdo=False)
+
+    def flush(self):
+        if self.buf is not None:
+            self._write(chr(self.buf | (1<<4)))
+            self.buf = None
+        self.ctlr.flush()
 
     def pulse(self, tms, tdi, get_tdo=True):
-        data = (tms << 7) | (tdi << 6) | (get_tdo << 5)
-        self._write(chr(data))
+        data = (tms << 3) | (tdi << 2) | (get_tdo << 1)
+        if self.buf is None:
+            self.buf = data
+        else:
+            self._write(chr((self.buf << 4) | data))
+            self.buf = None
         self.npulses += 1
 
     def queue_verify(self, nbits, tdo, tdo_mask):
         try:
             self._verify_queue.put((nbits, tdo, tdo_mask), timeout=0)
         except Queue.Full:
-            self.ctlr.flush()
+            self.flush()
             self._verify_queue.put((nbits, tdo, tdo_mask))
 
     def _verify_thread(self):
@@ -77,7 +90,7 @@ class JtagController(object):
             self._verify_queue.task_done()
 
     def join(self):
-        self.ctlr.flush()
+        self.flush()
         self._verify_queue.join()
 
     def send(self, nbits, tdi, tdo_mask):

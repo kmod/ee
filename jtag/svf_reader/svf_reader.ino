@@ -8,6 +8,7 @@ void setup() {
     pinMode(2, OUTPUT);
     pinMode(3, OUTPUT);
     pinMode(4, OUTPUT);
+    pinMode(5, INPUT);
 
     pinMode(6, OUTPUT);
     pinMode(7, OUTPUT);
@@ -15,24 +16,27 @@ void setup() {
     Serial.write(0xae);
 }
 
+void pulse(int nibble) {
+    if (nibble & 1)
+        return;
+    PORTD = (PORTD & ~0x0c) | (nibble & 0x0c);
+    //bitWrite(PORTD, 3, (nibble>>3)&1);
+    //bitWrite(PORTD, 2, (nibble>>2)&1);
+
+    bitSet(PORTD, 4);
+    bitClear(PORTD, 4);
+
+    if (nibble & (1<<1)) {
+        delay(0);
+        uint8_t data = (PIND >> 5) & 1;
+        Serial.write((char)data);
+    }
+}
+
 void loop() {
     uint8_t data = Serial.read();
 
-    if (data & (1<<4)) {
-        return;
-    }
-
-    bitWrite(PORTD, 3, (data>>7)&1);
-    bitWrite(PORTD, 2, (data>>6)&1);
-
-    bitSet(PORTD, 4);
-    delay(0);
-    bitClear(PORTD, 4);
-    delay(0);
-
-    if (data & (1<<5)) {
-        data = digitalRead(5);
-        Serial.write((char)data);
-    }
+    pulse(data >> 4);
+    pulse(data & 0x0f);
 }
 
