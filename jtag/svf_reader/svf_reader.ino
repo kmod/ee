@@ -3,7 +3,7 @@
 // I use it to test out new protocols and debug by hand.
 
 void setup() {
-    Serial.begin(115200);
+    Serial.begin(500000);
 
     pinMode(2, OUTPUT);
     pinMode(3, OUTPUT);
@@ -15,16 +15,7 @@ void setup() {
     Serial.write(0xae);
 }
 
-char blocking_read() {
-    while (Serial.available() == 0) {
-    }
-    return Serial.read();
-}
-
-int shiftreg = 0;
 void loop() {
-    while (Serial.available() == 0) {
-    }
     uint8_t data = Serial.read();
 
     if (data & (1<<4)) {
@@ -33,11 +24,10 @@ void loop() {
 
     bitWrite(PORTD, 3, (data>>7)&1);
     bitWrite(PORTD, 2, (data>>6)&1);
-    delay(0);
 
-    bitWrite(PORTD, 4, 1);
+    bitSet(PORTD, 4);
     delay(0);
-    bitWrite(PORTD, 4, 0);
+    bitClear(PORTD, 4);
     delay(0);
 
     if (data & (1<<5)) {

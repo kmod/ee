@@ -11,23 +11,43 @@ from debugger.controller import Controller
 class JtagController(object):
     def __init__(self):
         self.state = None
-        self.ctlr = Controller(autoflush=0, br=115200)
+        self.ctlr = Controller(autoflush=0, br=500000)
 
         self.npulses = 0
+        self.est_buf = 0
+        self.EST_SPEED = 22000.0
+        self.last_est = time.time()
 
-        self._verify_queue = Queue.Queue()
+        self._verify_queue = Queue.Queue(maxsize=4)
 
         t = threading.Thread(target=self._verify_thread)
         t.setDaemon(True)
         t.start()
 
+    def _write(self, s):
+        assert len(s) < 10
+        cost = len(s)
+        if s == chr(1<<4):
+            cost = 0.5
+        while True:
+            now = time.time()
+            new_est = self.est_buf - self.EST_SPEED * (now - self.last_est)
+            self.est_buf = max(new_est, 0)
+            self.last_est = now
+
+            if self.est_buf + cost < 50:
+                break
+            self.ctlr.flush()
+        self.est_buf += cost
+        self.ctlr._write(s)
+
     def sleep_micros(self, micros):
-        for i in xrange(0, micros, 100):
-            self.ctlr._write(chr(1<<4))
+        for i in xrange(0, micros, 20):
+            self._write(chr(1<<4))
 
     def pulse(self, tms, tdi, get_tdo=True):
         data = (tms << 7) | (tdi << 6) | (get_tdo << 5)
-        self.ctlr._write(chr(data))
+        self._write(chr(data))
         self.npulses += 1
 
     def queue_verify(self, nbits, tdo, tdo_mask):
@@ -163,7 +183,6 @@ class JtagController(object):
                     raise Exception(new_state)
             else:
                 raise Exception((self.state, new_state))
-        return b
 
 def main(fn):
     ctlr = JtagController()
