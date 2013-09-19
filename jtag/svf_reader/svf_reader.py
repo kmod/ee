@@ -1,8 +1,9 @@
 import os
 import sys
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
 import Queue
+import threading
 import time
 
 from debugger.controller import Controller
@@ -10,54 +11,57 @@ from debugger.controller import Controller
 class JtagController(object):
     def __init__(self):
         self.state = None
-        self.ctlr = Controller()
+        self.ctlr = Controller(autoflush=False)
 
         self.npulses = 0
 
-    def pulse(self, tms, tdi, get_tdo=True, async=False):
+        self.buf = ""
+        self._verify_queue = Queue.Queue(maxsize=4)
+
+        t = threading.Thread(target=self._verify_thread)
+        t.setDaemon(True)
+        t.start()
+
+    def pulse(self, tms, tdi, get_tdo=True):
         data = (tms << 7) | (tdi << 6) | (get_tdo << 5)
         self.ctlr._write(chr(data))
-        if get_tdo:
-            if not async:
-                return self.async_read()
+        self.ctlr.flush()
         self.npulses += 1
 
-    def async_read(self):
-        return ord(self.ctlr.q.get())
+    def queue_verify(self, nbits, tdo, tdo_mask):
+        self._verify_queue.put((nbits, tdo, tdo_mask))
+
+    def _verify_thread(self):
+        while True:
+            nbits, tdo, mask = self._verify_queue.get()
+
+            got_tdo = 0
+            for i in xrange(nbits):
+                d = ord(self.ctlr.q.get())
+                if d:
+                    got_tdo |= 1 << i
+            if (got_tdo ^ tdo) & mask:
+                print bin(got_tdo).rjust(nbits+10)
+                print bin(tdo).rjust(nbits+10)
+                print bin(mask).rjust(nbits+10)
+                os._exit(1)
+            self._verify_queue.task_done()
+
+    def join(self):
+        self.ctlr.flush()
+        self._verify_queue.join()
 
     def send(self, nbits, tdi, tdo_mask):
         assert self.state in ("irshift", "drshift"), self.state
-        rtn = 0
-        last_read = 0
         for i in xrange(nbits):
-            BATCH = 1024
-            if i >= BATCH and i % BATCH == 0:
-                # Make sure the ATmega has responded with the first byte
-                # of one batch before moving on to the next.
-                # Don't read the entire batch though, since blocking on
-                # the final byte of the batch makes it slower.
-                for j in xrange(last_read, i-BATCH+1):
-                    bitmask = (1<<j)
-                    b = self.async_read()
-                    if b and j != nbits - 1:
-                        rtn |= bitmask
-                last_read = i-BATCH+1
-
             bitmask = (1<<i)
-            self.pulse(1 if i == nbits-1 else 0, 1 if (tdi & bitmask) else 0, async=True)
-
-        for j in xrange(last_read, nbits):
-            bitmask = (1<<j)
-            b = self.async_read()
-            if b and j != nbits - 1:
-                rtn |= bitmask
+            get_tdo = 0 if i == nbits-1 else 1
+            self.pulse(1 if i == nbits-1 else 0, 1 if (tdi & bitmask) else 0, get_tdo=get_tdo)
 
         if self.state == "irshift":
             self.state = "irexit1"
         else:
             self.state = "drexit1"
-
-        return rtn, b
 
     def goto(self, new_state):
         new_state = new_state.lower()
@@ -235,14 +239,9 @@ def main(fn):
                 else:
                     raise Exception(args[i])
 
-            got_tdo, _ = ctlr.send(length, tdi, mask)
-            got_tdo = (got_tdo << 1) | b
-            if (got_tdo ^ tdo) & mask != 0:
-                print "Bad TDO back!"
-                print str(bin(got_tdo)).rjust(length+3)
-                print str(bin(tdo)).rjust(length+3)
-                print str(bin(mask)).rjust(length+3)
-            assert (got_tdo ^ tdo) & mask == 0, (bin(got_tdo), bin(tdo), bin(mask))
+            ctlr.send(length, tdi, mask)
+            ctlr.queue_verify(length, tdo, mask)
+            # ctlr.join()
 
             if cmd == "SIR":
                 ctlr.goto(endir)
@@ -251,6 +250,7 @@ def main(fn):
         else:
             raise Exception(l)
 
+    ctlr.join()
     print "Took %.1fs to program, sent %d pulses" % (time.time() - start, ctlr.npulses)
     print "Sent %d bytes, received %d" % (ctlr.ctlr.bytes_written, ctlr.ctlr.bytes_read)
 
