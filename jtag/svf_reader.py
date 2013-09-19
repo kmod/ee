@@ -30,7 +30,7 @@ class SpiController(object):
     def _on_read(self, c):
         self.q.put(c)
 
-    def pulse(self, tms, tdi):
+    def pulse(self, tms, tdi, tdo=True):
         DELAY = 0.0
         self.ctlr.digitalWrite(self.TMS, tms)
         self.ctlr.digitalWrite(self.TDI, tdi)
@@ -41,10 +41,11 @@ class SpiController(object):
         self.ctlr.digitalWrite(self.TCK, 0)
         time.sleep(DELAY)
 
-        self.ctlr.digitalRead(self.TDO)
-        b = ord(self.q.get())
-        # print "pulse", tms, tdi, b
-        return b
+        if tdo:
+            self.ctlr.digitalRead(self.TDO)
+            b = ord(self.q.get())
+            # print "pulse", tms, tdi, b
+            return b
 
 class JtagController(object):
     def __init__(self):
@@ -53,12 +54,13 @@ class JtagController(object):
 
         self.pulse = self.ctlr.pulse
 
-    def send(self, nbits, tdi):
+    def send(self, nbits, tdi, tdo_mask):
         assert self.state in ("irshift", "drshift"), self.state
         rtn = 0
         for i in xrange(nbits):
             bitmask = (1<<i)
-            b = self.pulse(1 if i == nbits-1 else 0, 1 if (tdi & bitmask) else 0)
+            get_tdo = (i==nbits+1) or bool(tdo_mask & (1<<(i+1)))
+            b = self.pulse(1 if i == nbits-1 else 0, 1 if (tdi & bitmask) else 0, tdo=get_tdo)
             if b and i != nbits -1:
                 rtn |= bitmask
 
@@ -241,8 +243,13 @@ def main(fn):
                 else:
                     raise Exception(args[i])
 
-            got_tdo, _ = ctlr.send(length, tdi)
+            got_tdo, _ = ctlr.send(length, tdi, mask)
             got_tdo = (got_tdo << 1) | b
+            if (got_tdo ^ tdo) & mask != 0:
+                print "Bad TDO back!"
+                print str(bin(got_tdo)).rjust(length+3)
+                print str(bin(tdo)).rjust(length+3)
+                print str(bin(mask)).rjust(length+3)
             assert (got_tdo ^ tdo) & mask == 0, (bin(got_tdo), bin(tdo), bin(mask))
 
             if cmd == "SIR":
