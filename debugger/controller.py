@@ -6,7 +6,9 @@ import time
 import traceback
 
 class Controller(object):
-    def __init__(self, br=500000):
+    def __init__(self, br=500000, autoflush=True):
+        self.autoflush = autoflush
+
         self.ser = serial.Serial("/dev/ttyUSB0", br, timeout=1)
         self.on_read = []
 
@@ -43,10 +45,14 @@ class Controller(object):
             os._exit(1)
             raise
 
+    def flush(self):
+        self.ser.flush()
+
     def _write(self, s):
         # print repr(s)
         self.ser.write(s)
-        self.ser.flush()
+        if self.autoflush:
+            self.ser.flush()
 
     def pinMode(self, port, mode):
         if mode in (0, 1):

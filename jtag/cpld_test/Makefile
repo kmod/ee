@@ -12,9 +12,9 @@ UCFS=$(wildcard *.ucf)
 PART=xc2c32a-4-vq44
 
 cpld.ngc: $(SOURCES)
-		$(ISE_BIN)/xst -ifn cpld.xst
+		$(ISE_BIN)/xst -intstyle ise -ifn cpld.xst
 %.ngd: %.ngc $(UCFS)
-		$(ISE_BIN)/ngdbuild $(NGDBUILD_FLAGS) -p $(PART) $*.ngc $*.ngd
+		$(ISE_BIN)/ngdbuild $(NGDBUILD_FLAGS) $(patsubst %,-uc %,$(UCFS)) -p $(PART) $*.ngc $*.ngd
 %.vm6: %.ngd
 		$(ISE_BIN)/cpldfit $(CPLDFIT_FLAGS) -p $(PART) $*.ngd
 %.jed: %.vm6
@@ -25,4 +25,4 @@ cpld.svf: cpld.jed impact.batch
 
 .PHONY: prog
 prog: cpld.svf
-	time python /home/kmod/Dropbox/ee/jtag/svf_reader.py cpld.svf
+	python /home/kmod/Dropbox/ee/jtag/svf_reader.py cpld.svf

@@ -9,7 +9,7 @@ from debugger.controller import Controller
 
 class SpiController(object):
     def __init__(self):
-        self.ctlr = Controller()
+        self.ctlr = Controller(autoflush=False)
         self.ctlr.on_read.append(self._on_read)
         self.q = Queue.Queue()
 
@@ -27,10 +27,14 @@ class SpiController(object):
         self.ctlr.pinMode(self.DBG1, "output")
         self.ctlr.pinMode(self.DBG2, "output")
 
+        self.npulses = 0
+
     def _on_read(self, c):
         self.q.put(c)
 
     def pulse(self, tms, tdi, async=False):
+        self.npulses += 1
+
         DELAY = 0.0
         self.ctlr.digitalWrite(self.TMS, tms)
         self.ctlr.digitalWrite(self.TDI, tdi)
@@ -43,6 +47,7 @@ class SpiController(object):
 
         self.ctlr.digitalRead(self.TDO)
         if not async:
+            self.ctlr.flush()
             b = ord(self.q.get())
             return b
 
@@ -175,6 +180,7 @@ class JtagController(object):
 def main(fn):
     ctlr = JtagController()
 
+    start = time.time()
     endir = None
     enddr = None
 
@@ -263,6 +269,8 @@ def main(fn):
                 ctlr.goto(enddr)
         else:
             raise Exception(l)
+
+    print "Took %.1fs to program, sent %d pulses" % (time.time() - start, ctlr.ctlr.npulses)
 
 if __name__ == "__main__":
     fn = sys.argv[1]
