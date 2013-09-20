@@ -29,6 +29,7 @@ Assign F6 'Value';
 ASSIGN C+V PASTE;
 
 BRD:
+Grid mm 0.5 on alt mm 0.01;
 ASSIGN C+E ERRORS;
 ASSIGN CS+D 'DRC;';  # Executes DRC without opening DRC dialog. For dialog sk
 # ASSIGN CS+D DRC;    # Opens DRC dialog.
@@ -124,7 +125,7 @@ MENU '[LTspice.png] LT Spice simulation {\
 ;
 
 PAC:
-Grid Default On;
+Grid mm 0.5 On;
 Change Width 0.005;
 Change Size 0.050;
 ASSIGN C+H HOLE;
