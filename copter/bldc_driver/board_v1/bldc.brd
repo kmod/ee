@@ -964,7 +964,7 @@ Please make sure your boards conform to these design rules.</description>
 <element name="C9" library="SparkFun-Capacitors" package="0402-CAP" value="100nF" x="32.5" y="13.5" rot="R270">
 <attribute name="PROD_ID" value="CAP-00867" x="32.5" y="13.5" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
-<element name="C10" library="SparkFun-Capacitors" package="0402-CAP" value="100nF" x="37.381" y="33.3048" rot="R180">
+<element name="C10" library="SparkFun-Capacitors" package="0402-CAP" value="10nF" x="37.381" y="33.3048" rot="R180">
 <attribute name="PROD_ID" value="CAP-00867" x="37.381" y="33.3048" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
 <element name="C11" library="SparkFun-Capacitors" package="0805" value="4.7uF" x="37.4318" y="34.627" rot="R180">
@@ -989,7 +989,7 @@ Please make sure your boards conform to these design rules.</description>
 <element name="LVL" library="kmod" package="0603_LED" value="" x="23" y="19.5"/>
 <element name="LWL" library="kmod" package="0603_LED" value="" x="25" y="19.5"/>
 <element name="IC1" library="kmod" package="TSSOP14" value="LM339APWR" x="8.5" y="24.5"/>
-<element name="C15" library="SparkFun-Capacitors" package="0402-CAP" value="100nF" x="8" y="19.5" rot="R90">
+<element name="C15" library="SparkFun-Capacitors" package="0402-CAP" value="10nF" x="8" y="19.5" rot="R90">
 <attribute name="PROD_ID" value="CAP-00867" x="8" y="19.5" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
 <element name="R24" library="SparkFun-Resistors" package="0603-RES" value="10k" x="39.5" y="17" rot="R270"/>
