@@ -1,25 +1,25 @@
 #include "Arduino.h"
 #define PWM 3
 
-#define UL 6
-#define UH 11
+#define UL A3
+#define UH A0
 #define US 4
 
 
 #define REVERSE
 #ifdef REVERSE
-#define VL 8
-#define VH 9
+#define VL A4
+#define VH A1
 #define VS 2
-#define WL 7
-#define WH 10
+#define WL A5
+#define WH A2
 #define WS 3
 #else
-#define VL 7
-#define VH 10
+#define VL A5
+#define VH A2
 #define VS 3
-#define WL 8
-#define WH 9
+#define WL A4
+#define WH A1
 #define WS 2
 #endif
 
@@ -184,7 +184,7 @@ void pulse1(int l, int h, int s, bool rising) {
 
     int now = millis();
     if (now - last_speedup > pwr / 8) {
-        cur_delay = max(1000, cur_delay - 50);
+        cur_delay = max(100000, cur_delay - 50);
         last_speedup = now;
     }
 
