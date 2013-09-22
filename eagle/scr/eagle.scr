@@ -18,6 +18,7 @@ ASSIGN CS+P POLYGON;
 ASSIGN C+F 'RUN find.ulp';
 # ASSIGN C+X CHANGE;
 # ASSIGN A+A ATTRIBUTE;
+ASSIGN C+I SHOW;
 
 # kmod:
 Assign F2 'Move';
