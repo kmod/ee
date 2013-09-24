@@ -61,6 +61,10 @@ Set color_layer 51 6; #Set tDocu to mellow yellow
 # Assign AF8 'Ripup; Auto; Ratsnest';
 Assign F7 ROUTE;
 Assign F8 RIPUP;
+Assign C+R Ratsnest;
+Assign AF7 'Ripup @;';
+Assign S+F7 'ROUTE 6 mil';
+Assign CS+F7 'ROUTE 10 mil';
 
 SCH:
 Grid Default;
