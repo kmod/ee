@@ -145,6 +145,10 @@ void pulse1(int l, int h, int m, bool rising) {
         while ((micros() - start) < cur_delay) {
         }
     } else if (m != 0) {
+        // The board design is messed up, and the amuxsel bits
+        // are essentially hard-wired to be 0.
+        // If we had tried to set them to something else, don't do the back-emf
+        // sensing since it will return bogus values.
         for (unsigned long i = 0; i < last_nwaits; i++) {
             DELAY();
         }
