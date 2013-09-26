@@ -964,21 +964,21 @@ Please make sure your boards conform to these design rules.</description>
 <element name="C9" library="SparkFun-Capacitors" package="0402-CAP" value="100nF" x="32.5" y="13.5" rot="R270">
 <attribute name="PROD_ID" value="CAP-00867" x="32.5" y="13.5" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
-<element name="C10" library="SparkFun-Capacitors" package="0402-CAP" value="10nF" x="37.381" y="33.3048" rot="R180">
+<element name="C10" library="SparkFun-Capacitors" package="0402-CAP" value="10nF 50V" x="37.381" y="33.3048" rot="R180">
 <attribute name="PROD_ID" value="CAP-00867" x="37.381" y="33.3048" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
-<element name="C11" library="SparkFun-Capacitors" package="0805" value="4.7uF" x="37.4318" y="34.627" rot="R180">
+<element name="C11" library="SparkFun-Capacitors" package="0805" value="4.7uF 50V" x="37.4318" y="34.627" rot="R180">
 <attribute name="PROD_ID" value="CAP-08402" x="37.4318" y="34.627" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
-<element name="C12" library="SparkFun-Capacitors" package="0805" value="4.7uF" x="15.5" y="32" rot="R180">
+<element name="C12" library="SparkFun-Capacitors" package="0805" value="4.7uF 50V" x="15.5" y="32" rot="R180">
 <attribute name="PROD_ID" value="CAP-08402" x="15.5" y="32" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="VOLTAGE" value="40" x="15.5" y="32" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
-<element name="C13" library="SparkFun-Capacitors" package="0805" value="4.7uF" x="15.5" y="30.5" rot="R180">
+<element name="C13" library="SparkFun-Capacitors" package="0805" value="4.7uF 50V" x="15.5" y="30.5" rot="R180">
 <attribute name="PROD_ID" value="CAP-08402" x="15.5" y="30.5" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="VOLTAGE" value="40" x="15.5" y="30.5" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
-<element name="C14" library="SparkFun-Capacitors" package="0805" value="4.7uF" x="15.5" y="29" rot="R180">
+<element name="C14" library="SparkFun-Capacitors" package="0805" value="4.7uF 50V" x="15.5" y="29" rot="R180">
 <attribute name="PROD_ID" value="CAP-08402" x="15.5" y="29" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="VOLTAGE" value="40" x="15.5" y="29" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
@@ -989,7 +989,7 @@ Please make sure your boards conform to these design rules.</description>
 <element name="LVL" library="kmod" package="0603_LED" value="" x="23" y="19.5"/>
 <element name="LUH" library="kmod" package="0603_LED" value="" x="25" y="19.5"/>
 <element name="IC1" library="kmod" package="TSSOP14" value="LM339APWR" x="8.5" y="24.5"/>
-<element name="C15" library="SparkFun-Capacitors" package="0402-CAP" value="10nF" x="8" y="19.5" rot="R90">
+<element name="C15" library="SparkFun-Capacitors" package="0402-CAP" value="10nF 50V" x="8" y="19.5" rot="R90">
 <attribute name="PROD_ID" value="CAP-00867" x="8" y="19.5" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
 <element name="R24" library="SparkFun-Resistors" package="0603-RES" value="10k" x="39.5" y="17" rot="R270"/>
@@ -1008,7 +1008,7 @@ Please make sure your boards conform to these design rules.</description>
 <element name="CCMPC" library="SparkFun-Capacitors" package="0402-CAP" value="10pF" x="12.5" y="25.5">
 <attribute name="PROD_ID" value="CAP-00867" x="12.5" y="25.5" size="1.778" layer="27" display="off"/>
 </element>
-<element name="C22" library="SparkFun-Capacitors" package="0402-CAP" value="100nF" x="40" y="45" rot="R90">
+<element name="C22" library="SparkFun-Capacitors" package="0402-CAP" value="10nF 50V" x="40" y="45" rot="R90">
 <attribute name="PROD_ID" value="CAP-00867" x="40" y="45" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
 <element name="PAD4" library="kmod" package="TESTPAD" value="CMPA" x="15" y="22.5"/>
@@ -1021,8 +1021,8 @@ Please make sure your boards conform to these design rules.</description>
 <element name="QVH" library="kmod" package="POWERSO8" value="" x="20" y="50.5"/>
 <element name="QWH" library="kmod" package="POWERSO8" value="" x="28" y="50.5"/>
 <element name="DARR1" library="kmod" package="SOT363" value="" x="12.5" y="31" rot="R90"/>
-<element name="C3" library="kmod" package="CPOL-RADIAL-1000UF-50V" value="1mF" x="40" y="45" rot="R90"/>
-<element name="C25" library="kmod" package="CPOL-RADIAL-100UF-25V" value="100uF" x="40" y="34.5" rot="R90"/>
+<element name="C3" library="kmod" package="CPOL-RADIAL-1000UF-50V" value="1mF 50V" x="40" y="45" rot="R90"/>
+<element name="C25" library="kmod" package="CPOL-RADIAL-100UF-25V" value="100uF 50V" x="40" y="34.5" rot="R90"/>
 <element name="CONN_BATT" library="kmod" package="HOLE_18AWG" value="" x="8" y="52" rot="R180"/>
 <element name="CONN_BATT_GND" library="kmod" package="HOLE_18AWG" value="" x="1.5" y="33.5" rot="R180"/>
 <element name="CONN_MTR1" library="kmod" package="HOLE_18AWG" value="" x="12" y="45.5" rot="R180"/>

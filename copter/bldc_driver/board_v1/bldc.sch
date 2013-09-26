@@ -3679,15 +3679,15 @@ SMT- SWCH-08247</description>
 <part name="SUPPLY9" library="SparkFun-Aesthetics" deviceset="VCC" device=""/>
 <part name="GND11" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND12" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="C10" library="SparkFun-Capacitors" deviceset="10NF-CER" device="" value="10nF"/>
-<part name="C11" library="SparkFun-Capacitors" deviceset="22UF-6.3V-20%(0805)" device="" value="4.7uF"/>
-<part name="C12" library="SparkFun-Capacitors" deviceset="22UF-6.3V-20%(0805)" device="" value="4.7uF">
+<part name="C10" library="SparkFun-Capacitors" deviceset="10NF-CER" device="" value="10nF 50V"/>
+<part name="C11" library="SparkFun-Capacitors" deviceset="22UF-6.3V-20%(0805)" device="" value="4.7uF 50V"/>
+<part name="C12" library="SparkFun-Capacitors" deviceset="22UF-6.3V-20%(0805)" device="" value="4.7uF 50V">
 <attribute name="VOLTAGE" value="40"/>
 </part>
-<part name="C13" library="SparkFun-Capacitors" deviceset="22UF-6.3V-20%(0805)" device="" value="4.7uF">
+<part name="C13" library="SparkFun-Capacitors" deviceset="22UF-6.3V-20%(0805)" device="" value="4.7uF 50V">
 <attribute name="VOLTAGE" value="40"/>
 </part>
-<part name="C14" library="SparkFun-Capacitors" deviceset="22UF-6.3V-20%(0805)" device="" value="4.7uF">
+<part name="C14" library="SparkFun-Capacitors" deviceset="22UF-6.3V-20%(0805)" device="" value="4.7uF 50V">
 <attribute name="VOLTAGE" value="40"/>
 </part>
 <part name="SUPPLY10" library="SparkFun-Aesthetics" deviceset="V_BATT" device=""/>
@@ -3707,7 +3707,7 @@ SMT- SWCH-08247</description>
 <part name="IC1" library="kmod" deviceset="LM339" device="" value="LM339APWR"/>
 <part name="GND21" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="SUPPLY12" library="SparkFun-Aesthetics" deviceset="V_BATT" device=""/>
-<part name="C15" library="SparkFun-Capacitors" deviceset="10NF-CER" device="" value="10nF"/>
+<part name="C15" library="SparkFun-Capacitors" deviceset="10NF-CER" device="" value="10nF 50V"/>
 <part name="SUPPLY13" library="SparkFun-Aesthetics" deviceset="VCC" device=""/>
 <part name="R24" library="SparkFun-Resistors" deviceset="RESISTOR" device="0603-RES" value="10k"/>
 <part name="GND22" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
@@ -3727,7 +3727,7 @@ SMT- SWCH-08247</description>
 <part name="CCMPA" library="SparkFun-Capacitors" deviceset="10NF-CER" device="" value="10pF"/>
 <part name="CCMPC" library="SparkFun-Capacitors" deviceset="10NF-CER" device="" value="10pF"/>
 <part name="SUPPLY19" library="SparkFun-Aesthetics" deviceset="V_BATT" device=""/>
-<part name="C22" library="SparkFun-Capacitors" deviceset="10NF-CER" device="" value="100nF"/>
+<part name="C22" library="SparkFun-Capacitors" deviceset="10NF-CER" device="" value="10nF 50V"/>
 <part name="PAD4" library="kmod" deviceset="CONNECTOR" device="" value="CMPA"/>
 <part name="PAD5" library="kmod" deviceset="CONNECTOR" device="" value="CMPB"/>
 <part name="PAD6" library="kmod" deviceset="CONNECTOR" device="" value="CMPC"/>
@@ -3738,8 +3738,8 @@ SMT- SWCH-08247</description>
 <part name="QVH" library="kmod" deviceset="NXP_LFPAK_NFET" device=""/>
 <part name="QWH" library="kmod" deviceset="NXP_LFPAK_NFET" device=""/>
 <part name="DARR1" library="kmod" deviceset="SD103ATW-7-F" device=""/>
-<part name="C3" library="kmod" deviceset="CAP_POL" device="PTH5" value="1mF"/>
-<part name="C25" library="kmod" deviceset="CAP_POL" device="PTH1" value="100uF"/>
+<part name="C3" library="kmod" deviceset="CAP_POL" device="PTH5" value="1mF 50V"/>
+<part name="C25" library="kmod" deviceset="CAP_POL" device="PTH1" value="100uF 50V"/>
 <part name="CONN_BATT" library="kmod" deviceset="CONNECTOR" device="18AWG"/>
 <part name="CONN_BATT_GND" library="kmod" deviceset="CONNECTOR" device="18AWG"/>
 <part name="CONN_MTR1" library="kmod" deviceset="CONNECTOR" device="18AWG"/>

@@ -136,7 +136,7 @@ Used a couple times, seems to work well.</description>
 Not really a whole lot to go wrong here, but seems to work fine.&lt;br/&gt;
 Fine for multimeter measurements or 30AWG wire but pretty small.</description>
 <smd name="P" x="0" y="0" dx="1.27" dy="1.27" layer="1"/>
-<text x="-0.77" y="-1.37" size="0.6096" layer="21">&gt;VALUE</text>
+<text x="-0.77" y="-1.37" size="0.6096" layer="21">&gt;NAME</text>
 </package>
 <package name="HOLE_18AWG">
 <description>&lt;p&gt;Solder point for 18AWG wire&lt;p/&gt;
@@ -152,7 +152,7 @@ Made this myself based on nominal wire diameter (0.1" vs 0.08"); haven't tested 
 <description>Simple test pad for probing or soldering&lt;br/&gt;
 Haven't tested this version.</description>
 <smd name="P" x="0" y="0" dx="2" dy="2" layer="1"/>
-<text x="-1" y="-1.75" size="0.6096" layer="21">&gt;VALUE</text>
+<text x="-1" y="-1.75" size="0.6096" layer="21">&gt;NAME</text>
 </package>
 <package name="HOLE_22AWG">
 <description>&lt;p&gt;Solder point for 22AWG wire&lt;p/&gt;
