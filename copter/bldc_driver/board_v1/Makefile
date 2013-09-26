@@ -9,6 +9,13 @@ ARDUINO_CORE=../../arduino/core.a
 %.hex: %.elf Makefile
 	/opt/arduino-1.0.5/hardware/tools/avr/bin/avr-objcopy -O ihex -R .eeprom $< $@
 
-.PHONY: prog_%
+.PHONY: prog_% prog
 prog_%: %.hex
 	/opt/arduino-1.0.5/hardware/tools/avrdude -b57600 -C/opt/arduino-1.0.5/hardware/tools/avrdude.conf -patmega328 -cstk500v1 -P/dev/ttyUSB0 -e -Ulock:w:0x3F:m -Uefuse:w:0x05:m -Uhfuse:w:0xde:m -Ulfuse:w:0xff:m -Uflash:w:$<:i -v -v
+
+prog: prog_driver
+
+.PHONY: self_prog
+self_prog_%: %.hex
+	/opt/arduino-1.0.5/hardware/tools/avrdude -b115200 -C/opt/arduino-1.0.5/hardware/tools/avrdude.conf -patmega328p -carduino -P/dev/ttyUSB0 -Uflash:w:$<:i -v -v
+

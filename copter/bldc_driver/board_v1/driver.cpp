@@ -3,24 +3,25 @@
 
 #define UL A3
 #define UH A0
-#define US 4
 
+#define S 6
+#define M0 4
+#define M1 5
+#define U_MUX 0
+#define V_MUX 1
+#define W_MUX 2
 
 #define REVERSE
 #ifdef REVERSE
 #define VL A4
 #define VH A1
-#define VS 2
 #define WL A5
 #define WH A2
-#define WS 3
 #else
 #define VL A5
 #define VH A2
-#define VS 3
 #define WL A4
 #define WH A1
-#define WS 2
 #endif
 
 #define LED 13
@@ -44,6 +45,9 @@ void setup() {
     pinMode(LED, OUTPUT);
     digitalWrite(LED, 1);
 
+    pinMode(M0, OUTPUT);
+    pinMode(M1, OUTPUT);
+
     TCCR2B = TCCR2B & 0b11111000 | 0x01;
 
     analogWrite(PWM, 0);
@@ -60,16 +64,9 @@ void setup() {
     //delay(1000);
     //digitalWrite(LED, 0);
 
-    // Set ADC prescaler
-    // http://www.extremeelectronics.co.in/avrtutorials/images/ADPS.gif
-    // 0b100 is 16, giving 1MHz
-    ADCSRA = ADCSRA & 0b11111000 | 0b010;
-
-    pinMode(A1, INPUT);
-    pinMode(A2, INPUT);
-    pinMode(A3, INPUT);
-    pinMode(A4, INPUT);
-    pinMode(A5, INPUT);
+    // the comparator output is open-collector, so activate the internal pull-up:
+    pinMode(S, INPUT);
+    digitalWrite(S, 1);
 }
 
 #define HIGH(pin) digitalWrite((pin), 1)
@@ -91,23 +88,23 @@ void microDelay() {
 #define DELAY() microDelay()
 //#define DELAY() delayMicroseconds(1)
 
-void pulse1(int l, int h, int s, bool rising) {
+void pulse1(int l, int h, int m, bool rising) {
     int pwr;
     if (cur_delay > 5000)
-        pwr = 60;
+        pwr = 70;
     else if (cur_delay > 1000)
-        pwr = 100;
+        pwr = 120;
     else {
         if (last_nwaits < 150)
-            pwr = 200;
+            pwr = 180;
         else
-            pwr = 150;
+            pwr = 140;
     }
 
     analogWrite(PWM, pwr);
 
-    led_on ^= 1;
-    digitalWrite(LED, led_on);
+    //led_on ^= 1;
+    //digitalWrite(LED, led_on);
 
     //int vhalf_meas = analogRead(VREF)/2;
     //vhalf = (vhalf * 7 + vhalf_meas) / 8;
@@ -118,6 +115,8 @@ void pulse1(int l, int h, int s, bool rising) {
 
     HIGH(l);
     HIGH(h);
+    digitalWrite(M0, (m&1));
+    digitalWrite(M1, ((m>>1)&1));
 
     /*if (true) {
         Serial.write((char)(vhalf>>2));
@@ -145,8 +144,15 @@ void pulse1(int l, int h, int s, bool rising) {
         unsigned long start = micros();
         while ((micros() - start) < cur_delay) {
         }
+    } else if (m != 0) {
+        for (unsigned long i = 0; i < last_nwaits; i++) {
+            DELAY();
+        }
+        for (unsigned long i = 0; i < last_nwaits; i++) {
+            DELAY();
+        }
     } else {
-        unsigned long nwaits = max(4, last_nwaits - 4);
+        unsigned long nwaits = max(20, last_nwaits - 4);
 
         for (unsigned long i = 0; i < nwaits; i++) {
             DELAY();
@@ -155,18 +161,24 @@ void pulse1(int l, int h, int s, bool rising) {
         int r = 0;
         while (true) {
             DELAY();
-            r = (PINC >> s) & 1;
+            r = (PIND >> S) & 1;
             nwaits++;
-            if (rising == 1 && r == 1)
+            if (rising == 1 && r == 1) {
+                //digitalWrite(LED, 0);
                 break;
-            if (rising == 0 && r == 0)
+            }
+            if (rising == 0 && r == 0) {
+                //digitalWrite(LED, 0);
                 break;
-            if (nwaits > last_nwaits * 2 + 4)
+            }
+            if (nwaits > last_nwaits * 2 + 4) {
+                //digitalWrite(LED, 1);
                 break;
+            }
         }
 
         if (nwaits > last_nwaits) {
-            last_nwaits++;
+            last_nwaits += 2;
         } else if (nwaits < last_nwaits) {
             last_nwaits--;
         }
@@ -178,13 +190,21 @@ void pulse1(int l, int h, int s, bool rising) {
         for (unsigned long i = 0; i < last_nwaits; i++) {
             DELAY();
         }
+        if (((PIND >> S) & 1) != rising)
+            last_nwaits++;
         //while ((micros() - start) < cur_delay) {
         //}
+        //
+        if (last_nwaits > 300) {
+            cur_delay = 20000;
+            last_nwaits = 200;
+            last_speedup = millis();
+        }
     }
 
     int now = millis();
     if (now - last_speedup > pwr / 8) {
-        cur_delay = max(100000, cur_delay - 50);
+        cur_delay = max(1000, cur_delay - 50);
         last_speedup = now;
     }
 
@@ -217,12 +237,12 @@ void pulse2(int l, int h, int s) {
 void loop() {
     unsigned long start = micros();
     for (int i = 0; i < 7; i++) {
-        pulse(UL, WH, VS, 0);
-        pulse(VL, WH, US, 1);
-        pulse(VL, UH, WS, 0);
-        pulse(WL, UH, VS, 1);
-        pulse(WL, VH, US, 0);
-        pulse(UL, VH, WS, 1);
+        pulse(UL, WH, V_MUX, 0);
+        pulse(VL, WH, U_MUX, 1);
+        pulse(VL, UH, W_MUX, 0);
+        pulse(WL, UH, V_MUX, 1);
+        pulse(WL, VH, U_MUX, 0);
+        pulse(UL, VH, W_MUX, 1);
     }
     unsigned long rps = (int)(1000000.0 / (micros() - start));
     if (rps >= 256)
@@ -232,4 +252,6 @@ void loop() {
         Serial.write((char)(last_nwaits>>8));
     Serial.write((char)last_nwaits);
     Serial.write((char)0);
+    led_on ^= 1;
+    digitalWrite(LED, led_on);
 }

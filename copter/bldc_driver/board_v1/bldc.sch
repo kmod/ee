@@ -3692,7 +3692,7 @@ SMT- SWCH-08247</description>
 </part>
 <part name="SUPPLY10" library="SparkFun-Aesthetics" deviceset="V_BATT" device=""/>
 <part name="SUPPLY11" library="SparkFun-Aesthetics" deviceset="V_BATT" device=""/>
-<part name="LUH" library="kmod" deviceset="LED" device="0603" value=""/>
+<part name="LWL" library="kmod" deviceset="LED" device="0603" value=""/>
 <part name="GND15" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="LVH" library="kmod" deviceset="LED" device="0603" value=""/>
 <part name="GND16" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
@@ -3702,7 +3702,7 @@ SMT- SWCH-08247</description>
 <part name="GND18" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="LVL" library="kmod" deviceset="LED" device="0603" value=""/>
 <part name="GND19" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="LWL" library="kmod" deviceset="LED" device="0603" value=""/>
+<part name="LUH" library="kmod" deviceset="LED" device="0603" value=""/>
 <part name="GND20" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="IC1" library="kmod" deviceset="LM339" device="" value="LM339APWR"/>
 <part name="GND21" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
@@ -3840,7 +3840,7 @@ SMT- SWCH-08247</description>
 </instance>
 <instance part="SUPPLY10" gate="G$1" x="345.44" y="83.82"/>
 <instance part="SUPPLY11" gate="G$1" x="401.32" y="68.58"/>
-<instance part="LUH" gate="G$1" x="223.52" y="-17.78"/>
+<instance part="LWL" gate="G$1" x="223.52" y="-17.78"/>
 <instance part="GND15" gate="1" x="172.72" y="-27.94"/>
 <instance part="LVH" gate="G$1" x="182.88" y="-17.78"/>
 <instance part="GND16" gate="1" x="182.88" y="-27.94"/>
@@ -3850,7 +3850,7 @@ SMT- SWCH-08247</description>
 <instance part="GND18" gate="1" x="203.2" y="-27.94"/>
 <instance part="LVL" gate="G$1" x="213.36" y="-17.78"/>
 <instance part="GND19" gate="1" x="213.36" y="-27.94"/>
-<instance part="LWL" gate="G$1" x="172.72" y="-17.78"/>
+<instance part="LUH" gate="G$1" x="172.72" y="-17.78"/>
 <instance part="GND20" gate="1" x="223.52" y="-27.94"/>
 <instance part="IC1" gate="A" x="604.52" y="76.2"/>
 <instance part="IC1" gate="B" x="604.52" y="60.96"/>
@@ -4139,12 +4139,12 @@ SMT- SWCH-08247</description>
 <pinref part="RA6" gate="C" pin="1"/>
 </segment>
 <segment>
-<pinref part="LWL" gate="G$1" pin="C"/>
+<pinref part="LUH" gate="G$1" pin="C"/>
 <pinref part="GND15" gate="1" pin="GND"/>
 <wire x1="172.72" y1="-22.86" x2="172.72" y2="-25.4" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="LUH" gate="G$1" pin="C"/>
+<pinref part="LWL" gate="G$1" pin="C"/>
 <pinref part="GND20" gate="1" pin="GND"/>
 <wire x1="223.52" y1="-22.86" x2="223.52" y2="-25.4" width="0.1524" layer="91"/>
 </segment>
@@ -5121,14 +5121,14 @@ SMT- SWCH-08247</description>
 </net>
 <net name="N$8" class="0">
 <segment>
-<pinref part="LWL" gate="G$1" pin="A"/>
+<pinref part="LUH" gate="G$1" pin="A"/>
 <pinref part="RA3" gate="B" pin="2"/>
 <wire x1="172.72" y1="-15.24" x2="172.72" y2="-12.7" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$9" class="0">
 <segment>
-<pinref part="LUH" gate="G$1" pin="A"/>
+<pinref part="LWL" gate="G$1" pin="A"/>
 <pinref part="RA2" gate="A" pin="1"/>
 <wire x1="223.52" y1="-15.24" x2="223.52" y2="-12.7" width="0.1524" layer="91"/>
 </segment>
