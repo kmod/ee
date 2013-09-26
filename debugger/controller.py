@@ -12,7 +12,7 @@ class Controller(object):
         self.bytes_read = 0
         self.bytes_written = 0
 
-        self.ser = serial.Serial("/dev/ttyUSB1", br)
+        self.ser = serial.Serial("/dev/ttyUSB0", br)
         self.on_read = []
         self.q = Queue.Queue()
 
@@ -22,10 +22,12 @@ class Controller(object):
         t.setDaemon(True)
         t.start()
 
+        print "Waiting for board to start..."
         while not self._started.isSet():
             # Give the atmega some time to exit the bootloader,
             # and gives the magic word
             time.sleep(.1)
+        print "Connected"
 
     def read_thread(self):
         try:

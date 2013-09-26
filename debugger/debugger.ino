@@ -4,6 +4,7 @@
 
 void setup() {
     Serial.begin(500000);
+    Serial.write(0xae);
 }
 
 char blocking_read() {
