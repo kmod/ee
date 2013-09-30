@@ -1,4 +1,4 @@
-ARDUINO_CORE=../../arduino/core.a
+ARDUINO_CORE=../../../arduino/core.a
 
 %.o: %.cpp Makefile
 	/opt/arduino-1.0.5/hardware/tools/avr/bin/avr-g++ -c -g -Os -w -fno-exceptions -ffunction-sections -fdata-sections -mmcu=atmega328p -DF_CPU=16000000L -MMD -DUSB_VID=null -DUSB_PID=null -DARDUINO=105 -I/opt/arduino-1.0.5/hardware/arduino/cores/arduino -I/opt/arduino-1.0.5/hardware/arduino/variants/standard $< -o $@

@@ -96,9 +96,9 @@ void pulse1(int l, int h, int m, bool rising) {
         pwr = 120;
     else {
         if (last_nwaits < 150)
-            pwr = 180;
+            pwr = 200;
         else
-            pwr = 140;
+            pwr = 160;
     }
 
     analogWrite(PWM, pwr);
