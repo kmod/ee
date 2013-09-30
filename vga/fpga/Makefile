@@ -6,7 +6,7 @@ CPLDFIT_FLAGS=
 HPREP6_FLAGS=
 NGDBUILD_FLAGS=
 
-SOURCES=$(wildcard *.v) $(wildcard ipcoredir/*.v)
+SOURCES=$(wildcard *.v) $(wildcard ipcoredir/*.v) $(wildcard src/*.v)
 UCFS=$(wildcard *.ucf)
 
 OPTLEVEL=std # options are "high" and "std"

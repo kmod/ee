@@ -30,8 +30,19 @@ module fpga(
         output wire [2:0] vgaRed,
         output wire [2:0] vgaGreen,
         output wire [2:1] vgaBlue,
-        output wire Hsync, Vsync
+        output wire Hsync, Vsync,
+
+        output wire MemOE, MemWR,
+        output wire RamAdv, RamCS, RamClk, RamCRE, RamLB, RamUB,
+        input wire RamWait,
+        output wire [25:0] MemAdr,
+        inout wire [15:0] MemDB
 	);
+
+    memory_controller mctlr(.MemOE(MemOE), .MemWR(MemWR), .RamAdv(RamAdv), .RamCS(RamCS), .RamClk(RamClk),
+        .RamCRE(RamCRE), .RamLB(RamLB), .RamUB(RamUB), .RamWait(RamWait)/*, .MemAdr(MemAdr), .MemDB(MemDB)*/);
+    assign MemAdr = {11'b0, addr};
+
     assign RsTx = 0;
     reg rsrx1=1, rsrx2=1;
     always @(posedge clk) begin
@@ -67,6 +78,7 @@ module fpga(
 	assign {vgaRed, vgaGreen, vgaBlue} = (hpos < 640 && vpos < 400) ? pixel : 0;
 	wire [14:0] addr = {vpos[8:2], hpos[9:2]};
 	wire [7:0] pixel;
+    assign pixel = MemDB[7:0];
 
 	wire [14:0] waddr;
     wire [7:0] wdata;
@@ -80,8 +92,8 @@ module fpga(
 	  .dina(wdata), // input [7 : 0] dina
 
 	  .clkb(clk), // input clkb
-	  .addrb(addr), // input [14 : 0] addrb
-	  .doutb(pixel) // output [7 : 0] doutb
+	  .addrb(addr)//, // input [14 : 0] addrb
+	  //.doutb(pixel) // output [7 : 0] doutb
 	);
 
     wire [31:0] recvd_data;
