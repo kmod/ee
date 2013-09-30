@@ -41,13 +41,9 @@ module fpga(
 
 	assign led = {vgaRed, vgaGreen, vgaBlue};
 
-	dcm #(.D(20), .M(5)) dcm(.CLK_IN(input_clk), .CLK_OUT(clk));
+	dcm #(.D(2), .M(2)) dcm(.CLK_IN(input_clk), .CLK_OUT(clk));
 	
-	reg [31:0] ctr;
-	always @(posedge clk) begin
-		ctr <= ctr + 1;
-	end
-    
+    reg [1:0] ctr;
     reg [14:0] vpos;
     reg [14:0] hpos;
     
@@ -55,12 +51,15 @@ module fpga(
     assign Vsync = (vpos < 411 || vpos >= 413);
 
     always @(posedge clk) begin
-        if (hpos == 799) begin
+        ctr <= ctr + 1;
+        if (ctr != 0) begin
+            // pass
+        end else if (hpos != 799) begin
+            hpos <= hpos + 1;
+        end else begin
             hpos <= 0;
             if (vpos == 444) vpos <= 0;
             else vpos <= vpos + 1;
-        end else begin
-            hpos <= hpos + 1;
         end
     end
 	
@@ -87,7 +86,7 @@ module fpga(
 
     wire [31:0] recvd_data;
     wire recvd_valid;
-    uart_multibyte_receiver #(.CLK_CYCLES(25), .MSG_LOG_WIDTH(2))
+    uart_multibyte_receiver #(.CLK_CYCLES(33), .MSG_LOG_WIDTH(2))
         receiver(.clk(clk), .data(recvd_data), .valid(recvd_valid), .ack(1'b1), .uart_rx(rsrx2), .reset(btn[0]));
 
     assign waddr = recvd_data[22:8];
