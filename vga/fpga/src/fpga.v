@@ -37,9 +37,12 @@ module fpga(
         output wire RamAdv, RamCS, RamClk, RamCRE, RamLB, RamUB,
         input wire RamWait,
         output wire [25:0] MemAdr,
-        inout wire [15:0] MemDB
+        inout wire [15:0] MemDB,
+        output wire FlashCS, QuadSpiFlashCS
 	);
 
+    assign FlashCS = 1; // I assume these are active low, though I haven't checked the datasheets
+    assign QuadSpiFlashCS = 1;
     memory_controller mctlr(.MemOE(MemOE), .MemWR(MemWR), .RamAdv(RamAdv), .RamCS(RamCS), .RamClk(RamClk),
         .RamCRE(RamCRE), .RamLB(RamLB), .RamUB(RamUB), .RamWait(RamWait)/*, .MemAdr(MemAdr), .MemDB(MemDB)*/);
     assign MemAdr = {11'b0, addr};

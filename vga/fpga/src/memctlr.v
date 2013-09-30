@@ -1,11 +1,17 @@
 `timescale 1ns / 1ps
 `default_nettype none
 module memory_controller(
-        output wire MemOE, MemWR,
-        output wire RamAdv, RamCS, RamClk, RamCRE, RamLB, RamUB,
-        input wire RamWait//,
-        //output wire [25:0] MemAdr,
-        //inout wire [15:0] MemDB
+        output wire MemOE,
+        output wire MemWR,
+        output wire RamAdv,
+        output wire RamCS,
+        output wire RamClk,
+        output wire RamCRE,
+        output wire RamLB,
+        output wire RamUB,
+        input wire RamWait/*,
+        output wire [25:0] MemAdr,
+        inout wire [15:0] MemDB*/
     );
     //
     // Think I always want these:

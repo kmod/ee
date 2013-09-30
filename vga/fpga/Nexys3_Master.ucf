@@ -55,9 +55,9 @@ NET "RamUB"          LOC = "K15" | IOSTANDARD = "LVCMOS33";   #Bank = 1, Pin nam
 NET "RamWait"        LOC = "V4"  | IOSTANDARD = "LVCMOS33";   #Bank = 2, Pin name = IO_L63N,                           Sch name = P30-WAIT
 
 #NET "FlashRp"        LOC = "T4"  | IOSTANDARD = "LVCMOS33";   #Bank = 2, Pin name = IO_L63P,                           Sch name = P30-RST
-#NET "FlashCS"        LOC = "L17" | IOSTANDARD = "LVCMOS33";   #Bank = 1, Pin name = IO_L46P_FCS_B_M1DQ2,               Sch name = P30-CE
+NET "FlashCS"        LOC = "L17" | IOSTANDARD = "LVCMOS33";   #Bank = 1, Pin name = IO_L46P_FCS_B_M1DQ2,               Sch name = P30-CE
 
-#NET "QuadSpiFlashCS"    LOC="V3"  | IOSTANDARD = "LVCMOS33";  #Bank = MISC, Pin name = IO_L65N_CSO_B_2,                Sch name = CS
+NET "QuadSpiFlashCS"    LOC="V3"  | IOSTANDARD = "LVCMOS33";  #Bank = MISC, Pin name = IO_L65N_CSO_B_2,                Sch name = CS
 #NET "QuadSpiFlashSck"   LOC="R15" | IOSTANDARD = "LVCMOS33";  #Bank = MISC, Pin name = IO_L1P_CCLK_2,                  Sch name = SCK
 #NET "QuadSpiFlashDB<0>" LOC="T13" | IOSTANDARD = "LVCMOS33";  #Dual/Quad SPI Flash DB<0>, Bank = MISC, Pin name = IO_L3N_MOSI_CSI_B_MISO0_2, Sch name = SDI
 
