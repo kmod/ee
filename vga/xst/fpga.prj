@@ -1,0 +1,3 @@
+verilog work "util.v"
+verilog work "ipcore_dir/framebuf.v"
+verilog work "fpga.v"
