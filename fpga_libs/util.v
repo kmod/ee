@@ -1,11 +1,12 @@
 `timescale 1ns / 1ps
+`default_nettype none
 
-module dcm #(parameter M=5, D=20)
- (// Clock in ports
-  input         CLK_IN,
-  // Clock out ports
-  output        CLK_OUT
- );
+module dcm #(parameter M=-1, D=-1)
+ (input wire CLK_IN, output wire CLK_OUT);
+    /**
+    A wrapper around the Xilinx DCM primitive, since I hate having to
+    go through the whole IP Core Generator to produce a 20-line template.
+    **/
 
   // Input buffering
   //------------------------------------
@@ -17,15 +18,11 @@ module dcm #(parameter M=5, D=20)
   // Clocking primitive
   //------------------------------------
 
-  // Instantiation of the DCM primitive
-  //    * Unused inputs are tied off
-  //    * Unused outputs are labeled unused
   wire        psdone_unused;
-  //wire        locked_int;
-  //wire [7:0]  status_int;
   wire clkfb;
   wire clk0;
   wire clkfx;
+  wire clkin1;
 
   DCM_SP
   #(.CLKDV_DIVIDE          (10),
@@ -74,7 +71,6 @@ module dcm #(parameter M=5, D=20)
   BUFG clkout1_buf
    (.O   (CLK_OUT),
     .I   (clkfx));
-
 endmodule
 
 module sseg #(parameter N=18) (
@@ -138,6 +134,124 @@ module sseg #(parameter N=18) (
 	end
 endmodule
 
+module debounce #(parameter B=16) (
+		input wire clk,
+		input wire in,
+		output reg out
+	);
+	
+	reg prev;
+	reg [B:0] ctr;
+	reg _o; // pipeline register for out
+	always @(posedge clk) begin
+		ctr <= ctr + 1'b1;
+		out <= _o;
+		if (ctr[B]) begin
+			_o <= in;
+		end
+		if (in != prev) begin
+			prev <= in;
+			ctr <= 0;
+		end
+	end
+endmodule
+
+module debounce_unopt #(parameter N=100000) (
+		input wire clk,
+		input wire in,
+		output reg out
+	);
+	
+	reg prev;
+	reg [16:0] ctr;
+	reg _o; // pipeline register for out
+	always @(posedge clk) begin
+		if (in != prev) begin
+			prev <= in;
+			ctr <= 0;
+		end else if (ctr == N) begin
+			_o <= in;
+		end else begin
+			ctr <= ctr + 1;
+		end
+		out <= _o;
+	end
+endmodule
+
+
+module uart_transmitter #(parameter CLK_CYCLES=4167, CTR_WIDTH=16)
+		(input wire clk, input wire [7:0] data, input wire req, output wire ready, output wire uart_tx);
+		
+		reg [CTR_WIDTH-1:0] ctr;
+		
+		reg [9:0] line_data = 10'b1111111111;
+		reg [4:0] bits_left;
+		
+		initial begin
+			ctr = 0;
+			bits_left = 0;
+		end;
+		
+		assign uart_tx = line_data[0];
+		assign ready = (bits_left == 0);
+		
+		always @(posedge clk) begin
+			ctr <= ctr + 1'b1;
+			
+			if (ctr == (CLK_CYCLES-1)) begin
+				ctr <= 0;
+				
+				// pop off the just-sent bit (index 0) and shift in a 1:
+				line_data <= {1'b1, line_data[9:1]};
+				
+				if (bits_left != 0)
+					bits_left <= bits_left - 1'b1;
+			end
+				
+			if (req && ready) begin
+				line_data <= {1'b1, data, 1'b0};
+				ctr <= 0;
+				bits_left <= 4'd10;
+			end
+		end
+endmodule
+
+module uart_multibyte_transmitter #(parameter CLK_CYCLES=4167, CTR_WIDTH=16, MSG_LOG_WIDTH=3)
+		(input wire clk, input wire [8*(2**MSG_LOG_WIDTH)-1:0] data, input wire req, output wire uart_tx);
+		
+		reg [8*(2**MSG_LOG_WIDTH)-1:0] cur_data;
+		reg [MSG_LOG_WIDTH-1:0] byte_idx;
+		reg busy = 1'b0;
+		
+		wire [7:0] cur_byte;
+		genvar idx;
+		generate
+			for (idx=0; idx<8; idx=idx+1) begin: byte_sel
+				assign cur_byte[idx] = cur_data[8*byte_idx+idx];
+			end
+		endgenerate
+		//assign cur_byte = cur_data[8*byte_idx+7:8*byte_idx];
+		
+		wire tx_ready;
+		uart_transmitter #(.CLK_CYCLES(CLK_CYCLES), .CTR_WIDTH(CTR_WIDTH)) uart_txr(.clk(clk), .data(cur_byte), .req(busy), .ready(tx_ready), .uart_tx(uart_tx));
+		
+		wire [MSG_LOG_WIDTH-1:0] next_byte_idx;
+		assign next_byte_idx = byte_idx + 1'b1;
+		
+		always @(posedge clk) begin
+			if (!busy && req) begin
+				busy <= 1;
+				cur_data <= data;
+				byte_idx <= 0;
+			end
+			else if (busy && tx_ready) begin
+				byte_idx <= next_byte_idx;
+				if (next_byte_idx == 0) begin
+					busy <= 0;
+				end
+			end
+		end
+endmodule
 
 module uart_receiver #(parameter CLK_CYCLES=4178, CTR_WIDTH=16)
 	(input wire clk, output reg [7:0] data, output reg received, input wire uart_rx);
@@ -197,8 +311,6 @@ module uart_multibyte_receiver #(parameter CLK_CYCLES=4178, CTR_WIDTH=16, MSG_LO
 				end
 			end
 
-            if (reset) begin
-                byte_idx <= 0;
-            end
+            if (reset) byte_idx <= 0;
 		end
 endmodule

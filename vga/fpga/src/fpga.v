@@ -1,4 +1,5 @@
 `timescale 1ns / 1ps
+`default_nettype none
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
 // Engineer: 
@@ -52,6 +53,7 @@ module fpga(
 
 	assign led = {vgaRed, vgaGreen, vgaBlue};
 
+    wire clk;
 	dcm #(.D(2), .M(2)) dcm(.CLK_IN(input_clk), .CLK_OUT(clk));
 	
     reg [1:0] ctr;

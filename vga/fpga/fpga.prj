@@ -1,4 +1,4 @@
-verilog work "util.v"
+verilog work "../../fpga_libs/util.v"
 verilog work "ipcore_dir/framebuf.v"
-verilog work "fpga.v"
+verilog work "src/fpga.v"
 verilog work "src/memctlr.v"
