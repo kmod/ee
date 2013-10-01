@@ -941,11 +941,11 @@ Please make sure your boards conform to these design rules.</description>
 <element name="U$2" library="SparkFun-Electromechanical" package="STAND-OFF" value="" x="38.5" y="51.5"/>
 <element name="U$3" library="SparkFun-Electromechanical" package="STAND-OFF" value="" x="38" y="3"/>
 <element name="U$4" library="SparkFun-Electromechanical" package="STAND-OFF" value="" x="3" y="3"/>
-<element name="R6" library="SparkFun-Resistors" package="0603-RES" value="470" x="17.5" y="2" rot="R90"/>
-<element name="LD13" library="kmod" package="0603_LED" value="" x="16" y="2" rot="R180"/>
+<element name="R6" library="SparkFun-Resistors" package="0603-RES" value="1k" x="17.5" y="2" rot="R90"/>
+<element name="LD13" library="kmod" package="0603_LED" value="BLUE" x="16" y="2" rot="R180"/>
 <element name="R7" library="SparkFun-Resistors" package="0603-RES" value="470" x="10" y="11" rot="R270"/>
-<element name="LP5V" library="kmod" package="0603_LED" value="" x="8" y="11"/>
-<element name="LPBAT" library="kmod" package="0603_LED" value="" x="1.5" y="39"/>
+<element name="LP5V" library="kmod" package="0603_LED" value="YELLOW" x="8" y="11"/>
+<element name="LPBAT" library="kmod" package="0603_LED" value="GRN" x="1.5" y="39"/>
 <element name="C5" library="SparkFun-Capacitors" package="0402-CAP" value="100nF" x="25" y="11.9746">
 <attribute name="PROD_ID" value="CAP-00867" x="25" y="11.9746" size="1.778" layer="27" display="off"/>
 </element>
@@ -1054,8 +1054,8 @@ Please make sure your boards conform to these design rules.</description>
 <element name="PAD10" library="kmod" package="TESTPAD" value="ADC6" x="20.5" y="1.5"/>
 <element name="PAD11" library="kmod" package="TESTPAD" value="PD1" x="32" y="9" rot="R180"/>
 <element name="PAD12" library="kmod" package="TESTPAD" value="VREF" x="4.5" y="22.5" rot="R270"/>
-<element name="LD1" library="kmod" package="0603_LED" value="" x="2.5" y="39"/>
-<element name="RA9" library="kmod" package="0603-ARV" value="1k" x="2" y="42" rot="R180"/>
+<element name="LD1" library="kmod" package="0603_LED" value="WHT" x="2.5" y="39"/>
+<element name="RA9" library="kmod" package="0603-ARV" value="2.2k" x="2" y="42" rot="R180"/>
 </elements>
 <signals>
 <signal name="N$1">

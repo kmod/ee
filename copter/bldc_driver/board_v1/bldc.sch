@@ -3653,13 +3653,13 @@ SMT- SWCH-08247</description>
 <part name="C4" library="SparkFun-Capacitors" deviceset="10NF-CER" device="" value="100nF"/>
 <part name="S1" library="SparkFun-Electromechanical" deviceset="TAC_SWITCH" device="PTH"/>
 <part name="GND6" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="R6" library="SparkFun-Resistors" deviceset="RESISTOR" device="0603-RES" value="470"/>
-<part name="LD13" library="kmod" deviceset="LED" device="0603" value=""/>
+<part name="R6" library="SparkFun-Resistors" deviceset="RESISTOR" device="0603-RES" value="1k"/>
+<part name="LD13" library="kmod" deviceset="LED" device="0603" value="BLUE"/>
 <part name="GND7" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="R7" library="SparkFun-Resistors" deviceset="RESISTOR" device="0603-RES" value="470"/>
-<part name="LP5V" library="kmod" deviceset="LED" device="0603" value=""/>
+<part name="LP5V" library="kmod" deviceset="LED" device="0603" value="YELLOW"/>
 <part name="GND8" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="LPBAT" library="kmod" deviceset="LED" device="0603" value=""/>
+<part name="LPBAT" library="kmod" deviceset="LED" device="0603" value="GRN"/>
 <part name="GND9" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="SUPPLY6" library="SparkFun-Aesthetics" deviceset="VCC" device=""/>
 <part name="C5" library="SparkFun-Capacitors" deviceset="10NF-CER" device="" value="100nF"/>
@@ -3771,9 +3771,9 @@ SMT- SWCH-08247</description>
 <part name="PAD10" library="kmod" deviceset="CONNECTOR" device="" value="ADC6"/>
 <part name="PAD11" library="kmod" deviceset="CONNECTOR" device="" value="PD1"/>
 <part name="PAD12" library="kmod" deviceset="CONNECTOR" device="" value="VREF"/>
-<part name="LD1" library="kmod" deviceset="LED" device="0603" value=""/>
+<part name="LD1" library="kmod" deviceset="LED" device="0603" value="WHT"/>
 <part name="GND13" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="RA9" library="kmod" deviceset="RESISTOR_ARRAY" device="0603_X4" value="1k"/>
+<part name="RA9" library="kmod" deviceset="RESISTOR_ARRAY" device="0603_X4" value="2.2k"/>
 <part name="SUPPLY4" library="SparkFun-Aesthetics" deviceset="V_BATT" device=""/>
 </parts>
 <sheets>
