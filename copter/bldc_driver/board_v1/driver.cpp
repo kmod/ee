@@ -111,7 +111,10 @@ void pulse1(int l, int h, int m, bool rising) {
     if (cur_delay > SWITCHOVER_DELAY) {
         pwr = 120;
     } else {
-        pwr = 180;
+        if (last_nwaits > 700)
+            pwr = 150;
+        else
+            pwr = 180;
     }
 
     analogWrite(PWM, pwr);
@@ -152,13 +155,9 @@ void pulse1(int l, int h, int m, bool rising) {
             DELAY();
             r = (PIND >> S) & 1;
             nwaits++;
-            if (rising == 1 && r == 1) {
+            if (rising == r)
                 break;
-            }
-            if (rising == 0 && r == 0) {
-                break;
-            }
-            if (nwaits > BAILOUT_NWAITS) {
+            if (nwaits > last_nwaits + 100) {
                 break;
             }
         }
