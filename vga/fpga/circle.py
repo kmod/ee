@@ -17,7 +17,7 @@ _buf = []
 def write(s):
     global _buf
     _buf.append(s)
-    if len(_buf) > 100:
+    if len(_buf) >= 100:
         ser.write(''.join(_buf))
         _buf = []
 
@@ -28,7 +28,6 @@ while True:
     CRO = random.randrange(10, 25)
     CRI = random.randrange(-2, CRO-2)
     CRI = CRO - 5
-    # CRI = 1
     l = []
     miny = max(0, CY - CRO - 2)
     maxy = max(0, CY + CRO + 2)

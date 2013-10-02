@@ -15,7 +15,6 @@ module memory_controller(
     );
     //
     // Think I always want these:
-    assign MemOE = 1;
     assign RamCS = 0;
     assign RamCRE = 0;
 
@@ -26,6 +25,6 @@ module memory_controller(
     assign MemWR = 1;
     assign RamLB = 0;
     assign RamUB = 0;
-    assign MemOE = 0;
+    assign MemOE = !MemWR;
 endmodule
 
