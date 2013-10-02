@@ -3719,10 +3719,10 @@ SMT- SWCH-08247</description>
 <part name="GND24" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="SUPPLY16" library="SparkFun-Aesthetics" deviceset="V_BATT" device=""/>
 <part name="GND25" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="R31" library="SparkFun-Resistors" deviceset="RESISTOR" device="0603-RES" value="22k"/>
+<part name="R31" library="SparkFun-Resistors" deviceset="RESISTOR" device="0603-RES" value="220k"/>
 <part name="SUPPLY17" library="SparkFun-Aesthetics" deviceset="V_BATT" device=""/>
 <part name="GND26" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="R32" library="SparkFun-Resistors" deviceset="RESISTOR" device="0603-RES" value="22k"/>
+<part name="R32" library="SparkFun-Resistors" deviceset="RESISTOR" device="0603-RES" value="220k"/>
 <part name="CCMPB" library="SparkFun-Capacitors" deviceset="10NF-CER" device="" value="10pF"/>
 <part name="CCMPA" library="SparkFun-Capacitors" deviceset="10NF-CER" device="" value="10pF"/>
 <part name="CCMPC" library="SparkFun-Capacitors" deviceset="10NF-CER" device="" value="10pF"/>

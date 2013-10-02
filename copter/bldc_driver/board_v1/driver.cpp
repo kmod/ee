@@ -4,7 +4,10 @@
 #define UL A3
 #define UH A0
 
-#define S 6
+#define SM 2
+#define SL 6
+#define SH 7
+#define S SM
 #define M0 4
 #define M1 5
 #define U_MUX 0
@@ -26,8 +29,16 @@
 
 #define LED 13
 
+// Only use Serial in DEBUG mode, mostly because it bloats the binary size
+//#define DEBUG
+#ifndef DEBUG
+#define Serial #error
+#endif
+
 void setup() {
+#ifdef DEBUG
     Serial.begin(115200);
+#endif
 
     digitalWrite(UL, 0);
     pinMode(UL, OUTPUT);
@@ -65,20 +76,27 @@ void setup() {
     //digitalWrite(LED, 0);
 
     // the comparator output is open-collector, so activate the internal pull-up:
-    pinMode(S, INPUT);
-    digitalWrite(S, 1);
+    pinMode(SM, INPUT);
+    digitalWrite(SM, 1);
+    pinMode(SL, INPUT);
+    digitalWrite(SL, 1);
+    pinMode(SH, INPUT);
+    digitalWrite(SH, 1);
 }
 
 #define HIGH(pin) digitalWrite((pin), 1)
 #define LOW(pin) digitalWrite((pin), 0)
 
 int led_on = 0;
-unsigned long cur_delay = 15000;
+#define START_DELAY 15000
+unsigned long cur_delay = START_DELAY;
 int last_speedup = 0;
-unsigned long vhalf = 200;
 
 int _ = 0;
-unsigned long last_nwaits = 200;
+#define SWITCHOVER_DELAY 10000
+#define START_NWAITS (SWITCHOVER_DELAY / 1000 * 280)
+unsigned long last_nwaits = START_NWAITS;
+#define BAILOUT_NWAITS (START_NWAITS + 50)
 
 void microDelay() __attribute__ ((noinline));
 void microDelay() {
@@ -90,61 +108,28 @@ void microDelay() {
 
 void pulse1(int l, int h, int m, bool rising) {
     int pwr;
-    if (cur_delay > 5000)
-        pwr = 70;
-    else if (cur_delay > 1000)
+    if (cur_delay > SWITCHOVER_DELAY) {
         pwr = 120;
-    else {
-        if (last_nwaits < 150)
-            pwr = 200;
-        else
-            pwr = 160;
+    } else {
+        pwr = 180;
     }
 
     analogWrite(PWM, pwr);
 
-    //led_on ^= 1;
-    //digitalWrite(LED, led_on);
-
-    //int vhalf_meas = analogRead(VREF)/2;
-    //vhalf = (vhalf * 7 + vhalf_meas) / 8;
-
-    //const int N = 5;
-    //int reads[N];
-    //reads[0] = analogRead(s);
-
     HIGH(l);
     HIGH(h);
-    digitalWrite(M0, (m&1));
-    digitalWrite(M1, ((m>>1)&1));
 
-    /*if (true) {
-        Serial.write((char)(vhalf>>2));
-        Serial.write((char)s);
-        Serial.write((char)(1 + rising));
-        for (int i = 1; i < N; i++) {
-            reads[i] = analogRead(s);
-        }
-        bool done = false;
-        for (int i = 0; i < N; i++) {
-            Serial.write((char)(reads[i] >> 2));
-            if ((!done) && (rising == 1) && (reads[i] > vhalf * 1.1)) {
-                Serial.write((char)255);
-                done = true;
-            } else if ((!done) && (rising == 0) && (reads[i] < vhalf * 0.9)) {
-                Serial.write((char)255);
-                done = true;
-            }
-        }
-
-        Serial.write((char)0);
-    }*/
-
-    if (cur_delay > 1000) {
+    if (cur_delay > SWITCHOVER_DELAY) {
         unsigned long start = micros();
         while ((micros() - start) < cur_delay) {
         }
-    } else if (m != 0) {
+
+        int now = millis();
+        if (now - last_speedup > 5) {
+            cur_delay = max(SWITCHOVER_DELAY, cur_delay - 50);
+            last_speedup = now;
+        }
+    } else if (m != U_MUX) {
         // The board design is messed up, and the amuxsel bits
         // are essentially hard-wired to be 0.
         // If we had tried to set them to something else, don't do the back-emf
@@ -156,7 +141,7 @@ void pulse1(int l, int h, int m, bool rising) {
             DELAY();
         }
     } else {
-        unsigned long nwaits = max(20, last_nwaits - 4);
+        unsigned long nwaits = max(50, last_nwaits - 3);
 
         for (unsigned long i = 0; i < nwaits; i++) {
             DELAY();
@@ -168,54 +153,42 @@ void pulse1(int l, int h, int m, bool rising) {
             r = (PIND >> S) & 1;
             nwaits++;
             if (rising == 1 && r == 1) {
-                //digitalWrite(LED, 0);
                 break;
             }
             if (rising == 0 && r == 0) {
-                //digitalWrite(LED, 0);
                 break;
             }
-            if (nwaits > last_nwaits * 2 + 4) {
-                //digitalWrite(LED, 1);
+            if (nwaits > BAILOUT_NWAITS) {
                 break;
             }
         }
 
+        int dw = 1 + (last_nwaits / 200);
+        //dw = 1;
         if (nwaits > last_nwaits) {
-            last_nwaits += 2;
+            last_nwaits += dw;
         } else if (nwaits < last_nwaits) {
-            last_nwaits--;
+            last_nwaits -= dw;
         }
-        //Serial.write((char)s);
-        //Serial.write((char)(rising + 1));
-        //Serial.write((char)(r>>2));
-        //Serial.write((char)nwaits);
-        //Serial.write((char)0);
+
         for (unsigned long i = 0; i < last_nwaits; i++) {
             DELAY();
         }
-        if (((PIND >> S) & 1) != rising)
-            last_nwaits++;
-        //while ((micros() - start) < cur_delay) {
-        //}
-        //
-        if (last_nwaits > 300) {
-            cur_delay = 20000;
-            last_nwaits = 200;
+        //if (((PIND >> S) & 1) != rising)
+            //last_nwaits++;
+
+        if (last_nwaits > BAILOUT_NWAITS || last_nwaits <= 102) {
+            cur_delay = START_DELAY;
+            last_nwaits = START_NWAITS;
             last_speedup = millis();
         }
-    }
-
-    int now = millis();
-    if (now - last_speedup > pwr / 8) {
-        cur_delay = max(1000, cur_delay - 50);
-        last_speedup = now;
     }
 
     LOW(h);
     LOW(l);
 }
 
+#ifdef DEBUG
 void pulse2(int l, int h, int s) {
     HIGH(l);
     HIGH(h);
@@ -235,6 +208,7 @@ void pulse2(int l, int h, int s) {
     LOW(l);
     LOW(h);
 }
+#endif
 
 #define pulse pulse1
 
@@ -249,6 +223,7 @@ void loop() {
         pulse(UL, VH, W_MUX, 1);
     }
     unsigned long rps = (int)(1000000.0 / (micros() - start));
+#ifdef DEBUG
     if (rps >= 256)
         Serial.write((char)(rps>>8));
     Serial.write((char)rps);
@@ -256,6 +231,7 @@ void loop() {
         Serial.write((char)(last_nwaits>>8));
     Serial.write((char)last_nwaits);
     Serial.write((char)0);
+#endif
     led_on ^= 1;
     digitalWrite(LED, led_on);
 }

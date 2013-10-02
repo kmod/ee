@@ -997,8 +997,8 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="PROD_ID" value="CAP-00867" x="25" y="28" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
 <element name="IC4" library="kmod" package="TSSOP16" value="CD4051BPWR" x="21.5" y="30.5" rot="R180"/>
-<element name="R31" library="SparkFun-Resistors" package="0603-RES" value="22k" x="10.5" y="19.5"/>
-<element name="R32" library="SparkFun-Resistors" package="0603-RES" value="22k" x="4.5" y="28" rot="R270"/>
+<element name="R31" library="SparkFun-Resistors" package="0603-RES" value="220k" x="10.5" y="19.5"/>
+<element name="R32" library="SparkFun-Resistors" package="0603-RES" value="220k" x="4.5" y="28" rot="R270"/>
 <element name="CCMPB" library="SparkFun-Capacitors" package="0402-CAP" value="10pF" x="12.5" y="22.4746">
 <attribute name="PROD_ID" value="CAP-00867" x="12.5" y="22.4746" size="1.778" layer="27" display="off"/>
 </element>
