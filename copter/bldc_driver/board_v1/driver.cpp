@@ -64,18 +64,7 @@ void setup() {
     analogWrite(PWM, 0);
     pinMode(PWM, OUTPUT);
 
-    digitalWrite(LED, 1);
-    delay(500);
-    digitalWrite(LED, 0);
-    delay(100);
-    digitalWrite(LED, 1);
-    delay(100);
-    digitalWrite(LED, 0);
-    delay(100);
-    //delay(1000);
-    //digitalWrite(LED, 0);
-
-    // the comparator output is open-collector, so activate the internal pull-up:
+    // the comparator output is open-collector, so activate the internal pull-ups:
     pinMode(SM, INPUT);
     digitalWrite(SM, 1);
     pinMode(SL, INPUT);
@@ -90,6 +79,7 @@ void setup() {
 int led_on = 0;
 #define START_DELAY 15000
 unsigned long cur_delay = START_DELAY;
+long speed_change_count = 0;
 int last_speedup = 0;
 
 int _ = 0;
@@ -111,8 +101,8 @@ void pulse1(int l, int h, int m, bool rising) {
     if (cur_delay > SWITCHOVER_DELAY) {
         pwr = 120;
     } else {
-        if (last_nwaits > 700)
-            pwr = 150;
+        if (last_nwaits > 350)
+            pwr = 140;
         else
             pwr = 180;
     }
@@ -162,19 +152,41 @@ void pulse1(int l, int h, int m, bool rising) {
             }
         }
 
-        int dw = 1 + (last_nwaits / 200);
-        //dw = 1;
-        if (nwaits > last_nwaits) {
-            last_nwaits += dw;
-        } else if (nwaits < last_nwaits) {
+        int dw = 1 + 4 * (last_nwaits / 400);
+        int needed_count = -6;
+
+        if (nwaits < last_nwaits) {
+            digitalWrite(LED, 0);
             last_nwaits -= dw;
+            //speed_change_count--;
+            //if (speed_change_count <= needed_count) {
+                //last_nwaits -= dw;
+                //speed_change_count = last_nwaits < 250 ? 50 : 0;
+            //}
+        } else {
+        // if (nwaits > last_nwaits) {
+            digitalWrite(LED, 1);
+            last_nwaits += dw;
+            //if (speed_change_count < 0)
+                //speed_change_count = 0;
+            //speed_change_count++;
+            //if (speed_change_count >= 4) {
+                //last_nwaits += dw + 25;
+                //speed_change_count = 100;
+            //}
         }
 
         for (unsigned long i = 0; i < last_nwaits; i++) {
             DELAY();
         }
-        //if (((PIND >> S) & 1) != rising)
-            //last_nwaits++;
+        //if (((PIND >> S) & 1) != rising && speed_change_count < 0)
+            //speed_change_count = 0;
+        //if (last_nwaits < 400 && ((PIND >> S) & 1) != rising && speed_change_count < 0)
+            //speed_change_count += 1;
+        //if (last_nwaits < 400 && ((PIND >> S) & 1) != rising)
+            //speed_change_count += 4;
+        if (((PIND >> S) & 1) != rising)
+            last_nwaits++;
 
         if (last_nwaits > BAILOUT_NWAITS || last_nwaits <= 102) {
             cur_delay = START_DELAY;
@@ -193,7 +205,7 @@ void pulse2(int l, int h, int s) {
     HIGH(h);
 
     led_on ^= 1;
-    digitalWrite(LED, led_on);
+    //digitalWrite(LED, led_on);
 
     analogWrite(PWM, 50);
     Serial.print(s);
@@ -232,5 +244,5 @@ void loop() {
     Serial.write((char)0);
 #endif
     led_on ^= 1;
-    digitalWrite(LED, led_on);
+    //digitalWrite(LED, led_on);
 }
