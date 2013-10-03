@@ -136,7 +136,7 @@ void pulse1(int l, int h, int m, bool rising) {
             DELAY();
         }
     } else {
-        unsigned long nwaits = max(50, last_nwaits - 8);
+        unsigned long nwaits = max(50, last_nwaits - 10);
 
         for (unsigned long i = 0; i < nwaits; i++) {
             DELAY();
@@ -144,7 +144,7 @@ void pulse1(int l, int h, int m, bool rising) {
 
         int r = 0;
         int row = 0;
-        int mr = 3;
+        int mr = 4;
         while (true) {
             DELAY();
             r = (PIND >> S) & 1;
@@ -154,7 +154,7 @@ void pulse1(int l, int h, int m, bool rising) {
                 if (row == mr)
                     break;
             }
-            if (nwaits > last_nwaits + 5) {
+            if (nwaits > last_nwaits + 10) {
                 break;
             }
         }
