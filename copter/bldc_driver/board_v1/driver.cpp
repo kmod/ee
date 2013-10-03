@@ -82,7 +82,6 @@ unsigned long cur_delay = START_DELAY;
 long speed_change_count = 0;
 int last_speedup = 0;
 
-int _ = 0;
 #define SWITCHOVER_DELAY 10000
 #define START_NWAITS (SWITCHOVER_DELAY / 1000 * 280)
 unsigned long last_nwaits = START_NWAITS;
@@ -99,9 +98,9 @@ void microDelay() {
 void pulse1(int l, int h, int m, bool rising) {
     int pwr;
     if (cur_delay > SWITCHOVER_DELAY) {
-        pwr = 80 + 60 * (cur_delay - SWITCHOVER_DELAY) / (START_DELAY - SWITCHOVER_DELAY);
+        pwr = 100 + 40 * (cur_delay - SWITCHOVER_DELAY) / (START_DELAY - SWITCHOVER_DELAY);
     } else {
-        if (last_nwaits > 350)
+        if (last_nwaits > 300)
             pwr = 140;
         else
             pwr = 160;
@@ -119,7 +118,7 @@ void pulse1(int l, int h, int m, bool rising) {
 
         int now = millis();
         if (now - last_speedup > 5) {
-            cur_delay = max(SWITCHOVER_DELAY, cur_delay - 50);
+            cur_delay = max(SWITCHOVER_DELAY, cur_delay - 5 - (cur_delay - 1000) / 256);
             last_speedup = now;
         }
     } else if (m != U_MUX) {
@@ -133,8 +132,11 @@ void pulse1(int l, int h, int m, bool rising) {
         for (unsigned long i = 0; i < last_nwaits; i++) {
             DELAY();
         }
+        for (unsigned long i = 0; i < 10; i++) {
+            DELAY();
+        }
     } else {
-        unsigned long nwaits = max(50, last_nwaits - 5);
+        unsigned long nwaits = max(50, last_nwaits - 8);
 
         for (unsigned long i = 0; i < nwaits; i++) {
             DELAY();
@@ -142,17 +144,15 @@ void pulse1(int l, int h, int m, bool rising) {
 
         int r = 0;
         int row = 0;
+        int mr = 3;
         while (true) {
             DELAY();
             r = (PIND >> S) & 1;
             nwaits++;
             if (rising == r) {
-                break;
                 row++;
-                if (row == 3)
+                if (row == mr)
                     break;
-            } else {
-                row = 0;
             }
             if (nwaits > last_nwaits + 5) {
                 break;
@@ -163,21 +163,20 @@ void pulse1(int l, int h, int m, bool rising) {
             //DELAY();
         //}
 
-        int dw = 1 + 8 * (last_nwaits / 400);
-        int needed_count = -6;
+        int dw = 1 + 16 * (last_nwaits / 400);
 
         if (nwaits < last_nwaits - 1) {
-            digitalWrite(LED, 0);
+            digitalWrite(LED, 1);
             speed_change_count--;
             if (speed_change_count <= -2) {
                 last_nwaits -= dw;
                 speed_change_count = 0;
             }
         } else if (nwaits > last_nwaits + 1) {
-            //digitalWrite(LED, 1);
+            digitalWrite(LED, 0);
             speed_change_count = max(0, speed_change_count + 1);
             if (speed_change_count >= 2) {
-                last_nwaits += dw;
+                last_nwaits += 2 * dw + 1;
                 speed_change_count = 0;
             }
         } else {
@@ -185,16 +184,14 @@ void pulse1(int l, int h, int m, bool rising) {
             digitalWrite(LED, 0);
         }
 
-        if (((PIND >> S) & 1) != rising) {
+        //if (((PIND >> S) & 1) != rising) {
             //last_nwaits++;
-            speed_change_count = 1;
-            digitalWrite(LED, 1);
-        }
-        for (unsigned long i = 0; i < nwaits/2; i++) {
-            DELAY();
-        }
+            ////speed_change_count = 4;
+            //digitalWrite(LED, 1);
+        //}
+
         //analogWrite(PWM, pwr/2);
-        for (unsigned long i = 0; i < nwaits/2; i++) {
+        for (unsigned long i = 0; i < last_nwaits - row; i++) {
             DELAY();
         }
 
