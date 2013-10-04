@@ -248,8 +248,8 @@ void loop() {
         pulse(WL, VH, U_MUX, 0);
         pulse(UL, VH, W_MUX, 1);
     }
-    unsigned long rps = (int)(1000000.0 / (micros() - start));
 #ifdef DEBUG
+    unsigned long rps = (int)(1000000.0 / (micros() - start));
     if (rps >= 256)
         Serial.write((char)(rps>>8));
     Serial.write((char)rps);
