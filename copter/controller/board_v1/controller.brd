@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.166666666667" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.01" altunitdist="mil" altunit="mil"/>
+<grid distance="0.5" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.01" altunitdist="mm" altunit="mm"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
@@ -996,7 +996,7 @@ Please make sure your boards conform to these design rules.</description>
 <element name="C8" library="kmod" package="0402-CAP" value="22pF" x="36.05" y="28.42" rot="R180"/>
 <element name="C9" library="kmod" package="0805" value="10uF" x="28.70985" y="25.957075" rot="R90"/>
 <element name="R14" library="SparkFun-Resistors" package="0603-RES" value="330" x="15.666665625" y="3.333334375" rot="R90"/>
-<element name="LPWR" library="SparkFun-LED" package="LED-0603" value="RED" x="17.333334375" y="3.333334375">
+<element name="LPWR" library="SparkFun-LED" package="LED-0603" value="YLW" x="17.333334375" y="3.333334375">
 <attribute name="PROD_ID" value="DIO-00819" x="59.243334375" y="-65.246665625" size="1.778" layer="27" display="off"/>
 </element>
 <element name="LED0" library="SparkFun-LED" package="LED-0603" value="RED" x="43.08666875" y="38.33" rot="R270">
@@ -1008,7 +1008,7 @@ Please make sure your boards conform to these design rules.</description>
 <element name="CONN1" library="kmod" package="TESTPAD" value="SS" x="35" y="34.666665625" rot="R90"/>
 <element name="CONN2" library="kmod" package="HOLE_18AWG" value="" x="8" y="2.5"/>
 <element name="CONN3" library="kmod" package="HOLE_18AWG" value="" x="12.5" y="2.5"/>
-<element name="R17" library="kmod" package="0603-RES" value="33k" x="15.436665625" y="12.6466625" rot="R270"/>
+<element name="R17" library="kmod" package="0603-RES" value="47k" x="15.436665625" y="12.6466625" rot="R270"/>
 <element name="R18" library="kmod" package="0603-RES" value="10k" x="15.43666875" y="15.79" rot="R270"/>
 <element name="JP3" library="SparkFun-Connectors" package="1X06" value="" x="43.18" y="7.921665625" rot="R90"/>
 <element name="C10" library="kmod" package="0402-CAP" value="100nF" x="40.753334375" y="8.473334375" rot="R90"/>
