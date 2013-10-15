@@ -31,7 +31,7 @@ endif
 prog_%: %.hex
 	/opt/arduino-1.0.5/hardware/tools/avrdude -b57600 -C/opt/arduino-1.0.5/hardware/tools/avrdude.conf -p$(PART) -cstk500v1 -P/dev/ttyUSB0 -e -Ulock:w:0x3F:m -Uefuse:w:$(EFUSE):m -Uhfuse:w:$(HFUSE):m -Ulfuse:w:$(LFUSE):m -Uflash:w:$<:i -v -v
 
-prog: prog_driver
+prog: prog_driver2
 
 .PHONY: self_prog
 self_prog_%: %.hex
