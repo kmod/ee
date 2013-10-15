@@ -172,12 +172,12 @@ Copied from somewhere; seemed to work well, but made pads longer anyway.</descri
 <wire x1="-1.6" y1="-0.7" x2="-1.5" y2="-0.7" width="0.127" layer="21"/>
 <wire x1="-1.5" y1="-0.7" x2="-1.5" y2="-0.8" width="0.127" layer="21"/>
 <circle x="-1.6" y="-0.7" radius="0.1414" width="0.2032" layer="21"/>
-<smd name="1" x="-0.65" y="-0.8" dx="1.1" dy="0.3" layer="1" rot="R90"/>
-<smd name="2" x="0" y="-0.8" dx="1.1" dy="0.3" layer="1" rot="R90"/>
-<smd name="3" x="0.65" y="-0.8" dx="1.1" dy="0.3" layer="1" rot="R90"/>
-<smd name="6" x="-0.65" y="0.81" dx="1.1" dy="0.3" layer="1" rot="R90"/>
-<smd name="5" x="0" y="0.81" dx="1.1" dy="0.3" layer="1" rot="R90"/>
-<smd name="4" x="0.65" y="0.81" dx="1.1" dy="0.3" layer="1" rot="R90"/>
+<smd name="1" x="-0.65" y="-0.9" dx="1" dy="0.3" layer="1" rot="R90"/>
+<smd name="2" x="0" y="-0.9" dx="1" dy="0.3" layer="1" rot="R90"/>
+<smd name="3" x="0.65" y="-0.9" dx="1" dy="0.3" layer="1" rot="R90"/>
+<smd name="6" x="-0.65" y="0.9" dx="1" dy="0.3" layer="1" rot="R90"/>
+<smd name="5" x="0" y="0.9" dx="1" dy="0.3" layer="1" rot="R90"/>
+<smd name="4" x="0.65" y="0.9" dx="1" dy="0.3" layer="1" rot="R90"/>
 </package>
 <package name="SOD123W(NXP)">
 <description>&lt;p&gt;NXP's "SOD-123W" package&lt;/p&gt;
