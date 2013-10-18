@@ -952,7 +952,7 @@ with open collector; LM139/LM239/LM339/LM2901/LM3302&lt;br&gt;</description>
 </devices>
 </deviceset>
 <deviceset name="AP1509" uservalue="yes">
-<description>Buck step-down regulator</description>
+<description>2A buck converter</description>
 <gates>
 <gate name="G$1" symbol="AP1509" x="0" y="0"/>
 </gates>
