@@ -17,6 +17,8 @@
 *.gtl
 *.gto
 *.gts
+*.g2l
+*.g3l
 
 *.GBL
 *.GBO

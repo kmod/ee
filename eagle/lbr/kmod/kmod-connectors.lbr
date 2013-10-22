@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.5" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.05" altunitdist="mm" altunit="mm"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
@@ -38,7 +38,7 @@
 <layer number="42" name="bRestrict" color="1" fill="10" visible="yes" active="yes"/>
 <layer number="43" name="vRestrict" color="2" fill="10" visible="yes" active="yes"/>
 <layer number="44" name="Drills" color="7" fill="1" visible="no" active="yes"/>
-<layer number="45" name="Holes" color="7" fill="1" visible="no" active="yes"/>
+<layer number="45" name="Holes" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="46" name="Milling" color="3" fill="1" visible="no" active="yes"/>
 <layer number="47" name="Measures" color="7" fill="1" visible="no" active="yes"/>
 <layer number="48" name="Document" color="7" fill="1" visible="yes" active="yes"/>
@@ -51,7 +51,7 @@
 <layer number="56" name="wert" color="7" fill="1" visible="no" active="no"/>
 <layer number="91" name="Nets" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="92" name="Busses" color="1" fill="1" visible="yes" active="yes"/>
-<layer number="93" name="Pins" color="2" fill="1" visible="no" active="yes"/>
+<layer number="93" name="Pins" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="94" name="Symbols" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="95" name="Names" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="96" name="Values" color="7" fill="1" visible="yes" active="yes"/>
@@ -120,26 +120,22 @@
 <library>
 <packages>
 <package name="PCIE-X1-EDGE">
-<wire x1="-12" y1="-4.15" x2="-12" y2="1.15" width="0" layer="20"/>
+<wire x1="-12" y1="-4.15" x2="-12" y2="3.5" width="0" layer="20"/>
 <wire x1="-12" y1="-4.15" x2="-11.8" y2="-4.45" width="0" layer="20"/>
 <wire x1="-11.8" y1="-4.45" x2="-1.3" y2="-4.45" width="0" layer="20"/>
-<wire x1="1" y1="1.15" x2="1" y2="-4.15" width="0" layer="20"/>
-<wire x1="-1" y1="-4.15" x2="-1" y2="1.15" width="0" layer="20"/>
+<wire x1="1" y1="3.3" x2="1" y2="-4.15" width="0" layer="20"/>
+<wire x1="-1" y1="-4.15" x2="-1" y2="3.3" width="0" layer="20"/>
 <wire x1="-1.3" y1="-4.45" x2="-1" y2="-4.15" width="0" layer="20"/>
 <wire x1="1" y1="-4.15" x2="1.3" y2="-4.45" width="0" layer="20"/>
-<wire x1="8" y1="0.35" x2="8" y2="-4.15" width="0" layer="20"/>
+<wire x1="8" y1="3.5" x2="8" y2="-4.15" width="0" layer="20"/>
 <wire x1="8" y1="-4.15" x2="7.7" y2="-4.45" width="0" layer="20"/>
 <wire x1="1.3" y1="-4.45" x2="7.7" y2="-4.45" width="0" layer="20"/>
-<wire x1="-1" y1="1.2" x2="-1" y2="3.3" width="0" layer="23"/>
-<wire x1="1" y1="1.15" x2="1" y2="3.3" width="0" layer="23"/>
-<wire x1="-1" y1="3.3" x2="1" y2="3.3" width="0" layer="23" curve="-180"/>
+<wire x1="-1" y1="3.3" x2="1" y2="3.3" width="0" layer="20" curve="-180"/>
 <wire x1="-17" y1="0.25" x2="-20" y2="0.25" width="0" layer="51"/>
 <wire x1="-17" y1="4.55" x2="-14.5" y2="7.05" width="0" layer="51" curve="-90"/>
 <wire x1="-14.5" y1="7.05" x2="-12" y2="4.55" width="0" layer="51" curve="-90"/>
 <wire x1="-17" y1="4.55" x2="-17" y2="0.25" width="0" layer="51"/>
-<wire x1="-12" y1="1.15" x2="-12" y2="3.55" width="0" layer="23"/>
 <wire x1="8" y1="7.05" x2="8" y2="3.5" width="0" layer="51"/>
-<wire x1="8" y1="0.35" x2="8" y2="3.5" width="0" layer="23"/>
 <wire x1="8" y1="7.05" x2="9" y2="7.05" width="0" layer="51"/>
 <smd name="B2" x="-10.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90"/>
 <smd name="B1" x="-11.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90"/>
@@ -668,6 +664,27 @@ Haven't tested it</description>
 <smd name="35" x="-4.875" y="2.9178" dx="0.3048" dy="3.048" layer="1"/>
 <smd name="36" x="-5.525" y="2.9178" dx="0.3048" dy="3.048" layer="1"/>
 </package>
+<package name="MOLEX_MINIFITJR_6_RA">
+<description>Molex Mini-Fit Jr. 6-pin right angle connector&lt;br/&gt;
+As used in the PCI-E 6-pin power connector</description>
+<pad name="5" x="0" y="5.5" drill="1.8"/>
+<pad name="4" x="4.2" y="5.5" drill="1.8"/>
+<pad name="6" x="-4.2" y="5.5" drill="1.8"/>
+<pad name="2" x="0" y="0" drill="1.8"/>
+<pad name="1" x="4.2" y="0" drill="1.8"/>
+<pad name="3" x="-4.2" y="0" drill="1.8"/>
+<hole x="-4.2" y="-7.3" drill="3"/>
+<hole x="4.2" y="-7.3" drill="3"/>
+<wire x1="-7" y1="-8.5" x2="-7" y2="-0.5" width="0.2" layer="21"/>
+<wire x1="-7" y1="-0.5" x2="6.5" y2="-0.5" width="0.2" layer="21"/>
+<wire x1="6.5" y1="-0.5" x2="6.5" y2="-8.5" width="0.2" layer="21"/>
+<wire x1="-7" y1="-8.5" x2="-7" y2="-13" width="0.2" layer="51"/>
+<wire x1="-7" y1="-13" x2="6.5" y2="-13" width="0.2" layer="51"/>
+<wire x1="6.5" y1="-13" x2="6.5" y2="-8.5" width="0.2" layer="51"/>
+<rectangle x1="-4.5" y1="-0.5" x2="-4" y2="5.5" layer="51"/>
+<rectangle x1="-0.25" y1="-0.5" x2="0.25" y2="5.5" layer="51"/>
+<rectangle x1="4" y1="-0.5" x2="4.5" y2="5.5" layer="51"/>
+</package>
 </packages>
 <symbols>
 <symbol name="PCIE-X1">
@@ -943,12 +960,12 @@ Haven't tested it</description>
 <pin name="SDA" x="15.24" y="10.16" length="middle" rot="R180"/>
 <pin name="3.3V" x="15.24" y="7.62" length="middle" rot="R180"/>
 <pin name="12V@2" x="15.24" y="5.08" length="middle" rot="R180"/>
-<pin name="E2" x="15.24" y="2.54" length="middle" rot="R180"/>
+<pin name="E0" x="15.24" y="2.54" length="middle" rot="R180"/>
 <pin name="C0" x="15.24" y="0" length="middle" rot="R180"/>
 <pin name="C1" x="15.24" y="-2.54" length="middle" rot="R180"/>
 <pin name="C2" x="15.24" y="-7.62" length="middle" rot="R180"/>
 <pin name="C3" x="15.24" y="-10.16" length="middle" rot="R180"/>
-<pin name="E0" x="15.24" y="-12.7" length="middle" rot="R180"/>
+<pin name="E2" x="15.24" y="-12.7" length="middle" rot="R180"/>
 <pin name="A0" x="15.24" y="-15.24" length="middle" rot="R180"/>
 <pin name="A1" x="15.24" y="-17.78" length="middle" rot="R180"/>
 <pin name="A2" x="15.24" y="-20.32" length="middle" rot="R180"/>
@@ -961,16 +978,32 @@ Haven't tested it</description>
 <pin name="G0" x="-15.24" y="10.16" length="middle"/>
 <pin name="1.8V" x="-15.24" y="7.62" length="middle"/>
 <pin name="12V@1" x="-15.24" y="5.08" length="middle"/>
-<pin name="E3" x="-15.24" y="2.54" length="middle"/>
+<pin name="E1" x="-15.24" y="2.54" length="middle"/>
 <pin name="D0" x="-15.24" y="0" length="middle"/>
 <pin name="D1" x="-15.24" y="-2.54" length="middle"/>
 <pin name="D2" x="-15.24" y="-7.62" length="middle"/>
 <pin name="D3" x="-15.24" y="-10.16" length="middle"/>
-<pin name="E1" x="-15.24" y="-12.7" length="middle"/>
+<pin name="E3" x="-15.24" y="-12.7" length="middle"/>
 <pin name="B0" x="-15.24" y="-15.24" length="middle"/>
 <pin name="B1" x="-15.24" y="-17.78" length="middle"/>
 <pin name="B2" x="-15.24" y="-20.32" length="middle"/>
 <pin name="B3" x="-15.24" y="-22.86" length="middle"/>
+</symbol>
+<symbol name="PSUPPLY">
+<wire x1="-5.08" y1="0" x2="-3.81" y2="0" width="0.254" layer="94"/>
+<wire x1="-3.81" y1="0" x2="-2.54" y2="0" width="0.254" layer="94"/>
+<wire x1="-7.62" y1="-1.27" x2="0" y2="-1.27" width="0.254" layer="94"/>
+<wire x1="-5.08" y1="-2.54" x2="-2.54" y2="-2.54" width="0.254" layer="94"/>
+<wire x1="-7.62" y1="-3.81" x2="-3.81" y2="-3.81" width="0.254" layer="94"/>
+<wire x1="-3.81" y1="-3.81" x2="0" y2="-3.81" width="0.254" layer="94"/>
+<wire x1="0" y1="-5.08" x2="-3.81" y2="-5.08" width="0.254" layer="94"/>
+<wire x1="-3.81" y1="-5.08" x2="-3.81" y2="-3.81" width="0.254" layer="94"/>
+<wire x1="0" y1="2.54" x2="-3.81" y2="2.54" width="0.254" layer="94"/>
+<wire x1="-3.81" y1="2.54" x2="-3.81" y2="0" width="0.254" layer="94"/>
+<pin name="VSUPPLY" x="5.08" y="2.54" visible="off" length="middle" rot="R180"/>
+<pin name="GND" x="5.08" y="-5.08" visible="off" length="middle" rot="R180"/>
+<text x="2.54" y="2.54" size="1.27" layer="94">+</text>
+<text x="2.54" y="-5.08" size="1.27" layer="94">-</text>
 </symbol>
 </symbols>
 <devicesets>
@@ -1367,10 +1400,10 @@ Haven't tested it</description>
 <connect gate="G$1" pin="D2" pad="B12"/>
 <connect gate="G$1" pin="D3" pad="B13"/>
 <connect gate="G$1" pin="DSEN" pad="A3"/>
-<connect gate="G$1" pin="E0" pad="A14"/>
-<connect gate="G$1" pin="E1" pad="B14"/>
-<connect gate="G$1" pin="E2" pad="A9"/>
-<connect gate="G$1" pin="E3" pad="B9"/>
+<connect gate="G$1" pin="E0" pad="A9"/>
+<connect gate="G$1" pin="E1" pad="B9"/>
+<connect gate="G$1" pin="E2" pad="A14"/>
+<connect gate="G$1" pin="E3" pad="B14"/>
 <connect gate="G$1" pin="G0" pad="B6"/>
 <connect gate="G$1" pin="GND@1" pad="B4"/>
 <connect gate="G$1" pin="GND@2" pad="A4"/>
@@ -1381,6 +1414,22 @@ Haven't tested it</description>
 <connect gate="G$1" pin="TDI" pad="B1"/>
 <connect gate="G$1" pin="TDO" pad="A1"/>
 <connect gate="G$1" pin="TMS" pad="A2"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="SUPPLY">
+<gates>
+<gate name="G$1" symbol="PSUPPLY" x="0" y="0"/>
+</gates>
+<devices>
+<device name="PCIE-6-RA" package="MOLEX_MINIFITJR_6_RA">
+<connects>
+<connect gate="G$1" pin="GND" pad="4 6"/>
+<connect gate="G$1" pin="VSUPPLY" pad="1 3"/>
 </connects>
 <technologies>
 <technology name=""/>
