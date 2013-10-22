@@ -497,7 +497,7 @@ Source: Epson Toyocom</description>
 </device>
 </devices>
 </deviceset>
-<deviceset name="OSCILLATOR">
+<deviceset name="OSCILLATOR" prefix="OSC" uservalue="yes">
 <gates>
 <gate name="G$1" symbol="OSCILLATOR" x="0" y="0"/>
 </gates>

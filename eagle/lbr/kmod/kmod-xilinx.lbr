@@ -1573,46 +1573,46 @@ Seems to be the same thing as the TQ100, except that the TQ is slightly thicker 
 <symbol name="XC3S{50,100,200}A-FT256">
 <description>Spartan-3A FT256, combined 50/100/200 schematic&lt;br/&gt;
 The 100 and 200 have the same pinouts; the 50 is a subset of the 100/200 with some additional minor differences in the differential pins.</description>
-<pin name="C13/IO_L01N_0" x="-144.78" y="-63.5" length="middle"/>
-<pin name="D13/IO_L01P_0" x="-144.78" y="-60.96" length="middle"/>
-<pin name="B14/IO_L02N_0" x="-144.78" y="-58.42" length="middle"/>
-<pin name="B15/IO_L02P_0/VREF_0" x="-144.78" y="-55.88" length="middle"/>
-<pin name="D11/IO_L03N_0" x="-144.78" y="-53.34" length="middle"/>
-<pin name="C12/IO_L03P_0" x="-144.78" y="-50.8" length="middle"/>
-<pin name="A13/IO_L04N_0" x="-144.78" y="-48.26" length="middle"/>
-<pin name="A14/IO_L04P_0" x="-144.78" y="-45.72" length="middle"/>
-<pin name="A12/IO_L05N_0(50:N.C.)" x="-144.78" y="-43.18" length="middle"/>
-<pin name="B12/IO_L05P_0(50:IP_0)" x="-144.78" y="-40.64" length="middle"/>
-<pin name="E10/IO_L06N_0/VREF_0(50:N.C.)" x="-144.78" y="-38.1" length="middle"/>
-<pin name="D10/IO_L06P_0(50:N.C.)" x="-144.78" y="-35.56" length="middle"/>
-<pin name="A11/IO_L07N_0" x="-144.78" y="-33.02" length="middle"/>
-<pin name="C11/IO_L07P_0" x="-144.78" y="-30.48" length="middle"/>
-<pin name="A10/IO_L08N_0" x="-144.78" y="-27.94" length="middle"/>
-<pin name="B10/IO_L08P_0" x="-144.78" y="-25.4" length="middle"/>
-<pin name="D9/IO_L09N_0/GCLK5" x="-144.78" y="-22.86" length="middle"/>
-<pin name="C10/IO_L09P_0/GCLK4" x="-144.78" y="-20.32" length="middle"/>
-<pin name="A9/IO_L10N_0/GCLK7" x="-144.78" y="-17.78" length="middle"/>
-<pin name="C9/IO_L10P_0/GCLK6" x="-144.78" y="-15.24" length="middle"/>
-<pin name="D8/IO_L11N_0/GCLK9" x="-144.78" y="-12.7" length="middle"/>
-<pin name="C8/IO_L11P_0/GCLK8" x="-144.78" y="-10.16" length="middle"/>
-<pin name="B8/IO_L12N_0/GCLK11" x="-144.78" y="-7.62" length="middle"/>
-<pin name="A8/IO_L12P_0/GCLK10" x="-144.78" y="-5.08" length="middle"/>
-<pin name="C7/IO_L13N_0(50:N.C.)" x="-144.78" y="-2.54" length="middle"/>
-<pin name="A7/IO_L13P_0(50:N.C.)" x="-144.78" y="0" length="middle"/>
-<pin name="E7/IO_L14N_0/VREF_0(50:N.C.)" x="-144.78" y="2.54" length="middle"/>
-<pin name="F8/IO_L14P_0(50:N.C.)" x="-144.78" y="5.08" length="middle"/>
-<pin name="B6/IO_L15N_0" x="-144.78" y="7.62" length="middle"/>
-<pin name="A6/IO_L15P_0" x="-144.78" y="10.16" length="middle"/>
-<pin name="C6/IO_L16N_0" x="-144.78" y="12.7" length="middle"/>
-<pin name="D7/IO_L16P_0" x="-144.78" y="15.24" length="middle"/>
-<pin name="C5/IO_L17N_0" x="-144.78" y="17.78" length="middle"/>
-<pin name="A5/IO_L17P_0" x="-144.78" y="20.32" length="middle"/>
-<pin name="B4/IO_L18N_0" x="-144.78" y="22.86" length="middle"/>
-<pin name="A4/IO_L18P_0" x="-144.78" y="25.4" length="middle"/>
-<pin name="B3/IO_L19N_0" x="-144.78" y="27.94" length="middle"/>
-<pin name="A3/IO_L19P_0" x="-144.78" y="30.48" length="middle"/>
+<pin name="C13/IO_L01N_0" x="-144.78" y="-63.5" length="middle" swaplevel="1"/>
+<pin name="D13/IO_L01P_0" x="-144.78" y="-60.96" length="middle" swaplevel="1"/>
+<pin name="B14/IO_L02N_0" x="-144.78" y="-58.42" length="middle" swaplevel="1"/>
+<pin name="B15/IO_L02P_0/VREF_0" x="-144.78" y="-55.88" length="middle" swaplevel="1"/>
+<pin name="D11/IO_L03N_0" x="-144.78" y="-53.34" length="middle" swaplevel="1"/>
+<pin name="C12/IO_L03P_0" x="-144.78" y="-50.8" length="middle" swaplevel="1"/>
+<pin name="A13/IO_L04N_0" x="-144.78" y="-48.26" length="middle" swaplevel="1"/>
+<pin name="A14/IO_L04P_0" x="-144.78" y="-45.72" length="middle" swaplevel="1"/>
+<pin name="A12/IO_L05N_0(50:N.C.)" x="-144.78" y="-43.18" length="middle" swaplevel="1"/>
+<pin name="B12/IO_L05P_0(50:IP_0)" x="-144.78" y="-40.64" length="middle" swaplevel="1"/>
+<pin name="E10/IO_L06N_0/VREF_0(50:N.C.)" x="-144.78" y="-38.1" length="middle" swaplevel="1"/>
+<pin name="D10/IO_L06P_0(50:N.C.)" x="-144.78" y="-35.56" length="middle" swaplevel="1"/>
+<pin name="A11/IO_L07N_0" x="-144.78" y="-33.02" length="middle" swaplevel="1"/>
+<pin name="C11/IO_L07P_0" x="-144.78" y="-30.48" length="middle" swaplevel="1"/>
+<pin name="A10/IO_L08N_0" x="-144.78" y="-27.94" length="middle" swaplevel="1"/>
+<pin name="B10/IO_L08P_0" x="-144.78" y="-25.4" length="middle" swaplevel="1"/>
+<pin name="D9/IO_L09N_0/GCLK5" x="-144.78" y="-22.86" length="middle" swaplevel="1"/>
+<pin name="C10/IO_L09P_0/GCLK4" x="-144.78" y="-20.32" length="middle" swaplevel="1"/>
+<pin name="A9/IO_L10N_0/GCLK7" x="-144.78" y="-17.78" length="middle" swaplevel="1"/>
+<pin name="C9/IO_L10P_0/GCLK6" x="-144.78" y="-15.24" length="middle" swaplevel="1"/>
+<pin name="D8/IO_L11N_0/GCLK9" x="-144.78" y="-12.7" length="middle" swaplevel="1"/>
+<pin name="C8/IO_L11P_0/GCLK8" x="-144.78" y="-10.16" length="middle" swaplevel="1"/>
+<pin name="B8/IO_L12N_0/GCLK11" x="-144.78" y="-7.62" length="middle" swaplevel="1"/>
+<pin name="A8/IO_L12P_0/GCLK10" x="-144.78" y="-5.08" length="middle" swaplevel="1"/>
+<pin name="C7/IO_L13N_0(50:N.C.)" x="-144.78" y="-2.54" length="middle" swaplevel="1"/>
+<pin name="A7/IO_L13P_0(50:N.C.)" x="-144.78" y="0" length="middle" swaplevel="1"/>
+<pin name="E7/IO_L14N_0/VREF_0(50:N.C.)" x="-144.78" y="2.54" length="middle" swaplevel="1"/>
+<pin name="F8/IO_L14P_0(50:N.C.)" x="-144.78" y="5.08" length="middle" swaplevel="1"/>
+<pin name="B6/IO_L15N_0" x="-144.78" y="7.62" length="middle" swaplevel="1"/>
+<pin name="A6/IO_L15P_0" x="-144.78" y="10.16" length="middle" swaplevel="1"/>
+<pin name="C6/IO_L16N_0" x="-144.78" y="12.7" length="middle" swaplevel="1"/>
+<pin name="D7/IO_L16P_0" x="-144.78" y="15.24" length="middle" swaplevel="1"/>
+<pin name="C5/IO_L17N_0" x="-144.78" y="17.78" length="middle" swaplevel="1"/>
+<pin name="A5/IO_L17P_0" x="-144.78" y="20.32" length="middle" swaplevel="1"/>
+<pin name="B4/IO_L18N_0" x="-144.78" y="22.86" length="middle" swaplevel="1"/>
+<pin name="A4/IO_L18P_0" x="-144.78" y="25.4" length="middle" swaplevel="1"/>
+<pin name="B3/IO_L19N_0" x="-144.78" y="27.94" length="middle" swaplevel="1"/>
+<pin name="A3/IO_L19P_0" x="-144.78" y="30.48" length="middle" swaplevel="1"/>
 <pin name="D5/IO_L20N_0/PUDC_B" x="-144.78" y="33.02" length="middle"/>
-<pin name="C4/IO_L20P_0/VREF_0" x="-144.78" y="35.56" length="middle"/>
+<pin name="C4/IO_L20P_0/VREF_0" x="-144.78" y="35.56" length="middle" swaplevel="1"/>
 <pin name="D6/IP_0" x="-144.78" y="38.1" length="middle"/>
 <pin name="D12/IP_0" x="-144.78" y="40.64" length="middle"/>
 <pin name="E6/IP_0" x="-144.78" y="43.18" length="middle"/>
@@ -1624,46 +1624,46 @@ The 100 and 200 have the same pinouts; the 50 is a subset of the 100/200 with so
 <pin name="B9/VCCO_0" x="-144.78" y="60.96" length="middle"/>
 <pin name="B13/VCCO_0" x="-144.78" y="63.5" length="middle"/>
 <pin name="E8/VCCO_0" x="-144.78" y="66.04" length="middle"/>
-<pin name="N14/IO_L01N_1/LDC2" x="-73.66" y="-71.12" length="middle"/>
-<pin name="N13/IO_L01P_1/HDC" x="-73.66" y="-68.58" length="middle"/>
-<pin name="P15/IO_L02N_1/LDC0" x="-73.66" y="-66.04" length="middle"/>
-<pin name="R15/IO_L02P_1/LDC1" x="-73.66" y="-63.5" length="middle"/>
-<pin name="N16/IO_L03N_1/A1(50:IO_L03N_1)" x="-73.66" y="-60.96" length="middle"/>
-<pin name="P16/IO_L03P_1/A0(50:IO_L03P_1)" x="-73.66" y="-58.42" length="middle"/>
-<pin name="M14/IO_L05N_1/VREF_1(50:N.C.)" x="-73.66" y="-55.88" length="middle"/>
-<pin name="M13/IO_L05P_1(50:N.C.)" x="-73.66" y="-53.34" length="middle"/>
-<pin name="K13/IO_L06N_1/A3(50:N.C.)" x="-73.66" y="-50.8" length="middle"/>
-<pin name="L13/IO_L06P_1/A2(50:N.C.)" x="-73.66" y="-48.26" length="middle"/>
-<pin name="M16/IO_L07N_1/A5(50:N.C.)" x="-73.66" y="-45.72" length="middle"/>
-<pin name="M15/IO_L07P_1/A4(50:N.C.)" x="-73.66" y="-43.18" length="middle"/>
-<pin name="L16/IO_L08N_1/A7(50:N.C.)" x="-73.66" y="-40.64" length="middle"/>
-<pin name="L14/IO_L08P_1/A6(50:N.C.)" x="-73.66" y="-38.1" length="middle"/>
-<pin name="J13/IO_L10N_1/A9(50:IO_L10N_1)" x="-73.66" y="-35.56" length="middle"/>
-<pin name="J12/IO_L10P_1/A8(50:IO_L10P_1)" x="-73.66" y="-33.02" length="middle"/>
-<pin name="K14/IO_L11N_1/RHCLK1" x="-73.66" y="-30.48" length="middle"/>
-<pin name="K15/IO_L11P_1/RHCLK0" x="-73.66" y="-27.94" length="middle"/>
-<pin name="J16/IO_L12N_1/TRDY1/RHCLK3" x="-73.66" y="-25.4" length="middle"/>
-<pin name="K16/IO_L12P_1/RHCLK2" x="-73.66" y="-22.86" length="middle"/>
-<pin name="H14/IO_L14N_1/RHCLK5" x="-73.66" y="-20.32" length="middle"/>
-<pin name="J14/IO_L14P_1/RHCLK4" x="-73.66" y="-17.78" length="middle"/>
-<pin name="H16/IO_L15N_1/RHCLK7" x="-73.66" y="-15.24" length="middle"/>
-<pin name="H15/IO_L15P_1/IRDY1/RHCLK6" x="-73.66" y="-12.7" length="middle"/>
-<pin name="F16/IO_L16N_1/A11(50:N.C.)" x="-73.66" y="-10.16" length="middle"/>
-<pin name="G16/IO_L16P_1/A10(50:N.C.)" x="-73.66" y="-7.62" length="middle"/>
-<pin name="G14/IO_L17N_1/A13(50:N.C.)" x="-73.66" y="-5.08" length="middle"/>
-<pin name="H13/IO_L17P_1/A12(50:N.C.)" x="-73.66" y="-2.54" length="middle"/>
-<pin name="F15/IO_L18N_1/A15(50:N.C.)" x="-73.66" y="0" length="middle"/>
-<pin name="E16/IO_L18P_1/A14(50:N.C.)" x="-73.66" y="2.54" length="middle"/>
-<pin name="F14/IO_L19N_1/A17(50:N.C.)" x="-73.66" y="5.08" length="middle"/>
-<pin name="G13/IO_L19P_1/A16(50:N.C.)" x="-73.66" y="7.62" length="middle"/>
-<pin name="F13/IO_L20N_1/A19(50:IO_L20N_1)" x="-73.66" y="10.16" length="middle"/>
-<pin name="E14/IO_L20P_1/A18(50:IO_L20P_1)" x="-73.66" y="12.7" length="middle"/>
-<pin name="D15/IO_L22N_1/A21(50:IO_L22N_1)" x="-73.66" y="15.24" length="middle"/>
-<pin name="D16/IO_L22P_1/A20(50:IO_L22P_1)" x="-73.66" y="17.78" length="middle"/>
-<pin name="D14/IO_L23N_1/A23(50:IO_L23N_1)" x="-73.66" y="20.32" length="middle"/>
-<pin name="E13/IO_L23P_1/A22(50:IO_L23P_1)" x="-73.66" y="22.86" length="middle"/>
-<pin name="C15/IO_L24N_1/A25(50:IO_L24N_1)" x="-73.66" y="25.4" length="middle"/>
-<pin name="C16/IO_L24P_1/A24(50:IO_L24P_1)" x="-73.66" y="27.94" length="middle"/>
+<pin name="N14/IO_L01N_1/LDC2" x="-73.66" y="-71.12" length="middle" swaplevel="1"/>
+<pin name="N13/IO_L01P_1/HDC" x="-73.66" y="-68.58" length="middle" swaplevel="1"/>
+<pin name="P15/IO_L02N_1/LDC0" x="-73.66" y="-66.04" length="middle" swaplevel="1"/>
+<pin name="R15/IO_L02P_1/LDC1" x="-73.66" y="-63.5" length="middle" swaplevel="1"/>
+<pin name="N16/IO_L03N_1/A1(50:IO_L03N_1)" x="-73.66" y="-60.96" length="middle" swaplevel="1"/>
+<pin name="P16/IO_L03P_1/A0(50:IO_L03P_1)" x="-73.66" y="-58.42" length="middle" swaplevel="1"/>
+<pin name="M14/IO_L05N_1/VREF_1(50:N.C.)" x="-73.66" y="-55.88" length="middle" swaplevel="1"/>
+<pin name="M13/IO_L05P_1(50:N.C.)" x="-73.66" y="-53.34" length="middle" swaplevel="1"/>
+<pin name="K13/IO_L06N_1/A3(50:N.C.)" x="-73.66" y="-50.8" length="middle" swaplevel="1"/>
+<pin name="L13/IO_L06P_1/A2(50:N.C.)" x="-73.66" y="-48.26" length="middle" swaplevel="1"/>
+<pin name="M16/IO_L07N_1/A5(50:N.C.)" x="-73.66" y="-45.72" length="middle" swaplevel="1"/>
+<pin name="M15/IO_L07P_1/A4(50:N.C.)" x="-73.66" y="-43.18" length="middle" swaplevel="1"/>
+<pin name="L16/IO_L08N_1/A7(50:N.C.)" x="-73.66" y="-40.64" length="middle" swaplevel="1"/>
+<pin name="L14/IO_L08P_1/A6(50:N.C.)" x="-73.66" y="-38.1" length="middle" swaplevel="1"/>
+<pin name="J13/IO_L10N_1/A9(50:IO_L10N_1)" x="-73.66" y="-35.56" length="middle" swaplevel="1"/>
+<pin name="J12/IO_L10P_1/A8(50:IO_L10P_1)" x="-73.66" y="-33.02" length="middle" swaplevel="1"/>
+<pin name="K14/IO_L11N_1/RHCLK1" x="-73.66" y="-30.48" length="middle" swaplevel="1"/>
+<pin name="K15/IO_L11P_1/RHCLK0" x="-73.66" y="-27.94" length="middle" swaplevel="1"/>
+<pin name="J16/IO_L12N_1/TRDY1/RHCLK3" x="-73.66" y="-25.4" length="middle" swaplevel="1"/>
+<pin name="K16/IO_L12P_1/RHCLK2" x="-73.66" y="-22.86" length="middle" swaplevel="1"/>
+<pin name="H14/IO_L14N_1/RHCLK5" x="-73.66" y="-20.32" length="middle" swaplevel="1"/>
+<pin name="J14/IO_L14P_1/RHCLK4" x="-73.66" y="-17.78" length="middle" swaplevel="1"/>
+<pin name="H16/IO_L15N_1/RHCLK7" x="-73.66" y="-15.24" length="middle" swaplevel="1"/>
+<pin name="H15/IO_L15P_1/IRDY1/RHCLK6" x="-73.66" y="-12.7" length="middle" swaplevel="1"/>
+<pin name="F16/IO_L16N_1/A11(50:N.C.)" x="-73.66" y="-10.16" length="middle" swaplevel="1"/>
+<pin name="G16/IO_L16P_1/A10(50:N.C.)" x="-73.66" y="-7.62" length="middle" swaplevel="1"/>
+<pin name="G14/IO_L17N_1/A13(50:N.C.)" x="-73.66" y="-5.08" length="middle" swaplevel="1"/>
+<pin name="H13/IO_L17P_1/A12(50:N.C.)" x="-73.66" y="-2.54" length="middle" swaplevel="1"/>
+<pin name="F15/IO_L18N_1/A15(50:N.C.)" x="-73.66" y="0" length="middle" swaplevel="1"/>
+<pin name="E16/IO_L18P_1/A14(50:N.C.)" x="-73.66" y="2.54" length="middle" swaplevel="1"/>
+<pin name="F14/IO_L19N_1/A17(50:N.C.)" x="-73.66" y="5.08" length="middle" swaplevel="1"/>
+<pin name="G13/IO_L19P_1/A16(50:N.C.)" x="-73.66" y="7.62" length="middle" swaplevel="1"/>
+<pin name="F13/IO_L20N_1/A19(50:IO_L20N_1)" x="-73.66" y="10.16" length="middle" swaplevel="1"/>
+<pin name="E14/IO_L20P_1/A18(50:IO_L20P_1)" x="-73.66" y="12.7" length="middle" swaplevel="1"/>
+<pin name="D15/IO_L22N_1/A21(50:IO_L22N_1)" x="-73.66" y="15.24" length="middle" swaplevel="1"/>
+<pin name="D16/IO_L22P_1/A20(50:IO_L22P_1)" x="-73.66" y="17.78" length="middle" swaplevel="1"/>
+<pin name="D14/IO_L23N_1/A23(50:IO_L23N_1)" x="-73.66" y="20.32" length="middle" swaplevel="1"/>
+<pin name="E13/IO_L23P_1/A22(50:IO_L23P_1)" x="-73.66" y="22.86" length="middle" swaplevel="1"/>
+<pin name="C15/IO_L24N_1/A25(50:IO_L24N_1)" x="-73.66" y="25.4" length="middle" swaplevel="1"/>
+<pin name="C16/IO_L24P_1/A24(50:IO_L24P_1)" x="-73.66" y="27.94" length="middle" swaplevel="1"/>
 <pin name="K12/IP_L04N_1/VREF_1" x="-73.66" y="30.48" length="middle"/>
 <pin name="K11/IP_L04P_1" x="-73.66" y="33.02" length="middle"/>
 <pin name="J11/IP_L09N_1(50:N.C.)" x="-73.66" y="35.56" length="middle"/>
@@ -1682,40 +1682,40 @@ The 100 and 200 have the same pinouts; the 50 is a subset of the 100/200 with so
 <pin name="N4/IO_L01P_2/M1" x="10.16" y="-63.5" length="middle"/>
 <pin name="T2/IO_L02N_2/CSO_B" x="10.16" y="-60.96" length="middle"/>
 <pin name="R2/IO_L02P_2/M2" x="10.16" y="-58.42" length="middle"/>
-<pin name="T3/IO_L03N_2/VS2(50:IO_L04P_2/VS2)" x="10.16" y="-55.88" length="middle"/>
+<pin name="T3/IO_L03N_2/VS2(50:IO_L04P_2/VS2)" x="10.16" y="-55.88" length="middle" swaplevel="1"/>
 <pin name="R3/IO_L03P_2/RDWR_B" x="10.16" y="-53.34" length="middle"/>
 <pin name="P5/IO_L04N_2/VS0" x="10.16" y="-50.8" length="middle"/>
-<pin name="N6/IO_L04P_2/VS1(50:IO_L03N_2/VS1)" x="10.16" y="-48.26" length="middle"/>
-<pin name="R5/IO_L05N_2(50:IO_L06P_2)" x="10.16" y="-45.72" length="middle"/>
-<pin name="T4/IO_L05P_2" x="10.16" y="-43.18" length="middle"/>
-<pin name="T6/IO_L06N_2/D6" x="10.16" y="-40.64" length="middle"/>
-<pin name="T5/IO_L06P_2/D7(50:IO_L05N_2/D7)" x="10.16" y="-38.1" length="middle"/>
-<pin name="P6/IO_L07N_2(50:N.C.)" x="10.16" y="-35.56" length="middle"/>
-<pin name="N7/IO_L07P_2(50:N.C.)" x="10.16" y="-33.02" length="middle"/>
-<pin name="N8/IO_L08N_2/D4" x="10.16" y="-30.48" length="middle"/>
-<pin name="P7/IO_L08P_2/D5" x="10.16" y="-27.94" length="middle"/>
-<pin name="T7/IO_L09N_2/GCLK13(50:N.C.)" x="10.16" y="-25.4" length="middle"/>
-<pin name="R7/IO_L09P_2/GCLK12(50:N.C.)" x="10.16" y="-22.86" length="middle"/>
-<pin name="T8/IO_L10N_2/GCLK15" x="10.16" y="-20.32" length="middle"/>
-<pin name="P8/IO_L10P_2/GCLK14" x="10.16" y="-17.78" length="middle"/>
-<pin name="P9/IO_L11N_2/GCLK1" x="10.16" y="-15.24" length="middle"/>
-<pin name="N9/IO_L11P_2/GCLK0" x="10.16" y="-12.7" length="middle"/>
-<pin name="T9/IO_L12N_2/GCLK3" x="10.16" y="-10.16" length="middle"/>
-<pin name="R9/IO_L12P_2/GCLK2" x="10.16" y="-7.62" length="middle"/>
-<pin name="M10/IO_L13N_2(50:N.C.)" x="10.16" y="-5.08" length="middle"/>
-<pin name="N10/IO_L13P_2(50:N.C.)" x="10.16" y="-2.54" length="middle"/>
+<pin name="N6/IO_L04P_2/VS1(50:IO_L03N_2/VS1)" x="10.16" y="-48.26" length="middle" swaplevel="1"/>
+<pin name="R5/IO_L05N_2(50:IO_L06P_2)" x="10.16" y="-45.72" length="middle" swaplevel="1"/>
+<pin name="T4/IO_L05P_2" x="10.16" y="-43.18" length="middle" swaplevel="1"/>
+<pin name="T6/IO_L06N_2/D6" x="10.16" y="-40.64" length="middle" swaplevel="1"/>
+<pin name="T5/IO_L06P_2/D7(50:IO_L05N_2/D7)" x="10.16" y="-38.1" length="middle" swaplevel="1"/>
+<pin name="P6/IO_L07N_2(50:N.C.)" x="10.16" y="-35.56" length="middle" swaplevel="1"/>
+<pin name="N7/IO_L07P_2(50:N.C.)" x="10.16" y="-33.02" length="middle" swaplevel="1"/>
+<pin name="N8/IO_L08N_2/D4" x="10.16" y="-30.48" length="middle" swaplevel="1"/>
+<pin name="P7/IO_L08P_2/D5" x="10.16" y="-27.94" length="middle" swaplevel="1"/>
+<pin name="T7/IO_L09N_2/GCLK13(50:N.C.)" x="10.16" y="-25.4" length="middle" swaplevel="1"/>
+<pin name="R7/IO_L09P_2/GCLK12(50:N.C.)" x="10.16" y="-22.86" length="middle" swaplevel="1"/>
+<pin name="T8/IO_L10N_2/GCLK15" x="10.16" y="-20.32" length="middle" swaplevel="1"/>
+<pin name="P8/IO_L10P_2/GCLK14" x="10.16" y="-17.78" length="middle" swaplevel="1"/>
+<pin name="P9/IO_L11N_2/GCLK1" x="10.16" y="-15.24" length="middle" swaplevel="1"/>
+<pin name="N9/IO_L11P_2/GCLK0" x="10.16" y="-12.7" length="middle" swaplevel="1"/>
+<pin name="T9/IO_L12N_2/GCLK3" x="10.16" y="-10.16" length="middle" swaplevel="1"/>
+<pin name="R9/IO_L12P_2/GCLK2" x="10.16" y="-7.62" length="middle" swaplevel="1"/>
+<pin name="M10/IO_L13N_2(50:N.C.)" x="10.16" y="-5.08" length="middle" swaplevel="1"/>
+<pin name="N10/IO_L13P_2(50:N.C.)" x="10.16" y="-2.54" length="middle" swaplevel="1"/>
 <pin name="P10/IO_L14N_2/MOSI/CSI_B(50:IO_L14P_2/MOSI/CSI_B)" x="10.16" y="0" length="middle"/>
-<pin name="T10/IO_L14P_2(50:IO_L14N_2)" x="10.16" y="2.54" length="middle"/>
-<pin name="R11/IO_L15N_2/DOUT" x="10.16" y="5.08" length="middle"/>
-<pin name="T11/IO_L15P_2/AWAKE" x="10.16" y="7.62" length="middle"/>
-<pin name="N11/IO_L16N_2" x="10.16" y="10.16" length="middle"/>
-<pin name="P11/IO_L16P_2" x="10.16" y="12.7" length="middle"/>
-<pin name="P12/IO_L17N_2/D3" x="10.16" y="15.24" length="middle"/>
+<pin name="T10/IO_L14P_2(50:IO_L14N_2)" x="10.16" y="2.54" length="middle" swaplevel="1"/>
+<pin name="R11/IO_L15N_2/DOUT" x="10.16" y="5.08" length="middle" swaplevel="1"/>
+<pin name="T11/IO_L15P_2/AWAKE" x="10.16" y="7.62" length="middle" swaplevel="1"/>
+<pin name="N11/IO_L16N_2" x="10.16" y="10.16" length="middle" swaplevel="1"/>
+<pin name="P11/IO_L16P_2" x="10.16" y="12.7" length="middle" swaplevel="1"/>
+<pin name="P12/IO_L17N_2/D3" x="10.16" y="15.24" length="middle" swaplevel="1"/>
 <pin name="T12/IO_L17P_2/INIT_B" x="10.16" y="17.78" length="middle"/>
-<pin name="R13/IO_L18N_2/D1(50:IO_L20P_2/D1)" x="10.16" y="20.32" length="middle"/>
-<pin name="T13/IO_L18P_2/D2" x="10.16" y="22.86" length="middle"/>
-<pin name="P13/IO_L19N_2(50:N.C.)" x="10.16" y="25.4" length="middle"/>
-<pin name="N12/IO_L19P_2(50:N.C.)" x="10.16" y="27.94" length="middle"/>
+<pin name="R13/IO_L18N_2/D1(50:IO_L20P_2/D1)" x="10.16" y="20.32" length="middle" swaplevel="1"/>
+<pin name="T13/IO_L18P_2/D2" x="10.16" y="22.86" length="middle" swaplevel="1"/>
+<pin name="P13/IO_L19N_2(50:N.C.)" x="10.16" y="25.4" length="middle" swaplevel="1"/>
+<pin name="N12/IO_L19P_2(50:N.C.)" x="10.16" y="27.94" length="middle" swaplevel="1"/>
 <pin name="R14/IO_L20N_2/CCLK" x="10.16" y="30.48" length="middle"/>
 <pin name="T14/IO_L20P_2/D0/DIN/MISO(50:IO_L18N_2/D0/DIN/MISO)" x="10.16" y="33.02" length="middle"/>
 <pin name="L7/IP_2" x="10.16" y="35.56" length="middle"/>
@@ -1730,46 +1730,46 @@ The 100 and 200 have the same pinouts; the 50 is a subset of the 100/200 with so
 <pin name="R4/VCCO_2" x="10.16" y="60.96" length="middle"/>
 <pin name="R8/VCCO_2" x="10.16" y="63.5" length="middle"/>
 <pin name="R12/VCCO_2" x="10.16" y="66.04" length="middle"/>
-<pin name="C1/IO_L01N_3" x="109.22" y="-71.12" length="middle"/>
-<pin name="C2/IO_L01P_3" x="109.22" y="-68.58" length="middle"/>
-<pin name="D3/IO_L02N_3" x="109.22" y="-66.04" length="middle"/>
-<pin name="D4/IO_L02P_3" x="109.22" y="-63.5" length="middle"/>
-<pin name="E1/IO_L03N_3" x="109.22" y="-60.96" length="middle"/>
-<pin name="D1/IO_L03P_3" x="109.22" y="-58.42" length="middle"/>
-<pin name="E2/IO_L05N_3(50:N.C.)" x="109.22" y="-55.88" length="middle"/>
-<pin name="E3/IO_L05P_3(50:N.C.)" x="109.22" y="-53.34" length="middle"/>
-<pin name="G4/IO_L07N_3(50:N.C.)" x="109.22" y="-50.8" length="middle"/>
-<pin name="F3/IO_L07P_3(50:N.C.)" x="109.22" y="-48.26" length="middle"/>
+<pin name="C1/IO_L01N_3" x="109.22" y="-71.12" length="middle" swaplevel="1"/>
+<pin name="C2/IO_L01P_3" x="109.22" y="-68.58" length="middle" swaplevel="1"/>
+<pin name="D3/IO_L02N_3" x="109.22" y="-66.04" length="middle" swaplevel="1"/>
+<pin name="D4/IO_L02P_3" x="109.22" y="-63.5" length="middle" swaplevel="1"/>
+<pin name="E1/IO_L03N_3" x="109.22" y="-60.96" length="middle" swaplevel="1"/>
+<pin name="D1/IO_L03P_3" x="109.22" y="-58.42" length="middle" swaplevel="1"/>
+<pin name="E2/IO_L05N_3(50:N.C.)" x="109.22" y="-55.88" length="middle" swaplevel="1"/>
+<pin name="E3/IO_L05P_3(50:N.C.)" x="109.22" y="-53.34" length="middle" swaplevel="1"/>
+<pin name="G4/IO_L07N_3(50:N.C.)" x="109.22" y="-50.8" length="middle" swaplevel="1"/>
+<pin name="F3/IO_L07P_3(50:N.C.)" x="109.22" y="-48.26" length="middle" swaplevel="1"/>
 <pin name="G1/IO_L08N_3/VREF_3" x="109.22" y="-45.72" length="middle"/>
-<pin name="F1/IO_L08P_3" x="109.22" y="-43.18" length="middle"/>
-<pin name="H4/IO_L09N_3(50:N.C.)" x="109.22" y="-40.64" length="middle"/>
-<pin name="G3/IO_L09P_3(50:N.C.)" x="109.22" y="-38.1" length="middle"/>
-<pin name="H5/IO_L10N_3(50:N.C.)" x="109.22" y="-35.56" length="middle"/>
-<pin name="H6/IO_L10P_3(50:N.C.)" x="109.22" y="-33.02" length="middle"/>
-<pin name="H1/IO_L11N_3/LHCLK1" x="109.22" y="-30.48" length="middle"/>
-<pin name="G2/IO_L11P_3/LHCLK0" x="109.22" y="-27.94" length="middle"/>
-<pin name="J3/IO_L12N_3/IRDY2/LHCLK3" x="109.22" y="-25.4" length="middle"/>
-<pin name="H3/IO_L12P_3/LHCLK2" x="109.22" y="-22.86" length="middle"/>
-<pin name="J1/IO_L14N_3/LHCLK5" x="109.22" y="-20.32" length="middle"/>
-<pin name="J2/IO_L14P_3/LHCLK4" x="109.22" y="-17.78" length="middle"/>
-<pin name="K1/IO_L15N_3/LHCLK7" x="109.22" y="-15.24" length="middle"/>
-<pin name="K3/IO_L15P_3/TRDY2/LHCLK6" x="109.22" y="-12.7" length="middle"/>
-<pin name="L2/IO_L16N_3(50:N.C.)" x="109.22" y="-10.16" length="middle"/>
-<pin name="L1/IO_L16P_3/VREF_3(50:N.C.)" x="109.22" y="-7.62" length="middle"/>
-<pin name="J6/IO_L17N_3(50:N.C.)" x="109.22" y="-5.08" length="middle"/>
-<pin name="J4/IO_L17P_3(50:N.C.)" x="109.22" y="-2.54" length="middle"/>
-<pin name="L3/IO_L18N_3(50:N.C.)" x="109.22" y="0" length="middle"/>
-<pin name="K4/IO_L18P_3(50:N.C.)" x="109.22" y="2.54" length="middle"/>
-<pin name="L4/IO_L19N_3(50:N.C.)" x="109.22" y="5.08" length="middle"/>
-<pin name="M3/IO_L19P_3(50:N.C.)" x="109.22" y="7.62" length="middle"/>
-<pin name="N1/IO_L20N_3" x="109.22" y="10.16" length="middle"/>
-<pin name="M1/IO_L20P_3" x="109.22" y="12.7" length="middle"/>
-<pin name="P1/IO_L22N_3" x="109.22" y="15.24" length="middle"/>
-<pin name="N2/IO_L22P_3" x="109.22" y="17.78" length="middle"/>
-<pin name="P2/IO_L23N_3" x="109.22" y="20.32" length="middle"/>
-<pin name="R1/IO_L23P_3" x="109.22" y="22.86" length="middle"/>
-<pin name="M4/IO_L24N_3" x="109.22" y="25.4" length="middle"/>
-<pin name="N3/IO_L24P_3" x="109.22" y="27.94" length="middle"/>
+<pin name="F1/IO_L08P_3" x="109.22" y="-43.18" length="middle" swaplevel="1"/>
+<pin name="H4/IO_L09N_3(50:N.C.)" x="109.22" y="-40.64" length="middle" swaplevel="1"/>
+<pin name="G3/IO_L09P_3(50:N.C.)" x="109.22" y="-38.1" length="middle" swaplevel="1"/>
+<pin name="H5/IO_L10N_3(50:N.C.)" x="109.22" y="-35.56" length="middle" swaplevel="1"/>
+<pin name="H6/IO_L10P_3(50:N.C.)" x="109.22" y="-33.02" length="middle" swaplevel="1"/>
+<pin name="H1/IO_L11N_3/LHCLK1" x="109.22" y="-30.48" length="middle" swaplevel="1"/>
+<pin name="G2/IO_L11P_3/LHCLK0" x="109.22" y="-27.94" length="middle" swaplevel="1"/>
+<pin name="J3/IO_L12N_3/IRDY2/LHCLK3" x="109.22" y="-25.4" length="middle" swaplevel="1"/>
+<pin name="H3/IO_L12P_3/LHCLK2" x="109.22" y="-22.86" length="middle" swaplevel="1"/>
+<pin name="J1/IO_L14N_3/LHCLK5" x="109.22" y="-20.32" length="middle" swaplevel="1"/>
+<pin name="J2/IO_L14P_3/LHCLK4" x="109.22" y="-17.78" length="middle" swaplevel="1"/>
+<pin name="K1/IO_L15N_3/LHCLK7" x="109.22" y="-15.24" length="middle" swaplevel="1"/>
+<pin name="K3/IO_L15P_3/TRDY2/LHCLK6" x="109.22" y="-12.7" length="middle" swaplevel="1"/>
+<pin name="L2/IO_L16N_3(50:N.C.)" x="109.22" y="-10.16" length="middle" swaplevel="1"/>
+<pin name="L1/IO_L16P_3/VREF_3(50:N.C.)" x="109.22" y="-7.62" length="middle" swaplevel="1"/>
+<pin name="J6/IO_L17N_3(50:N.C.)" x="109.22" y="-5.08" length="middle" swaplevel="1"/>
+<pin name="J4/IO_L17P_3(50:N.C.)" x="109.22" y="-2.54" length="middle" swaplevel="1"/>
+<pin name="L3/IO_L18N_3(50:N.C.)" x="109.22" y="0" length="middle" swaplevel="1"/>
+<pin name="K4/IO_L18P_3(50:N.C.)" x="109.22" y="2.54" length="middle" swaplevel="1"/>
+<pin name="L4/IO_L19N_3(50:N.C.)" x="109.22" y="5.08" length="middle" swaplevel="1"/>
+<pin name="M3/IO_L19P_3(50:N.C.)" x="109.22" y="7.62" length="middle" swaplevel="1"/>
+<pin name="N1/IO_L20N_3" x="109.22" y="10.16" length="middle" swaplevel="1"/>
+<pin name="M1/IO_L20P_3" x="109.22" y="12.7" length="middle" swaplevel="1"/>
+<pin name="P1/IO_L22N_3" x="109.22" y="15.24" length="middle" swaplevel="1"/>
+<pin name="N2/IO_L22P_3" x="109.22" y="17.78" length="middle" swaplevel="1"/>
+<pin name="P2/IO_L23N_3" x="109.22" y="20.32" length="middle" swaplevel="1"/>
+<pin name="R1/IO_L23P_3" x="109.22" y="22.86" length="middle" swaplevel="1"/>
+<pin name="M4/IO_L24N_3" x="109.22" y="25.4" length="middle" swaplevel="1"/>
+<pin name="N3/IO_L24P_3" x="109.22" y="27.94" length="middle" swaplevel="1"/>
 <pin name="F4/IP_L04N_3/VREF_3" x="109.22" y="30.48" length="middle"/>
 <pin name="E4/IP_L04P_3" x="109.22" y="33.02" length="middle"/>
 <pin name="G5/IP_L06N_3/VREF_3(50:N.C.)" x="109.22" y="35.56" length="middle"/>
