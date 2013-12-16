@@ -1,0 +1,17 @@
+*
+!*.v
+!*.py
+!*.ucf
+!*.wcfg
+!.gitignore
+!*.xise
+!*.xst
+!src
+!test
+!ipcore_dir
+!ipcore_dir/*
+!ipcore_dir/*/*
+ipcore_dir/_xmsgs
+ipcore_dir/tmp
+!Makefile
+!impact.batch

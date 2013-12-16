@@ -1,0 +1,5 @@
+setMode -bscan
+setCable -port svf -file cpld.svf
+addDevice -position 1 -file /home/kmod/Dropbox/ee/jtag/cpld_test/cpld.jed
+program -e -v -p 1
+quit
