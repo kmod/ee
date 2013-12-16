@@ -17,6 +17,8 @@
 // - get_tdo (whether or not to read the TDO line and send it back)
 // - #enable (set to 1 to set to a noop packet, ex if you want to send just 1 packet in a byte)
 
+#include "Arduino.h"
+
 void setup() {
     Serial.begin(500000);
 
@@ -39,6 +41,7 @@ void pulse(int nibble) {
     //bitWrite(PORTD, 2, (nibble>>2)&1);
 
     bitSet(PORTD, 4);
+    delay(100);
     bitClear(PORTD, 4);
 
     if (nibble & (1<<1)) {
@@ -46,6 +49,7 @@ void pulse(int nibble) {
         uint8_t data = (PIND >> 5) & 1;
         Serial.write((char)data);
     }
+    delay(100);
 }
 
 void loop() {

@@ -8,6 +8,8 @@ import time
 
 from debugger.controller import Controller
 
+print_lock = threading.Lock()
+
 class JtagController(object):
     def __init__(self):
         self.state = None
@@ -83,9 +85,10 @@ class JtagController(object):
                 if d:
                     got_tdo |= 1 << i
             if (got_tdo ^ tdo) & mask:
-                print bin(got_tdo).rjust(nbits+10)
-                print bin(tdo).rjust(nbits+10)
-                print bin(mask).rjust(nbits+10)
+                with print_lock:
+                    print bin(got_tdo).rjust(nbits+10)
+                    print bin(tdo).rjust(nbits+10)
+                    print bin(mask).rjust(nbits+10)
                 os._exit(1)
             self._verify_queue.task_done()
 
@@ -213,7 +216,8 @@ def main(fn):
         if not l:
             continue
 
-        print l
+        with print_lock:
+            print l
         l = l.split('//')[0].strip()
         if not l:
             continue
@@ -285,8 +289,9 @@ def main(fn):
             raise Exception(l)
 
     ctlr.join()
-    print "Took %.1fs to program, sent %d pulses" % (time.time() - start, ctlr.npulses)
-    print "Sent %d bytes, received %d" % (ctlr.ctlr.bytes_written, ctlr.ctlr.bytes_read)
+    with print_lock:
+        print "Took %.1fs to program, sent %d pulses" % (time.time() - start, ctlr.npulses)
+        print "Sent %d bytes, received %d" % (ctlr.ctlr.bytes_written, ctlr.ctlr.bytes_read)
 
 if __name__ == "__main__":
     fn = sys.argv[1]
