@@ -28,6 +28,8 @@ Assign F4 'Delete';
 Assign F5 'Name';
 Assign F6 'Value';
 ASSIGN C+V PASTE;
+ASSIGN C+1 WINDOW 1.2;
+ASSIGN C+2 WINDOW 0.833;
 
 BRD:
 Grid mm 0.5 on alt mm 0.01;

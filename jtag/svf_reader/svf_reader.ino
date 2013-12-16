@@ -1,6 +1,21 @@
-// Simple script that allows fairly complete -- if slow -- control
-// of the ATmega over serial.
-// I use it to test out new protocols and debug by hand.
+// Simple sketch that is optimized to work with the JTAG svf_reader.py script,
+// though really it just does SPI.
+
+// To hookup:
+// pin 2 is TDI (output)
+// pin 3 is TMS (output)
+// pin 4 is TCK (output)
+// pin 5 is TDO (input)
+// pins 6 and 7 can be used for debug output [currently not enabled]
+// make sure to do level shifting appropriately
+
+// protocol:
+// each message is a 4-bit packet, and there can be 0, 1, or 2 packets per byte.
+// packet structure, MSB first:
+// - TMS
+// - TDI
+// - get_tdo (whether or not to read the TDO line and send it back)
+// - #enable (set to 1 to set to a noop packet, ex if you want to send just 1 packet in a byte)
 
 void setup() {
     Serial.begin(500000);

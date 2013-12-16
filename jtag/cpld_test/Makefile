@@ -1,6 +1,6 @@
 # Simplified from http://www.xess.com/appnotes/makefile.php
 
-ISE_BIN=/opt/Xilinx/14.6/ISE_DS/ISE/bin/lin64
+ISE_BIN=/opt/Xilinx/14.7/ISE_DS/ISE/bin/lin64
 
 CPLDFIT_FLAGS=
 HPREP6_FLAGS=
@@ -25,4 +25,4 @@ cpld.svf: cpld.jed impact.batch
 
 .PHONY: prog
 prog: cpld.svf
-	python /home/kmod/Dropbox/ee/jtag/svf_reader.py cpld.svf
+	python /home/kmod/Dropbox/ee/jtag/svf_reader/svf_reader.py cpld.svf

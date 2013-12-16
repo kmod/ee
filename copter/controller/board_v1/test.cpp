@@ -1,11 +1,14 @@
 #include "Arduino.h"
 
-#define SCK 13
+#define LED 9
 
 void setup() {
-    pinMode(SCK, OUTPUT);
-    digitalWrite(SCK, 1);
+    pinMode(LED, OUTPUT);
 }
 
 void loop() {
+    digitalWrite(LED, 1);
+    delay(500);
+    digitalWrite(LED, 0);
+    delay(500);
 }
