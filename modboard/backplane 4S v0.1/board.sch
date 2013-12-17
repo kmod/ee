@@ -640,42 +640,42 @@ Got this from the interweb as a 16x, and reduced in size.  Not sure if the outer
 <wire x1="-17" y1="4.55" x2="-17" y2="0.25" width="0" layer="51"/>
 <wire x1="8" y1="7.05" x2="8" y2="3.5" width="0" layer="51"/>
 <wire x1="8" y1="7.05" x2="9" y2="7.05" width="0" layer="51"/>
-<smd name="B2" x="-10.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90"/>
-<smd name="B1" x="-11.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90"/>
-<smd name="B3" x="-9.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90"/>
-<smd name="B4" x="-8.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90"/>
-<smd name="B5" x="-7.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90"/>
-<smd name="B6" x="-6.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90"/>
-<smd name="B7" x="-5.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90"/>
-<smd name="B8" x="-4.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90"/>
-<smd name="B9" x="-3.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90"/>
-<smd name="B10" x="-2.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90"/>
-<smd name="B11" x="-1.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90"/>
-<smd name="B12" x="1.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90"/>
-<smd name="B13" x="2.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90"/>
-<smd name="B14" x="3.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90"/>
-<smd name="B15" x="4.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90"/>
-<smd name="B16" x="5.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90"/>
-<smd name="B17" x="6.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90"/>
-<smd name="B18" x="7.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90"/>
-<smd name="A1" x="-11.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90"/>
-<smd name="A2" x="-10.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90"/>
-<smd name="A3" x="-9.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90"/>
-<smd name="A4" x="-8.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90"/>
-<smd name="A5" x="-7.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90"/>
-<smd name="A6" x="-6.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90"/>
-<smd name="A7" x="-5.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90"/>
-<smd name="A8" x="-4.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90"/>
-<smd name="A9" x="-3.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90"/>
-<smd name="A10" x="-2.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90"/>
-<smd name="A11" x="-1.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90"/>
-<smd name="A12" x="1.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90"/>
-<smd name="A13" x="2.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90"/>
-<smd name="A14" x="3.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90"/>
-<smd name="A15" x="4.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90"/>
-<smd name="A16" x="5.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90"/>
-<smd name="A17" x="6.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90"/>
-<smd name="A18" x="7.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90"/>
+<smd name="B2" x="-10.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90" cream="no"/>
+<smd name="B1" x="-11.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90" cream="no"/>
+<smd name="B3" x="-9.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90" cream="no"/>
+<smd name="B4" x="-8.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90" cream="no"/>
+<smd name="B5" x="-7.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90" cream="no"/>
+<smd name="B6" x="-6.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90" cream="no"/>
+<smd name="B7" x="-5.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90" cream="no"/>
+<smd name="B8" x="-4.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90" cream="no"/>
+<smd name="B9" x="-3.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90" cream="no"/>
+<smd name="B10" x="-2.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90" cream="no"/>
+<smd name="B11" x="-1.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90" cream="no"/>
+<smd name="B12" x="1.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90" cream="no"/>
+<smd name="B13" x="2.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90" cream="no"/>
+<smd name="B14" x="3.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90" cream="no"/>
+<smd name="B15" x="4.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90" cream="no"/>
+<smd name="B16" x="5.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90" cream="no"/>
+<smd name="B17" x="6.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90" cream="no"/>
+<smd name="B18" x="7.5" y="-0.75" dx="4" dy="0.7" layer="1" roundness="40" rot="R90" cream="no"/>
+<smd name="A1" x="-11.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90" cream="no"/>
+<smd name="A2" x="-10.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90" cream="no"/>
+<smd name="A3" x="-9.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90" cream="no"/>
+<smd name="A4" x="-8.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90" cream="no"/>
+<smd name="A5" x="-7.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90" cream="no"/>
+<smd name="A6" x="-6.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90" cream="no"/>
+<smd name="A7" x="-5.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90" cream="no"/>
+<smd name="A8" x="-4.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90" cream="no"/>
+<smd name="A9" x="-3.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90" cream="no"/>
+<smd name="A10" x="-2.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90" cream="no"/>
+<smd name="A11" x="-1.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90" cream="no"/>
+<smd name="A12" x="1.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90" cream="no"/>
+<smd name="A13" x="2.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90" cream="no"/>
+<smd name="A14" x="3.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90" cream="no"/>
+<smd name="A15" x="4.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90" cream="no"/>
+<smd name="A16" x="5.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90" cream="no"/>
+<smd name="A17" x="6.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90" cream="no"/>
+<smd name="A18" x="7.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90" cream="no"/>
 <wire x1="-12" y1="4.55" x2="-12" y2="3.5" width="0" layer="51"/>
 </package>
 </packages>
@@ -696,15 +696,15 @@ Got this from the interweb as a 16x, and reduced in size.  Not sure if the outer
 <pin name="3.3V" x="15.24" y="7.62" length="middle" rot="R180"/>
 <pin name="12V@2" x="15.24" y="5.08" length="middle" rot="R180"/>
 <pin name="E0" x="15.24" y="2.54" length="middle" rot="R180"/>
-<pin name="C0" x="15.24" y="0" length="middle" rot="R180"/>
-<pin name="C1" x="15.24" y="-2.54" length="middle" rot="R180"/>
-<pin name="C2" x="15.24" y="-7.62" length="middle" rot="R180"/>
-<pin name="C3" x="15.24" y="-10.16" length="middle" rot="R180"/>
+<pin name="C0" x="15.24" y="0" length="middle" swaplevel="1" rot="R180"/>
+<pin name="C1" x="15.24" y="-2.54" length="middle" swaplevel="1" rot="R180"/>
+<pin name="C2" x="15.24" y="-7.62" length="middle" swaplevel="1" rot="R180"/>
+<pin name="C3" x="15.24" y="-10.16" length="middle" swaplevel="1" rot="R180"/>
 <pin name="E2" x="15.24" y="-12.7" length="middle" rot="R180"/>
-<pin name="A0" x="15.24" y="-15.24" length="middle" rot="R180"/>
-<pin name="A1" x="15.24" y="-17.78" length="middle" rot="R180"/>
-<pin name="A2" x="15.24" y="-20.32" length="middle" rot="R180"/>
-<pin name="A3" x="15.24" y="-22.86" length="middle" rot="R180"/>
+<pin name="A0" x="15.24" y="-15.24" length="middle" swaplevel="1" rot="R180"/>
+<pin name="A1" x="15.24" y="-17.78" length="middle" swaplevel="1" rot="R180"/>
+<pin name="A2" x="15.24" y="-20.32" length="middle" swaplevel="1" rot="R180"/>
+<pin name="A3" x="15.24" y="-22.86" length="middle" swaplevel="1" rot="R180"/>
 <pin name="TDI" x="-15.24" y="22.86" length="middle"/>
 <pin name="TCK" x="-15.24" y="20.32" length="middle"/>
 <pin name="MSEN" x="-15.24" y="17.78" length="middle"/>
@@ -714,15 +714,15 @@ Got this from the interweb as a 16x, and reduced in size.  Not sure if the outer
 <pin name="1.8V" x="-15.24" y="7.62" length="middle"/>
 <pin name="12V@1" x="-15.24" y="5.08" length="middle"/>
 <pin name="E1" x="-15.24" y="2.54" length="middle"/>
-<pin name="D0" x="-15.24" y="0" length="middle"/>
-<pin name="D1" x="-15.24" y="-2.54" length="middle"/>
-<pin name="D2" x="-15.24" y="-7.62" length="middle"/>
-<pin name="D3" x="-15.24" y="-10.16" length="middle"/>
+<pin name="D0" x="-15.24" y="0" length="middle" swaplevel="1"/>
+<pin name="D1" x="-15.24" y="-2.54" length="middle" swaplevel="1"/>
+<pin name="D2" x="-15.24" y="-7.62" length="middle" swaplevel="1"/>
+<pin name="D3" x="-15.24" y="-10.16" length="middle" swaplevel="1"/>
 <pin name="E3" x="-15.24" y="-12.7" length="middle"/>
-<pin name="B0" x="-15.24" y="-15.24" length="middle"/>
-<pin name="B1" x="-15.24" y="-17.78" length="middle"/>
-<pin name="B2" x="-15.24" y="-20.32" length="middle"/>
-<pin name="B3" x="-15.24" y="-22.86" length="middle"/>
+<pin name="B0" x="-15.24" y="-15.24" length="middle" swaplevel="1"/>
+<pin name="B1" x="-15.24" y="-17.78" length="middle" swaplevel="1"/>
+<pin name="B2" x="-15.24" y="-20.32" length="middle" swaplevel="1"/>
+<pin name="B3" x="-15.24" y="-22.86" length="middle" swaplevel="1"/>
 </symbol>
 <symbol name="PCIE-X1">
 <wire x1="10.16" y1="25.4" x2="-10.16" y2="25.4" width="0.254" layer="94"/>
