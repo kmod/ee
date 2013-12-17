@@ -164,8 +164,9 @@
 <text x="33.02" y="1.016" size="0.6096" layer="21" rot="R90">PWR</text>
 <text x="33.02" y="11.176" size="0.6096" layer="21" rot="R90">D13</text>
 <text x="17.272" y="13.208" size="0.6096" layer="21" rot="R180">Minimega v1.1 9-13-13</text>
-<text x="16.002" y="4.318" size="0.6096" layer="21">Minimega v1.1b
-9-14-13</text>
+<text x="16.502" y="6.318" size="0.6096" layer="21">Minimega v1.1c
+9-14-13
+(mod 12-17-2013)</text>
 </plain>
 <libraries>
 <library name="SparkFun-DigitalIC">
