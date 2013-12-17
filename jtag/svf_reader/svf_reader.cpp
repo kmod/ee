@@ -41,7 +41,7 @@ void pulse(int nibble) {
     //bitWrite(PORTD, 2, (nibble>>2)&1);
 
     bitSet(PORTD, 4);
-    delay(100);
+    delay(50);
     bitClear(PORTD, 4);
 
     if (nibble & (1<<1)) {
@@ -49,7 +49,7 @@ void pulse(int nibble) {
         uint8_t data = (PIND >> 5) & 1;
         Serial.write((char)data);
     }
-    delay(100);
+    delay(50);
 }
 
 void loop() {
