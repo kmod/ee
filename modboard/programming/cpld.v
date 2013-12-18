@@ -19,11 +19,11 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module cpld(
-    input a,
-    input b,
-    output x
+    input p3B2,
+    //input b,
+    output p3A3
     );
 
-	assign x = a ^ b;
+    assign p3A3 = p3B2;
 
 endmodule
