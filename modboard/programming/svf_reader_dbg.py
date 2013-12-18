@@ -49,7 +49,7 @@ class JtagController(object):
 
         # The 'correct' value here is 22, but
         # overclock it to 50 which seems to work (100 seems stable).
-        for i in xrange(0, micros, 50):
+        for i in xrange(0, micros, 22):
             self.pulse(0, 0, get_tdo=False)
 
     def flush(self):

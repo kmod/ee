@@ -21,9 +21,17 @@
 module cpld(
     input p3B2,
     //input b,
-    output p3A3
+    output reg p3A0,
+    output reg p3A1,
+    output reg p3A2,
+    output reg p3A3
+
     );
 
-    assign p3A3 = p3B2;
+    always @(posedge p3B2) begin
+        {p3A3, p3A2, p3A1, p3A0} <= {p3A3, p3A2, p3A1, p3A0} + 1;
+    end
+    //assign p3A3 = p3B2;
+    //assign p3A2 = !p3B2;
 
 endmodule
