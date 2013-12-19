@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.5" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.025" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
@@ -241,7 +241,7 @@ Forget where I copied from; works fine.</description>
 <text x="-6.731" y="-0.635" size="1.27" layer="27" ratio="10">&gt;VALUE</text>
 </package>
 <package name="TSSOP14">
-<description>&lt;b&gt;Thin Shrink Small Outline Plastic 14&lt;/b&gt;&lt;p&gt;
+<description>&lt;b&gt;Thin Shrink Small Outline Plastic 14, 4.40mm width&lt;/b&gt;&lt;p&gt;
 Forget where I copied from, but seems to work well.  Could maybe make pads longer for easier hand-soldering.</description>
 <wire x1="-2.5146" y1="-2.2828" x2="2.5146" y2="-2.2828" width="0.1524" layer="21"/>
 <wire x1="2.5146" y1="2.2828" x2="2.5146" y2="-2.2828" width="0.1524" layer="21"/>
@@ -357,7 +357,7 @@ Think I copied it from &lt;a href="http://www.ti.com/lit/ds/symlink/sn74lv08a.pd
 <circle x="-1.5" y="-1.5" radius="0.1" width="0.127" layer="21"/>
 </package>
 <package name="TSSOP16">
-<description>&lt;b&gt;Thin Shrink Small Outline Plastic 16&lt;/b&gt;&lt;p&gt;
+<description>&lt;b&gt;Thin Shrink Small Outline Plastic 16, 4.4mm width&lt;/b&gt;&lt;p&gt;
 Forget where I copied it from.  Same thoughts as the TSSOP-14: works well but maybe could lengthen the pads.</description>
 <wire x1="-2.5146" y1="-2.2828" x2="2.5146" y2="-2.2828" width="0.1524" layer="21"/>
 <wire x1="2.5146" y1="2.2828" x2="2.5146" y2="-2.2828" width="0.1524" layer="21"/>
