@@ -357,7 +357,7 @@ Think I copied it from &lt;a href="http://www.ti.com/lit/ds/symlink/sn74lv08a.pd
 <circle x="-1.5" y="-1.5" radius="0.1" width="0.127" layer="21"/>
 </package>
 <package name="TSSOP16">
-<description>&lt;b&gt;Thin Shrink Small Outline Plastic 16, 4.4mm width&lt;/b&gt;&lt;p&gt;
+<description>&lt;b&gt;Thin Shrink Small Outline Plastic 16, 4.40mm width&lt;/b&gt;&lt;p&gt;
 Forget where I copied it from.  Same thoughts as the TSSOP-14: works well but maybe could lengthen the pads.</description>
 <wire x1="-2.5146" y1="-2.2828" x2="2.5146" y2="-2.2828" width="0.1524" layer="21"/>
 <wire x1="2.5146" y1="2.2828" x2="2.5146" y2="-2.2828" width="0.1524" layer="21"/>
