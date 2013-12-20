@@ -80,8 +80,10 @@ board backplane_4s:
     1 b0 p11
     1 b1 p12
     1 c3 p13
-    ; e3 unconnected
-    ; 1 e3 unconnected
+
+    e3 unconnected
+    1 e3 unconnected
+
 board ioboard:
     a0 led3
     a1 led2
@@ -102,4 +104,27 @@ board ioboard:
     e0 led7
     e1 sw7
     e2 led4
-    ; e3 unconnected
+
+    e3 unconnected
+
+board mbmega:
+    a0 mosi
+    a1 ss
+    a2 rst
+    a3 ledf
+    b0 pd3
+    b1 pd2
+    b2 pd1
+    b3 pd0
+    c0 pd4
+    c1 pd5
+    c2 sck
+    c3 miso
+    d0 pa2
+    d1 pa1
+    d2 pa0
+    d3 pd8
+    e0 pd6
+    e1 pd7
+    e2 gnd
+    e3 gnd
