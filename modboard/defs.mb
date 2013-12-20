@@ -1,0 +1,105 @@
+board backplane_4s:
+    1 d3 p14
+    1 d2 p15
+    1 d1 p16
+    1 c1 p17
+    1 d0 p18
+    1 e1 p19
+    e1 p22
+    d0 p23
+    d1 p24
+    g0 p27
+    d2 p28
+    d3 p29
+    b0 p30
+    b1 p32
+    b2 p33
+    b3 p34
+    e0 p35
+    c0 p36
+    c1 p37
+    c2 p39
+    c3 p40
+    e2 p41
+    a0 p42
+    a1 p43
+    3 e2 p44
+    3 d3 p46
+    a2 p49
+    a3 p50
+    3 a3 p52
+    3 a1 p53
+    3 d0 p54
+    3 a2 p55
+    3 a0 p56
+    3 c2 p58
+    3 e0 p59
+    3 b2 p60
+    3 b0 p61
+    3 e3 p63
+    3 b3 p64
+
+    3 d2 p65
+    3 d1 p66
+    3 b1 p67
+    3 c3 p68
+    3 c0 p70
+    3 c1 p71
+    2 c0 p72
+    3 e1 p73
+    2 c1 p74
+    2 c2 p76
+    2 a3 p77
+    2 a1 p78
+    2 a2 p79
+    2 e2 p80
+    2 b2 p81
+    2 d2 p82
+    2 d3 p85
+    2 d1 p86
+    2 d0 p87
+    2 a0 p89
+    2 b1 p90
+    2 b3 p91
+    2 b0 p92
+    2 e3 p93
+    2 c3 p94
+    2 e0 p95
+    2 e1 p96
+    1 c0 p97
+    grst p99
+    1 e0 p1
+    1 a3 p2
+    1 a1 p3
+    1 e2 p4
+    1 a2 p6
+    1 a0 p7
+    1 b2 p8
+    1 c2 p9
+    1 b3 p10
+    1 b0 p11
+    1 b1 p12
+    1 c3 p13
+    ; e3 unconnected
+    ; 1 e3 unconnected
+board ioboard:
+    a0 led3
+    a1 led2
+    a2 led1
+    a3 led0
+    b0 sw2
+    b1 sw1
+    b2 sw0
+    b3 ftdi_dtr
+    c0 ftdi_rxi
+    c1 ftdi_txd
+    c2 led6
+    c3 led5
+    d0 sw6
+    d1 sw5
+    d2 sw4
+    d3 sw3
+    e0 led7
+    e1 sw7
+    e2 led4
+    ; e3 unconnected
