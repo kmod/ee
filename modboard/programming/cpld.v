@@ -21,17 +21,23 @@
 module cpld(
     input p3B1,
     input p3B2,
+    input p3B3, // ftdi_dtr
+    input p3C0, // ftdi_rxi, connects to d0
+    output p3C1, //ftdi_txd, connects to d1
+    output p2B3, // d0
+    input p2B2, // d1
+    output p2A2, // mb rst
     input pG0,
     input pRST,
-    output p2A2,
-    output p2A3,
+    output p2A3, // mb led
     output p3A0,
     output p3A1,
     output p3A2,
     output p3A3
     );
 
-    assign p2A2 = 1;
+    assign p2A2 = p3B3;
+    //assign p2A2 = 1;
     assign p2A3 = !p3B1;
 
     assign p3A1 = pRST;
