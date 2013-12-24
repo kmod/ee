@@ -1,0 +1,10 @@
+include ../defs.mb
+
+setup prg_test:
+    board backplane_4s backplane unconnected
+    board ioboard io backplane.3
+    board mbmega mega backplane.2
+    board pwrboard pwr backplane.1
+
+    assign io.led3 = io.sw0
+    assign mega.ledf = io.sw1
