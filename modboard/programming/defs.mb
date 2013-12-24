@@ -1,8 +1,8 @@
 board backplane_4s:
-    socket 1 jtag=0
-    socket 2 jtag=1
-    socket 3 jtag=2
-    router cpld jtag=3 part=xc2c64a-7-vq100
+    socket 1 jtag=1
+    socket 2 jtag=2
+    socket 3 jtag=3
+    router cpld jtag=4 part=xc2c64a-7-vq100
 
     pin 1.d3 port=cpld.14
     pin 1.d2 port=cpld.15
@@ -85,11 +85,12 @@ board backplane_4s:
     pin 1.b1 port=cpld.12
     pin 1.c3 port=cpld.13
 
-    pin e3 unconnected
-    pin 1.e3 unconnected
+    pin e3 # unconnected
+    pin 1.e3 # unconnected
+end
 
 board ioboard:
-    jtag_entry jtag=0
+    jtag_entry jtag=1
     pin a0 alias=led3 default=0z
     pin a1 alias=led2 default=0z
     pin a2 alias=led1 default=0z
@@ -109,26 +110,28 @@ board ioboard:
     pin e0 alias=led7 default=0z
     pin e1 alias=sw7 default=z
     pin e2 alias=led4 default=0z
-    pin e3 unconnected
+    pin e3 # unconnected
+end
 
 board mbmega:
-    pin a0 mosi default=z
-    pin a1 ss default=z
-    pin a2 rst default=z
-    pin a3 ledf default=0z
-    pin b0 pd3 default=z
-    pin b1 pd2 default=z
-    pin b2 pd1 default=z
-    pin b3 pd0 default=z
-    pin c0 pd4 default=z
-    pin c1 pd5 default=z
-    pin c2 sck default=z
-    pin c3 miso default=z
-    pin d0 pa2 default=z
-    pin d1 pa1 default=z
-    pin d2 pa0 default=z
-    pin d3 pd8 default=z
-    pin e0 pd6 default=z
-    pin e1 pd7 default=z
-    pin e2 gnd default=0
-    pin e3 gnd default=0
+    pin a0 alias=mosi default=z
+    pin a1 alias=ss default=z
+    pin a2 alias=rst default=z
+    pin a3 alias=ledf default=0z
+    pin b0 alias=pd3 default=z
+    pin b1 alias=pd2 default=z
+    pin b2 alias=pd1 default=z
+    pin b3 alias=pd0 default=z
+    pin c0 alias=pd4 default=z
+    pin c1 alias=pd5 default=z
+    pin c2 alias=sck default=z
+    pin c3 alias=miso default=z
+    pin d0 alias=pa2 default=z
+    pin d1 alias=pa1 default=z
+    pin d2 alias=pa0 default=z
+    pin d3 alias=pd8 default=z
+    pin e0 alias=pd6 default=z
+    pin e1 alias=pd7 default=z
+    pin e2 alias=gnd default=0
+    pin e3 alias=gnd default=0
+end
