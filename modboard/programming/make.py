@@ -7,6 +7,7 @@ def main():
     assert fn.endswith('.mb')
 
     build_dir = fn[:-3]
-    os.makedir(build_dir)
+    if not os.path.exists(build_dir):
+        os.makedirs(build_dir)
 
 main()
