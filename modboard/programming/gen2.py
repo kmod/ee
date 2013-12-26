@@ -1,4 +1,5 @@
 import collections
+import re
 import sys
 
 import parser
@@ -94,7 +95,7 @@ class Assembly(object):
         self.name = name
 
         self.boards = {}
-        self.assignments = {}
+        self.assignments = []
         self.connections = {}
 
     def addBoard(self, args, opts):
@@ -112,6 +113,7 @@ class Assembly(object):
             assert conn_id in self.boards
             conn_b = self.boards[conn_id][0]
             assert conn_socket in conn_b.sockets
+            assert conn_socket not in self.connections[conn_id], (boardname, conn_id, conn_socket)
 
             d[None] = (conn_id, conn_socket)
             self.connections[conn_id][conn_socket] = (id, None)
@@ -123,25 +125,25 @@ class Assembly(object):
         val = ' '.join(args[1:])
 
         target = args[0]
-        board_id, name = target.split('.')
+        board_id, name = target.split('.', 1)
         assert board_id in self.boards
 
-        assert target not in self.assignments
-        self.assignments[target] = val
+        assert not [1 for (t, s) in self.assignments if t == target]
+        self.assignments.append((target, val))
 
     def process(self):
         r = Router(self)
-        for a in self.assignments.iteritems():
+        for a in self.assignments:
             target, source = a
-            r.route(target, source)
-            1/0
+            path = r.route(target, source)
+            print path
 
 class Router(object):
     def __init__(self, assem):
         self.a = assem
 
     def _mapPin(self, pin):
-        board, pin = pin.split('.')
+        board, pin = pin.split('.', 1)
         boarddef = self.a.boards[board][0]
         pin = boarddef.pins[pin]
         return (board, pin[0], pin[1])
@@ -159,38 +161,42 @@ class Router(object):
         target = self._mapPin(target)
         source = self._mapPin(source)
         print
-        print "Routing", source, "to", target
+        print "Routing", target, "from", source
 
+        seen = set()
         q = collections.deque()
-        q.append([source])
+        def add(curpath, next):
+            if next is None:
+                return
+            if next not in seen:
+                seen.add(next)
+                q.append(curpath + [next])
+        add([], target)
+
         while q:
             curpath = q.popleft()
 
-            print curpath
+            # print curpath
             last = curpath[-1]
-            if last == target:
+            if last == source:
                 return curpath
 
-            nboards = {}
-            for p in curpath:
-                nboards[p[0]] = nboards.get(p[0], 0) + 1
-
             flipped = self._flipPin(last)
-            if flipped and nboards.get(flipped[0], 0) == 0:
-                q.append(curpath + [flipped])
+            add(curpath, flipped)
 
-            boarddef = self.a.boards[last[0]][0]
-            pin_attrs = boarddef.sockets[last[1]][1][last[2]][2]
-            # print pin_attrs
-            if 'port' in pin_attrs and nboards[last[0]] == 1:
-                router_name, router_pin = pin_attrs['port'].split('.')
-                router = boarddef.routers[router_name]
-                seen_sockets = set()
-                for dest_socket, dest_pin in router[2].values():
-                    if dest_socket in seen_sockets or dest_socket == last[1]:
-                        continue
-                    seen_sockets.add(dest_socket)
-                    q.append(curpath + [(last[0], dest_socket, dest_pin)])
+            if last[2] not in ('g0', 'grst'):
+                assert re.match("[a-e][0-3]", last[2]), last
+
+                boarddef = self.a.boards[last[0]][0]
+                pin_attrs = boarddef.sockets[last[1]][1][last[2]][2]
+                # print pin_attrs
+                if 'port' in pin_attrs:
+                    router_name, router_pin = pin_attrs['port'].split('.')
+                    router = boarddef.routers[router_name]
+
+                    for dest_socket, dest_pin in router[2].values():
+                        add(curpath, (last[0], dest_socket, dest_pin))
+
         raise Exception("Could not route %s to %s!" % (source, target))
 
 assemblies = []
@@ -214,14 +220,16 @@ def main():
     p = parser.Parser()
     p.parse(in_fn, global_scope)
 
-    assert len(assemblies) == 1
     for board_name, b in board_defs.items():
         for sid, sdefs in b.sockets.values():
             for c in "abcde":
                 for n in "0123":
                     assert (c+n) in sdefs, (board_name, sid)
 
-    modules = assemblies[0].process()
+    for assem in assemblies:
+        print
+        print "Processing assembly", assem.name
+        assem.process()
 
     # output(modules, out_fn)
 
