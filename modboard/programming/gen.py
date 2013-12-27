@@ -3,7 +3,7 @@ import collections
 import re
 import sys
 
-from model import AssemblyPin
+from model import AssemblyPin, PinDef
 import parser
 
 class RoutingNetwork(object):
@@ -13,7 +13,7 @@ class RoutingNetwork(object):
         self.assignments = {}
         # self.routers = {}
         # for boardname in assem.boards:
-            # boarddef = assem.boards[boardname][0]
+            # boarddef = assem.boards[boardname].boarddef
             # for r in boarddef.routers:
                 # self.routers["%s.%s" % (boardname, r)] = {}
 
@@ -37,13 +37,14 @@ class Router(object):
 
     def _mapPin(self, pin):
         board, pin = pin.split('.', 1)
-        boarddef = self.a.boards[board][0]
+        boarddef = self.a.boards[board].boarddef
         pin = boarddef.pins[pin]
-        return AssemblyPin(board, pin[0], pin[1])
+        assert isinstance(pin, PinDef)
+        return AssemblyPin(board, pin.socket, pin.name)
 
     def _flipPin(self, pin):
         assert isinstance(pin, AssemblyPin)
-        # boarddef = self.a.boards[pin.boardname][0]
+        # boarddef = self.a.boards[pin.boardname].boarddef
         conn = self.a.connections[pin.boardname].get(pin.socket)
         if not conn:
             return None
@@ -85,9 +86,9 @@ class Router(object):
 
                 # print pin_attrs
                 # if 'port' in pin_attrs:
-                router = self.a.getRouter(last)
+                router = self.a.getRouterDef(last)
                 if router:
-                    for dest_socket, dest_pin in router[2].values():
+                    for dest_socket, dest_pin in router.ports.values():
                         add(curpath, AssemblyPin(last.boardname, dest_socket, dest_pin))
 
         raise Exception("Could not route %s to %s!" % (source, target))

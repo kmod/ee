@@ -70,10 +70,10 @@ class GlobalScope(Scope):
     def assemblyHandler(self, args, opts):
         assert not opts
         name, = args
-        a = Assembly(name)
+        a = Assembly(name, dict(self.board_defs))
         self.assemblies.append(a)
         return Scope(
-                board=functools.partial(a.addBoard, self.board_defs),
+                board=a.addBoard,
                 assign=a.addAssignment,
                 )
 
