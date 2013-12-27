@@ -11,24 +11,54 @@ class RoutingNetwork(object):
         self.a = assem
 
         self.assignments = {}
-        # self.routers = {}
-        # for boardname in assem.boards:
-            # boarddef = assem.boards[boardname].boarddef
-            # for r in boarddef.routers:
-                # self.routers["%s.%s" % (boardname, r)] = {}
+
+        self.routers = {}
+        for boardname in assem.boards:
+            boarddef = assem.boards[boardname].boarddef
+            for r in boarddef.routers:
+                self.routers["%s.%s" % (boardname, r)] = {}
 
     def available(self, pin):
         return pin not in self.assignments
+        """
         r = self.a.getRouter(pin)
         if not r:
             return True
         print r
         1/0
         return 1
+        """
 
     def addPath(self, path):
-        print path
-        1/0
+        assert len(path) >= 2
+
+        print "adding path", path
+
+        prev = path[0]
+        for next in path[1:]:
+            if prev.boardname != next.boardname:
+                assert prev.pinname == next.pinname
+                assert self.a.connections[prev.boardname][prev.socket] == (next.boardname, next.socket)
+                prev = next
+                continue
+
+            assert prev not in self.assignments
+            self.assignments[prev] = next
+
+            rprev = self.a.getRouterPin(prev)
+            rnext = self.a.getRouterPin(next)
+            assert rprev.routername == rnext.routername
+
+            rname = prev.boardname + '.' + rprev.routername
+            ports = self.routers[rname]
+            assert rprev.portname not in ports
+            ports[rprev.portname] = rnext.portname
+
+            print "For %s, assigning %s (%s) = %s (%s)" % (rname, prev, rprev.portname, next, rnext.portname)
+
+            prev = next
+        # print self.assignments
+        # print self.routers
 
 class Router(object):
     def __init__(self, output, assem):
@@ -121,7 +151,7 @@ def main():
         print
         print "Processing assembly", assem.name
         rn = process(assem)
-        doOutput(rn, of)
+        # doOutput(rn, of)
 
     output = of.str()
 

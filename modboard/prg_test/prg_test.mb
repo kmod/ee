@@ -18,34 +18,34 @@ assembly prg_test2:
     assign io.sw0 = io.led3
 end
 
-# assembly prg_test3:
-    # board backplane_4s bp1 unconnected
-    # board backplane_4s bp2 bp1.1
-    # board mbmega mega1 bp2.1
-    # board mbmega mega2 bp2.3
-    # board ioboard io bp1.3
-# 
-    # assign bp1.1.a0 = bp2.a0
-    # assign bp1.1.a1 = bp2.a1
-    # assign bp1.1.a2 = bp2.a2
-    # assign bp1.1.a3 = bp2.a3
-    # assign bp1.1.b0 = bp2.b0
-    # assign bp1.1.b1 = bp2.b1
-    # assign bp1.1.b2 = bp2.b2
-    # assign bp1.1.b3 = bp2.b3
-    # assign bp1.1.c0 = bp2.c0
-    # assign bp1.1.c1 = bp2.c1
-    # assign bp1.1.c2 = bp2.c2
-    # assign bp1.1.c3 = bp2.c3
-    # assign bp1.1.d0 = bp2.d0
-    # assign bp1.1.d1 = bp2.d1
-    # assign bp1.1.d2 = bp2.d2
-    # assign bp1.1.d3 = bp2.d3
-    # assign bp1.1.e0 = bp2.e0
-    # assign bp1.1.e1 = bp2.e1
-    # assign bp1.1.e2 = bp2.e2
-    # assign bp1.1.e3 = bp2.e3
-# 
-    # assign mega1.ledf = io.sw0
-    # assign mega2.ledf = io.sw1
-# end
+assembly prg_test3:
+    board backplane_4s bp1 unconnected
+    board backplane_4s bp2 bp1.1
+    board mbmega mega1 bp2.1
+    board mbmega mega2 bp2.3
+    board ioboard io bp1.3
+
+    assign bp1.1.a0 = bp2.a0
+    assign bp1.1.a1 = bp2.a1
+    assign bp1.1.a2 = bp2.a2
+    assign bp1.1.a3 = bp2.a3
+    assign bp1.1.b0 = bp2.b0
+    assign bp1.1.b1 = bp2.b1
+    assign bp1.1.b2 = bp2.b2
+    assign bp1.1.b3 = bp2.b3
+    assign bp1.1.c0 = bp2.c0
+    assign bp1.1.c1 = bp2.c1
+    assign bp1.1.c2 = bp2.c2
+    assign bp1.1.c3 = bp2.c3
+    assign bp1.1.d0 = bp2.d0
+    assign bp1.1.d1 = bp2.d1
+    assign bp1.1.d2 = bp2.d2
+    assign bp1.1.d3 = bp2.d3
+    assign bp1.1.e0 = bp2.e0
+    assign bp1.1.e1 = bp2.e1
+    assign bp1.1.e2 = bp2.e2
+    assign bp1.1.e3 = bp2.e3
+
+    assign mega1.ledf = io.sw0
+    assign mega2.ledf = io.sw1
+end

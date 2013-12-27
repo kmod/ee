@@ -2,7 +2,7 @@ import collections
 
 JtagEntry = collections.namedtuple("JtagEntry", ["jtag"])
 SocketDef = collections.namedtuple("SocketDef", ["jtag", "pins"])
-RouterDef = collections.namedtuple("RouterDef", ["jtag", "part", "ports"])
+RouterDef = collections.namedtuple("RouterDef", ["name", "jtag", "part", "ports"])
 AssemblyBoard = collections.namedtuple("AssemblyBoard", ["name", "boarddef"])
 PinDef = collections.namedtuple("PinDef", ["socket", "name", "attrs"])
 
@@ -11,6 +11,8 @@ def pinRepr(pin):
     return repr((pin.boardname, pin.socket, pin.pinname))
 AssemblyPin.__repr__ = pinRepr
 del pinRepr
+
+RouterPin = collections.namedtuple("RouterPin", ["boardname", "routername", "portname"])
 
 class BoardDef(object):
     def __init__(self, name):
@@ -50,7 +52,7 @@ class BoardDef(object):
         assert not opts, opts
 
         name, = args
-        self.routers[name] = RouterDef(jtag, part, {})
+        self.routers[name] = RouterDef(name, jtag, part, {})
 
     def addPin(self, args, opts):
         fullname, = args
@@ -123,6 +125,12 @@ class Assembly(object):
         boarddef = self.boards[pin.boardname].boarddef
         pin_attrs = boarddef.sockets[pin.socket].pins[pin.pinname].attrs
         return pin_attrs
+
+    def getRouterPin(self, pin):
+        pin_attrs = self.getPinAttrs(pin)
+        port = pin_attrs['port']
+        rname, portname = port.split('.')
+        return RouterPin(pin.boardname, rname, portname)
 
     def getRouterDef(self, pin):
         pin_attrs = self.getPinAttrs(pin)
