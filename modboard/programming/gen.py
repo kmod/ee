@@ -1,65 +1,118 @@
-import os
+import collections
 import re
 import sys
 
-class Board(object):
-    def __init__(self, name):
-        self.name = name
-        self.pins = {}
+import parser
 
-    def line(self, l):
-        tokens = l.split()
+class Output(object):
+    def __init__(self, assem):
+        self.a = assem
 
-        conn = None
-        if len(tokens) == 3:
-            conn = tokens[0]
-            del tokens[0]
-        assert len(tokens) == 2
+        self.routers = {}
+        for boardname in assem.boards:
+            boarddef = assem.boards[boardname][0]
+            for r in boarddef.routers:
+                self.routers["%s.%s" % (boardname, r)] = {}
 
-        port, name = tokens
-        assert port in ("g0", "grst") or re.match("[a-e][0-3]$", port)
+    def available(self, (boardname, socket, pinname)):
+        r = self.a.getRouter((boardname, socket, pinname))
+        if not r:
+            return True
+        print r
+        1/0
+        return 1
 
-        d = self.pins.setdefault(conn, {})
-        assert port not in d
-        d[port] = name
+class Router(object):
+    def __init__(self, output, assem):
+        self.o = output
+        self.a = assem
 
-    def process(self):
-        for conn, ports in self.pins.iteritems():
-            for c in "abcde":
-                for n in "0123":
-                    assert (c+n) in ports, (self.name, conn, c+n)
+    def _mapPin(self, pin):
+        board, pin = pin.split('.', 1)
+        boarddef = self.a.boards[board][0]
+        pin = boarddef.pins[pin]
+        return (board, pin[0], pin[1])
+
+    def _flipPin(self, pin):
+        board, socket, pin = pin
+        boarddef = self.a.boards[board][0]
+        conn = self.a.connections[board].get(socket)
+        if not conn:
+            return None
+        nextboard, nextboard_socket = conn
+        return nextboard, nextboard_socket, pin
+
+    def route(self, target, source):
+        target = self._mapPin(target)
+        source = self._mapPin(source)
+        print
+        print "Routing", target, "from", source
+
+        seen = set()
+        q = collections.deque()
+        def add(curpath, next):
+            if next is None:
+                return
+            if not self.o.available(next):
+                return
+            if next not in seen:
+                seen.add(next)
+                q.append(curpath + [next])
+        add([], target)
+
+        while q:
+            curpath = q.popleft()
+
+            # print curpath
+            last = curpath[-1]
+            if last == source:
+                return curpath
+
+            flipped = self._flipPin(last)
+            add(curpath, flipped)
+
+            if last[2] not in ('g0', 'grst'):
+                assert re.match("[a-e][0-3]", last[2]), last
+
+                # print pin_attrs
+                # if 'port' in pin_attrs:
+                router = self.a.getRouter(last)
+                if router:
+                    for dest_socket, dest_pin in router[2].values():
+                        add(curpath, (last[0], dest_socket, dest_pin))
+
+        raise Exception("Could not route %s to %s!" % (source, target))
+
+def process(assem):
+    o = Output(assem)
+
+    r = Router(o, assem)
+    for a in assem.assignments:
+        target, source = a
+        path = r.route(target, source)
+        print path
+    return o
 
 def main():
-    # defs_fn = os.path.join(os.path.dirname(__file__), "defs.mb")
-    fn = sys.argv[1]
+    in_fn, out_fn = sys.argv[1:]
 
-    with open(fn) as f:
-        state = None
+    board_defs, assemblies = parser.parse(in_fn)
 
-        while True:
-            l = f.readline()
-            if not l:
-                break
-            l = l.rstrip()
+    for board_name, b in board_defs.items():
+        for sid, sdefs in b.sockets.values():
+            for c in "abcde":
+                for n in "0123":
+                    assert (c+n) in sdefs, (board_name, sid)
 
-            if not l:
-                continue
+    for assem in assemblies:
+        print
+        print "Processing assembly", assem.name
+        process(assem)
 
-            print repr(l)
-            if not l[0].isspace():
-                cmd = l.split()[0]
-                print cmd
+    # output(modules, out_fn)
 
-                if cmd == "board":
-                    assert l[-1] == ':'
-                    cmd, name = l[:-1].split()
-                    if state: state.process()
-                    state = Board(name)
-                else:
-                    raise Exception(cmd)
-            else:
-                state.line(l.strip())
-        if state: state.process()
+    # of = open(out_fn, 'w')
+    # print >>of, "%s: %s" % (out_fn, ''.join(p.included_files))
+    # of.close()
+main()
 
-if __name__ == "__main__":
-    main()
