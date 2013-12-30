@@ -1,7 +1,7 @@
 import collections
 
 JtagEntry = collections.namedtuple("JtagEntry", ["jtag"])
-SocketDef = collections.namedtuple("SocketDef", ["jtag", "pins"])
+SocketDef = collections.namedtuple("SocketDef", ["name", "jtag", "pins"])
 RouterDef = collections.namedtuple("RouterDef", ["name", "jtag", "part", "ports"])
 AssemblyBoard = collections.namedtuple("AssemblyBoard", ["name", "boarddef"])
 PinDef = collections.namedtuple("PinDef", ["socket", "name", "attrs"])
@@ -21,13 +21,18 @@ class BoardDef(object):
         self.routers = {}
         self.pins = {}
         self.jtag_entry = None
+        self.jtags = {}
 
-        self.sockets[None] = SocketDef(-1, {})
+        self.sockets[None] = SocketDef("", 0, {})
 
     def _setPin(self, name, pin):
         assert isinstance(pin, PinDef)
         assert name not in self.pins, (self.name, name)
         self.pins[name] = pin
+
+    def _addJtag(self, obj, jtag_idx):
+        assert jtag_idx == len(self.jtags) + 1, "Please put jtags in order for now"
+        self.jtags[jtag_idx] = obj
 
     def addJtagEntry(self, args, opts):
         assert not args
@@ -36,6 +41,7 @@ class BoardDef(object):
 
         assert not self.jtag_entry
         self.jtag_entry = JtagEntry(jtag)
+        self._addJtag(self.jtag_entry, jtag)
 
     def addSocket(self, args, opts):
         jtag = int(opts.pop('jtag'))
@@ -43,7 +49,8 @@ class BoardDef(object):
         assert not opts, opts
 
         name, = args
-        self.sockets[name] = SocketDef(jtag, {})
+        self.sockets[name] = SocketDef(name, jtag, {})
+        self._addJtag(self.sockets[name], jtag)
 
     def addRouter(self, args, opts):
         jtag = int(opts.pop('jtag'))
@@ -53,6 +60,7 @@ class BoardDef(object):
 
         name, = args
         self.routers[name] = RouterDef(name, jtag, part, {})
+        self._addJtag(self.routers[name], jtag)
 
     def addPin(self, args, opts):
         fullname, = args
@@ -99,7 +107,7 @@ class Assembly(object):
                 conn_id, conn_socket = connection.split('.')
             else:
                 conn_id, conn_socket = connection, None
-            assert conn_id in self.boards
+            assert conn_id in self.boards, conn_id
             # conn_boarddef = self.getBoardDef(self.boards[conn_id].type)
             # assert conn_socket in conn_boarddef.sockets
             assert conn_socket not in self.connections[conn_id], (boardtype, conn_id, conn_socket)
