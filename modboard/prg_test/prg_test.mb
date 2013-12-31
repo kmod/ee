@@ -10,6 +10,14 @@ assembly prg_test:
     assign mega.ledf = io.sw1
 end
 
+assembly prg_test2:
+    board backplane_4s bp1 unconnected
+    board backplane_4s bp2 bp1.1
+    board ioboard io bp2.1
+
+    assign bp1.a0 = io.sw0
+end
+
 end
 
 assembly prg_test2:

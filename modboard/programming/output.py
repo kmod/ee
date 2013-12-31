@@ -57,7 +57,8 @@ def getChain(assem):
 def doOutput(assem, rn, of):
     print assem, rn, of
 
-    build_dir = assem.name
+    aname = assem.name
+    build_dir = aname + ".mbbuild"
     if not os.path.isdir(build_dir):
         os.makedirs(build_dir)
 
@@ -122,7 +123,7 @@ run
 """ % dict(rname=rname)).strip()
 
             with open("%s.prj" % base_fn, 'w') as f:
-                print >>f, 'verilog work "%s.v"' % base_fn
+                print >>f, 'verilog work "%s.v"' % rname
 
             with open("%s.ucf" % base_fn, 'w') as f:
                 pins = []
@@ -133,25 +134,50 @@ run
                 for pin in pins:
                     print >>f, 'net "p%s" LOC="%s" | IOSTANDARD = "LVCMOS33";' % (pin, pin)
 
+        print >>of
         print >>of, "%s.ngc: %s.v" % (base_fn, base_fn)
-        print >>of, "\t$(ISE_BIN)/xst -intstyle ise -ifn %s.xst" % (base_fn)
+        print >>of, "\tcd %s; $(ISE_BIN)/xst -intstyle ise -ifn %s.xst" % (build_dir, rname)
         print >>of, "%s.ngd: %s.ngc" % (base_fn, base_fn)
-        print >>of, "\t$(ISE_BIN)/ngdbuild -uc %s.ucf -p xc2c64a-7-vq100 %s.ngc %s.ngd" % (base_fn, base_fn, base_fn)
+        print >>of, "\tcd %s; $(ISE_BIN)/ngdbuild -uc %s.ucf -p xc2c64a-7-vq100 %s.ngc %s.ngd" % (build_dir, rname, rname, rname)
         print >>of, "%s.vm6: %s.ngd" % (base_fn, base_fn)
-        print >>of, "\t$(ISE_BIN)/cpldfit -p xc2c64a-7-vq100 %s.ngd" % (base_fn)
+        print >>of, "\tcd %s; $(ISE_BIN)/cpldfit -p xc2c64a-7-vq100 %s.ngd" % (build_dir, rname)
         print >>of, "%s.jed: %s.vm6" % (base_fn, base_fn)
-        print >>of, "\t$(ISE_BIN)/hprep6 -i %s.vm6" % (base_fn)
+        print >>of, "\tcd %s; $(ISE_BIN)/hprep6 -i %s.vm6" % (build_dir, rname)
+        print >>of, "%s_jeds :: %s.jed" % (aname, base_fn)
 # %.vm6: %.ngd
 		# $(ISE_BIN)/cpldfit $(CPLDFIT_FLAGS) -p $(PART) $*.ngd
 # %.jed: %.vm6
 		# $(ISE_BIN)/hprep6 $(HPREP6_FLAGS) -i $*.vm6
 
+
+
     chain = getChain(assem)
     assert len(chain) == len(rn.routers)
 
+    def impact_setup(f, ofn):
+        print >>f, "setMode -bscan"
+        print >>f, "setCable -port svf -file", ofn
+        for i, rname in enumerate(chain):
+            # Impact jtag indexes are 1-indexed:
+            print >>f, "addDevice -position %d -file %s.jed" % (i+1, rname)
+    def impact_prog(f, idx):
+        assert 0 <= idx < len(chain)
+        print >>f, "program -e -v -p %d" % (idx + 1)
+    def impact_end(f):
+        print >>f, "quit"
+
+    with open(os.path.join(build_dir, "prog_all.batch"), 'w') as f:
+        impact_setup(f, "prog_all.svf")
+        for i in xrange(len(chain)):
+            impact_prog(f, i)
+        impact_end(f)
+
+    print >>of, "prog_%s.svf: %s_jeds" % (aname, aname)
+    print >>of, "\tcd %s; $(ISE_BIN)/impact -batch prog_all.batch" % (build_dir,)
+    print >>of, "prog_%s: prog_%s.svf" % (aname, aname)
+    print >>of, "\tcd %s; python ~/Dropbox/ee/jtag/svf_reader/svf_reader.py $<" % (build_dir,)
+
     print chain
     print rn.routers
-
-    # 1/0
 
 

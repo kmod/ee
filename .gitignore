@@ -4,6 +4,8 @@
 *.d
 *.eeprom
 
+*.mbbuild
+
 *#?
 
 *.gko
