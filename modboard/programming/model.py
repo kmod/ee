@@ -76,6 +76,7 @@ class BoardDef(object):
             self._setPin(opts['alias'], p)
 
         if "port" in opts:
+            assert 'default' not in opts
             router_name, router_pin = opts['port'].split('.')
             router = self.routers[router_name]
             assert router_pin not in router.ports

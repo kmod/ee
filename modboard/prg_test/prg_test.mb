@@ -8,6 +8,7 @@ assembly prg_test:
 
     assign io.led3 = io.sw0
     assign mega.ledf = io.sw1
+    assign mega.rst = 1
 end
 
 end

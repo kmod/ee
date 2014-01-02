@@ -67,7 +67,7 @@ class Router(object):
         self.o = output
         self.a = assem
 
-    def _mapPin(self, pin):
+    def mapPin(self, pin):
         board, pin = pin.split('.', 1)
         boarddef = self.a.boards[board].boarddef
         pin = boarddef.pins[pin]
@@ -84,8 +84,8 @@ class Router(object):
         return AssemblyPin(nextboard, nextboard_socket, pin.pinname)
 
     def route(self, target_name, source_name):
-        target = self._mapPin(target_name)
-        source = self._mapPin(source_name)
+        target = self.mapPin(target_name)
+        source = self.mapPin(source_name)
         print
         print "Routing", target, "from", source
 
@@ -133,8 +133,23 @@ def route(assem):
     # Route user-specified signals:
     for a in assem.assignments:
         target, source = a
-        path = router.route(target, source)
-        rn.addPath(path)
+        if '.' in source:
+            path = router.route(target, source)
+            rn.addPath(path)
+        else:
+            assert source in ('0', '1'), source
+            apin = router.mapPin(target)
+            assert apin
+            other = router.flipPin(apin)
+            assert other
+            rpin = assem.getRouterPin(other)
+            assert rpin
+
+            assert rn.isAvailable(apin)
+            assert rn.isAvailable(other)
+            rn.used.add(apin)
+            rn.used.add(other)
+            rn.assign(rpin, "1'b" + source)
 
     # Match the 'default' attribute of all non-router pins:
     for boardname in assem.boards:

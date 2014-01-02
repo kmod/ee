@@ -1,6 +1,24 @@
+import cStringIO
 import os
 
 from model import RouterDef, SocketDef, JtagEntry
+
+class Rewriter(object):
+    def __init__(self, fn):
+        self.fn = fn
+        self.s = None
+
+    def __enter__(self):
+        self.s = cStringIO.StringIO()
+        return self.s
+
+    def __exit__(self, type, val, tb):
+        orig = open(self.fn).read()
+        s = self.s.getvalue()
+        if s != orig:
+            with open(self.fn, 'w') as f:
+                f.write(s)
+        return False
 
 def getChain(assem):
     jtag_entry_boards = [(boardname, abrd.boarddef.jtag_entry) for boardname, abrd in assem.boards.iteritems() if abrd.boarddef.jtag_entry]
@@ -76,7 +94,7 @@ def doOutput(assem, rn, of):
             os.makedirs(tmpdir)
 
         print rname, router
-        with open("%s.v" % base_fn, 'w') as f:
+        with Rewriter("%s.v" % base_fn) as f:
             print >>f, "`timescale 1ns / 1ps"
             print >>f
             print >>f, "module main("
@@ -103,7 +121,7 @@ def doOutput(assem, rn, of):
 
             print >>f, "endmodule"
 
-        with open("%s.xst" % base_fn, 'w') as f:
+        with Rewriter("%s.xst" % base_fn) as f:
             print >>f, ("""
 set -tmpdir "xst_%(rname)s/projnav.tmp"
 set -xsthdpdir "xst_%(rname)s"
@@ -136,10 +154,10 @@ run
 -equivalent_register_removal YES
 """ % dict(rname=rname)).strip()
 
-            with open("%s.prj" % base_fn, 'w') as f:
+            with Rewriter("%s.prj" % base_fn) as f:
                 print >>f, 'verilog work "%s.v"' % rname
 
-            with open("%s.ucf" % base_fn, 'w') as f:
+            with Rewriter("%s.ucf" % base_fn) as f:
                 pins = []
                 for target, (source_type, source) in router.iteritems():
                     if source_type == 'p':
@@ -158,13 +176,13 @@ run
                 '-terminate': 'float',
         }
         print >>of
-        print >>of, "%s.ngc: %s.v" % (base_fn, base_fn)
+        print >>of, "%s.ngc: Makefile.gen %s.v" % (base_fn, base_fn)
         print >>of, "\tcd %s; $(ISE_BIN)/xst -intstyle ise -ifn %s.xst" % (build_dir, rname)
-        print >>of, "%s.ngd: %s.ngc" % (base_fn, base_fn)
+        print >>of, "%s.ngd: Makefile.gen %s.ngc" % (base_fn, base_fn)
         print >>of, "\tcd %s; $(ISE_BIN)/ngdbuild -uc %s.ucf -p %s %s.ngc %s.ngd" % (build_dir, rname, routerdef.part, rname, rname)
-        print >>of, "%s.vm6: %s.ngd" % (base_fn, base_fn)
+        print >>of, "%s.vm6: Makefile.gen %s.ngd" % (base_fn, base_fn)
         print >>of, "\tcd %s; $(ISE_BIN)/cpldfit %s -p %s %s.ngd" % (build_dir, ' '.join('%s %s' % i for i in fit_opts.items()), routerdef.part, rname)
-        print >>of, "%s.jed: %s.vm6" % (base_fn, base_fn)
+        print >>of, "%s.jed: Makefile.gen %s.vm6" % (base_fn, base_fn)
         print >>of, "\tcd %s; $(ISE_BIN)/hprep6 -i %s.vm6" % (build_dir, rname)
         print >>of, "%s_jeds :: %s.jed" % (aname, base_fn)
 # %.vm6: %.ngd
@@ -189,7 +207,7 @@ run
     def impact_end(f):
         print >>f, "quit"
 
-    with open(os.path.join(build_dir, "prog_all.batch"), 'w') as f:
+    with Rewriter(os.path.join(build_dir, "prog_all.batch")) as f:
         impact_setup(f, "prog_all.svf")
         for i in xrange(len(chain)):
             impact_prog(f, i)

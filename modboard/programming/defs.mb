@@ -150,7 +150,7 @@ end
 board mbmega:
     pin a0 alias=mosi default=z
     pin a1 alias=ss default=z
-    pin a2 alias=rst default=z
+    pin a2 alias=rst default=1
     pin a3 alias=ledf default=0z
     pin b0 alias=pd3 default=z
     pin b1 alias=pd2 default=z

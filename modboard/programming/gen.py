@@ -6,7 +6,7 @@ import re
 import sys
 
 from model import AssemblyPin, PinDef
-from output import doOutput
+from output import doOutput, Rewriter
 from routing import route
 import parser
 
@@ -32,7 +32,7 @@ def main():
 
     output = of.getvalue()
 
-    with open(out_fn, 'w') as of:
+    with Rewriter(out_fn) as of:
         of.write(output)
 main()
 
