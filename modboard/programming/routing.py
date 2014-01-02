@@ -1,31 +1,37 @@
 import collections
 import re
 
-from model import AssemblyPin, PinDef
+from model import AssemblyPin, PinDef, RouterPin
 
 class RoutingNetwork(object):
     def __init__(self, assem):
         self.a = assem
 
         self.used = set()
-        self.assignments = {} # maps output -> input
 
         self.routers = {}
         for boardname in assem.boards:
             boarddef = assem.boards[boardname].boarddef
             for r in boarddef.routers:
-                self.routers["%s.%s" % (boardname, r)] = {}
+                self.routers["%s.%s" % (boardname, r)] = {} # maps output -> input
 
-    def available(self, pin):
+    def isAvailable(self, pin):
+        assert isinstance(pin, AssemblyPin)
         return pin not in self.used
-        """
-        r = self.a.getRouter(pin)
-        if not r:
-            return True
-        print r
-        1/0
-        return 1
-        """
+
+    def assign(self, rout, rin):
+        assert isinstance(rout, RouterPin)
+
+        rname = "%s.%s" % (rout.boardname, rout.routername)
+
+        ports = self.routers[rname]
+        assert rout.portname not in ports, rout
+
+        if isinstance(rin, RouterPin):
+            ports[rout.portname] = ('p', rin.portname)
+        else:
+            assert isinstance(rin, str)
+            ports[rout.portname] = ('s', rin)
 
     def addPath(self, path):
         assert len(path) >= 2
@@ -44,22 +50,16 @@ class RoutingNetwork(object):
                 prev = next
                 continue
 
-            assert prev not in self.assignments
-            self.assignments[prev] = next
-
             rprev = self.a.getRouterPin(prev)
             rnext = self.a.getRouterPin(next)
             assert rprev.routername == rnext.routername
 
             rname = prev.boardname + '.' + rprev.routername
-            ports = self.routers[rname]
-            assert rprev.portname not in ports
-            ports[rprev.portname] = rnext.portname
+            self.assign(rprev, rnext)
 
             print "For %s, assigning %s (%s) = %s (%s)" % (rname, prev, rprev.portname, next, rnext.portname)
 
             prev = next
-        # print self.assignments
         # print self.routers
 
 class Router(object):
@@ -74,7 +74,7 @@ class Router(object):
         assert isinstance(pin, PinDef)
         return AssemblyPin(board, pin.socket, pin.name)
 
-    def _flipPin(self, pin):
+    def flipPin(self, pin):
         assert isinstance(pin, AssemblyPin)
         # boarddef = self.a.boards[pin.boardname].boarddef
         conn = self.a.connections[pin.boardname].get(pin.socket)
@@ -95,7 +95,7 @@ class Router(object):
             if next is None:
                 return
             assert isinstance(next, AssemblyPin)
-            if not self.o.available(next):
+            if not self.o.isAvailable(next):
                 return
             if next not in seen:
                 seen.add(next)
@@ -110,7 +110,7 @@ class Router(object):
             if last == source:
                 return curpath
 
-            flipped = self._flipPin(last)
+            flipped = self.flipPin(last)
             add(curpath, flipped)
 
             if last.pinname not in ('g0', 'grst'):
@@ -128,9 +128,67 @@ class Router(object):
 def route(assem):
     rn = RoutingNetwork(assem)
 
-    r = Router(rn, assem)
+    router = Router(rn, assem)
+
+    # Route user-specified signals:
     for a in assem.assignments:
         target, source = a
-        path = r.route(target, source)
+        path = router.route(target, source)
         rn.addPath(path)
+
+    # Match the 'default' attribute of all non-router pins:
+    for boardname in assem.boards:
+        boarddef = assem.boards[boardname].boarddef
+        for sdef in boarddef.sockets.itervalues():
+            for pdef in sdef.pins.itervalues():
+                if 'port' in pdef.attrs:
+                    continue
+                # print pdef
+
+                apin = AssemblyPin(boardname, pdef.socket, pdef.name)
+                if not rn.isAvailable(apin):
+                    continue
+
+                default = pdef.attrs.get('default', 'z')
+                if default == '0z':
+                    default = 'z'
+                # print apin, default
+
+                otherpin = router.flipPin(apin)
+                if otherpin is None:
+                    assert default == 'z', (default, apin)
+                    continue
+                assert rn.isAvailable(otherpin)
+                rn.used.add(apin)
+                rn.used.add(otherpin)
+
+                rpin = assem.getRouterPin(otherpin)
+                if not rpin:
+                    assert default == 'z'
+                    otherdefault = assem.boards[otherpin.boardname].boarddef.sockets[otherpin.socket].pins[otherpin.pinname].attrs.get('default', 'z')
+                    assert otherdefault == 'z' or otherdefault == '0z', (otherpin, otherdefault)
+                    continue
+                # print otherpin, rpin
+
+                assert len(default) == 1
+                verilog_default = "1'b" + default
+
+                print "Setting %s to its default of %s, using its connection at %s" % (apin, default, rpin)
+                rn.assign(rpin, verilog_default)
+
+    # Set all router pins that are left to high-z:
+    for boardname in assem.boards:
+        boarddef = assem.boards[boardname].boarddef
+        for rname, r in boarddef.routers.items():
+            for socket, pinname in r.ports.values():
+                apin = AssemblyPin(boardname, socket, pinname)
+                if not rn.isAvailable(apin):
+                    continue
+                rn.used.add(apin)
+
+                rpin = assem.getRouterPin(apin)
+                assert rpin
+                rn.assign(rpin, "1'bz")
+
     return rn
+

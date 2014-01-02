@@ -136,6 +136,8 @@ class Assembly(object):
 
     def getRouterPin(self, pin):
         pin_attrs = self.getPinAttrs(pin)
+        if 'port' not in pin_attrs:
+            return None
         port = pin_attrs['port']
         rname, portname = port.split('.')
         return RouterPin(pin.boardname, rname, portname)

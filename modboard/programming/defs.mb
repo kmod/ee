@@ -1,8 +1,6 @@
-board backplane_4s:
-    socket 1 jtag=1
-    socket 2 jtag=2
-    socket 3 jtag=3
-    router cpld jtag=4 part=xc2c64a-7-vq100
+frag backplane_4s_commonpins:
+    pin g0 port=cpld.27
+    pin grst port=cpld.99
 
     pin a0 port=cpld.42
     pin a1 port=cpld.43
@@ -54,14 +52,6 @@ board backplane_4s:
     pin 2.c1 port=cpld.74
     pin 2.c2 port=cpld.76
     pin 2.c3 port=cpld.94
-    pin 2.d0 port=cpld.87 # actually unconnected
-    pin 2.d1 port=cpld.86 # actually unconnected
-    pin 2.d2 port=cpld.82 # actually unconnected
-    pin 2.d3 port=cpld.85 # actually unconnected
-    pin 2.e0 port=cpld.95 # actually unconnected
-    pin 2.e1 port=cpld.96 # actually unconnected
-    pin 2.e2 port=cpld.80 # actually unconnected
-    pin 2.e3 port=cpld.93 # actually unconnected
     pin 3.a0 port=cpld.56
     pin 3.a1 port=cpld.53
     pin 3.a2 port=cpld.55
@@ -74,20 +64,63 @@ board backplane_4s:
     pin 3.c1 port=cpld.71
     pin 3.c2 port=cpld.58
     pin 3.c3 port=cpld.68
-    pin 3.d0 port=cpld.54 # actually unconnected
-    pin 3.d1 port=cpld.66 # actually unconnected
-    pin 3.d2 port=cpld.65 # actually unconnected
-    pin 3.d3 port=cpld.46 # actually unconnected
-    pin 3.e0 port=cpld.59 # actually unconnected
-    pin 3.e1 port=cpld.73 # actually unconnected
-    pin 3.e2 port=cpld.44 # actually unconnected
-    pin 3.e3 port=cpld.63 # actually unconnected
-
-    pin g0 port=cpld.27
-    pin grst port=cpld.99
 
     pin e3 # unconnected
     pin 1.e3 # unconnected
+end
+
+frag backplane_4s_extrapins:
+    pin 2.d0 port=cpld.87
+    pin 2.d1 port=cpld.86
+    pin 2.d2 port=cpld.82
+    pin 2.d3 port=cpld.85
+    pin 2.e0 port=cpld.95
+    pin 2.e1 port=cpld.96
+    pin 2.e2 port=cpld.80
+    pin 2.e3 port=cpld.93
+    pin 3.d0 port=cpld.54
+    pin 3.d1 port=cpld.66
+    pin 3.d2 port=cpld.65
+    pin 3.d3 port=cpld.46
+    pin 3.e0 port=cpld.59
+    pin 3.e1 port=cpld.73
+    pin 3.e2 port=cpld.44
+    pin 3.e3 port=cpld.63
+end
+
+board backplane_4s_64:
+    socket 1 jtag=1
+    socket 2 jtag=2
+    socket 3 jtag=3
+    router cpld jtag=4 part=xc2c64a-7-vq100
+
+    includefrag backplane_4s_commonpins
+    pin 2.d0 # unconnected
+    pin 2.d1 # unconnected
+    pin 2.d2 # unconnected
+    pin 2.d3 # unconnected
+    pin 2.e0 # unconnected
+    pin 2.e1 # unconnected
+    pin 2.e2 # unconnected
+    pin 2.e3 # unconnected
+    pin 3.d0 # unconnected
+    pin 3.d1 # unconnected
+    pin 3.d2 # unconnected
+    pin 3.d3 # unconnected
+    pin 3.e0 # unconnected
+    pin 3.e1 # unconnected
+    pin 3.e2 # unconnected
+    pin 3.e3 # unconnected
+end
+
+board backplane_4s_128:
+    socket 1 jtag=1
+    socket 2 jtag=2
+    socket 3 jtag=3
+    router cpld jtag=4 part=xc2c128-7-vq100
+
+    includefrag backplane_4s_commonpins
+    includefrag backplane_4s_extrapins
 end
 
 board ioboard:
@@ -133,6 +166,6 @@ board mbmega:
     pin d3 alias=pd8 default=z
     pin e0 alias=pd6 default=z
     pin e1 alias=pd7 default=z
-    pin e2 default=0 # unconnected
-    pin e3 default=0 # unconnected
+    pin e2 default=0z # unconnected
+    pin e3 default=0z # unconnected
 end

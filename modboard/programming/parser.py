@@ -1,3 +1,4 @@
+import cStringIO
 import functools
 import os
 
@@ -7,7 +8,7 @@ class Parser(object):
     def __init__(self):
         self.included_files = []
 
-    def parse(self, fn, scope, f=None):
+    def parse(self, fn, scope, frags, f=None):
         if f is None:
             f = open(fn)
 
@@ -41,13 +42,34 @@ class Parser(object):
                 assert not opts
                 new_fn = os.path.join(os.path.dirname(fn), relpath)
                 self.included_files.append(new_fn)
-                self.parse(new_fn, scope)
+                self.parse(new_fn, scope, frags)
+                continue
+            if cmd == 'frag':
+                fragname, = args
+                assert fragname not in frags
+                frag = []
+                depth = 1
+                for l in f:
+                    if l.strip() == 'end':
+                        depth -= 1
+                        if depth == 0:
+                            break
+                    elif l.endswith(':'):
+                        depth += 1
+                    frag.append(l)
+                assert depth == 0
+                frags[fragname] = ''.join(frag)
+                continue
+            if cmd == 'includefrag':
+                fragname, = args
+                frag = frags[fragname]
+                self.parse(fn, scope, frags, cStringIO.StringIO(frag))
                 continue
 
             handler = scope.getHandler(cmd)
             r = handler(args, opts)
             if newscope:
-                self.parse(fn, r, f)
+                self.parse(fn, r, frags, f)
 
 class Scope(object):
     def __init__(self, **handlers):
@@ -93,5 +115,5 @@ class GlobalScope(Scope):
 def parse(fn):
     global_scope = GlobalScope()
     p = Parser()
-    p.parse(fn, global_scope)
+    p.parse(fn, global_scope, {})
     return global_scope.board_defs, global_scope.assemblies, p.included_files

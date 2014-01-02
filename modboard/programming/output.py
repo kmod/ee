@@ -62,8 +62,14 @@ def doOutput(assem, rn, of):
     if not os.path.isdir(build_dir):
         os.makedirs(build_dir)
 
+    def getRouterDef(rname):
+        boardname, rname = rname.split('.')
+        boarddef = assem.boards[boardname].boarddef
+        return boarddef.routers[rname]
+
     for rname, router in rn.routers.items():
         base_fn = os.path.join(build_dir, rname)
+        routerdef = getRouterDef(rname)
 
         tmpdir = os.path.join(build_dir, "xst_%s/projnav.tmp" % rname)
         if not os.path.isdir(tmpdir):
@@ -76,16 +82,24 @@ def doOutput(assem, rn, of):
             print >>f, "module main("
 
             first = 1
-            for target, source in router.iteritems():
+            for target, (source_type, source) in router.iteritems():
                 if not first:
                     print >>f, ','
                 first = 0
-                print >>f, "  input p%s," % source
+                if source_type == 'p':
+                    print >>f, "  input p%s," % source
                 print >>f, "  output p%s" % target,
             print >>f, ");"
 
-            for target, source in router.iteritems():
-                print >>f, "  assign p%s = p%s;" % (target, source)
+            print >>f
+
+            for target, (source_type, source) in router.iteritems():
+                if source_type == 'p':
+                    print >>f, "  assign p%s = p%s;" % (target, source)
+                elif source_type == 's':
+                    print >>f, "  assign p%s = %s;" % (target, source)
+                else:
+                    raise Exception(source_type)
 
             print >>f, "endmodule"
 
@@ -127,20 +141,29 @@ run
 
             with open("%s.ucf" % base_fn, 'w') as f:
                 pins = []
-                for target, source in router.iteritems():
-                    pins.append(source)
+                for target, (source_type, source) in router.iteritems():
+                    if source_type == 'p':
+                        pins.append(source)
                     pins.append(target)
 
                 for pin in pins:
                     print >>f, 'net "p%s" LOC="%s" | IOSTANDARD = "LVCMOS33";' % (pin, pin)
 
+        translate_opts = {
+        }
+        fit_opts = {
+                '-keepio': '',
+                '-iostd': 'LVCMOS33',
+                '-unused': 'float',
+                '-terminate': 'float',
+        }
         print >>of
         print >>of, "%s.ngc: %s.v" % (base_fn, base_fn)
         print >>of, "\tcd %s; $(ISE_BIN)/xst -intstyle ise -ifn %s.xst" % (build_dir, rname)
         print >>of, "%s.ngd: %s.ngc" % (base_fn, base_fn)
-        print >>of, "\tcd %s; $(ISE_BIN)/ngdbuild -uc %s.ucf -p xc2c64a-7-vq100 %s.ngc %s.ngd" % (build_dir, rname, rname, rname)
+        print >>of, "\tcd %s; $(ISE_BIN)/ngdbuild -uc %s.ucf -p %s %s.ngc %s.ngd" % (build_dir, rname, routerdef.part, rname, rname)
         print >>of, "%s.vm6: %s.ngd" % (base_fn, base_fn)
-        print >>of, "\tcd %s; $(ISE_BIN)/cpldfit -p xc2c64a-7-vq100 %s.ngd" % (build_dir, rname)
+        print >>of, "\tcd %s; $(ISE_BIN)/cpldfit %s -p %s %s.ngd" % (build_dir, ' '.join('%s %s' % i for i in fit_opts.items()), routerdef.part, rname)
         print >>of, "%s.jed: %s.vm6" % (base_fn, base_fn)
         print >>of, "\tcd %s; $(ISE_BIN)/hprep6 -i %s.vm6" % (build_dir, rname)
         print >>of, "%s_jeds :: %s.jed" % (aname, base_fn)
