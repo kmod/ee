@@ -38,7 +38,7 @@ prog_%: %.hex
 
 .PHONY: self_prog
 self_prog_%: %.hex
-	/opt/arduino-1.0.5/hardware/tools/avrdude -b115200 -C/opt/arduino-1.0.5/hardware/tools/avrdude.conf -patmega328p -carduino -P/dev/ttyUSB0 -Uflash:w:$<:i -v -v
+	/opt/arduino-1.0.5/hardware/tools/avrdude -b115200 -C/opt/arduino-1.0.5/hardware/tools/avrdude.conf -p$(PART) -carduino -P/dev/ttyUSB0 -Uflash:w:$<:i -v -v
 
 .PHONY: clean
 clean:
