@@ -169,3 +169,28 @@ board mbmega:
     pin e2 default=0z # unconnected
     pin e3 default=0z # unconnected
 end
+
+board jtagusaur:
+    jtag_entry jtag=1
+
+    pin a0 alias=ledf default=0z
+    pin a1 # unconnected
+    pin a2 # unconnected
+    pin a3 # unconnected
+    pin b0 # unconnected
+    pin b1 # unconnected
+    pin b2 # unconnected
+    pin b3 # unconnected
+    pin c0 # unconnected
+    pin c1 # unconnected
+    pin c2 # unconnected
+    pin c3 # unconnected
+    pin d0 # unconnected
+    pin d1 # unconnected
+    pin d2 # unconnected
+    pin d3 # unconnected
+    pin e0 # unconnected
+    pin e1 # unconnected
+    pin e2 # unconnected
+    pin e3 # unconnected
+end

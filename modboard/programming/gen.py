@@ -19,7 +19,7 @@ def main():
         for sname, sid, sdefs in b.sockets.values():
             for c in "abcde":
                 for n in "0123":
-                    assert (c+n) in sdefs, (board_name, sid)
+                    assert (c+n) in sdefs, (c+n, board_name, sid)
 
     of = cStringIO.StringIO()
     print >>of, "%s: %s" % (out_fn, ''.join(included_files))

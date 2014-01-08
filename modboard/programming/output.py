@@ -13,7 +13,11 @@ class Rewriter(object):
         return self.s
 
     def __exit__(self, type, val, tb):
-        orig = open(self.fn).read()
+        if not os.path.exists(self.fn):
+            orig = None
+        else:
+            orig = open(self.fn).read()
+
         s = self.s.getvalue()
         if s != orig:
             with open(self.fn, 'w') as f:
@@ -213,10 +217,10 @@ run
             impact_prog(f, i)
         impact_end(f)
 
-    print >>of, "prog_%s.svf: %s_jeds" % (aname, aname)
+    print >>of, "%s/prog_%s.svf: %s_jeds" % (build_dir, aname, aname)
     print >>of, "\tcd %s; $(ISE_BIN)/impact -batch prog_all.batch" % (build_dir,)
-    print >>of, "prog_%s: prog_%s.svf" % (aname, aname)
-    print >>of, "\tcd %s; python ~/Dropbox/ee/jtag/svf_reader/svf_reader.py $<" % (build_dir,)
+    print >>of, "prog_%s: %s/prog_%s.svf" % (aname, build_dir, aname)
+    print >>of, "\tcd %s; python ~/Dropbox/ee/jtag/svf_reader/svf_reader.py prog_all.svf" % (build_dir,)
 
     print chain
     print rn.routers

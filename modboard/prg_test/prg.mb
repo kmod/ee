@@ -1,0 +1,8 @@
+include ../programming/defs.mb
+
+assembly main:
+    board backplane_4s_64 bp unconnected
+    board jtagusaur jtag bp.3
+
+    assign jtag.ledf = 1
+end
