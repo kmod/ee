@@ -180,13 +180,13 @@ run
                 '-terminate': 'float',
         }
         print >>of
-        print >>of, "%s.ngc: Makefile.gen %s.v" % (base_fn, base_fn)
+        print >>of, "%s.ngc: %s.v" % (base_fn, base_fn)
         print >>of, "\tcd %s; $(ISE_BIN)/xst -intstyle ise -ifn %s.xst" % (build_dir, rname)
-        print >>of, "%s.ngd: Makefile.gen %s.ngc" % (base_fn, base_fn)
+        print >>of, "%s.ngd: %s.ngc" % (base_fn, base_fn)
         print >>of, "\tcd %s; $(ISE_BIN)/ngdbuild -uc %s.ucf -p %s %s.ngc %s.ngd" % (build_dir, rname, routerdef.part, rname, rname)
-        print >>of, "%s.vm6: Makefile.gen %s.ngd" % (base_fn, base_fn)
+        print >>of, "%s.vm6: %s.ngd" % (base_fn, base_fn)
         print >>of, "\tcd %s; $(ISE_BIN)/cpldfit %s -p %s %s.ngd" % (build_dir, ' '.join('%s %s' % i for i in fit_opts.items()), routerdef.part, rname)
-        print >>of, "%s.jed: Makefile.gen %s.vm6" % (base_fn, base_fn)
+        print >>of, "%s.jed: %s.vm6" % (base_fn, base_fn)
         print >>of, "\tcd %s; $(ISE_BIN)/hprep6 -i %s.vm6" % (build_dir, rname)
         print >>of, "%s_jeds :: %s.jed" % (aname, base_fn)
 # %.vm6: %.ngd
