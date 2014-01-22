@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="6.4">
+<eagle version="6.5.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="yes"/>
@@ -2915,26 +2915,26 @@ This is the "EZ" version, which has limited top masking for improved ease of ass
 <part name="SUPPLY9" library="kmod-nonparts" deviceset="5V" device=""/>
 <part name="GND13" library="kmod-nonparts" deviceset="GND" device=""/>
 <part name="Y1" library="SparkFun-FreqCtrl" deviceset="CRYSTAL" device="HC49US" value="16MHz"/>
-<part name="L1" library="kmod-passives" deviceset="LED" device="0603"/>
-<part name="L2" library="kmod-passives" deviceset="LED" device="0603"/>
+<part name="L1" library="kmod-passives" deviceset="LED" device="0603" value="RED"/>
+<part name="L2" library="kmod-passives" deviceset="LED" device="0603" value="RED"/>
 <part name="LF" library="kmod-passives" deviceset="LED" device="0603"/>
 <part name="R5" library="kmod-passives" deviceset="RESISTOR" device="0603" value="220"/>
 <part name="R6" library="kmod-passives" deviceset="RESISTOR" device="0603" value="220"/>
 <part name="R7" library="kmod-passives" deviceset="RESISTOR" device="0603" value="220"/>
 <part name="GND10" library="kmod-nonparts" deviceset="GND" device=""/>
 <part name="U$5" library="kmod-testing" deviceset="TXB0104" device="PWR"/>
-<part name="L5PWR" library="kmod-passives" deviceset="LED" device="0603"/>
-<part name="R8" library="kmod-passives" deviceset="RESISTOR" device="0603" value="330"/>
-<part name="R9" library="kmod-passives" deviceset="RESISTOR" device="0603" value="220"/>
+<part name="L5PWR" library="kmod-passives" deviceset="LED" device="0603" value="YLW"/>
+<part name="R8" library="kmod-passives" deviceset="RESISTOR" device="0603" value="470"/>
+<part name="R9" library="kmod-passives" deviceset="RESISTOR" device="0603" value="330"/>
 <part name="R10" library="kmod-passives" deviceset="RESISTOR" device="0603" value="220"/>
-<part name="LRX" library="kmod-passives" deviceset="LED" device="0603"/>
-<part name="LTX" library="kmod-passives" deviceset="LED" device="0603"/>
+<part name="LRX" library="kmod-passives" deviceset="LED" device="0603" value="YLW"/>
+<part name="LTX" library="kmod-passives" deviceset="LED" device="0603" value="GRN"/>
 <part name="C12" library="kmod-passives" deviceset="CAP" device="0402-CAP" value="22pF"/>
 <part name="C13" library="kmod-passives" deviceset="CAP" device="0402-CAP" value="22pF"/>
 <part name="GND14" library="kmod-nonparts" deviceset="GND" device=""/>
 <part name="J1" library="SparkFun-Connectors" deviceset="AVR_SPI_PRG_6" device="2X3_LOCK"/>
 <part name="RA1" library="kmod-passives" deviceset="RESISTOR_ARRAY" device="0603_X4" value="100R"/>
-<part name="L3PWR" library="kmod-passives" deviceset="LED" device="0603"/>
+<part name="L3PWR" library="kmod-passives" deviceset="LED" device="0603" value="GRN"/>
 <part name="R11" library="kmod-passives" deviceset="RESISTOR" device="0603" value="220"/>
 <part name="SUPPLY7" library="kmod-nonparts" deviceset="5V" device=""/>
 <part name="GND16" library="kmod-nonparts" deviceset="GND" device=""/>
