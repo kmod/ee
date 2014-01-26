@@ -59,6 +59,8 @@ class JtagController(object):
         self.ctlr.flush()
 
     def pulse(self, tms, tdi, get_tdo=True):
+        # with print_lock:
+            # print tms, tdi, get_tdo
         data = (tms << 3) | (tdi << 2) | (get_tdo << 1)
         if self.buf is None:
             self.buf = data
