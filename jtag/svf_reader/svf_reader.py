@@ -211,6 +211,24 @@ def main(fn):
     endir = None
     enddr = None
 
+    hir_length = 0
+    hir_tdi = 0
+    hir_tdo = 0
+    hir_mask = 0
+    hdr_length = 0
+    hdr_tdi = 0
+    hdr_tdo = 0
+    hdr_mask = 0
+
+    tir_length = 0
+    tir_tdi = 0
+    tir_tdo = 0
+    tir_mask = 0
+    tdr_length = 0
+    tdr_tdi = 0
+    tdr_tdo = 0
+    tdr_mask = 0
+
     f = open(fn)
     cur = ""
     for l in f:
@@ -239,8 +257,51 @@ def main(fn):
             assert ctlr.state is None
         elif cmd == "FREQUENCY":
             pass
-        elif cmd in ("TIR", "HIR", "TDR", "HDR"):
-            assert args == ["0"]
+        elif cmd in ("HIR", "HDR", "TIR", "TDR"):
+            length = int(args[0])
+
+            if cmd == "HIR":
+                tdi, tdo, mask, prev_length = hir_tdi, hir_tdo, hir_mask, hir_length
+            elif cmd == "HDR":
+                tdi, tdo, mask, prev_length = hdr_tdi, hdr_tdo, hdr_mask, hdr_length
+            elif cmd == "TIR":
+                tdi, tdo, mask, prev_length = tir_tdi, tir_tdo, tir_mask, tir_length
+            else:
+                tdi, tdo, mask, prev_length = tdr_tdi, tdr_tdo, tdr_mask, tdr_length
+
+            if prev_length != length:
+                mask = (1 << length) - 1
+
+            if length != 0:
+                assert "TDI" in args
+            else:
+                tdi = 0
+
+            if "TDO" not in args:
+                tdo = 0
+                mask = 0
+
+            for i in xrange(1, len(args), 2):
+                if args[i] == "TDI":
+                    tdi = int(args[i+1][1:-1], 16)
+                elif args[i] == "TDO":
+                    tdo = int(args[i+1][1:-1], 16)
+                elif args[i] == "MASK":
+                    mask = int(args[i+1][1:-1], 16)
+                elif args[i] == "SMASK":
+                    pass
+                else:
+                    raise Exception(args[i])
+
+            if cmd == "HIR":
+                hir_tdi, hir_tdo, hir_mask, hir_length = tdi, tdo, mask, length
+            elif cmd == "HDR":
+                hdr_tdi, hdr_tdo, hdr_mask, hdr_length = tdi, tdo, mask, length
+            elif cmd == "TIR":
+                tir_tdi, tir_tdo, tir_mask, tir_length = tdi, tdo, mask, length
+            else:
+                tdr_tdi, tdr_tdo, tdr_mask, tdr_length = tdi, tdo, mask, length
+
         elif cmd == "ENDIR":
             endir = args[0].lower()
         elif cmd == "ENDDR":
@@ -258,10 +319,7 @@ def main(fn):
                 new_state = new_state.lower()
                 ctlr.goto(new_state)
         elif cmd == "SIR" or cmd == "SDR":
-            if cmd == "SIR":
-                ctlr.goto("irshift")
-            else:
-                ctlr.goto("drshift")
+            assert "TDI" in args
 
             tdi = None
             tdo = 0
@@ -278,6 +336,21 @@ def main(fn):
                     pass
                 else:
                     raise Exception(args[i])
+
+            if cmd == "SIR":
+                ctlr.goto("irshift")
+                tdi = (((tir_tdi << length) + tdi) << hir_length) + hir_tdi
+                tdo = (((tir_tdo << length) + tdo) << hir_length) + hir_tdo
+                mask = (((tir_mask << length) + mask) << hir_length) + hir_mask
+                length += hir_length + tir_length
+            else:
+                ctlr.goto("drshift")
+                tdi = (((tdr_tdi << length) + tdi) << hdr_length) + hdr_tdi
+                tdo = (((tdr_tdo << length) + tdo) << hdr_length) + hdr_tdo
+                mask = (((tdr_mask << length) + mask) << hdr_length) + hdr_mask
+                length += hdr_length + tdr_length
+
+            print length, hex(tdi), hex(tdo), hex(mask)
 
             ctlr.send(length, tdi, mask)
             ctlr.queue_verify(length, tdo, mask)
