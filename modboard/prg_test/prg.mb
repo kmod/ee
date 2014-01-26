@@ -2,7 +2,7 @@ include ../programming/defs.mb
 
 assembly main:
     board backplane_4s_64 bp unconnected
-    board jtagusaur jtag bp.1
+    board jtagusaur2 jtag bp.1
 
     assign jtag.ledf = 1
 end

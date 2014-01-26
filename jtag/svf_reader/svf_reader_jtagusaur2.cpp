@@ -27,8 +27,14 @@ void setup() {
     pinMode(A2, INPUT);
     pinMode(A3, OUTPUT);
 
-    pinMode(6, OUTPUT);
-    pinMode(7, OUTPUT);
+    pinMode(6, OUTPUT); // LED
+    pinMode(7, OUTPUT); // LED
+
+    //pinMode(2, OUTPUT); // to modboard
+    //pinMode(3, OUTPUT); // to modboard
+    //pinMode(4, OUTPUT); // to modboard
+    //pinMode(5, OUTPUT); // to modboard
+    //pinMode(8, OUTPUT); // to modboard
 
     Serial.write(0xae);
 }

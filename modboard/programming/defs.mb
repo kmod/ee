@@ -194,3 +194,27 @@ board jtagusaur:
     pin e2 # unconnected
     pin e3 # unconnected
 end
+
+board jtagusaur2:
+    jtag_entry jtag=1
+    pin a0 default=0z # unconnected
+    pin a1 default=0z # unconnected
+    pin a2 default=0z # unconnected
+    pin a3 alias=ledf default=0z
+    pin b0 alias=sck
+    pin b1 alias=pd10
+    pin b2 alias=mosi
+    pin b3 alias=miso
+    pin c0 alias=pd2
+    pin c1 default=0z # unconnected
+    pin c2 default=0z # unconnected
+    pin c3 default=0z # unconnected
+    pin d0 alias=pd3
+    pin d1 alias=pd4
+    pin d2 alias=pd8
+    pin d3 alias=pd5
+    pin e0 default=0z # unconnected
+    pin e1 default=0z # unconnected
+    pin e2 default=0z # unconnected
+    pin e3 default=0z # unconnected
+end
