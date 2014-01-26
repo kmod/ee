@@ -89,6 +89,8 @@ def doOutput(assem, rn, of):
         boarddef = assem.boards[boardname].boarddef
         return boarddef.routers[rname]
 
+    jeds = []
+
     for rname, router in rn.routers.items():
         base_fn = os.path.join(build_dir, rname)
         routerdef = getRouterDef(rname)
@@ -188,7 +190,8 @@ run
         print >>of, "\tcd %s; $(ISE_BIN)/cpldfit %s -p %s %s.ngd" % (build_dir, ' '.join('%s %s' % i for i in fit_opts.items()), routerdef.part, rname)
         print >>of, "%s.jed: %s.vm6" % (base_fn, base_fn)
         print >>of, "\tcd %s; $(ISE_BIN)/hprep6 -i %s.vm6" % (build_dir, rname)
-        print >>of, "%s_jeds :: %s.jed" % (aname, base_fn)
+        jeds.append(base_fn + ".jed")
+
 # %.vm6: %.ngd
 		# $(ISE_BIN)/cpldfit $(CPLDFIT_FLAGS) -p $(PART) $*.ngd
 # %.jed: %.vm6
@@ -217,9 +220,9 @@ run
             impact_prog(f, i)
         impact_end(f)
 
-    print >>of, "%s/prog_%s.svf: %s_jeds" % (build_dir, aname, aname)
+    print >>of, "%s/prog_all.svf: %s" % (build_dir, ' '.join(jeds))
     print >>of, "\tcd %s; $(ISE_BIN)/impact -batch prog_all.batch" % (build_dir,)
-    print >>of, "prog_%s: %s/prog_%s.svf" % (aname, build_dir, aname)
+    print >>of, "prog_%s: %s/prog_all.svf" % (aname, build_dir)
     print >>of, "\tcd %s; python ~/Dropbox/ee/jtag/svf_reader/svf_reader.py prog_all.svf" % (build_dir,)
 
     print chain

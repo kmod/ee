@@ -32,7 +32,7 @@ def main():
 
     output = of.getvalue()
 
-    with Rewriter(out_fn) as of:
+    with open(out_fn, 'w') as of:
         of.write(output)
 main()
 
