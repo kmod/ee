@@ -3,6 +3,7 @@ include ../programming/defs.mb
 assembly main:
     board backplane_4s_64 bp unconnected
     board jtagusaur2 jtag bp.1
+    board ioboard_nojtag io bp.3
 
-    assign jtag.ledf = 1
+    assign jtag.ledf = io.sw0
 end

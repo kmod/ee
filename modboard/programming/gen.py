@@ -23,6 +23,8 @@ def main():
 
     of = cStringIO.StringIO()
     print >>of, "%s: %s" % (out_fn, ''.join(included_files))
+    print >>of, ".PHONY: jeds"
+    print >>of, "jeds::"
 
     for assem in assemblies:
         print

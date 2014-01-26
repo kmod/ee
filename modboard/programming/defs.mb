@@ -123,8 +123,7 @@ board backplane_4s_128:
     includefrag backplane_4s_extrapins
 end
 
-board ioboard:
-    jtag_entry jtag=1
+frag ioboard_pins
     pin a0 alias=led3 default=0z
     pin a1 alias=led2 default=0z
     pin a2 alias=led1 default=0z
@@ -145,6 +144,15 @@ board ioboard:
     pin e1 alias=sw7 default=z
     pin e2 alias=led4 default=0z
     pin e3 # unconnected
+end
+
+board ioboard:
+    jtag_entry jtag=1
+    includefrag ioboard_pins
+end
+
+board ioboard_nojtag:
+    includefrag ioboard_pins
 end
 
 board mbmega:
