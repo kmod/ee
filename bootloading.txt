@@ -2,6 +2,13 @@ connection diagram here
 http://arduino.cc/en/Tutorial/ArduinoISP
 note: connect D10 directly to reset line, with no cap between!
 
+fuses:
+328: L:FF H:DE E:05 (FD)
+88: L:FF H:DD E:04 (FC)
+the enabled ones are for:
+enable BOOTRST (boot from bootloader)
+and set bootloader size to 256 words (512 bytes)
+
 then, program like this:
 /opt/arduino-1.0.5/hardware/tools/avrdude -C/opt/arduino-1.0.5/hardware/tools/avrdude.conf -patmega328 -cstk500v1 -P/dev/ttyUSB0 -b19200 -e -Ulock:w:0x3F:m -Uefuse:w:0x05:m -Uhfuse:w:0xde:m -Ulfuse:w:0xff:m -v -v -Uflash:w:/opt/arduino-1.0.5/hardware/arduino/bootloaders/optiboot/optiboot_atmega328.hex
 
@@ -14,6 +21,6 @@ Note: for my programmer, I increased the baud rate to 57600 (this speeds program
 /opt/arduino-1.0.5/hardware/tools/avrdude -C/opt/arduino-1.0.5/hardware/tools/avrdude.conf -patmega328p -cstk500v1 -P/dev/ttyUSB0 -b57600 -e -Ulock:w:0x3F:m -Uefuse:w:0x05:m -Uhfuse:w:0xde:m -Ulfuse:w:0xff:m -v -v -Uflash:w:/opt/arduino-1.0.5/hardware/arduino/bootloaders/optiboot/optiboot_atmega328.hex
 
 for the ATmega88 (part is different, fuses are different, bootloader hex is different)
-/opt/arduino-1.0.5/hardware/tools/avrdude -C/opt/arduino-1.0.5/hardware/tools/avrdude.conf -patmega88 -cstk500v1 -P/dev/ttyUSB0 -b57600 -e -Ulock:w:0x3F:m -Uefuse:w:0x07:m -Uhfuse:w:0xdd:m -Ulfuse:w:0xff:m -v -v -Uflash:w:/opt/arduino-1.0.5/hardware/arduino/bootloaders/optiboot/optiboot_atmega88.hex
+/opt/arduino-1.0.5/hardware/tools/avrdude -C/opt/arduino-1.0.5/hardware/tools/avrdude.conf -patmega88 -cstk500v1 -P/dev/ttyUSB0 -b57600 -e -Ulock:w:0x3F:m -Uefuse:w:0x04:m -Uhfuse:w:0xdd:m -Ulfuse:w:0xff:m -v -v -Uflash:w:/opt/arduino-1.0.5/hardware/arduino/bootloaders/optiboot/optiboot_atmega88.hex
 - note, may need to compile the 88 bootloader; just go to the optiboot directory and do
 PATH=/opt/arduino-1.0.5/hardware/tools/avr/bin/:$PATH make atmega88

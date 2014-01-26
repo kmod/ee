@@ -16,6 +16,11 @@ class Controller(object):
         self.on_read = []
         self.q = Queue.Queue()
 
+        # Note: signal on board is !RTS
+        self.ser.setRTS(0)
+        time.sleep(0.100)
+        self.ser.setRTS(1)
+
         self._started = threading.Event()
 
         t = threading.Thread(target=self.read_thread)
@@ -92,3 +97,7 @@ class Controller(object):
 
     def readShiftReg(self):
         self._write("v")
+
+if __name__ == "__main__":
+    C = Controller()
+    C.ser.close()
