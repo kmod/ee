@@ -76,59 +76,8 @@ def getChain(assem):
                 raise Exception(jobj)
     return chain
 
-def doOutput(assem, rn, of):
-    print assem, rn, of
-
-    aname = assem.name
-    build_dir = aname + ".mbbuild"
-    if not os.path.isdir(build_dir):
-        os.makedirs(build_dir)
-
-    def getRouterDef(rname):
-        boardname, rname = rname.split('.')
-        boarddef = assem.boards[boardname].boarddef
-        return boarddef.routers[rname]
-
-    jeds = []
-
-    for rname, router in rn.routers.items():
-        base_fn = os.path.join(build_dir, rname)
-        routerdef = getRouterDef(rname)
-
-        tmpdir = os.path.join(build_dir, "xst_%s/projnav.tmp" % rname)
-        if not os.path.isdir(tmpdir):
-            os.makedirs(tmpdir)
-
-        print rname, router
-        with Rewriter("%s.v" % base_fn) as f:
-            print >>f, "`timescale 1ns / 1ps"
-            print >>f
-            print >>f, "module main("
-
-            first = 1
-            for target, (source_type, source) in router.iteritems():
-                if not first:
-                    print >>f, ','
-                first = 0
-                if source_type == 'p':
-                    print >>f, "  input p%s," % source
-                print >>f, "  output p%s" % target,
-            print >>f, ");"
-
-            print >>f
-
-            for target, (source_type, source) in router.iteritems():
-                if source_type == 'p':
-                    print >>f, "  assign p%s = p%s;" % (target, source)
-                elif source_type == 's':
-                    print >>f, "  assign p%s = %s;" % (target, source)
-                else:
-                    raise Exception(source_type)
-
-            print >>f, "endmodule"
-
-        with Rewriter("%s.xst" % base_fn) as f:
-            print >>f, ("""
+def _makeXst(router_name):
+    return ("""
 set -tmpdir "xst_%(rname)s/projnav.tmp"
 set -xsthdpdir "xst_%(rname)s"
 run
@@ -158,20 +107,110 @@ run
 -pld_ce YES
 -wysiwyg NO
 -equivalent_register_removal YES
-""" % dict(rname=rname)).strip()
+""" % dict(rname=router_name)).strip()
 
-            with Rewriter("%s.prj" % base_fn) as f:
-                print >>f, 'verilog work "%s.v"' % rname
+def doOutput(assem, rn, of):
+    print assem, rn, of
 
-            with Rewriter("%s.ucf" % base_fn) as f:
-                pins = []
-                for target, (source_type, source) in router.iteritems():
-                    if source_type == 'p':
-                        pins.append(source)
-                    pins.append(target)
+    aname = assem.name
+    build_dir = aname + ".mbbuild"
+    if not os.path.isdir(build_dir):
+        os.makedirs(build_dir)
 
-                for pin in pins:
-                    print >>f, 'net "p%s" LOC="%s" | IOSTANDARD = "LVCMOS33";' % (pin, pin)
+    def getRouterDef(rname):
+        boardname, rname = rname.split('.')
+        boarddef = assem.boards[boardname].boarddef
+        return boarddef.routers[rname]
+
+    jeds = []
+    reset_jeds = []
+
+    for rname, router in rn.routers.items():
+        base_fn = os.path.join(build_dir, rname)
+        routerdef = getRouterDef(rname)
+
+        tmpdir = os.path.join(build_dir, "xst_%s/projnav.tmp" % rname)
+        if not os.path.isdir(tmpdir):
+            os.makedirs(tmpdir)
+        reset_tmpdir = os.path.join(build_dir, "xst_reset_%s/projnav.tmp" % rname)
+        if not os.path.isdir(reset_tmpdir):
+            os.makedirs(reset_tmpdir)
+
+        # I hate this file/function a lot;
+        # TODO reduce the duplication and overall hackery
+        print rname, router
+        with Rewriter("%s/%s.v" % (build_dir, rname)) as f:
+            print >>f, "`timescale 1ns / 1ps"
+            print >>f
+            print >>f, "module main("
+
+            first = 1
+            for target, (source_type, source) in router.iteritems():
+                if not first:
+                    print >>f, ','
+                first = 0
+                if source_type == 'p':
+                    print >>f, "  input p%s," % source
+                print >>f, "  output p%s" % target,
+            print >>f, ");"
+
+            print >>f
+
+            for target, (source_type, source) in router.iteritems():
+                if source_type == 'p':
+                    print >>f, "  assign p%s = p%s;" % (target, source)
+                elif source_type == 's':
+                    print >>f, "  assign p%s = %s;" % (target, source)
+                else:
+                    raise Exception(source_type)
+
+            print >>f, "endmodule"
+
+        with Rewriter("%s/reset_%s.v" % (build_dir, rname)) as f:
+            print >>f, "`timescale 1ns / 1ps"
+            print >>f
+            print >>f, "module main("
+
+            first = 1
+            for target, (source_type, source) in router.iteritems():
+                if not first:
+                    print >>f, ','
+                first = 0
+                if source_type == 'p':
+                    print >>f, "  output p%s," % source
+                print >>f, "  output p%s" % target,
+            print >>f, ");"
+
+            print >>f
+
+            for target, (source_type, source) in router.iteritems():
+                print >>f, "  assign p%s = 1'bz;" % target
+                if source_type == 'p':
+                    print >>f, "  assign p%s = 1'bz;" % source
+
+            print >>f, "endmodule"
+
+        with Rewriter("%s/%s.xst" % (build_dir, rname)) as f:
+            print >>f, _makeXst(rname)
+
+        with Rewriter("%s/reset_%s.xst" % (build_dir, rname)) as f:
+            print >>f, _makeXst("reset_" + rname)
+
+        with Rewriter("%s/%s.prj" % (build_dir, rname)) as f:
+            print >>f, 'verilog work "%s.v"' % rname
+
+        with Rewriter("%s/reset_%s.prj" % (build_dir, rname)) as f:
+            print >>f, 'verilog work "reset_%s.v"' % rname
+
+        with Rewriter("%s.ucf" % base_fn) as f:
+            pins = []
+            for target, (source_type, source) in router.iteritems():
+                if source_type == 'p':
+                    pins.append(source)
+                pins.append(target)
+
+            for pin in pins:
+                print >>f, 'net "p%s" LOC="%s" | IOSTANDARD = "LVCMOS33";' % (pin, pin)
 
         translate_opts = {
         }
@@ -181,16 +220,29 @@ run
                 '-unused': 'float',
                 '-terminate': 'float',
         }
+
+        template_opts = dict(bd=build_dir, rname=rname, part=routerdef.part)
+        template_opts['fit_opts'] = ' '.join(["%s %s" % i for i in fit_opts.items()])
+
         print >>of
-        print >>of, "%s.ngc: %s.v" % (base_fn, base_fn)
-        print >>of, "\tcd %s; $(ISE_BIN)/xst -intstyle ise -ifn %s.xst" % (build_dir, rname)
-        print >>of, "%s.ngd: %s.ngc" % (base_fn, base_fn)
-        print >>of, "\tcd %s; $(ISE_BIN)/ngdbuild -uc %s.ucf -p %s %s.ngc %s.ngd" % (build_dir, rname, routerdef.part, rname, rname)
-        print >>of, "%s.vm6: %s.ngd" % (base_fn, base_fn)
-        print >>of, "\tcd %s; $(ISE_BIN)/cpldfit %s -p %s %s.ngd" % (build_dir, ' '.join('%s %s' % i for i in fit_opts.items()), routerdef.part, rname)
-        print >>of, "%s.jed: %s.vm6" % (base_fn, base_fn)
-        print >>of, "\tcd %s; $(ISE_BIN)/hprep6 -i %s.vm6" % (build_dir, rname)
-        jeds.append(base_fn + ".jed")
+        print >>of, "%(bd)s/%(rname)s.ngc: %(bd)s/%(rname)s.v" % template_opts
+        print >>of, "\tcd %(bd)s; $(ISE_BIN)/xst -intstyle ise -ifn %(rname)s.xst" % template_opts
+        print >>of, "%(bd)s/reset_%(rname)s.ngc: %(bd)s/reset_%(rname)s.v" % template_opts
+        print >>of, "\tcd %(bd)s; $(ISE_BIN)/xst -intstyle ise -ifn reset_%(rname)s.xst" % template_opts
+        print >>of, "%(bd)s/%(rname)s.ngd: %(bd)s/%(rname)s.ngc" % template_opts
+        print >>of, "\tcd %(bd)s; $(ISE_BIN)/ngdbuild -uc %(rname)s.ucf -p %(part)s %(rname)s.ngc %(rname)s.ngd" % template_opts
+        print >>of, "%(bd)s/reset_%(rname)s.ngd: %(bd)s/reset_%(rname)s.ngc" % template_opts
+        print >>of, "\tcd %(bd)s; $(ISE_BIN)/ngdbuild -uc %(rname)s.ucf -p %(part)s reset_%(rname)s.ngc reset_%(rname)s.ngd" % template_opts
+        print >>of, "%(bd)s/%(rname)s.vm6: %(bd)s/%(rname)s.ngd" % template_opts
+        print >>of, "\tcd %(bd)s; $(ISE_BIN)/cpldfit %(fit_opts)s -p %(part)s %(rname)s.ngd" % template_opts
+        print >>of, "%(bd)s/reset_%(rname)s.vm6: %(bd)s/reset_%(rname)s.ngd" % template_opts
+        print >>of, "\tcd %(bd)s; $(ISE_BIN)/cpldfit %(fit_opts)s -p %(part)s reset_%(rname)s.ngd" % template_opts
+        print >>of, "%(bd)s/%(rname)s.jed: %(bd)s/%(rname)s.vm6" % template_opts
+        print >>of, "\tcd %(bd)s; $(ISE_BIN)/hprep6 -i %(rname)s.vm6" % template_opts
+        print >>of, "%(bd)s/reset_%(rname)s.jed: %(bd)s/reset_%(rname)s.vm6" % template_opts
+        print >>of, "\tcd %(bd)s; $(ISE_BIN)/hprep6 -i reset_%(rname)s.vm6" % template_opts
+        jeds.append("%(bd)s/%(rname)s.jed" % template_opts)
+        reset_jeds.append("%(bd)s/reset_%(rname)s.jed" % template_opts)
 
 # %.vm6: %.ngd
 		# $(ISE_BIN)/cpldfit $(CPLDFIT_FLAGS) -p $(PART) $*.ngd
@@ -202,12 +254,12 @@ run
     chain = getChain(assem)
     assert len(chain) == len(rn.routers)
 
-    def impact_setup(f, ofn):
+    def impact_setup(f, ofn, prefix):
         print >>f, "setMode -bscan"
         print >>f, "setCable -port svf -file", ofn
         for i, rname in enumerate(chain):
             # Impact jtag indexes are 1-indexed:
-            print >>f, "addDevice -position %d -file %s.jed" % (i+1, rname)
+            print >>f, "addDevice -position %d -file %s%s.jed" % (i+1, prefix, rname)
     def impact_prog(f, idx):
         assert 0 <= idx < len(chain)
         print >>f, "program -e -v -p %d" % (idx + 1)
@@ -215,15 +267,25 @@ run
         print >>f, "quit"
 
     with Rewriter(os.path.join(build_dir, "prog_all.batch")) as f:
-        impact_setup(f, "prog_all.svf")
+        impact_setup(f, "prog_all.svf", "")
+        for i in xrange(len(chain)):
+            impact_prog(f, i)
+        impact_end(f)
+
+    with Rewriter(os.path.join(build_dir, "prog_reset_all.batch")) as f:
+        impact_setup(f, "prog_reset_all.svf", "reset_")
         for i in xrange(len(chain)):
             impact_prog(f, i)
         impact_end(f)
 
     print >>of, "%s/prog_all.svf: %s" % (build_dir, ' '.join(jeds))
     print >>of, "\tcd %s; $(ISE_BIN)/impact -batch prog_all.batch" % (build_dir,)
+    print >>of, "%s/prog_reset_all.svf: %s" % (build_dir, ' '.join(reset_jeds))
+    print >>of, "\tcd %s; $(ISE_BIN)/impact -batch prog_reset_all.batch" % (build_dir,)
     print >>of, "prog_%s: %s/prog_all.svf" % (aname, build_dir)
     print >>of, "\tcd %s; python ~/Dropbox/ee/jtag/svf_reader/svf_reader.py prog_all.svf" % (build_dir,)
+    print >>of, "prog_reset_%s: %s/prog_reset_all.svf" % (aname, build_dir)
+    print >>of, "\tcd %s; python ~/Dropbox/ee/jtag/svf_reader/svf_reader.py prog_reset_all.svf" % (build_dir,)
 
     print chain
     print rn.routers
