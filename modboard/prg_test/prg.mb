@@ -14,3 +14,12 @@ assembly tester:
 
     assign jtag.ledf = 1
 end
+
+assembly test2:
+    board backplane_4s_64 bp0 unconnected
+    board backplane_4s_128 bp1 bp0.1
+    board jtagusaur2 jtag bp1.1
+    board backplane_4s_128 bp_test bp0.3
+
+    assign jtag.ledf = 1
+end

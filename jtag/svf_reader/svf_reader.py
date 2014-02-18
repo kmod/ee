@@ -350,7 +350,8 @@ def main(fn):
                 mask = (((tdr_mask << length) + mask) << hdr_length) + hdr_mask
                 length += hdr_length + tdr_length
 
-            print length, hex(tdi), hex(tdo), hex(mask)
+            with print_lock:
+                print length, hex(tdi), hex(tdo), hex(mask)
 
             ctlr.send(length, tdi, mask)
             ctlr.queue_verify(length, tdo, mask)
