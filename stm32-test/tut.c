@@ -18,13 +18,17 @@ int main(void)
 {
         gpio_setup();
 
-        /* Blink the LED (PC8) on the board. */
+        gpio_toggle(GPIOE, leds[0]);
+        gpio_toggle(GPIOE, leds[1]);
+        gpio_toggle(GPIOE, leds[2]);
+        gpio_toggle(GPIOE, leds[3]);
+
         while (1) {
             for (unsigned l = 0; l < NLEDS; l++) {
-                gpio_toggle(GPIOE, leds[l]);     /* LED on/off */
-                for (int i = 0; i < 100000; i++) /* Wait a bit. */
+                gpio_toggle(GPIOE, leds[l]);
+                for (int i = 0; i < 50000; i++)
                         __asm__("nop");
-                gpio_toggle(GPIOE, leds[l]);     /* LED on/off */
+                gpio_toggle(GPIOE, leds[l^4]);
             }
         }
 
