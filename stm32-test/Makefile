@@ -1,1 +1,1 @@
-../common/stm32/Makefile
+include ../common/stm32/Makefile

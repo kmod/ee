@@ -292,62 +292,62 @@ http://www.taydaelectronics.com/datasheets/RM-065.pdf</description>
 <symbol name="STM32F373C">
 <description>ST's STM32F373C
 STM32 Line, F3 subline, F373 model, C=48-pin</description>
-<pin name="VBAT" x="-38.1" y="15.24" length="middle" direction="pwr"/>
-<pin name="VDD" x="-38.1" y="12.7" length="middle" direction="pwr"/>
-<pin name="VSS" x="-38.1" y="2.54" length="middle" direction="pwr"/>
-<pin name="VDDA/VREF+" x="-38.1" y="10.16" length="middle" direction="pwr"/>
-<pin name="VSSA/VREF-" x="-38.1" y="0" length="middle" direction="pwr"/>
-<pin name="PC13" x="7.62" y="-25.4" length="middle" rot="R180"/>
-<pin name="PC14/OSC32_IN" x="-38.1" y="-20.32" length="middle"/>
-<pin name="PC15/OSC32_OUT" x="-38.1" y="-22.86" length="middle"/>
-<pin name="PF0/OSC_IN" x="-38.1" y="-25.4" length="middle"/>
-<pin name="PF1/OSC_OUT" x="-38.1" y="-27.94" length="middle"/>
-<pin name="NRST" x="-38.1" y="-15.24" length="middle"/>
-<pin name="PA0" x="7.62" y="15.24" length="middle" rot="R180"/>
-<pin name="PA1" x="7.62" y="12.7" length="middle" rot="R180"/>
-<pin name="PA2" x="7.62" y="10.16" length="middle" rot="R180"/>
-<pin name="PA3" x="7.62" y="7.62" length="middle" rot="R180"/>
-<pin name="PA4" x="7.62" y="5.08" length="middle" rot="R180"/>
-<pin name="PA5" x="7.62" y="2.54" length="middle" rot="R180"/>
-<pin name="PA6" x="7.62" y="0" length="middle" rot="R180"/>
-<pin name="PB0" x="-38.1" y="-33.02" length="middle"/>
-<pin name="PB1" x="-38.1" y="-35.56" length="middle"/>
-<pin name="PB2" x="-38.1" y="-38.1" length="middle"/>
-<pin name="PE8" x="7.62" y="-35.56" length="middle" rot="R180"/>
-<pin name="PE9" x="7.62" y="-38.1" length="middle" direction="pwr" rot="R180"/>
-<pin name="PB14" x="-38.1" y="-53.34" length="middle" direction="pwr"/>
-<pin name="PB15" x="-38.1" y="-55.88" length="middle" direction="pwr"/>
-<pin name="PD8" x="7.62" y="-30.48" length="middle" direction="pwr" rot="R180"/>
-<pin name="PA8" x="7.62" y="-2.54" length="middle" direction="pwr" rot="R180"/>
-<pin name="PA9" x="7.62" y="-5.08" length="middle" direction="pwr" rot="R180"/>
-<pin name="PA10" x="7.62" y="-7.62" length="middle" direction="pwr" rot="R180"/>
-<pin name="PA11" x="7.62" y="-10.16" length="middle" direction="pwr" rot="R180"/>
-<pin name="PA12" x="7.62" y="-12.7" length="middle" direction="pwr" rot="R180"/>
-<pin name="PA13" x="7.62" y="-15.24" length="middle" direction="pwr" rot="R180"/>
-<pin name="VSSSD/VREFSD-" x="-38.1" y="-2.54" length="middle" direction="pwr"/>
-<pin name="VDDSD" x="-38.1" y="7.62" length="middle" direction="pwr"/>
-<pin name="VREFSD+" x="-38.1" y="-7.62" length="middle" direction="pwr"/>
-<pin name="PF6" x="7.62" y="-43.18" length="middle" direction="pwr" rot="R180"/>
-<pin name="PF7" x="7.62" y="-45.72" length="middle" direction="pwr" rot="R180"/>
-<pin name="PA14" x="7.62" y="-17.78" length="middle" direction="pwr" rot="R180"/>
-<pin name="PA15" x="7.62" y="-20.32" length="middle" direction="pwr" rot="R180"/>
-<pin name="PB3" x="-38.1" y="-40.64" length="middle" direction="pwr"/>
-<pin name="PB4" x="-38.1" y="-43.18" length="middle" direction="pwr"/>
-<pin name="PB5" x="-38.1" y="-45.72" length="middle" direction="pwr"/>
-<pin name="PB6" x="-38.1" y="-48.26" length="middle" direction="pwr"/>
-<pin name="PB7" x="-38.1" y="-50.8" length="middle" direction="pwr"/>
-<pin name="BOOT0" x="-38.1" y="-12.7" length="middle" direction="pwr"/>
-<pin name="PB8" x="15.24" y="-83.82" length="middle" direction="pwr" rot="R180"/>
-<pin name="PB9" x="15.24" y="-86.36" length="middle" direction="pwr" rot="R180"/>
-<text x="-20.32" y="-7.62" size="0.508" layer="97">Connect 10uF cap btwn
+<pin name="VBAT" x="-22.86" y="33.02" length="middle" direction="pwr"/>
+<pin name="VDD" x="-22.86" y="30.48" length="middle" direction="pwr"/>
+<pin name="VSS" x="-22.86" y="20.32" length="middle" direction="pwr"/>
+<pin name="VDDA/VREF+" x="-22.86" y="27.94" length="middle" direction="pwr"/>
+<pin name="VSSA/VREF-" x="-22.86" y="17.78" length="middle" direction="pwr"/>
+<pin name="PC13" x="22.86" y="-7.62" length="middle" rot="R180"/>
+<pin name="PC14/OSC32_IN" x="22.86" y="-10.16" length="middle" rot="R180"/>
+<pin name="PC15/OSC32_OUT" x="22.86" y="-12.7" length="middle" rot="R180"/>
+<pin name="PF0/OSC_IN" x="22.86" y="-30.48" length="middle" rot="R180"/>
+<pin name="PF1/OSC_OUT" x="22.86" y="-33.02" length="middle" rot="R180"/>
+<pin name="NRST" x="-22.86" y="2.54" length="middle" direction="in"/>
+<pin name="PA0" x="22.86" y="33.02" length="middle" rot="R180"/>
+<pin name="PA1" x="22.86" y="30.48" length="middle" rot="R180"/>
+<pin name="PA2" x="22.86" y="27.94" length="middle" rot="R180"/>
+<pin name="PA3" x="22.86" y="25.4" length="middle" rot="R180"/>
+<pin name="PA4" x="22.86" y="22.86" length="middle" rot="R180"/>
+<pin name="PA5" x="22.86" y="20.32" length="middle" rot="R180"/>
+<pin name="PA6" x="22.86" y="17.78" length="middle" rot="R180"/>
+<pin name="PB0" x="-22.86" y="-2.54" length="middle"/>
+<pin name="PB1" x="-22.86" y="-5.08" length="middle"/>
+<pin name="PB2" x="-22.86" y="-7.62" length="middle"/>
+<pin name="PE8" x="22.86" y="-22.86" length="middle" rot="R180"/>
+<pin name="PE9" x="22.86" y="-25.4" length="middle" direction="pwr" rot="R180"/>
+<pin name="PB14" x="-22.86" y="-27.94" length="middle"/>
+<pin name="PB15" x="-22.86" y="-30.48" length="middle"/>
+<pin name="PD8" x="22.86" y="-17.78" length="middle" direction="pwr" rot="R180"/>
+<pin name="PA8" x="22.86" y="15.24" length="middle" rot="R180"/>
+<pin name="PA9" x="22.86" y="12.7" length="middle" rot="R180"/>
+<pin name="PA10" x="22.86" y="10.16" length="middle" rot="R180"/>
+<pin name="PA11/D-" x="22.86" y="7.62" length="middle" rot="R180"/>
+<pin name="PA12/D+" x="22.86" y="5.08" length="middle" rot="R180"/>
+<pin name="PA13" x="22.86" y="2.54" length="middle" rot="R180"/>
+<pin name="VSSSD/VREFSD-" x="-22.86" y="15.24" length="middle" direction="pwr"/>
+<pin name="VDDSD" x="-22.86" y="25.4" length="middle" direction="pwr"/>
+<pin name="VREFSD+" x="-22.86" y="10.16" length="middle" direction="pwr"/>
+<pin name="PF6" x="22.86" y="-35.56" length="middle" rot="R180"/>
+<pin name="PF7" x="22.86" y="-38.1" length="middle" direction="pwr" rot="R180"/>
+<pin name="PA14" x="22.86" y="0" length="middle" rot="R180"/>
+<pin name="PA15" x="22.86" y="-2.54" length="middle" rot="R180"/>
+<pin name="PB3" x="-22.86" y="-10.16" length="middle"/>
+<pin name="PB4" x="-22.86" y="-12.7" length="middle"/>
+<pin name="PB5" x="-22.86" y="-15.24" length="middle"/>
+<pin name="PB6" x="-22.86" y="-17.78" length="middle"/>
+<pin name="PB7" x="-22.86" y="-20.32" length="middle"/>
+<pin name="BOOT0" x="-22.86" y="5.08" length="middle" direction="in"/>
+<pin name="PB8" x="-22.86" y="-22.86" length="middle"/>
+<pin name="PB9" x="-22.86" y="-25.4" length="middle"/>
+<text x="-5.08" y="10.16" size="0.508" layer="97">Connect 10uF cap btwn
 VREFSD+ and VREFSD-</text>
-<text x="-22.86" y="15.24" size="0.508" layer="97">Backup</text>
-<text x="-22.86" y="12.7" size="0.508" layer="97">IO, core</text>
-<text x="-15.24" y="10.16" size="0.508" layer="97">ADC/DAC</text>
-<text x="-15.24" y="7.62" size="0.508" layer="97">SDADC</text>
-<text x="-22.86" y="-12.7" size="0.508" layer="97">Set to 1 to get embedded bootloaded,
+<text x="-7.62" y="33.02" size="0.508" layer="97">Backup</text>
+<text x="-7.62" y="30.48" size="0.508" layer="97">IO, core</text>
+<text x="0" y="27.94" size="0.508" layer="97">ADC/DAC</text>
+<text x="0" y="25.4" size="0.508" layer="97">SDADC</text>
+<text x="-7.62" y="5.08" size="0.508" layer="97">Set to 1 to get embedded bootloaded,
 otherewise main flash</text>
-<text x="-22.86" y="-15.24" size="0.508" layer="97">reset on low</text>
+<text x="-7.62" y="2.54" size="0.508" layer="97">reset on low</text>
 </symbol>
 </symbols>
 <devicesets>
@@ -380,8 +380,8 @@ otherewise main flash</text>
 <connect gate="G$1" pin="PA0" pad="10"/>
 <connect gate="G$1" pin="PA1" pad="11"/>
 <connect gate="G$1" pin="PA10" pad="31"/>
-<connect gate="G$1" pin="PA11" pad="32"/>
-<connect gate="G$1" pin="PA12" pad="33"/>
+<connect gate="G$1" pin="PA11/D-" pad="32"/>
+<connect gate="G$1" pin="PA12/D+" pad="33"/>
 <connect gate="G$1" pin="PA13" pad="34"/>
 <connect gate="G$1" pin="PA14" pad="37"/>
 <connect gate="G$1" pin="PA15" pad="38"/>
