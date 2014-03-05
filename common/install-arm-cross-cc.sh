@@ -5,6 +5,9 @@ set -x
 
 sudo apt-get install texinfo libusb-dev libusb-1.0-0-dev
 
+export CC=$HOME/llvm/gcc-4.8.2-install/bin/gcc
+export CXX=$HOME/llvm/gcc-4.8.2-install/bin/g++
+
 export TOPDIR=~/cross-src
 export TARGET=arm-none-eabi
 export PREFIX=~/arm-cross
@@ -15,7 +18,8 @@ export PATH=$PREFIX/bin:$PATH
 mkdir -p $TOPDIR
 cd $TOPDIR
 wget --continue ftp://ftp.gnu.org/gnu/binutils/binutils-2.24.tar.gz &
-wget --continue ftp://ftp.gnu.org/gnu/gcc/gcc-4.8.2/gcc-4.8.2.tar.bz2 &
+# wget --continue ftp://ftp.gnu.org/gnu/gcc/gcc-4.8.2/gcc-4.8.2.tar.bz2 &
+wget --continue http://www.netgull.com/gcc/releases/gcc-4.8.2/gcc-4.8.2.tar.bz2 &
 wget --continue ftp://sources.redhat.com/pub/newlib/newlib-2.0.0.tar.gz &
 wget --continue ftp://ftp.gnu.org/gnu/gdb/gdb-7.6.tar.gz &
 wget --continue http://downloads.sourceforge.net/project/openocd/openocd/0.7.0/openocd-0.7.0.tar.gz &
