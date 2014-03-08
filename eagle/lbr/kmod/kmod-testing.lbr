@@ -703,9 +703,9 @@ VREFSD+ and VREFSD-</text>
 otherewise main flash</text>
 <text x="-7.62" y="2.54" size="0.508" layer="97">reset on low</text>
 </symbol>
-<symbol name="STM32F407R">
-<description>ST's STM32F407R
-STM32 Line, F4 subline, F407 model, R=100-pin (only TQFP)</description>
+<symbol name="STM32F407V">
+<description>ST's STM32F407V&lt;br/&gt;
+STM32 Line, F4 subline, F407 model, V=100-pin (only TQFP)</description>
 <pin name="BOOT0" x="-15.24" y="27.94" length="middle" direction="in" rot="R180"/>
 <pin name="NRST" x="-15.24" y="35.56" length="middle" direction="in" rot="R180"/>
 <pin name="PA0/WKUP" x="-15.24" y="33.02" length="middle" direction="in" rot="R180"/>
@@ -790,14 +790,14 @@ STM32 Line, F4 subline, F407 model, R=100-pin (only TQFP)</description>
 <pin name="PE9" x="58.42" y="-30.48" length="middle" rot="R180"/>
 <pin name="PH0/OSC_IN" x="-15.24" y="20.32" length="middle" rot="R180"/>
 <pin name="PH1/OSC_OUT" x="-15.24" y="17.78" length="middle" rot="R180"/>
-<pin name="VBAT" x="-60.96" y="35.56" length="middle" direction="pwr"/>
-<pin name="VCAP_1" x="-60.96" y="22.86" length="middle" direction="pwr"/>
-<pin name="VCAP_2" x="-60.96" y="20.32" length="middle" direction="pwr"/>
-<pin name="VDDA" x="-60.96" y="30.48" length="middle" direction="pwr"/>
-<pin name="VDD" x="-60.96" y="33.02" length="middle" direction="pwr"/>
-<pin name="VREF+" x="-60.96" y="27.94" length="middle" direction="pwr"/>
-<pin name="VSSA" x="-60.96" y="12.7" length="middle" direction="pwr"/>
-<pin name="VSS" x="-60.96" y="15.24" length="middle" direction="pwr"/>
+<pin name="VBAT" x="-60.96" y="35.56" length="middle" direction="in"/>
+<pin name="VCAP_1" x="-60.96" y="22.86" length="middle" direction="in"/>
+<pin name="VCAP_2" x="-60.96" y="20.32" length="middle" direction="in"/>
+<pin name="VDDA" x="-60.96" y="30.48" length="middle" direction="in"/>
+<pin name="VDD" x="-60.96" y="33.02" length="middle" direction="in"/>
+<pin name="VREF+" x="-60.96" y="27.94" length="middle" direction="in"/>
+<pin name="VSSA" x="-60.96" y="12.7" length="middle" direction="in"/>
+<pin name="VSS" x="-60.96" y="15.24" length="middle" direction="in"/>
 <wire x1="-55.88" y1="40.64" x2="-20.32" y2="40.64" width="0.254" layer="94"/>
 <wire x1="-20.32" y1="40.64" x2="-20.32" y2="7.62" width="0.254" layer="94"/>
 <wire x1="-20.32" y1="7.62" x2="-55.88" y2="7.62" width="0.254" layer="94"/>
@@ -827,6 +827,90 @@ STM32 Line, F4 subline, F407 model, R=100-pin (only TQFP)</description>
 <text x="-33.02" y="35.56" size="0.508" layer="97">Built-in PU</text>
 <text x="7.62" y="15.24" size="0.508" layer="97">D-</text>
 <text x="7.62" y="12.7" size="0.508" layer="97">D+</text>
+</symbol>
+<symbol name="STM32F407R">
+<description>ST's STM32F407R&lt;br/&gt;
+STM32 Line, F4 subline, F407 model, R=64-pin (only TQFP)</description>
+<pin name="BOOT0" x="33.02" y="12.7" length="middle" direction="in" rot="R180"/>
+<pin name="NRST" x="33.02" y="22.86" length="middle" direction="in" rot="R180"/>
+<pin name="PA0/WKUP" x="33.02" y="17.78" length="middle" direction="in" rot="R180"/>
+<pin name="PA10" x="-53.34" y="-35.56" length="middle"/>
+<pin name="PA11" x="-53.34" y="-38.1" length="middle"/>
+<pin name="PA12" x="-53.34" y="-40.64" length="middle"/>
+<pin name="PA13/JTMS-SWDIO" x="63.5" y="22.86" length="middle"/>
+<pin name="PA14/JTCK-SWCLK" x="63.5" y="20.32" length="middle"/>
+<pin name="PA15/JTDI" x="63.5" y="17.78" length="middle"/>
+<pin name="PA1" x="-53.34" y="-12.7" length="middle"/>
+<pin name="PA2" x="-53.34" y="-15.24" length="middle"/>
+<pin name="PA3" x="-53.34" y="-17.78" length="middle"/>
+<pin name="PA4" x="-53.34" y="-20.32" length="middle"/>
+<pin name="PA5" x="-53.34" y="-22.86" length="middle"/>
+<pin name="PA6" x="-53.34" y="-25.4" length="middle"/>
+<pin name="PA7" x="-53.34" y="-27.94" length="middle"/>
+<pin name="PA8" x="-53.34" y="-30.48" length="middle"/>
+<pin name="PA9" x="-53.34" y="-33.02" length="middle"/>
+<pin name="PB0" x="-22.86" y="-10.16" length="middle" rot="R180"/>
+<pin name="PB10" x="-22.86" y="-35.56" length="middle" rot="R180"/>
+<pin name="PB11" x="-22.86" y="-38.1" length="middle" rot="R180"/>
+<pin name="PB12" x="-22.86" y="-40.64" length="middle" rot="R180"/>
+<pin name="PB13" x="-22.86" y="-43.18" length="middle" rot="R180"/>
+<pin name="PB14" x="-22.86" y="-45.72" length="middle" rot="R180"/>
+<pin name="PB15" x="-22.86" y="-48.26" length="middle" rot="R180"/>
+<pin name="PB1" x="-22.86" y="-12.7" length="middle" rot="R180"/>
+<pin name="PB2/BOOT1" x="33.02" y="10.16" length="middle" direction="in" rot="R180"/>
+<pin name="PB3/JTDO-TRACESWO" x="63.5" y="15.24" length="middle"/>
+<pin name="PB4/NJTRST" x="63.5" y="12.7" length="middle"/>
+<pin name="PB5" x="-22.86" y="-22.86" length="middle" rot="R180"/>
+<pin name="PB6" x="-22.86" y="-25.4" length="middle" rot="R180"/>
+<pin name="PB7" x="-22.86" y="-27.94" length="middle" rot="R180"/>
+<pin name="PB8" x="-22.86" y="-30.48" length="middle" rot="R180"/>
+<pin name="PB9" x="-22.86" y="-33.02" length="middle" rot="R180"/>
+<pin name="PC0" x="25.4" y="-10.16" length="middle"/>
+<pin name="PC10" x="25.4" y="-35.56" length="middle"/>
+<pin name="PC11" x="25.4" y="-38.1" length="middle"/>
+<pin name="PC12" x="25.4" y="-40.64" length="middle"/>
+<pin name="PC13" x="25.4" y="-43.18" length="middle"/>
+<pin name="PC14/OSC32_IN" x="-12.7" y="22.86" length="middle"/>
+<pin name="PC15/OSC32_OUT" x="-12.7" y="20.32" length="middle"/>
+<pin name="PC1" x="25.4" y="-12.7" length="middle"/>
+<pin name="PC2" x="25.4" y="-15.24" length="middle"/>
+<pin name="PC3" x="25.4" y="-17.78" length="middle"/>
+<pin name="PC4" x="25.4" y="-20.32" length="middle"/>
+<pin name="PC5" x="25.4" y="-22.86" length="middle"/>
+<pin name="PC6" x="25.4" y="-25.4" length="middle"/>
+<pin name="PC7" x="25.4" y="-27.94" length="middle"/>
+<pin name="PC8" x="25.4" y="-30.48" length="middle"/>
+<pin name="PC9" x="25.4" y="-33.02" length="middle"/>
+<pin name="PD2" x="53.34" y="-15.24" length="middle" rot="R180"/>
+<pin name="PH0/OSC_IN" x="-12.7" y="15.24" length="middle"/>
+<pin name="PH1/OSC_OUT" x="-12.7" y="12.7" length="middle"/>
+<pin name="VBAT" x="-76.2" y="22.86" length="middle" direction="in"/>
+<pin name="VCAP_1" x="-45.72" y="22.86" length="middle" direction="in" rot="R180"/>
+<pin name="VCAP_2" x="-45.72" y="20.32" length="middle" direction="in" rot="R180"/>
+<pin name="VDDA" x="-76.2" y="17.78" length="middle" direction="in"/>
+<pin name="VDD" x="-76.2" y="20.32" length="middle" direction="in"/>
+<pin name="VSSA" x="-76.2" y="12.7" length="middle" direction="in"/>
+<pin name="VSS" x="-76.2" y="10.16" length="middle" direction="in"/>
+<wire x1="-71.12" y1="25.4" x2="-50.8" y2="25.4" width="0.254" layer="94"/>
+<wire x1="-50.8" y1="25.4" x2="-50.8" y2="7.62" width="0.254" layer="94"/>
+<wire x1="-50.8" y1="7.62" x2="-71.12" y2="7.62" width="0.254" layer="94"/>
+<wire x1="-71.12" y1="7.62" x2="-71.12" y2="25.4" width="0.254" layer="94"/>
+<wire x1="-7.62" y1="25.4" x2="27.94" y2="25.4" width="0.254" layer="94"/>
+<wire x1="27.94" y1="25.4" x2="27.94" y2="7.62" width="0.254" layer="94"/>
+<wire x1="27.94" y1="7.62" x2="-7.62" y2="7.62" width="0.254" layer="94"/>
+<wire x1="-7.62" y1="7.62" x2="-7.62" y2="25.4" width="0.254" layer="94"/>
+<wire x1="68.58" y1="25.4" x2="96.52" y2="25.4" width="0.254" layer="94"/>
+<wire x1="96.52" y1="25.4" x2="96.52" y2="7.62" width="0.254" layer="94"/>
+<wire x1="96.52" y1="7.62" x2="68.58" y2="7.62" width="0.254" layer="94"/>
+<wire x1="68.58" y1="7.62" x2="68.58" y2="25.4" width="0.254" layer="94"/>
+<wire x1="-48.26" y1="-7.62" x2="-27.94" y2="-7.62" width="0.254" layer="94"/>
+<wire x1="-27.94" y1="-7.62" x2="-27.94" y2="-50.8" width="0.254" layer="94"/>
+<wire x1="-27.94" y1="-50.8" x2="-48.26" y2="-50.8" width="0.254" layer="94"/>
+<wire x1="-48.26" y1="-50.8" x2="-48.26" y2="-7.62" width="0.254" layer="94"/>
+<wire x1="30.48" y1="-7.62" x2="48.26" y2="-7.62" width="0.254" layer="94"/>
+<wire x1="48.26" y1="-7.62" x2="48.26" y2="-45.72" width="0.254" layer="94"/>
+<wire x1="48.26" y1="-45.72" x2="30.48" y2="-45.72" width="0.254" layer="94"/>
+<wire x1="30.48" y1="-45.72" x2="30.48" y2="-7.62" width="0.254" layer="94"/>
 </symbol>
 </symbols>
 <devicesets>
@@ -908,9 +992,9 @@ STM32 Line, F4 subline, F407 model, R=100-pin (only TQFP)</description>
 </device>
 </devices>
 </deviceset>
-<deviceset name="STM32F407R">
+<deviceset name="STM32F407V">
 <gates>
-<gate name="G$1" symbol="STM32F407R" x="0" y="0"/>
+<gate name="G$1" symbol="STM32F407V" x="0" y="0"/>
 </gates>
 <devices>
 <device name="" package="TQFP100_LONGPAD">
@@ -1007,6 +1091,80 @@ STM32 Line, F4 subline, F407 model, R=100-pin (only TQFP)</description>
 <connect gate="G$1" pin="VREF+" pad="21"/>
 <connect gate="G$1" pin="VSS" pad="10 27 74 99"/>
 <connect gate="G$1" pin="VSSA" pad="20"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="STM32F407R">
+<gates>
+<gate name="G$1" symbol="STM32F407R" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="TQFP64_LONGPAD">
+<connects>
+<connect gate="G$1" pin="BOOT0" pad="60"/>
+<connect gate="G$1" pin="NRST" pad="7"/>
+<connect gate="G$1" pin="PA0/WKUP" pad="14"/>
+<connect gate="G$1" pin="PA1" pad="15"/>
+<connect gate="G$1" pin="PA10" pad="43"/>
+<connect gate="G$1" pin="PA11" pad="44"/>
+<connect gate="G$1" pin="PA12" pad="45"/>
+<connect gate="G$1" pin="PA13/JTMS-SWDIO" pad="46"/>
+<connect gate="G$1" pin="PA14/JTCK-SWCLK" pad="49"/>
+<connect gate="G$1" pin="PA15/JTDI" pad="50"/>
+<connect gate="G$1" pin="PA2" pad="16"/>
+<connect gate="G$1" pin="PA3" pad="17"/>
+<connect gate="G$1" pin="PA4" pad="20"/>
+<connect gate="G$1" pin="PA5" pad="21"/>
+<connect gate="G$1" pin="PA6" pad="22"/>
+<connect gate="G$1" pin="PA7" pad="23"/>
+<connect gate="G$1" pin="PA8" pad="41"/>
+<connect gate="G$1" pin="PA9" pad="42"/>
+<connect gate="G$1" pin="PB0" pad="26"/>
+<connect gate="G$1" pin="PB1" pad="27"/>
+<connect gate="G$1" pin="PB10" pad="29"/>
+<connect gate="G$1" pin="PB11" pad="30"/>
+<connect gate="G$1" pin="PB12" pad="33"/>
+<connect gate="G$1" pin="PB13" pad="34"/>
+<connect gate="G$1" pin="PB14" pad="35"/>
+<connect gate="G$1" pin="PB15" pad="36"/>
+<connect gate="G$1" pin="PB2/BOOT1" pad="28"/>
+<connect gate="G$1" pin="PB3/JTDO-TRACESWO" pad="55"/>
+<connect gate="G$1" pin="PB4/NJTRST" pad="56"/>
+<connect gate="G$1" pin="PB5" pad="57"/>
+<connect gate="G$1" pin="PB6" pad="58"/>
+<connect gate="G$1" pin="PB7" pad="59"/>
+<connect gate="G$1" pin="PB8" pad="61"/>
+<connect gate="G$1" pin="PB9" pad="62"/>
+<connect gate="G$1" pin="PC0" pad="8"/>
+<connect gate="G$1" pin="PC1" pad="9"/>
+<connect gate="G$1" pin="PC10" pad="51"/>
+<connect gate="G$1" pin="PC11" pad="52"/>
+<connect gate="G$1" pin="PC12" pad="53"/>
+<connect gate="G$1" pin="PC13" pad="2"/>
+<connect gate="G$1" pin="PC14/OSC32_IN" pad="3"/>
+<connect gate="G$1" pin="PC15/OSC32_OUT" pad="4"/>
+<connect gate="G$1" pin="PC2" pad="10"/>
+<connect gate="G$1" pin="PC3" pad="11"/>
+<connect gate="G$1" pin="PC4" pad="24"/>
+<connect gate="G$1" pin="PC5" pad="25"/>
+<connect gate="G$1" pin="PC6" pad="37"/>
+<connect gate="G$1" pin="PC7" pad="38"/>
+<connect gate="G$1" pin="PC8" pad="39"/>
+<connect gate="G$1" pin="PC9" pad="40"/>
+<connect gate="G$1" pin="PD2" pad="54"/>
+<connect gate="G$1" pin="PH0/OSC_IN" pad="5"/>
+<connect gate="G$1" pin="PH1/OSC_OUT" pad="6"/>
+<connect gate="G$1" pin="VBAT" pad="1"/>
+<connect gate="G$1" pin="VCAP_1" pad="31"/>
+<connect gate="G$1" pin="VCAP_2" pad="47"/>
+<connect gate="G$1" pin="VDD" pad="19 32 48 64"/>
+<connect gate="G$1" pin="VDDA" pad="13"/>
+<connect gate="G$1" pin="VSS" pad="18 63"/>
+<connect gate="G$1" pin="VSSA" pad="12"/>
 </connects>
 <technologies>
 <technology name=""/>

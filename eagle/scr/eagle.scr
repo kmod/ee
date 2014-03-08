@@ -3,6 +3,9 @@
 # This file can be used to configure the editor windows.
 
 # GENERAL:
+Set Option.AutoLoadMatchingDrawingFile 1;
+Set Warning.PartHasNoUserDefinableValue 0;
+
 ASSIGN C+M MOVE;
 ASSIGN C+Z UNDO;
 ASSIGN C+Y REDO;
@@ -22,6 +25,7 @@ ASSIGN C+I SHOW;
 
 # kmod:
 Assign F2 'Move';
+Assign CF2 'Mirror';
 Assign AF2 'Copy';
 Assign F3 'Group';
 Assign F4 'Delete';
@@ -77,6 +81,8 @@ ASSIGN CS+I INVOKE;
 ASSIGN CS+V VALUE;
 ASSIGN CS+S SMASH;
 ASSIGN A+N NET;
+
+ASSIGN CS+D 'ERC;';
 
 # kmod:
 Assign F7 'Net';
