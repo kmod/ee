@@ -249,6 +249,7 @@ def doOutput(assem, rn, of):
 # %.jed: %.vm6
 		# $(ISE_BIN)/hprep6 $(HPREP6_FLAGS) -i $*.vm6
 
+    print >>of, "%s_jeds:" % aname, " ".join(jeds), " ".join(reset_jeds)
     print >>of, "jeds::", " ".join(jeds), " ".join(reset_jeds)
 
 

@@ -7,6 +7,21 @@ assembly main:
     assign jtag.ledf = 1
 end
 
+assembly main_128:
+    board backplane_4s_128 bp unconnected
+    board jtagusaur2 jtag bp.1
+
+    assign jtag.ledf = 1
+end
+
+assembly tester_conn:
+    board backplane_4s_128 bp_test unconnected
+    board backplane_4s_64 bp bp_test.1
+    board jtagusaur2 jtag bp.1
+
+    assign jtag.ledf = 1
+end
+
 assembly tester:
     board backplane_4s_64 bp unconnected
     board jtagusaur2 jtag bp.1

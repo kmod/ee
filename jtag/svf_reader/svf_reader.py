@@ -47,10 +47,14 @@ class JtagController(object):
     def sleep_micros(self, micros):
         assert self.state in ("drpause", "idle", "irpause"), self.state
 
-        # The 'correct' value here is 22, but
-        # overclock it to 50 which seems to work (100 seems stable).
-        for i in xrange(0, micros, 22):
+        start = time.time()
+        micros_per_pulse = 1000000.0 / (self.EST_SPEED * 2)
+        npulses = int((micros + micros_per_pulse + 1) / micros_per_pulse)
+        npulses = max(npulses, 5)
+        # print "Doing %d pulses" % npulses
+        for i in xrange(npulses):
             self.pulse(0, 0, get_tdo=False)
+        print time.time() - start
 
     def flush(self):
         if self.buf is not None:
@@ -229,6 +233,8 @@ def main(fn):
     tdr_tdo = 0
     tdr_mask = 0
 
+    tick_micros = None
+
     f = open(fn)
     cur = ""
     for l in f:
@@ -256,7 +262,12 @@ def main(fn):
             assert args == ["OFF"]
             assert ctlr.state is None
         elif cmd == "FREQUENCY":
-            pass
+            assert args[1] == "HZ"
+            tick_micros = args[0]
+            if tick_micros == "1E6":
+                tick_micros = 1
+            else:
+                assert 0, tick_micros
         elif cmd in ("HIR", "HDR", "TIR", "TDR"):
             length = int(args[0])
 
@@ -313,7 +324,7 @@ def main(fn):
                 assert args[0].lower() == ctlr.state, ctlr.state
                 del args[0]
 
-            ctlr.sleep_micros(int(args[0]))
+            ctlr.sleep_micros(int(args[0]) * tick_micros)
         elif cmd == "STATE":
             for new_state in args:
                 new_state = new_state.lower()
@@ -366,7 +377,8 @@ def main(fn):
 
     ctlr.join()
     with print_lock:
-        print "Took %.1fs to program, sent %d pulses" % (time.time() - start, ctlr.npulses)
+        elapsed = time.time() - start
+        print "Took %.1fs to program, sent %d pulses (%.1fkHz)" % (elapsed, ctlr.npulses, ctlr.npulses * 0.001 / elapsed)
         print "Sent %d bytes, received %d" % (ctlr.ctlr.bytes_written, ctlr.ctlr.bytes_read)
 
 if __name__ == "__main__":
