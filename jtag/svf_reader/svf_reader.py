@@ -408,6 +408,7 @@ if __name__ == "__main__":
         for i in xrange(64):
             c = ord(ctlr.ctlr.q.get())
             r |= c << i
+        # print hex(r)
 
         nconnected = 0
         while r & (1 << nconnected) == 0:
@@ -442,9 +443,10 @@ if __name__ == "__main__":
             masked = code & 0x0fff8fff
 
             idcode_to_name = {
-                    0x06d58093: "cr_64",
+                    0x06e58093: "cr_64",
                     0x06d88093: "cr_128",
                     }
+            # print hex(masked)
             return idcode_to_name[masked]
 
         for i, code in enumerate(idcodes):
