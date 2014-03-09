@@ -11,7 +11,7 @@ from debugger.controller import Controller
 print_lock = threading.Lock()
 
 class JtagController(object):
-    def __init__(self):
+    def __init__(self, use_verify_thread):
         self.state = None
         self.ctlr = Controller(autoflush=0, br=500000)
 
@@ -22,11 +22,12 @@ class JtagController(object):
         self.EST_SPEED = 15000.0
         self.last_est = time.time()
 
-        self._verify_queue = Queue.Queue(maxsize=1)
+        if use_verify_thread:
+            self._verify_queue = Queue.Queue(maxsize=1)
 
-        t = threading.Thread(target=self._verify_thread)
-        t.setDaemon(True)
-        t.start()
+            t = threading.Thread(target=self._verify_thread)
+            t.setDaemon(True)
+            t.start()
 
     def _write(self, s):
         # print bin(ord(s))[2:].rjust(8, '0')
@@ -209,7 +210,7 @@ class JtagController(object):
                 raise Exception((self.state, new_state))
 
 def main(fn):
-    ctlr = JtagController()
+    ctlr = JtagController(use_verify_thread=True)
 
     start = time.time()
     endir = None
@@ -375,6 +376,8 @@ def main(fn):
         else:
             raise Exception(l)
 
+    assert not cur, "trailing command"
+
     ctlr.join()
     with print_lock:
         elapsed = time.time() - start
@@ -383,5 +386,71 @@ def main(fn):
 
 if __name__ == "__main__":
     fn = sys.argv[1]
-    main(fn)
+
+    if fn == "enumerate":
+        ctlr = JtagController(use_verify_thread=False)
+        ctlr.goto("reset")
+        ctlr.goto("idle")
+
+        ctlr.goto("irshift")
+        ctlr.send(64, 0xffffffffffffffff, 0x0)
+        for i in xrange(64):
+            c = ord(ctlr.ctlr.q.get())
+
+        ctlr.goto("idle")
+        ctlr.goto("drshift")
+        ctlr.send(64, 0xffffffffffffffff, 0xffffffffffffffff)
+        ctlr.goto("idle")
+
+        ctlr.flush()
+
+        r = 0
+        for i in xrange(64):
+            c = ord(ctlr.ctlr.q.get())
+            r |= c << i
+
+        nconnected = 0
+        while r & (1 << nconnected) == 0:
+            nconnected += 1
+            assert nconnected < 64, "unsupported -- increase the length of the bypass instruction"
+        print "Found %d devices:" % (nconnected,)
+
+        ctlr.goto("irshift")
+        cmd = 0x0
+        for i in xrange(nconnected):
+            cmd = (cmd << 8) | 0x01
+        cmdsize = nconnected * 8
+        ctlr.send(cmdsize, cmd, 0x00)
+        for i in xrange(cmdsize):
+            c = ord(ctlr.ctlr.q.get())
+        ctlr.goto("idle")
+
+        ctlr.goto("drshift")
+        rtnsize = 32 * nconnected
+        ctlr.send(rtnsize, 0x0, (1<<rtnsize) - 1)
+
+        idcodes = [0] * nconnected
+        for i in xrange(rtnsize):
+            c = ord(ctlr.ctlr.q.get())
+            idcodes[i / 32] |= c << (i % 32)
+
+        # idcodes come out starting with the last device in the chain;
+        # reverse it, and it's in the order of the chain:
+        idcodes.reverse()
+
+        def idcode_to_name(code):
+            masked = code & 0x0fff8fff
+
+            idcode_to_name = {
+                    0x06d58093: "cr_64",
+                    0x06d88093: "cr_128",
+                    }
+            return idcode_to_name[masked]
+
+        for i, code in enumerate(idcodes):
+            print "Device %d: %x (%s)" % (i+1, code, idcode_to_name(code))
+
+        assert ctlr.ctlr.q.qsize() == 0, ctlr.ctlr.q.qsize()
+    else:
+        main(fn)
 
