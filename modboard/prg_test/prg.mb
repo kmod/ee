@@ -1,40 +1,48 @@
 include ../programming/defs.mb
 
-assembly main:
+assembly test64:
     board backplane_4s_64 bp unconnected
     board jtagusaur2 jtag bp.1
 
     assign jtag.ledf = 1
 end
 
-assembly main_128:
+assembly test128:
     board backplane_4s_128 bp unconnected
     board jtagusaur2 jtag bp.1
 
     assign jtag.ledf = 1
 end
 
-assembly tester_conn:
-    board backplane_4s_128 bp_test unconnected
-    board backplane_4s_64 bp bp_test.1
-    board jtagusaur2 jtag bp.1
-
-    assign jtag.ledf = 1
-end
-
-assembly tester:
-    board backplane_4s_64 bp unconnected
-    board jtagusaur2 jtag bp.1
-    board backplane_4s_128 bp_test bp.3
-
-    assign jtag.ledf = 1
-end
-
 assembly test2:
-    board backplane_4s_64 bp0 unconnected
-    board backplane_4s_128 bp1 bp0.1
-    board jtagusaur2 jtag bp1.1
-    board backplane_4s_128 bp_test bp0.3
+    board backplane_4s_128 bp1 unconnected
+    board backplane_4s_128 bp0 bp1.1
+    board jtagusaur2 jtag bp0.1
+
+    assign jtag.ledf = 1
+end
+
+assembly test64_128:
+    board backplane_4s_128 bp1 unconnected
+    board backplane_4s_64 bp0 bp1.1
+    board jtagusaur2 jtag bp0.1
+
+    assign jtag.ledf = 1
+end
+
+assembly test128_64:
+    board backplane_4s_64 bp1 unconnected
+    board backplane_4s_128 bp0 bp1.1
+    board jtagusaur2 jtag bp0.1
+
+    assign jtag.ledf = 1
+end
+
+assembly test128_64_128:
+    board backplane_4s_64 bp2 unconnected
+    board backplane_4s_128 bp1 bp2.3
+    board backplane_4s_128 bp0 bp2.1
+    board jtagusaur2 jtag bp0.1
 
     assign jtag.ledf = 1
 end

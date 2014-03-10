@@ -23,7 +23,7 @@ class JtagController(object):
         self.last_est = time.time()
 
         if use_verify_thread:
-            self._verify_queue = Queue.Queue(maxsize=1)
+            self._verify_queue = Queue.Queue(maxsize=2)
 
             t = threading.Thread(target=self._verify_thread)
             t.setDaemon(True)
@@ -387,7 +387,18 @@ def main(fn):
 if __name__ == "__main__":
     fn = sys.argv[1]
 
-    if fn == "enumerate":
+    if fn == "spam":
+        ctlr = JtagController(use_verify_thread=False)
+        ctlr.goto("RESET")
+        ctlr.goto("IDLE")
+        ctlr.goto("IRSHIFT")
+        while True:
+            ctlr.pulse(0, 0, get_tdo=False)
+            ctlr.flush()
+            ctlr.pulse(0, 1, get_tdo=False)
+            ctlr.flush()
+
+    elif fn == "enumerate":
         ctlr = JtagController(use_verify_thread=False)
         ctlr.goto("reset")
         ctlr.goto("idle")
