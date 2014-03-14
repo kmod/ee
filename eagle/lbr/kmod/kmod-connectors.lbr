@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.5" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.025" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
@@ -808,42 +808,42 @@ As used in the PCI-E 6-pin power connector</description>
 <smd name="A17" x="6.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90" cream="no"/>
 <smd name="A18" x="7.5" y="-0.75" dx="4" dy="0.7" layer="16" roundness="40" rot="R90" cream="no"/>
 <wire x1="-12" y1="4.55" x2="-12" y2="3.5" width="0" layer="51"/>
-<text x="7.875" y="1.5" size="0.762" layer="21" rot="R90">B3</text>
-<text x="6.875" y="1.5" size="0.762" layer="21" rot="R90">B2</text>
-<text x="5.875" y="1.5" size="0.762" layer="21" rot="R90">B1</text>
-<text x="4.875" y="1.5" size="0.762" layer="21" rot="R90">B0</text>
-<text x="3.875" y="1.5" size="0.762" layer="21" rot="R90">E3</text>
-<text x="2.875" y="1.5" size="0.762" layer="21" rot="R90">D3</text>
-<text x="1.875" y="1.5" size="0.762" layer="21" rot="R90">D2</text>
-<text x="-1.125" y="1.5" size="0.762" layer="21" rot="R90">D1</text>
-<text x="-2.125" y="1.5" size="0.762" layer="21" rot="R90">D0</text>
-<text x="-3.125" y="1.5" size="0.762" layer="21" rot="R90">E1</text>
-<text x="-4.125" y="1.5" size="0.762" layer="21" rot="R90">12V</text>
-<text x="-5.125" y="1.5" size="0.762" layer="21" rot="R90">1V8</text>
-<text x="-6.125" y="1.5" size="0.762" layer="21" rot="R90">G0</text>
-<text x="-7.125" y="1.5" size="0.762" layer="21" rot="R90">GRS</text>
-<text x="-8.125" y="1.5" size="0.762" layer="21" rot="R90">GND</text>
-<text x="-9.125" y="1.5" size="0.762" layer="21" rot="R90">MSN</text>
-<text x="-10.125" y="1.5" size="0.762" layer="21" rot="R90">TCK</text>
-<text x="-11.125" y="1.5" size="0.762" layer="21" rot="R90">TDI</text>
-<text x="-11.875" y="1.5" size="0.762" layer="22" rot="MR90">TDO</text>
-<text x="-10.875" y="1.5" size="0.762" layer="22" rot="MR90">TMS</text>
-<text x="-9.875" y="1.5" size="0.762" layer="22" rot="MR90">DSN</text>
-<text x="-8.875" y="1.5" size="0.762" layer="22" rot="MR90">GND</text>
-<text x="-7.875" y="1.5" size="0.762" layer="22" rot="MR90">SCL</text>
-<text x="-6.875" y="1.5" size="0.762" layer="22" rot="MR90">SDA</text>
-<text x="-5.875" y="1.5" size="0.762" layer="22" rot="MR90">3V3</text>
-<text x="-4.875" y="1.5" size="0.762" layer="22" rot="MR90">12V</text>
-<text x="-3.875" y="1.5" size="0.762" layer="22" rot="MR90">E0</text>
-<text x="-2.875" y="1.5" size="0.762" layer="22" rot="MR90">C0</text>
-<text x="-1.875" y="1.5" size="0.762" layer="22" rot="MR90">C1</text>
-<text x="1.125" y="1.5" size="0.762" layer="22" rot="MR90">C2</text>
-<text x="2.125" y="1.5" size="0.762" layer="22" rot="MR90">C3</text>
-<text x="3.125" y="1.5" size="0.762" layer="22" rot="MR90">E2</text>
-<text x="4.125" y="1.5" size="0.762" layer="22" rot="MR90">A0</text>
-<text x="5.125" y="1.5" size="0.762" layer="22" rot="MR90">A1</text>
-<text x="6.125" y="1.5" size="0.762" layer="22" rot="MR90">A2</text>
-<text x="7.125" y="1.5" size="0.762" layer="22" rot="MR90">A3</text>
+<text x="7.875" y="1.5" size="0.762" layer="21" ratio="10" rot="R90">B3</text>
+<text x="6.875" y="1.5" size="0.762" layer="21" ratio="10" rot="R90">B2</text>
+<text x="5.875" y="1.5" size="0.762" layer="21" ratio="10" rot="R90">B1</text>
+<text x="4.875" y="1.5" size="0.762" layer="21" ratio="10" rot="R90">B0</text>
+<text x="3.875" y="1.5" size="0.762" layer="21" ratio="10" rot="R90">E3</text>
+<text x="2.875" y="1.5" size="0.762" layer="21" ratio="10" rot="R90">D3</text>
+<text x="1.875" y="1.5" size="0.762" layer="21" ratio="10" rot="R90">D2</text>
+<text x="-1.125" y="1.5" size="0.762" layer="21" ratio="10" rot="R90">D1</text>
+<text x="-2.125" y="1.5" size="0.762" layer="21" ratio="10" rot="R90">D0</text>
+<text x="-3.125" y="1.5" size="0.762" layer="21" ratio="10" rot="R90">E1</text>
+<text x="-4.125" y="1.5" size="0.762" layer="21" ratio="10" rot="R90">12V</text>
+<text x="-5.125" y="1.5" size="0.762" layer="21" ratio="10" rot="R90">1V8</text>
+<text x="-6.125" y="1.5" size="0.762" layer="21" ratio="10" rot="R90">G0</text>
+<text x="-7.125" y="1.5" size="0.762" layer="21" ratio="10" rot="R90">GRS</text>
+<text x="-8.125" y="1.5" size="0.762" layer="21" ratio="10" rot="R90">GND</text>
+<text x="-9.125" y="1.5" size="0.762" layer="21" ratio="10" rot="R90">MSN</text>
+<text x="-10.125" y="1.5" size="0.762" layer="21" ratio="10" rot="R90">TCK</text>
+<text x="-11.125" y="1.5" size="0.762" layer="21" ratio="10" rot="R90">TDI</text>
+<text x="-11.875" y="1.5" size="0.762" layer="22" ratio="10" rot="MR90">TDO</text>
+<text x="-10.875" y="1.5" size="0.762" layer="22" ratio="10" rot="MR90">TMS</text>
+<text x="-9.875" y="1.5" size="0.762" layer="22" ratio="10" rot="MR90">DSN</text>
+<text x="-8.875" y="1.5" size="0.762" layer="22" ratio="10" rot="MR90">GND</text>
+<text x="-7.875" y="1.5" size="0.762" layer="22" ratio="10" rot="MR90">SCL</text>
+<text x="-6.875" y="1.5" size="0.762" layer="22" ratio="10" rot="MR90">SDA</text>
+<text x="-5.875" y="1.5" size="0.762" layer="22" ratio="10" rot="MR90">3V3</text>
+<text x="-4.875" y="1.5" size="0.762" layer="22" ratio="10" rot="MR90">12V</text>
+<text x="-3.875" y="1.5" size="0.762" layer="22" ratio="10" rot="MR90">E0</text>
+<text x="-2.875" y="1.5" size="0.762" layer="22" ratio="10" rot="MR90">C0</text>
+<text x="-1.875" y="1.5" size="0.762" layer="22" ratio="10" rot="MR90">C1</text>
+<text x="1.125" y="1.5" size="0.762" layer="22" ratio="10" rot="MR90">C2</text>
+<text x="2.125" y="1.5" size="0.762" layer="22" ratio="10" rot="MR90">C3</text>
+<text x="3.125" y="1.5" size="0.762" layer="22" ratio="10" rot="MR90">E2</text>
+<text x="4.125" y="1.5" size="0.762" layer="22" ratio="10" rot="MR90">A0</text>
+<text x="5.125" y="1.5" size="0.762" layer="22" ratio="10" rot="MR90">A1</text>
+<text x="6.125" y="1.5" size="0.762" layer="22" ratio="10" rot="MR90">A2</text>
+<text x="7.125" y="1.5" size="0.762" layer="22" ratio="10" rot="MR90">A3</text>
 </package>
 <package name="MB-V1-X1-CONN">
 <wire x1="-14.65" y1="-4.4" x2="-14.65" y2="4.4" width="0.127" layer="21"/>

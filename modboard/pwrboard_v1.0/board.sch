@@ -1260,6 +1260,7 @@ Copied from SparkFun; untested.</description>
 7.87k
 1.5nF
 12.1k</text>
+<text x="33.02" y="-111.76" size="0.762" layer="97">Note: error, EN is active-high!</text>
 </plain>
 <instances>
 <instance part="U$1" gate="G$1" x="0" y="0"/>

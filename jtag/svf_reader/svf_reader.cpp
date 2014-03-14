@@ -36,6 +36,11 @@ void setup() {
 void pulse(int nibble) {
     if (nibble & 1)
         return;
+
+    // For an example of JTAG timing, see
+    // http://www.xilinx.com/support/documentation/user_guides/ug380.pdf#page=58
+
+    // Set TDI and TMS:
     PORTD = (PORTD & ~0x0c) | (nibble & 0x0c);
     //bitWrite(PORTD, 3, (nibble>>3)&1);
     //bitWrite(PORTD, 2, (nibble>>2)&1);
