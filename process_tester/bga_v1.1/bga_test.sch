@@ -1281,9 +1281,10 @@ Standard 0603 ceramic capacitor, and 0.1" leaded capacitor.</description>
 <pinref part="U$1" gate="G$1" pin="F1/IO0"/>
 <label x="-60.96" y="60.96" size="1.778" layer="95"/>
 <pinref part="U$1" gate="G$1" pin="G1/IO16"/>
-<wire x1="-88.9" y1="60.96" x2="-86.36" y2="60.96" width="0.1524" layer="91"/>
 <label x="-93.98" y="60.96" size="1.778" layer="95"/>
-<wire x1="-53.34" y1="60.96" x2="-86.36" y2="60.96" width="0.1524" layer="91"/>
+<wire x1="-53.34" y1="60.96" x2="-53.34" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="-53.34" y1="66.04" x2="-86.36" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="-86.36" y1="66.04" x2="-86.36" y2="60.96" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="E3" class="0">
@@ -1408,6 +1409,10 @@ Standard 0603 ceramic capacitor, and 0.1" leaded capacitor.</description>
 </nets>
 </sheet>
 </sheets>
+<errors>
+<approved hash="115,1,-115.337,99.06,JP2,,,,,"/>
+<approved hash="115,1,-153.261,39.37,C1,,,,,"/>
+</errors>
 </schematic>
 </drawing>
 </eagle>
