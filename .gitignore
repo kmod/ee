@@ -33,3 +33,5 @@
 *.GTS
 
 eagle.epf
+*.map
+*.bin
