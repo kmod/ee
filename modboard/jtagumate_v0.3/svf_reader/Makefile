@@ -1,4 +1,5 @@
 SRCS := svf_reader.c
+# SRCS := usbtest.c
 PROGRAM_NAME := svf_reader
 
 CPU := cortex-m4

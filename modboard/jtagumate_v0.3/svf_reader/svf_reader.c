@@ -4,10 +4,14 @@
 int main(void) {
     /* Enable GPIOE clock. */
     //rcc_peripheral_enable_clock(&RCC_AHB1ENR, RCC_AHB1ENR_IOPEEN);
+    rcc_periph_clock_enable(RCC_GPIOB);
     rcc_periph_clock_enable(RCC_GPIOC);
 
 
+    gpio_mode_setup(GPIOB, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO9);
     gpio_mode_setup(GPIOC, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO13);
+    gpio_mode_setup(GPIOC, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO14);
+    gpio_mode_setup(GPIOC, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO15);
 
 	/* Blink the LED (PC8) on the board. */
     int i;
@@ -29,7 +33,10 @@ int main(void) {
 		//	__asm__("nop");
 
 		/* Using API function gpio_toggle(): */
+		gpio_toggle(GPIOB, GPIO9);	/* LED on/off */
 		gpio_toggle(GPIOC, GPIO13);	/* LED on/off */
+		gpio_toggle(GPIOC, GPIO14);	/* LED on/off */
+		gpio_toggle(GPIOC, GPIO15);	/* LED on/off */
 		for (i = 0; i < 1000000; i++) {	/* Wait a bit. */
 			__asm__("nop");
 		}
