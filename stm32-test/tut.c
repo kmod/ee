@@ -26,7 +26,9 @@ int main(void)
         while (1) {
             for (unsigned l = 0; l < NLEDS; l++) {
                 gpio_toggle(GPIOE, leds[l]);
-                for (int i = 0; i < 50000; i++)
+                int count = (5 + (l - 4) * (l - 4)) * 6000;
+                count = 50000;
+                for (int i = 0; i < count; i++)
                         __asm__("nop");
                 gpio_toggle(GPIOE, leds[l^4]);
             }
