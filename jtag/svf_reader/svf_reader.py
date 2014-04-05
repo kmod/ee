@@ -399,24 +399,28 @@ if __name__ == "__main__":
             ctlr.flush()
 
     elif fn == "enumerate":
+        MAX_CHAIN_SIZE = 8
+        MAX_BYPASS_INST = 8 * MAX_CHAIN_SIZE
+
         ctlr = JtagController(use_verify_thread=False)
         ctlr.goto("reset")
         ctlr.goto("idle")
 
         ctlr.goto("irshift")
-        ctlr.send(64, 0xffffffffffffffff, 0x0)
-        for i in xrange(64):
+        ctlr.send(MAX_BYPASS_INST, (1 << MAX_BYPASS_INST) - 1, 0x0)
+        for i in xrange(8 * MAX_CHAIN_SIZE):
             c = ord(ctlr.ctlr.q.get())
 
         ctlr.goto("idle")
         ctlr.goto("drshift")
-        ctlr.send(64, 0xffffffffffffffff, 0xffffffffffffffff)
+        DRSHIFT_SIZE = MAX_CHAIN_SIZE + 1
+        ctlr.send(DRSHIFT_SIZE, (1 << DRSHIFT_SIZE) - 1, (1 << DRSHIFT_SIZE) - 1)
         ctlr.goto("idle")
 
         ctlr.flush()
 
         r = 0
-        for i in xrange(64):
+        for i in xrange(DRSHIFT_SIZE):
             c = ord(ctlr.ctlr.q.get())
             r |= c << i
         # print hex(r)
@@ -424,7 +428,7 @@ if __name__ == "__main__":
         nconnected = 0
         while r & (1 << nconnected) == 0:
             nconnected += 1
-            assert nconnected < 64, "unsupported -- increase the length of the bypass instruction"
+            assert nconnected <= MAX_CHAIN_SIZE, "Error: either there are more than %d devices connected, or there is a break in the JTAG chain" % MAX_CHAIN_SIZE
         print "Found %d devices:" % (nconnected,)
 
         ctlr.goto("irshift")
@@ -451,14 +455,54 @@ if __name__ == "__main__":
         idcodes.reverse()
 
         def idcode_to_name(code):
-            masked = code & 0x0fff8fff
+            IDCODES = [
+                ('xc2c128_cp132', 0x6d8b093, 0xfffffff),
+                ('xc2c128_cv100', 0x86d8e093, 0xffffffff),
+                ('xc2c128_ft256', 0x6d8e093, 0xfffffff),
+                ('xc2c128_tq144', 0x6d8c093, 0xfffffff),
+                ('xc2c128_vq100', 0x6d8a093, 0xfffffff),
+                ('xc2c256_cp132', 0x6d4b093, 0xfffffff),
+                ('xc2c256_ft256', 0x6d4e093, 0xfffffff),
+                ('xc2c256_pq208', 0x6d4d093, 0xfffffff),
+                ('xc2c256_tq144', 0x6d4c093, 0xfffffff),
+                ('xc2c256_vq100', 0x6d4a093, 0xfffffff),
+                ('xc2c32_cp56', 0x6c1b093, 0xfdfffff),
+                ('xc2c32_pc44', 0x6c1d093, 0xfdfffff),
+                ('xc2c32_pc64', 0x6c1d093, 0xfdfffff),
+                ('xc2c32_vq44', 0x6c1c093, 0xfdfffff),
+                ('xc2c32a_cp56', 0x6e1b093, 0xfffffff),
+                ('xc2c32a_cv64', 0x86e1a093, 0xffffffff),
+                ('xc2c32a_pc44', 0x6e1d093, 0xfffffff),
+                ('xc2c32a_pc64', 0x6e1d093, 0xfffffff),
+                ('xc2c32a_qf32', 0x6c1b093, 0xffffffff),
+                ('xc2c32a_vq44', 0x6e1c093, 0xfffffff),
+                ('xc2c384_cp204', 0x6d5b093, 0xfffffff),
+                ('xc2c384_fg324', 0x6d5a093, 0xfffffff),
+                ('xc2c384_ft256', 0x6d5e093, 0xfffffff),
+                ('xc2c384_pq208', 0x6d5d093, 0xfffffff),
+                ('xc2c384_tq144', 0x6d5c093, 0xfffffff),
+                ('xc2c512_fg324', 0x6d7a093, 0xfffffff),
+                ('xc2c512_ft256', 0x6d7e093, 0xfffffff),
+                ('xc2c512_pq208', 0x6d7c093, 0xfffffff),
+                ('xc2c64_cp132', 0x6c5b093, 0xfdfffff),
+                ('xc2c64_cp56', 0x6c5d093, 0xfdfffff),
+                ('xc2c64_pc44', 0x6c5a093, 0xfdfffff),
+                ('xc2c64_vq100', 0x6c5c093, 0xfdfffff),
+                ('xc2c64_vq44', 0x6c5e093, 0xfdfffff),
+                ('xc2c64a_cp132', 0x6e5b093, 0xfffffff),
+                ('xc2c64a_cp56', 0x6e5d093, 0xfffffff),
+                ('xc2c64a_cv64', 0x6e5c093, 0xfffffff),
+                ('xc2c64a_pc44', 0x6e5a093, 0xfffffff),
+                ('xc2c64a_qf48', 0x6e59093, 0xfffffff),
+                ('xc2c64a_vq100', 0x6e5c093, 0xfffffff),
+                ('xc2c64a_vq44', 0x6e5e093, 0xfffffff),
+            ]
 
-            idcode_to_name = {
-                    0x06e58093: "cr_64",
-                    0x06d88093: "cr_128",
-                    }
-            # print hex(masked)
-            return idcode_to_name[masked]
+            for name, idcode, mask in IDCODES:
+                if code & mask == idcode:
+                    return name
+
+            raise Exception("unidentified IDCODE: 0x%x" % (code,))
 
         for i, code in enumerate(idcodes):
             print "Device %d: %x (%s)" % (i+1, code, idcode_to_name(code))
