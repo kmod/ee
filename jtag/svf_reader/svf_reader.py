@@ -391,6 +391,58 @@ def main(fn):
         print "Took %.1fs to program, sent %d pulses (%.1fkHz)" % (elapsed, ctlr.npulses, ctlr.npulses * 0.001 / elapsed)
         print "Sent %d bytes, received %d" % (ctlr.ctlr.bytes_written, ctlr.ctlr.bytes_read)
 
+def idcode_to_name(code):
+    IDCODES = [
+        ('xc2c128_cp132', 0x6d8b093, 0xfffffff),
+        ('xc2c128_cv100', 0x86d8e093, 0xffffffff),
+        ('xc2c128_ft256', 0x6d8e093, 0xfffffff),
+        ('xc2c128_tq144', 0x6d8c093, 0xfffffff),
+        ('xc2c128_vq100', 0x6d8a093, 0xfffffff),
+        ('xc2c256_cp132', 0x6d4b093, 0xfffffff),
+        ('xc2c256_ft256', 0x6d4e093, 0xfffffff),
+        ('xc2c256_pq208', 0x6d4d093, 0xfffffff),
+        ('xc2c256_tq144', 0x6d4c093, 0xfffffff),
+        ('xc2c256_vq100', 0x6d4a093, 0xfffffff),
+        ('xc2c32_cp56', 0x6c1b093, 0xfdfffff),
+        ('xc2c32_pc44', 0x6c1d093, 0xfdfffff),
+        ('xc2c32_pc64', 0x6c1d093, 0xfdfffff),
+        ('xc2c32_vq44', 0x6c1c093, 0xfdfffff),
+        ('xc2c32a_cp56', 0x6e1b093, 0xfffffff),
+        ('xc2c32a_cv64', 0x86e1a093, 0xffffffff),
+        ('xc2c32a_pc44', 0x6e1d093, 0xfffffff),
+        ('xc2c32a_pc64', 0x6e1d093, 0xfffffff),
+        ('xc2c32a_qf32', 0x6c1b093, 0xffffffff),
+        ('xc2c32a_vq44', 0x6e1c093, 0xfffffff),
+        ('xc2c384_cp204', 0x6d5b093, 0xfffffff),
+        ('xc2c384_fg324', 0x6d5a093, 0xfffffff),
+        ('xc2c384_ft256', 0x6d5e093, 0xfffffff),
+        ('xc2c384_pq208', 0x6d5d093, 0xfffffff),
+        ('xc2c384_tq144', 0x6d5c093, 0xfffffff),
+        ('xc2c512_fg324', 0x6d7a093, 0xfffffff),
+        ('xc2c512_ft256', 0x6d7e093, 0xfffffff),
+        ('xc2c512_pq208', 0x6d7c093, 0xfffffff),
+        ('xc2c64_cp132', 0x6c5b093, 0xfdfffff),
+        ('xc2c64_cp56', 0x6c5d093, 0xfdfffff),
+        ('xc2c64_pc44', 0x6c5a093, 0xfdfffff),
+        ('xc2c64_vq100', 0x6c5c093, 0xfdfffff),
+        ('xc2c64_vq44', 0x6c5e093, 0xfdfffff),
+        ('xc2c64a_cp132', 0x6e5b093, 0xfffffff),
+        ('xc2c64a_cp56', 0x6e5d093, 0xfffffff),
+        ('xc2c64a_cv64', 0x6e5c093, 0xfffffff),
+        ('xc2c64a_pc44', 0x6e5a093, 0xfffffff),
+        ('xc2c64a_qf48', 0x6e59093, 0xfffffff),
+        ('xc2c64a_vq100', 0x6e5c093, 0xfffffff),
+        ('xc2c64a_vq44', 0x6e5e093, 0xfffffff),
+
+        ('xc6slx9', 0x4001093, 0xfffffff),
+    ]
+
+    for name, idcode, mask in IDCODES:
+        if code & mask == idcode:
+            return name
+
+    return "<unknown IDCODE: 0x%x>" % code
+
 if __name__ == "__main__":
     fn = sys.argv[1]
 
@@ -407,7 +459,8 @@ if __name__ == "__main__":
 
     elif fn == "enumerate":
         MAX_CHAIN_SIZE = 8
-        MAX_BYPASS_INST = 8 * MAX_CHAIN_SIZE
+        MAX_INSTRUCTION_LEN = 8
+        MAX_BYPASS_INST = MAX_INSTRUCTION_LEN * MAX_CHAIN_SIZE
 
         ctlr = JtagController(use_verify_thread=False)
         ctlr.goto("reset")
@@ -415,7 +468,7 @@ if __name__ == "__main__":
 
         ctlr.goto("irshift")
         ctlr.send(MAX_BYPASS_INST, (1 << MAX_BYPASS_INST) - 1, 0x0)
-        for i in xrange(8 * MAX_CHAIN_SIZE):
+        for i in xrange(MAX_BYPASS_INST):
             c = ord(ctlr.ctlr.q.get())
 
         ctlr.goto("idle")
@@ -438,83 +491,64 @@ if __name__ == "__main__":
             assert nconnected <= MAX_CHAIN_SIZE, "Error: either there are more than %d devices connected, or there is a break in the JTAG chain" % MAX_CHAIN_SIZE
         print "Found %d devices:" % (nconnected,)
 
-        ctlr.goto("irshift")
-        cmd = 0x0
-        for i in xrange(nconnected):
-            cmd = (cmd << 8) | 0x01
-        cmdsize = nconnected * 8
-        ctlr.send(cmdsize, cmd, 0x00)
-        for i in xrange(cmdsize):
-            c = ord(ctlr.ctlr.q.get())
-        ctlr.goto("idle")
+        IDCODE_CMDS = [
+                (0b00000001, 8),
+                (0b001001, 6),
+                ]
 
-        ctlr.goto("drshift")
-        rtnsize = 32 * nconnected
-        ctlr.send(rtnsize, 0x0, (1<<rtnsize) - 1)
+        identified_instr_lens = []
+        for device_idx in xrange(nconnected):
+            print "Identifying device #%d..." % device_idx,
+            sys.stdout.flush()
 
-        idcodes = [0] * nconnected
-        for i in xrange(rtnsize):
-            c = ord(ctlr.ctlr.q.get())
-            idcodes[i / 32] |= c << (i % 32)
+            for idcode_cmd, idcode_len in IDCODE_CMDS:
+                cmd = 0x0
+                cmd_len = 0
 
-        # idcodes come out starting with the last device in the chain;
-        # reverse it, and it's in the order of the chain:
-        idcodes.reverse()
+                for j in xrange(device_idx):
+                    l = identified_instr_lens[j]
+                    cmd = (cmd << l) | ((1 << l) - 1)
+                    cmd_len += l
 
-        def idcode_to_name(code):
-            IDCODES = [
-                ('xc2c128_cp132', 0x6d8b093, 0xfffffff),
-                ('xc2c128_cv100', 0x86d8e093, 0xffffffff),
-                ('xc2c128_ft256', 0x6d8e093, 0xfffffff),
-                ('xc2c128_tq144', 0x6d8c093, 0xfffffff),
-                ('xc2c128_vq100', 0x6d8a093, 0xfffffff),
-                ('xc2c256_cp132', 0x6d4b093, 0xfffffff),
-                ('xc2c256_ft256', 0x6d4e093, 0xfffffff),
-                ('xc2c256_pq208', 0x6d4d093, 0xfffffff),
-                ('xc2c256_tq144', 0x6d4c093, 0xfffffff),
-                ('xc2c256_vq100', 0x6d4a093, 0xfffffff),
-                ('xc2c32_cp56', 0x6c1b093, 0xfdfffff),
-                ('xc2c32_pc44', 0x6c1d093, 0xfdfffff),
-                ('xc2c32_pc64', 0x6c1d093, 0xfdfffff),
-                ('xc2c32_vq44', 0x6c1c093, 0xfdfffff),
-                ('xc2c32a_cp56', 0x6e1b093, 0xfffffff),
-                ('xc2c32a_cv64', 0x86e1a093, 0xffffffff),
-                ('xc2c32a_pc44', 0x6e1d093, 0xfffffff),
-                ('xc2c32a_pc64', 0x6e1d093, 0xfffffff),
-                ('xc2c32a_qf32', 0x6c1b093, 0xffffffff),
-                ('xc2c32a_vq44', 0x6e1c093, 0xfffffff),
-                ('xc2c384_cp204', 0x6d5b093, 0xfffffff),
-                ('xc2c384_fg324', 0x6d5a093, 0xfffffff),
-                ('xc2c384_ft256', 0x6d5e093, 0xfffffff),
-                ('xc2c384_pq208', 0x6d5d093, 0xfffffff),
-                ('xc2c384_tq144', 0x6d5c093, 0xfffffff),
-                ('xc2c512_fg324', 0x6d7a093, 0xfffffff),
-                ('xc2c512_ft256', 0x6d7e093, 0xfffffff),
-                ('xc2c512_pq208', 0x6d7c093, 0xfffffff),
-                ('xc2c64_cp132', 0x6c5b093, 0xfdfffff),
-                ('xc2c64_cp56', 0x6c5d093, 0xfdfffff),
-                ('xc2c64_pc44', 0x6c5a093, 0xfdfffff),
-                ('xc2c64_vq100', 0x6c5c093, 0xfdfffff),
-                ('xc2c64_vq44', 0x6c5e093, 0xfdfffff),
-                ('xc2c64a_cp132', 0x6e5b093, 0xfffffff),
-                ('xc2c64a_cp56', 0x6e5d093, 0xfffffff),
-                ('xc2c64a_cv64', 0x6e5c093, 0xfffffff),
-                ('xc2c64a_pc44', 0x6e5a093, 0xfffffff),
-                ('xc2c64a_qf48', 0x6e59093, 0xfffffff),
-                ('xc2c64a_vq100', 0x6e5c093, 0xfffffff),
-                ('xc2c64a_vq44', 0x6e5e093, 0xfffffff),
+                cmd = (cmd << idcode_len) | idcode_cmd
+                cmd_len += idcode_len
 
-                ('xc6slx9', 0x4001093, 0xfffffff),
-            ]
+                for j in xrange(device_idx + 1, nconnected):
+                    cmd = (cmd << MAX_INSTRUCTION_LEN) | ((1 << MAX_INSTRUCTION_LEN) - 1)
+                    cmd_len += MAX_INSTRUCTION_LEN
 
-            for name, idcode, mask in IDCODES:
-                if code & mask == idcode:
-                    return name
+                # cmd = 0b1111111111111100000001
+                # cmd_len = 22
 
-            return "<unknown IDCODE: 0x%x>" % code
+                ctlr.goto("irshift")
+                # print cmd_len, bin(cmd)
+                ctlr.send(cmd_len, cmd, 0x0)
+                for i in xrange(cmd_len):
+                    c = ord(ctlr.ctlr.q.get())
+                ctlr.goto("idle")
 
-        for i, code in enumerate(idcodes):
-            print "Device %d: %s" % (i+1, idcode_to_name(code))
+                ctlr.goto("drshift")
+                rtnsize = 32 + (nconnected - 1)
+                ctlr.send(rtnsize, 0x0, (1 << rtnsize) - 1)
+                ctlr.goto("idle")
+
+                idcode = 0
+                for i in xrange(rtnsize):
+                    c = ord(ctlr.ctlr.q.get())
+                    idcode |= c << i
+                # print bin(idcode)
+                idcode >>= (nconnected - 1 - device_idx)
+                idcode &= (1<<32) - 1
+
+                idcode_str = idcode_to_name(idcode)
+                if idcode_str and 'unknown' not in idcode_str:
+                    print idcode_str
+                    identified_instr_lens.append(idcode_len)
+                    break
+            else:
+                print "Unable to identify!"
+                raise Exception("Unable to identify!")
+
 
         assert ctlr.ctlr.q.qsize() == 0, ctlr.ctlr.q.qsize()
     else:
