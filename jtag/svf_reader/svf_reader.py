@@ -503,6 +503,8 @@ if __name__ == "__main__":
                 ('xc2c64a_qf48', 0x6e59093, 0xfffffff),
                 ('xc2c64a_vq100', 0x6e5c093, 0xfffffff),
                 ('xc2c64a_vq44', 0x6e5e093, 0xfffffff),
+
+                ('xc6slx9', 0x4001093, 0xfffffff),
             ]
 
             for name, idcode, mask in IDCODES:
