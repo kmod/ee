@@ -80,6 +80,7 @@ class JtagController(object):
         except Queue.Full:
             self.flush()
             self._verify_queue.put((nbits, tdo, tdo_mask))
+        # self.join()
 
     def _verify_thread(self):
         while True:
@@ -93,9 +94,9 @@ class JtagController(object):
                     got_tdo |= 1 << i
             if (got_tdo ^ tdo) & mask:
                 with print_lock:
-                    print bin(got_tdo).rjust(nbits+10)
-                    print bin(tdo).rjust(nbits+10)
-                    print bin(mask).rjust(nbits+10)
+                    print "Gotten:     ", bin(got_tdo)[2:].rjust(nbits, '0')
+                    print "Expected:   ", bin(tdo)[2:].rjust(nbits, '0')
+                    print "Care-mask:  ", bin(mask)[2:].rjust(nbits, '0')
                 os._exit(1)
             self._verify_queue.task_done()
 
@@ -117,18 +118,16 @@ class JtagController(object):
 
     def goto(self, new_state):
         new_state = new_state.lower()
-        if self.state is None:
-            assert new_state == "reset"
-        else:
-            assert new_state != "reset"
+
+        if self.state is None or new_state == "reset":
+            for i in xrange(5):
+                self.pulse(1, 0, get_tdo=False)
+            self.state = "reset"
+
+        assert self.state
 
         while new_state != self.state:
-            if self.state is None:
-                assert new_state == "reset"
-                for i in xrange(5):
-                    self.pulse(1, 0, get_tdo=False)
-                self.state = "reset"
-            elif self.state == "reset":
+            if self.state == "reset":
                 self.pulse(0, 0, get_tdo=False)
                 self.state = "idle"
             elif self.state == "idle":
@@ -236,9 +235,17 @@ def main(fn):
 
     tick_micros = None
 
-    f = open(fn)
+    if fn == '-':
+        f = sys.stdin
+    else:
+        f = open(fn)
     cur = ""
-    for l in f:
+
+    while True:
+        l = f.readline()
+        if not l:
+            break
+
         l = cur + l.strip()
         if not l:
             continue
@@ -502,10 +509,10 @@ if __name__ == "__main__":
                 if code & mask == idcode:
                     return name
 
-            raise Exception("unidentified IDCODE: 0x%x" % (code,))
+            return "<unknown IDCODE: 0x%x>" % code
 
         for i, code in enumerate(idcodes):
-            print "Device %d: %x (%s)" % (i+1, code, idcode_to_name(code))
+            print "Device %d: %s" % (i+1, idcode_to_name(code))
 
         assert ctlr.ctlr.q.qsize() == 0, ctlr.ctlr.q.qsize()
     else:
