@@ -20,7 +20,19 @@
 //////////////////////////////////////////////////////////////////////////////////
 module main(
     output wire [2:0] leds,
-    input wire input_clk
+    input wire input_clk,
+
+    inout wire [3:0] mb_a,
+    inout wire [3:0] mb_b,
+    inout wire [3:0] mb_c,
+    inout wire [3:0] mb_d,
+    inout wire [3:0] mb_e,
+
+    inout wire [4:0] vr,
+    inout wire [4:0] vg,
+    inout wire [4:0] vb,
+    inout wire vsync,
+    inout wire hsync
     );
 
     reg [31:0] ctr;

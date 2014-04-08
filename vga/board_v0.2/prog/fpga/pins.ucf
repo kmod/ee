@@ -1,8 +1,47 @@
-Net "leds<0>" LOC = "P29" | IOSTANDARD = "LVCMOS33";
-Net "leds<1>" LOC = "P32" | IOSTANDARD = "LVCMOS33";
-Net "leds<2>" LOC = "P33" | IOSTANDARD = "LVCMOS33";
-
 Net "input_clk" LOC = "P80" | IOSTANDARD = "LVCMOS33";
 Net "input_clk" TNM_NET = sys_clk_pin;
 TIMESPEC TS_sys_clk_pin = PERIOD sys_clk_pin 50000 kHz;
 Net "input_clk" CLOCK_DEDICATED_ROUTE = FALSE;
+
+Net "leds<0>" LOC = "P29" | IOSTANDARD = "LVCMOS33";
+Net "leds<1>" LOC = "P32" | IOSTANDARD = "LVCMOS33";
+Net "leds<2>" LOC = "P33" | IOSTANDARD = "LVCMOS33";
+
+Net "mb_a<0>" LOC = "P140" | IOSTANDARD = "LVCMOS33";
+Net "mb_a<1>" LOC = "P141" | IOSTANDARD = "LVCMOS33";
+Net "mb_a<2>" LOC = "P142" | IOSTANDARD = "LVCMOS33";
+Net "mb_a<3>" LOC = "P143" | IOSTANDARD = "LVCMOS33";
+Net "mb_b<0>" LOC = "P134" | IOSTANDARD = "LVCMOS33";
+Net "mb_b<1>" LOC = "P137" | IOSTANDARD = "LVCMOS33";
+Net "mb_b<2>" LOC = "P138" | IOSTANDARD = "LVCMOS33";
+Net "mb_b<3>" LOC = "P139" | IOSTANDARD = "LVCMOS33";
+Net "mb_C<0>" LOC = "P120" | IOSTANDARD = "LVCMOS33";
+Net "mb_c<1>" LOC = "P123" | IOSTANDARD = "LVCMOS33";
+Net "mb_c<2>" LOC = "P126" | IOSTANDARD = "LVCMOS33";
+Net "mb_c<3>" LOC = "P131" | IOSTANDARD = "LVCMOS33";
+Net "mb_d<0>" LOC = "P119" | IOSTANDARD = "LVCMOS33";
+Net "mb_d<1>" LOC = "P121" | IOSTANDARD = "LVCMOS33";
+Net "mb_d<2>" LOC = "P124" | IOSTANDARD = "LVCMOS33";
+Net "mb_d<3>" LOC = "P127" | IOSTANDARD = "LVCMOS33";
+Net "mb_e<0>" LOC = "P118" | IOSTANDARD = "LVCMOS33";
+Net "mb_e<1>" LOC = "P117" | IOSTANDARD = "LVCMOS33";
+Net "mb_e<2>" LOC = "P133" | IOSTANDARD = "LVCMOS33";
+Net "mb_e<3>" LOC = "P132" | IOSTANDARD = "LVCMOS33";
+
+Net "vr<0>" LOC = "P67" | IOSTANDARD = "LVCMOS33";
+Net "vr<1>" LOC = "P66" | IOSTANDARD = "LVCMOS33";
+Net "vr<2>" LOC = "P59" | IOSTANDARD = "LVCMOS33";
+Net "vr<3>" LOC = "P58" | IOSTANDARD = "LVCMOS33";
+Net "vr<4>" LOC = "P57" | IOSTANDARD = "LVCMOS33";
+Net "vg<0>" LOC = "P56" | IOSTANDARD = "LVCMOS33";
+Net "vg<1>" LOC = "P55" | IOSTANDARD = "LVCMOS33";
+Net "vg<2>" LOC = "P51" | IOSTANDARD = "LVCMOS33";
+Net "vg<3>" LOC = "P50" | IOSTANDARD = "LVCMOS33";
+Net "vg<4>" LOC = "P48" | IOSTANDARD = "LVCMOS33";
+Net "vb<0>" LOC = "P47" | IOSTANDARD = "LVCMOS33";
+Net "vb<1>" LOC = "P46" | IOSTANDARD = "LVCMOS33";
+Net "vb<2>" LOC = "P45" | IOSTANDARD = "LVCMOS33";
+Net "vb<3>" LOC = "P44" | IOSTANDARD = "LVCMOS33";
+Net "vb<4>" LOC = "P43" | IOSTANDARD = "LVCMOS33";
+Net "hsync" LOC = "P41" | IOSTANDARD = "LVCMOS33";
+Net "vsync" LOC = "P40" | IOSTANDARD = "LVCMOS33";

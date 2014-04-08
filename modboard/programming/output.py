@@ -297,7 +297,7 @@ def doOutput(assem, rn, of):
                 impact_prog(f, i)
         impact_end(f)
     print >>of, "%s/prog_all.svf: %s/prog_all.batch %s" % (build_dir, build_dir, ' '.join(jeds))
-    print >>of, "\tcd %s; $(ISE_BIN)/impact -batch prog_all.batch || rm -f prog_all.svf" % (build_dir,)
+    print >>of, "\tcd %s; $(ISE_BIN)/impact -batch prog_all.batch || (rm -f prog_all.svf; false)" % (build_dir,)
     print >>of, "prog_%s: %s/prog_all.svf" % (aname, build_dir)
     print >>of, "\tcd %s; python ~/Dropbox/ee/jtag/svf_reader/svf_reader.py prog_all.svf" % (build_dir,)
 
@@ -308,7 +308,7 @@ def doOutput(assem, rn, of):
                 impact_prog(f, i)
         impact_end(f)
     print >>of, "%s/prog_reset_all.svf: %s/prog_reset_all.batch %s" % (build_dir, build_dir, ' '.join(reset_jeds))
-    print >>of, "\tcd %s; $(ISE_BIN)/impact -batch prog_reset_all.batch || rm -f prog_reset_all.svf" % (build_dir,)
+    print >>of, "\tcd %s; $(ISE_BIN)/impact -batch prog_reset_all.batch || (rm -f prog_reset_all.svf; false)" % (build_dir,)
     print >>of, "prog_reset_%s: %s/prog_reset_all.svf" % (aname, build_dir)
     print >>of, "\tcd %s; python ~/Dropbox/ee/jtag/svf_reader/svf_reader.py prog_reset_all.svf" % (build_dir,)
 
@@ -320,8 +320,8 @@ def doOutput(assem, rn, of):
                 impact_prog(f, i)
                 impact_end(f)
 
-            print >>of, "%s/%s.svf: %s/%s.batch %s" % (build_dir, bn, build_dir, bn, bitstreamFor(boardname, jobj))
-            print >>of, "\tcd %s; $(ISE_BIN)/impact -batch %s.batch || rm -f %s.svf" % (build_dir, bn, bn)
+            print >>of, "%s/%s.svf: %s/%s.batch %s/%s" % (build_dir, bn, build_dir, bn, build_dir, bitstreamFor(boardname, jobj))
+            print >>of, "\tcd %s; $(ISE_BIN)/impact -batch %s.batch || (rm -f %s.svf; false)" % (build_dir, bn, bn)
             print >>of, "prog_%s_%s.%s: %s/%s.svf" % (aname, boardname, jobj.name, build_dir, bn)
             print >>of, "\tcd %s; python ~/Dropbox/ee/jtag/svf_reader/svf_reader.py %s.svf" % (build_dir, bn)
 
