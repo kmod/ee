@@ -1,0 +1,8 @@
+Net "leds<0>" LOC = "P29" | IOSTANDARD = "LVCMOS33";
+Net "leds<1>" LOC = "P32" | IOSTANDARD = "LVCMOS33";
+Net "leds<2>" LOC = "P33" | IOSTANDARD = "LVCMOS33";
+
+Net "input_clk" LOC = "P80" | IOSTANDARD = "LVCMOS33";
+Net "input_clk" TNM_NET = sys_clk_pin;
+TIMESPEC TS_sys_clk_pin = PERIOD sys_clk_pin 50000 kHz;
+Net "input_clk" CLOCK_DEDICATED_ROUTE = FALSE;
