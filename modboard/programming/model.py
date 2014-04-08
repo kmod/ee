@@ -5,6 +5,7 @@ SocketDef = collections.namedtuple("SocketDef", ["name", "jtag", "pins"])
 RouterDef = collections.namedtuple("RouterDef", ["name", "jtag", "part", "ports"])
 AssemblyBoard = collections.namedtuple("AssemblyBoard", ["name", "boarddef"])
 PinDef = collections.namedtuple("PinDef", ["socket", "name", "attrs"])
+JtagDevice = collections.namedtuple("JtagDevice", ["name", "jtag", "part"])
 
 AssemblyPin = collections.namedtuple("AssemblyPin", ["boardname", "socket", "pinname"])
 def pinRepr(pin):
@@ -38,10 +39,18 @@ class BoardDef(object):
         assert not args
         jtag = int(opts.pop('jtag'))
         assert jtag > 0
+        assert not opts, opts
 
         assert not self.jtag_entry
         self.jtag_entry = JtagEntry(jtag)
         self._addJtag(self.jtag_entry, jtag)
+
+    def addJtagDevice(self, args, opts):
+        name, = args
+        jtag = int(opts.pop('jtag'))
+        part = opts.pop('part')
+
+        self._addJtag(JtagDevice(name=name, jtag=jtag, part=part), jtag)
 
     def addSocket(self, args, opts):
         jtag = int(opts.pop('jtag'))

@@ -110,6 +110,7 @@ class GlobalScope(Scope):
                 router=b.addRouter,
                 pin=b.addPin,
                 jtag_entry=b.addJtagEntry,
+                jtag_device=b.addJtagDevice,
                 )
 
 def parse(fn):

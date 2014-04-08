@@ -1,7 +1,7 @@
 import cStringIO
 import os
 
-from model import RouterDef, SocketDef, JtagEntry
+from model import RouterDef, SocketDef, JtagEntry, JtagDevice
 
 class Rewriter(object):
     def __init__(self, fn):
@@ -58,7 +58,10 @@ def getChain(assem):
         else:
             jobj = boarddef.jtags[new_idx]
             if isinstance(jobj, RouterDef):
-                chain.append("%s.%s" % (cur_board, jobj.name))
+                chain.append((cur_board, jobj))
+                cur_board, cur_idx = cur_board, new_idx
+            elif isinstance(jobj, JtagDevice):
+                chain.append((cur_board, jobj))
                 cur_board, cur_idx = cur_board, new_idx
             elif isinstance(jobj, SocketDef):
                 # TODO duplicated with the connector code above
@@ -254,14 +257,28 @@ def doOutput(assem, rn, of):
 
 
     chain = getChain(assem)
-    assert len(chain) == len(rn.routers)
 
-    def impact_setup(f, ofn, prefix):
+    def impact_setup(f, ofn, prefix, jdevice_idx):
         print >>f, "setMode -bscan"
         print >>f, "setCable -port svf -file", ofn
-        for i, rname in enumerate(chain):
-            # Impact jtag indexes are 1-indexed:
-            print >>f, "addDevice -position %d -file %s%s.jed" % (i+1, prefix, rname)
+        for i, (boardname, jobj) in enumerate(chain):
+            # Impact jtag indexes are 1-indexed
+
+            if isinstance(jobj, RouterDef):
+                if jdevice_idx is None:
+                    print >>f, "addDevice -position %d -file %s%s.jed" % (i+1, prefix, "%s.%s" % (boardname, jobj.name))
+                else:
+                    part = jobj.part
+                    if '-' in part:
+                        part = part.split('-')[0]
+                    print >>f, "addDevice -position %d -part %s" % (i+1, part)
+            elif isinstance(jobj, JtagDevice):
+                if jdevice_idx == i:
+                    print >>f, "addDevice -position %d -file %s.%s.bit" % (i+1, boardname, jobj.name)
+                else:
+                    print >>f, "addDevice -position %d -part %s" % (i+1, jobj.part)
+            else:
+                raise Exception(jobj)
     def impact_prog(f, idx):
         assert 0 <= idx < len(chain)
         print >>f, "program -e -v -p %d" % (idx + 1)
@@ -269,21 +286,34 @@ def doOutput(assem, rn, of):
         print >>f, "quit"
 
     with Rewriter(os.path.join(build_dir, "prog_all.batch")) as f:
-        impact_setup(f, "prog_all.svf", "")
+        impact_setup(f, "prog_all.svf", "", None)
         for i in xrange(len(chain)):
-            impact_prog(f, i)
+            if isinstance(chain[i], RouterDef):
+                impact_prog(f, i)
         impact_end(f)
+    print >>of, "%s/prog_all.svf: %s/prog_all.batch %s" % (build_dir, build_dir, ' '.join(jeds))
+    print >>of, "\tcd %s; $(ISE_BIN)/impact -batch prog_all.batch || rm -f prog_all.svf" % (build_dir,)
 
     with Rewriter(os.path.join(build_dir, "prog_reset_all.batch")) as f:
-        impact_setup(f, "prog_reset_all.svf", "reset_")
+        impact_setup(f, "prog_reset_all.svf", "reset_", None)
         for i in xrange(len(chain)):
-            impact_prog(f, i)
+            if isinstance(chain[i], RouterDef):
+                impact_prog(f, i)
         impact_end(f)
+    print >>of, "%s/prog_reset_all.svf: %s/prog_reset_all.batch %s" % (build_dir, build_dir, ' '.join(reset_jeds))
+    print >>of, "\tcd %s; $(ISE_BIN)/impact -batch prog_reset_all.batch || rm -f prog_reset_all.svf" % (build_dir,)
 
-    print >>of, "%s/prog_all.svf: %s" % (build_dir, ' '.join(jeds))
-    print >>of, "\tcd %s; $(ISE_BIN)/impact -batch prog_all.batch" % (build_dir,)
-    print >>of, "%s/prog_reset_all.svf: %s" % (build_dir, ' '.join(reset_jeds))
-    print >>of, "\tcd %s; $(ISE_BIN)/impact -batch prog_reset_all.batch" % (build_dir,)
+    for i, (boardname, jobj) in enumerate(chain):
+        if isinstance(jobj, JtagDevice):
+            bn = "prog_%s.%s" % (boardname, jobj.name)
+            with Rewriter(os.path.join(build_dir, "%s.batch" % bn)) as f:
+                impact_setup(f, "%s.svf" % bn, None, i)
+                impact_prog(f, i)
+                impact_end(f)
+
+            print >>of, "%s/%s.svf: %s/%s.batch %s/%s.%s.bit" % (build_dir, bn, build_dir, bn, build_dir, boardname, jobj.name)
+            print >>of, "\tcd %s; $(ISE_BIN)/impact -batch %s.batch || rm -f %s.svf" % (build_dir, bn, bn)
+
     print >>of, "prog_%s: %s/prog_all.svf" % (aname, build_dir)
     print >>of, "\tcd %s; python ~/Dropbox/ee/jtag/svf_reader/svf_reader.py prog_all.svf" % (build_dir,)
     print >>of, "prog_reset_%s: %s/prog_reset_all.svf" % (aname, build_dir)
