@@ -258,6 +258,10 @@ def doOutput(assem, rn, of):
 
     chain = getChain(assem)
 
+    def bitstreamFor(boardname, jobj):
+        assert isinstance(jobj, JtagDevice)
+        return assem.boards[boardname].opts["%s.bitstream" % (jobj.name,)]
+
     def impact_setup(f, ofn, prefix, jdevice_idx):
         print >>f, "setMode -bscan"
         print >>f, "setCable -port svf -file", ofn
@@ -274,7 +278,8 @@ def doOutput(assem, rn, of):
                     print >>f, "addDevice -position %d -part %s" % (i+1, part)
             elif isinstance(jobj, JtagDevice):
                 if jdevice_idx == i:
-                    print >>f, "addDevice -position %d -file %s.%s.bit" % (i+1, boardname, jobj.name)
+
+                    print >>f, "addDevice -position %d -file %s" % (i+1, bitstreamFor(boardname, jobj))
                 else:
                     print >>f, "addDevice -position %d -part %s" % (i+1, jobj.part)
             else:
@@ -293,6 +298,8 @@ def doOutput(assem, rn, of):
         impact_end(f)
     print >>of, "%s/prog_all.svf: %s/prog_all.batch %s" % (build_dir, build_dir, ' '.join(jeds))
     print >>of, "\tcd %s; $(ISE_BIN)/impact -batch prog_all.batch || rm -f prog_all.svf" % (build_dir,)
+    print >>of, "prog_%s: %s/prog_all.svf" % (aname, build_dir)
+    print >>of, "\tcd %s; python ~/Dropbox/ee/jtag/svf_reader/svf_reader.py prog_all.svf" % (build_dir,)
 
     with Rewriter(os.path.join(build_dir, "prog_reset_all.batch")) as f:
         impact_setup(f, "prog_reset_all.svf", "reset_", None)
@@ -302,6 +309,8 @@ def doOutput(assem, rn, of):
         impact_end(f)
     print >>of, "%s/prog_reset_all.svf: %s/prog_reset_all.batch %s" % (build_dir, build_dir, ' '.join(reset_jeds))
     print >>of, "\tcd %s; $(ISE_BIN)/impact -batch prog_reset_all.batch || rm -f prog_reset_all.svf" % (build_dir,)
+    print >>of, "prog_reset_%s: %s/prog_reset_all.svf" % (aname, build_dir)
+    print >>of, "\tcd %s; python ~/Dropbox/ee/jtag/svf_reader/svf_reader.py prog_reset_all.svf" % (build_dir,)
 
     for i, (boardname, jobj) in enumerate(chain):
         if isinstance(jobj, JtagDevice):
@@ -311,13 +320,10 @@ def doOutput(assem, rn, of):
                 impact_prog(f, i)
                 impact_end(f)
 
-            print >>of, "%s/%s.svf: %s/%s.batch %s/%s.%s.bit" % (build_dir, bn, build_dir, bn, build_dir, boardname, jobj.name)
+            print >>of, "%s/%s.svf: %s/%s.batch %s" % (build_dir, bn, build_dir, bn, bitstreamFor(boardname, jobj))
             print >>of, "\tcd %s; $(ISE_BIN)/impact -batch %s.batch || rm -f %s.svf" % (build_dir, bn, bn)
-
-    print >>of, "prog_%s: %s/prog_all.svf" % (aname, build_dir)
-    print >>of, "\tcd %s; python ~/Dropbox/ee/jtag/svf_reader/svf_reader.py prog_all.svf" % (build_dir,)
-    print >>of, "prog_reset_%s: %s/prog_reset_all.svf" % (aname, build_dir)
-    print >>of, "\tcd %s; python ~/Dropbox/ee/jtag/svf_reader/svf_reader.py prog_reset_all.svf" % (build_dir,)
+            print >>of, "prog_%s_%s.%s: %s/%s.svf" % (aname, boardname, jobj.name, build_dir, bn)
+            print >>of, "\tcd %s; python ~/Dropbox/ee/jtag/svf_reader/svf_reader.py %s.svf" % (build_dir, bn)
 
     print chain
     print rn.routers

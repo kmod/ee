@@ -28,7 +28,7 @@ end
 assembly main:
     board backplane_4s_128 bp unconnected
 
-    board vga_v0.2 vga bp.1
+    board vga_v0.2 vga bp.1 fpga.bitstream=fpga/main.bit
     board jtagusaur2 jtag bp.2
 end
 

@@ -3,7 +3,7 @@ import collections
 JtagEntry = collections.namedtuple("JtagEntry", ["jtag"])
 SocketDef = collections.namedtuple("SocketDef", ["name", "jtag", "pins"])
 RouterDef = collections.namedtuple("RouterDef", ["name", "jtag", "part", "ports"])
-AssemblyBoard = collections.namedtuple("AssemblyBoard", ["name", "boarddef"])
+AssemblyBoard = collections.namedtuple("AssemblyBoard", ["name", "boarddef", "opts"])
 PinDef = collections.namedtuple("PinDef", ["socket", "name", "attrs"])
 JtagDevice = collections.namedtuple("JtagDevice", ["name", "jtag", "part"])
 
@@ -106,7 +106,6 @@ class Assembly(object):
         self.connections = {}
 
     def addBoard(self, args, opts):
-        assert not opts
         boardtype, name, connection = args
         assert name not in self.boards
 
@@ -124,7 +123,7 @@ class Assembly(object):
 
             d[None] = (conn_id, conn_socket)
             self.connections[conn_id][conn_socket] = (name, None)
-        self.boards[name] = AssemblyBoard(name, boarddef)
+        self.boards[name] = AssemblyBoard(name, boarddef, opts)
 
     def addAssignment(self, args, opts):
         assert opts.pop('') == ''

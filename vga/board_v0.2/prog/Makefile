@@ -18,6 +18,5 @@ clean:
 	- rm Makefile.gen
 	- rm -rfv *.mbbuild
 
-main.mbbuild/vga.fpga.bit: fpga/main.bit
-	cp $< $@
-	cp fpga/main.msk main.mbbuild/vga.fpga.msk
+.PHONY: prog_fpga
+prog_fpga: prog_main_vga.fpga
