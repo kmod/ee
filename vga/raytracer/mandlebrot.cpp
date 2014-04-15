@@ -11,6 +11,11 @@
 
 using namespace std;
 
+static int iters = 10;
+static double scale = 1.0;
+static double mx = 0.0;
+static double my = 0.0;
+
 // This function is called whenever a "Normal" key press is received.
 void keyboardFunc( unsigned char key, int x, int y )
 {
@@ -19,18 +24,24 @@ void keyboardFunc( unsigned char key, int x, int y )
     case 27: // Escape key
         exit(0);
         break;
-    case 'c':
-        // add code to change color here
-		cout << "Unhandled key press " << key << "." << endl; 
+    case '+':
+        scale /= 1.1;
         break;
+    case '-':
+        scale *= 1.1;
+        break;
+    case 'h':
+        iters++;
+		break;
+    case 'l':
+        iters--;
+		break;
     default:
         cout << "Unhandled key press " << key << "." << endl;        
     }
 
     glutPostRedisplay();
 }
-
-static int iters = 10;
 
 // This function is called whenever a "Special" key press is received.
 // Right now, it's handling the arrow keys.
@@ -39,14 +50,16 @@ void specialFunc( int key, int x, int y )
     switch ( key )
     {
     case GLUT_KEY_UP:
-        iters++;
+        my -= 0.05 * scale;
 		break;
     case GLUT_KEY_DOWN:
-        iters--;
+        my += 0.05 * scale;
 		break;
     case GLUT_KEY_LEFT:
+        mx -= 0.05 * scale;
 		break;
     case GLUT_KEY_RIGHT:
+        mx += 0.05 * scale;
 		break;
     }
 
@@ -66,8 +79,9 @@ void colorAt(double x, double y) {
         zx = tx + x;
         zy = ty + y;
 
-        if (fabs(zx) >= 5 || fabs(zy) >= 5) {
-            double d = i * 0.04;
+        double mag = zx * zx + zy * zy;
+        if (mag >= 50) {
+            double d = (i + 60.0 / mag) * 0.04;
             glColor3f(d * 0.3, d, d*2);
             return;
         }
@@ -99,15 +113,20 @@ void drawScene(void)
     for (int r = 0; r < H; r++) {
         glBegin(GL_POINTS);
         for (int c = 0; c < W; c++) {
-            colorAt(HEIGHT * (c - 0.5 * W) / H, HEIGHT * (r - 0.5 * H) / H);
+            double x = HEIGHT * (c - 0.5 * W) / H;
+            double y = HEIGHT * (r - 0.5 * H) / H;
+
+            x = x * scale + mx;
+            y = y * scale + my;
+            colorAt(x, y);
 
             glVertex2f(c, r);
 
         }
         glEnd();
 
-        if (r % 25 == 0)
-            glutSwapBuffers();
+        //if (r % 25 == 0)
+            //glutSwapBuffers();
     }
     
     glutSwapBuffers();

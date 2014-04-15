@@ -1,16 +1,16 @@
 CXX := ~/pyston_deps/gcc-4.8.2-install/bin/g++
 CXXFLAGS := -O2 -std=c++11
 LDFLAGS := -lglut -lGL -lGLU
-SRCS := main.cpp
+SRCS := mandlebrot.cpp
 OBJS := $(SRCS:.cpp=.o)
 
-all: raytracer
+all: mandlebrot
 
 .PHONY: run
-run: raytracer
-	./raytracer
+run: mandlebrot
+	./mandlebrot
 
-raytracer: $(OBJS)
+mandlebrot: $(OBJS)
 	$(CXX) $(LDFLAGS) $(CXXFLAGS) $(OBJS) -o $@
 
 $(OBJS): %.o: %.cpp
