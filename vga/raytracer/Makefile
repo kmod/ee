@@ -4,11 +4,12 @@ LDFLAGS := -lglut -lGL -lGLU
 SRCS := mandlebrot.cpp
 OBJS := $(SRCS:.cpp=.o)
 
-all: mandlebrot
+all: mandlebrot raytracer
 
-.PHONY: run
-run: mandlebrot
-	./mandlebrot
+.PHONY: run run_%
+run_%: %
+	./$<
+run: run_raytracer
 
 mandlebrot: $(OBJS)
 	$(CXX) $(LDFLAGS) $(CXXFLAGS) $(OBJS) -o $@
