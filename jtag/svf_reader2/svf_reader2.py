@@ -64,7 +64,7 @@ class JtagController(object):
             time.sleep(0.001)
 
     def queue_verify(self, nbits, tdo, tdo_mask):
-        return
+        return # verifying is broken
         try:
             self._verify_queue.put((nbits, tdo, tdo_mask), timeout=0)
         except Queue.Full:
@@ -427,6 +427,7 @@ def read_svf_file(fn):
         elapsed = time.time() - start
         print "Took %.1fs to program, sent %d pulses (%.1fkHz)" % (elapsed, ctlr.npulses, ctlr.npulses * 0.001 / elapsed)
         print "Sent %d bytes, received %d" % (ctlr.ctlr.bytes_written, ctlr.ctlr.bytes_read)
+    ctlr.ctlr.ser.close()
 
 def idcode_to_name(code):
     IDCODES = [

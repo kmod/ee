@@ -6,6 +6,8 @@ import threading
 import time
 import traceback
 
+from traceback import print_exc as traceback_print_exc
+
 class Controller(object):
     def __init__(self, br=500000, autoflush=True):
         self.autoflush = autoflush
@@ -57,6 +59,9 @@ class Controller(object):
                     print "OSError, assuming it's being programmed, waiting"
                     time.sleep(6)
                     print "starting"
+                except:
+                    traceback_print_exc()
+                    raise
         except:
             traceback.print_exc()
             os._exit(1)

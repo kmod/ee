@@ -283,9 +283,12 @@ def doOutput(assem, rn, of):
                     print >>f, "addDevice -position %d -part %s" % (i+1, jobj.part)
             else:
                 raise Exception(jobj)
-    def impact_prog(f, idx):
+    def impact_prog(f, idx, verify=True):
         assert 0 <= idx < len(chain)
-        print >>f, "program -e -v -p %d" % (idx + 1)
+        args = ["program", "-e", "-p", str(idx+1)]
+        if verify:
+            args.append("-v")
+        print >>f, ' '.join(args)
     def impact_end(f):
         print >>f, "quit"
 
@@ -313,16 +316,21 @@ def doOutput(assem, rn, of):
 
     for i, (boardname, jobj) in enumerate(chain):
         if isinstance(jobj, JtagDevice):
-            bn = "prog_%s.%s" % (boardname, jobj.name)
-            with Rewriter(os.path.join(build_dir, "%s.batch" % bn)) as f:
-                impact_setup(f, "%s.svf" % bn, None, i)
-                impact_prog(f, i)
-                impact_end(f)
+            def prog(verify):
+                bn = "prog_%s.%s" % (boardname, jobj.name)
+                if not verify:
+                    bn += "_noverify"
+                with Rewriter(os.path.join(build_dir, "%s.batch" % bn)) as f:
+                    impact_setup(f, "%s.svf" % bn, None, i)
+                    impact_prog(f, i, verify=verify)
+                    impact_end(f)
 
-            print >>of, "%s/%s.svf: %s/%s.batch %s" % (build_dir, bn, build_dir, bn, os.path.normpath(os.path.join(build_dir, bitstreamFor(boardname, jobj))))
-            print >>of, "\tcd %s; $(ISE_BIN)/impact -batch %s.batch || (rm -f %s.svf; false)" % (build_dir, bn, bn)
-            print >>of, "prog_%s_%s.%s: %s/%s.svf" % (aname, boardname, jobj.name, build_dir, bn)
-            print >>of, "\tcd %s; python ~/Dropbox/ee/jtag/svf_reader2/svf_reader2.py %s.svf" % (build_dir, bn)
+                print >>of, "%s/%s.svf: %s/%s.batch %s" % (build_dir, bn, build_dir, bn, os.path.normpath(os.path.join(build_dir, bitstreamFor(boardname, jobj))))
+                print >>of, "\tcd %s; $(ISE_BIN)/impact -batch %s.batch || (rm -f %s.svf; false)" % (build_dir, bn, bn)
+                print >>of, "prog_%s_%s.%s%s: %s/%s.svf" % (aname, boardname, jobj.name, "_noverify" if not verify else "", build_dir, bn)
+                print >>of, "\tcd %s; python ~/Dropbox/ee/jtag/svf_reader2/svf_reader2.py %s.svf" % (build_dir, bn)
+            prog(False)
+            prog(True)
 
     print chain
     print rn.routers

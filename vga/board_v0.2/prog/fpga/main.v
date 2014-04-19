@@ -28,9 +28,9 @@ module main(
     inout wire [3:0] mb_d,
     inout wire [3:0] mb_e,
 
-    inout wire [4:0] vr,
-    inout wire [4:0] vg,
-    inout wire [4:0] vb,
+    output reg [4:0] vr,
+    output reg [4:0] vg,
+    output reg [4:0] vb,
     inout wire vsync,
     inout wire hsync
     );
@@ -47,8 +47,9 @@ module main(
     reg [14:0] hpos;
 
     // http://tinyvga.com/vga-timing/640x400@70Hz
-    assign hsync = (hpos < 656 || hpos >= 752);
-    assign vsync = (vpos < 412 || vpos >= 414);
+    assign hsync = (hpos < 656 || hpos >= 752); // active low
+    assign vsync = (vpos < 412 || vpos >= 414); // active low
+    assign blank = (hpos >= 640 || vpos >= 400); // active high
 
     always @(posedge input_clk) begin
         ctr <= ctr + 1;
@@ -63,7 +64,17 @@ module main(
         end
     end
 
-    assign vr = vpos[6:2];
-    assign vg = hpos[6:2];
-    assign vb = led_ctr[28:24];
+    always @(*) begin
+        if (hblank == 1 || vblank == 1) begin
+            vr = 0;
+            vg = 0;
+            vb = 0;
+        end else begin
+            vr = vpos[6:2];
+            vg = hpos[6:2];
+            //vb = led_ctr[26:22];
+            vb = 0;
+        end
+    end
+    //assign vb = {vpos[8:7], hpos[9:7]};
 endmodule
