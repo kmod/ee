@@ -39,7 +39,7 @@ class Controller(object):
             while True:
                 try:
                     self.ser.timeout = 0
-                    s = self.ser.read(1024)
+                    s = self.ser.read(4096)
                     while not s:
                         self.ser.timeout = 1
                         s = self.ser.read(1)
