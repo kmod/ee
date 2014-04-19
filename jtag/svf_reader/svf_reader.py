@@ -48,14 +48,14 @@ class JtagController(object):
     def sleep_micros(self, micros):
         assert self.state in ("drpause", "idle", "irpause"), self.state
 
-        start = time.time()
+        # start = time.time()
         micros_per_pulse = 1000000.0 / (self.EST_SPEED * 2)
         npulses = int((micros + micros_per_pulse + 1) / micros_per_pulse)
         npulses = max(npulses, 5)
         # print "Doing %d pulses" % npulses
         for i in xrange(npulses):
             self.pulse(0, 0, get_tdo=False)
-        print time.time() - start
+        # print time.time() - start
 
     def flush(self):
         if self.buf is not None:
@@ -73,31 +73,46 @@ class JtagController(object):
             self._write(chr((self.buf << 4) | data))
             self.buf = None
         self.npulses += 1
+        # if self.npulses % 1000 == 0:
+            # time.sleep(0.01)
 
     def queue_verify(self, nbits, tdo, tdo_mask):
         try:
             self._verify_queue.put((nbits, tdo, tdo_mask), timeout=0)
         except Queue.Full:
             self.flush()
-            self._verify_queue.put((nbits, tdo, tdo_mask))
+            self._verify_queue.put((nbits, tdo, tdo_mask), timeout=600)
         # self.join()
 
     def _verify_thread(self):
         while True:
             nbits, tdo, mask = self._verify_queue.get()
+            print "waiting for %d bits" % nbits
 
-            got_tdo = 0
+            hex_digits = [0] * ((nbits + 3) / 4)
             for i in xrange(nbits):
+                if i and i % 10000 == 0:
+                    with print_lock:
+                        print "i =", i, self.ctlr.q.qsize()
                 # print i, nbits
-                d = ord(self.ctlr.q.get())
-                if d:
-                    got_tdo |= 1 << i
-            if (got_tdo ^ tdo) & mask:
-                with print_lock:
-                    print "Gotten:     ", bin(got_tdo)[2:].rjust(nbits, '0')
-                    print "Expected:   ", bin(tdo)[2:].rjust(nbits, '0')
-                    print "Care-mask:  ", bin(mask)[2:].rjust(nbits, '0')
-                os._exit(1)
+                c = self.ctlr.q.get()
+                if c != '\0':
+                    hex_digits[i/4] |= (1 << (i%4))
+
+            got_tdo_hex = ''.join(reversed([hex(i)[2] for i in hex_digits]))
+            got_tdo = int(got_tdo_hex, 16)
+
+            mismatch = (got_tdo ^ tdo) & mask
+            if mismatch:
+                if mask < (1<<1000):
+                    with print_lock:
+                        print "Gotten:     ", bin(got_tdo)[2:].rjust(nbits, '0')
+                        print "Expected:   ", bin(tdo)[2:].rjust(nbits, '0')
+                        print "Care-mask:  ", bin(mask)[2:].rjust(nbits, '0')
+                else:
+                    with print_lock:
+                        print "Mismatch -- too long to print, but %d/%d bits different" % (bin(mismatch).count('1'), nbits)
+                raise Exception()
             self._verify_queue.task_done()
 
     def join(self):
@@ -106,10 +121,23 @@ class JtagController(object):
 
     def send(self, nbits, tdi, tdo_mask):
         assert self.state in ("irshift", "drshift"), self.state
+
+        tdi_hex = hex(tdi)
+        assert tdi_hex.startswith("0x")
+        if tdi_hex.endswith("L"):
+            tdi_hex = tdi_hex[2:-1]
+        else:
+            tdi_hex = tdi_hex[2:]
+        tdi_hex = tdi_hex.rjust((nbits + 3) / 4, '0')
+
         for i in xrange(nbits):
-            bitmask = (1<<i)
+            tdi_chr = tdi_hex[-(i/4 + 1)]
+            tdi_bit = (int(tdi_chr, 16) >> (i % 4)) & 1
             get_tdo = 0 if i == nbits-1 else 1
-            self.pulse(1 if i == nbits-1 else 0, 1 if (tdi & bitmask) else 0, get_tdo=get_tdo)
+            self.pulse(1 if i == nbits-1 else 0, tdi_bit, get_tdo=get_tdo)
+
+            if (nbits - i) % 10000 == 0:
+                print "%d bits left in this command" % (nbits - i,)
 
         if self.state == "irshift":
             self.state = "irexit1"
@@ -208,7 +236,7 @@ class JtagController(object):
             else:
                 raise Exception((self.state, new_state))
 
-def main(fn):
+def read_svf_file(fn):
     ctlr = JtagController(use_verify_thread=True)
 
     start = time.time()
@@ -237,30 +265,40 @@ def main(fn):
 
     if fn == '-':
         f = sys.stdin
+        size = 1 << 30
     else:
         f = open(fn)
-    cur = ""
+        size = os.stat(fn).st_size
+
+    cur = []
+
+    bytes_read = 0
 
     while True:
         l = f.readline()
         if not l:
             break
 
-        l = cur + l.strip()
-        if not l:
-            continue
+        bytes_read += len(l)
 
-        with print_lock:
-            print l
         l = l.split('//')[0].strip()
         if not l:
             continue
 
+        cur.append(l)
+
+        with print_lock:
+            if bytes_read < 10000:
+                print l
+            else:
+                print "%d/%d (%.1f%%)" % (bytes_read, size, 100.0 * bytes_read / size)
+
         if not l.endswith(';'):
-            cur = l
             continue
         else:
-            cur = ''
+            l = ''.join(cur)
+            cur = []
+
         assert l.endswith(';')
         l = l[:-1]
 
@@ -369,8 +407,8 @@ def main(fn):
                 mask = (((tdr_mask << length) + mask) << hdr_length) + hdr_mask
                 length += hdr_length + tdr_length
 
-            with print_lock:
-                print length, hex(tdi), hex(tdo), hex(mask)
+            # with print_lock:
+                # print length, hex(tdi), hex(tdo), hex(mask)
 
             ctlr.send(length, tdi, mask)
             ctlr.queue_verify(length, tdo, mask)
@@ -468,6 +506,7 @@ if __name__ == "__main__":
 
         ctlr.goto("irshift")
         ctlr.send(MAX_BYPASS_INST, (1 << MAX_BYPASS_INST) - 1, 0x0)
+        ctlr.flush()
         for i in xrange(MAX_BYPASS_INST):
             c = ord(ctlr.ctlr.q.get())
 
@@ -523,6 +562,7 @@ if __name__ == "__main__":
                 ctlr.goto("irshift")
                 # print cmd_len, bin(cmd)
                 ctlr.send(cmd_len, cmd, 0x0)
+                ctlr.flush()
                 for i in xrange(cmd_len):
                     c = ord(ctlr.ctlr.q.get())
                 ctlr.goto("idle")
@@ -533,6 +573,7 @@ if __name__ == "__main__":
                 ctlr.goto("idle")
 
                 idcode = 0
+                ctlr.flush()
                 for i in xrange(rtnsize):
                     c = ord(ctlr.ctlr.q.get())
                     idcode |= c << i
@@ -552,5 +593,5 @@ if __name__ == "__main__":
 
         assert ctlr.ctlr.q.qsize() == 0, ctlr.ctlr.q.qsize()
     else:
-        main(fn)
+        read_svf_file(fn)
 
