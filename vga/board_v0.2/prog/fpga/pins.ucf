@@ -28,20 +28,22 @@ Net "mb_e<1>" LOC = "P117" | IOSTANDARD = "LVCMOS33";
 Net "mb_e<2>" LOC = "P133" | IOSTANDARD = "LVCMOS33";
 Net "mb_e<3>" LOC = "P132" | IOSTANDARD = "LVCMOS33";
 
-Net "vr<0>" LOC = "P67" | IOSTANDARD = "LVCMOS33";
-Net "vr<1>" LOC = "P66" | IOSTANDARD = "LVCMOS33";
+// Note: the pins in the schematic were originally labeled in
+// the wrong order, having pin R0 be the MSB of the red line.
+Net "vr<4>" LOC = "P67" | IOSTANDARD = "LVCMOS33";
+Net "vr<3>" LOC = "P66" | IOSTANDARD = "LVCMOS33";
 Net "vr<2>" LOC = "P59" | IOSTANDARD = "LVCMOS33";
-Net "vr<3>" LOC = "P58" | IOSTANDARD = "LVCMOS33";
-Net "vr<4>" LOC = "P57" | IOSTANDARD = "LVCMOS33";
-Net "vg<0>" LOC = "P56" | IOSTANDARD = "LVCMOS33";
-Net "vg<1>" LOC = "P55" | IOSTANDARD = "LVCMOS33";
+Net "vr<1>" LOC = "P58" | IOSTANDARD = "LVCMOS33";
+Net "vr<0>" LOC = "P57" | IOSTANDARD = "LVCMOS33";
+Net "vg<4>" LOC = "P56" | IOSTANDARD = "LVCMOS33";
+Net "vg<3>" LOC = "P55" | IOSTANDARD = "LVCMOS33";
 Net "vg<2>" LOC = "P51" | IOSTANDARD = "LVCMOS33";
-Net "vg<3>" LOC = "P50" | IOSTANDARD = "LVCMOS33";
-Net "vg<4>" LOC = "P48" | IOSTANDARD = "LVCMOS33";
-Net "vb<0>" LOC = "P47" | IOSTANDARD = "LVCMOS33";
-Net "vb<1>" LOC = "P46" | IOSTANDARD = "LVCMOS33";
+Net "vg<1>" LOC = "P50" | IOSTANDARD = "LVCMOS33";
+Net "vg<0>" LOC = "P48" | IOSTANDARD = "LVCMOS33";
+Net "vb<4>" LOC = "P47" | IOSTANDARD = "LVCMOS33";
+Net "vb<3>" LOC = "P46" | IOSTANDARD = "LVCMOS33";
 Net "vb<2>" LOC = "P45" | IOSTANDARD = "LVCMOS33";
-Net "vb<3>" LOC = "P44" | IOSTANDARD = "LVCMOS33";
-Net "vb<4>" LOC = "P43" | IOSTANDARD = "LVCMOS33";
+Net "vb<1>" LOC = "P44" | IOSTANDARD = "LVCMOS33";
+Net "vb<0>" LOC = "P43" | IOSTANDARD = "LVCMOS33";
 Net "hsync" LOC = "P41" | IOSTANDARD = "LVCMOS33";
 Net "vsync" LOC = "P40" | IOSTANDARD = "LVCMOS33";

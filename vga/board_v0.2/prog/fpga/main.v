@@ -35,10 +35,35 @@ module main(
     inout wire hsync
     );
 
-    reg [31:0] ctr;
+    reg [31:0] led_ctr;
     always @(posedge input_clk) begin
-        ctr <= ctr + 1'b1;
+        led_ctr <= led_ctr + 1'b1;
     end
-    assign leds = ~ctr[26:24];
+    assign leds = ~led_ctr[26:24];
 
+
+    reg [0:0] ctr;
+    reg [14:0] vpos;
+    reg [14:0] hpos;
+
+    // http://tinyvga.com/vga-timing/640x400@70Hz
+    assign hsync = (hpos < 656 || hpos >= 752);
+    assign vsync = (vpos < 412 || vpos >= 414);
+
+    always @(posedge input_clk) begin
+        ctr <= ctr + 1;
+        if (ctr != 0) begin
+            // pass
+        end else if (hpos != 799) begin
+            hpos <= hpos + 1;
+        end else begin
+            hpos <= 0;
+            if (vpos == 449) vpos <= 0;
+            else vpos <= vpos + 1;
+        end
+    end
+
+    assign vr = vpos[6:2];
+    assign vg = hpos[6:2];
+    assign vb = led_ctr[28:24];
 endmodule

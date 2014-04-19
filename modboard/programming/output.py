@@ -319,7 +319,7 @@ def doOutput(assem, rn, of):
                 impact_prog(f, i)
                 impact_end(f)
 
-            print >>of, "%s/%s.svf: %s/%s.batch %s/%s" % (build_dir, bn, build_dir, bn, build_dir, bitstreamFor(boardname, jobj))
+            print >>of, "%s/%s.svf: %s/%s.batch %s" % (build_dir, bn, build_dir, bn, os.path.normpath(os.path.join(build_dir, bitstreamFor(boardname, jobj))))
             print >>of, "\tcd %s; $(ISE_BIN)/impact -batch %s.batch || (rm -f %s.svf; false)" % (build_dir, bn, bn)
             print >>of, "prog_%s_%s.%s: %s/%s.svf" % (aname, boardname, jobj.name, build_dir, bn)
             print >>of, "\tcd %s; python ~/Dropbox/ee/jtag/svf_reader2/svf_reader2.py %s.svf" % (build_dir, bn)
