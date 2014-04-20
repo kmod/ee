@@ -36,44 +36,50 @@ module main(
     );
 
     reg [31:0] led_ctr;
-    always @(posedge input_clk) begin
+    always @(posedge pixel_clk) begin
         led_ctr <= led_ctr + 1'b1;
     end
     assign leds = ~led_ctr[26:24];
 
+    wire pixel_clk;
+	dcm #(.D(3), .M(5)) dcm(.CLK_IN(input_clk), .CLK_OUT(pixel_clk));
 
     reg [0:0] ctr;
     reg [14:0] vpos;
     reg [14:0] hpos;
 
-    // http://tinyvga.com/vga-timing/640x400@70Hz
-    assign hsync = (hpos < 656 || hpos >= 752); // active low
-    assign vsync = (vpos < 412 || vpos >= 414); // active low
-    assign blank = (hpos >= 640 || vpos >= 400); // active high
+    // http://tinyvga.com/vga-timing/1280x800@60Hz
+    assign hsync = (hpos < 1344 || hpos >= 1480); // active low
+    assign vsync = !(vpos < 801 || vpos >= 804); // active *high*
+    assign blank = (hpos >= 1280 || vpos >= 800); // active high
 
-    always @(posedge input_clk) begin
-        ctr <= ctr + 1;
+    always @(posedge pixel_clk) begin
+        /*ctr <= ctr + 1;
         if (ctr != 0) begin
             // pass
-        end else if (hpos != 799) begin
+        end else */if (hpos != 1679) begin
             hpos <= hpos + 1;
         end else begin
             hpos <= 0;
-            if (vpos == 449) vpos <= 0;
+            if (vpos == 827) vpos <= 0;
             else vpos <= vpos + 1;
         end
     end
 
     always @(*) begin
-        if (hblank == 1 || vblank == 1) begin
+        if (blank) begin
             vr = 0;
             vg = 0;
             vb = 0;
+        end else if (vpos <= 60) begin
+            vr = 5'b11111;
+            vg = 5'b11111;
+            vb = 5'b11111;
         end else begin
             vr = vpos[6:2];
-            vg = hpos[6:2];
+            vb = hpos[6:2];
             //vb = led_ctr[26:22];
-            vb = 0;
+            vg = 0;
         end
     end
     //assign vb = {vpos[8:7], hpos[9:7]};
