@@ -78,7 +78,6 @@ module main(
         end else begin
             vr = vpos[6:2];
             vb = hpos[6:2];
-            //vb = led_ctr[26:22];
             vg = 0;
         end
     end

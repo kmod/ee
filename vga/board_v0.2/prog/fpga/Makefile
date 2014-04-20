@@ -17,5 +17,5 @@ $(CWD)main.ncd: $(CWD)main_map.ncd
 	touch $(CWD)did_par
 
 $(CWD)main.bit: $(CWD)main.ncd
-	cd $(CWD); $(ISE_BIN)/bitgen -intstyle ise -f main.ut main.ncd -m
+	cd $(CWD); $(ISE_BIN)/bitgen -intstyle ise -f main.ut main.ncd -m -filter filter.filter
 	touch $(CWD)did_bitgen
