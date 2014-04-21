@@ -301,7 +301,7 @@ def doOutput(assem, rn, of):
     print >>of, "%s/prog_all.svf: %s/prog_all.batch %s" % (build_dir, build_dir, ' '.join(jeds))
     print >>of, "\tcd %s; $(ISE_BIN)/impact -batch prog_all.batch || (rm -f prog_all.svf; false)" % (build_dir,)
     print >>of, "prog_%s: %s/prog_all.svf" % (aname, build_dir)
-    print >>of, "\tcd %s; python ~/Dropbox/ee/jtag/svf_reader2/svf_reader2.py prog_all.svf" % (build_dir,)
+    print >>of, "\tcd %s; python ~/Dropbox/ee/jtag/svf_reader3/svf_reader3.py prog_all.svf" % (build_dir,)
 
     with Rewriter(os.path.join(build_dir, "prog_reset_all.batch")) as f:
         impact_setup(f, "prog_reset_all.svf", "reset_", None)
@@ -312,7 +312,7 @@ def doOutput(assem, rn, of):
     print >>of, "%s/prog_reset_all.svf: %s/prog_reset_all.batch %s" % (build_dir, build_dir, ' '.join(reset_jeds))
     print >>of, "\tcd %s; $(ISE_BIN)/impact -batch prog_reset_all.batch || (rm -f prog_reset_all.svf; false)" % (build_dir,)
     print >>of, "prog_reset_%s: %s/prog_reset_all.svf" % (aname, build_dir)
-    print >>of, "\tcd %s; python ~/Dropbox/ee/jtag/svf_reader2/svf_reader2.py prog_reset_all.svf" % (build_dir,)
+    print >>of, "\tcd %s; python ~/Dropbox/ee/jtag/svf_reader3/svf_reader3.py prog_reset_all.svf" % (build_dir,)
 
     for i, (boardname, jobj) in enumerate(chain):
         if isinstance(jobj, JtagDevice):
@@ -328,7 +328,7 @@ def doOutput(assem, rn, of):
                 print >>of, "%s/%s.svf: %s/%s.batch %s" % (build_dir, bn, build_dir, bn, os.path.normpath(os.path.join(build_dir, bitstreamFor(boardname, jobj))))
                 print >>of, "\tcd %s; $(ISE_BIN)/impact -batch %s.batch || (rm -f %s.svf; false)" % (build_dir, bn, bn)
                 print >>of, "prog_%s_%s.%s%s: %s/%s.svf" % (aname, boardname, jobj.name, "_noverify" if not verify else "", build_dir, bn)
-                print >>of, "\tcd %s; python ~/Dropbox/ee/jtag/svf_reader2/svf_reader2.py %s.svf" % (build_dir, bn)
+                print >>of, "\tcd %s; python ~/Dropbox/ee/jtag/svf_reader3/svf_reader3.py %s.svf" % (build_dir, bn)
             prog(False)
             prog(True)
 

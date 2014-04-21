@@ -21,6 +21,14 @@ class Controller(object):
         # Note: signal on board is !RTS
         self.ser.setRTS(0)
         time.sleep(0.100)
+
+        self.ser.timeout = 0
+        while True:
+            s = self.ser.read(1024)
+            if not s:
+                break
+            print "Got %d junk bytes from the serial buffer" % len(s)
+        self.ser.timeout = None
         self.ser.setRTS(1)
 
         self._started = threading.Event()
