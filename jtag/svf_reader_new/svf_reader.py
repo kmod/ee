@@ -25,7 +25,8 @@ class JtagAutoStream(object):
         return npulses
 
     def close(self):
-        print "close() not implemented"
+        pass
+        # print "close() not implemented"
 
     def _flush_buf(self):
         num_nibbles = 2 * len(self.buf)

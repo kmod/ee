@@ -9,6 +9,12 @@
 // pins 6 and 7 can be used for debug output [currently not enabled]
 // make sure to do level shifting appropriately
 
+// JTAG:
+// - all signals get sampled on the rising edge of TCK
+// - TDO gets updated on the falling edge of TCK
+// - TMS/TDI are recommended to be updated on the falling edge of TCK
+// - on entering a new state, the first new data appears on TDO at the next falling clock edge
+
 #include <avr/io.h>
 
 #define F_CPU 16000000
