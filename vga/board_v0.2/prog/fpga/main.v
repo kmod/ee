@@ -71,14 +71,10 @@ module main(
             vr = 0;
             vg = 0;
             vb = 0;
-        end else if (vpos <= 60) begin
-            vr = 5'b11111;
-            vg = 5'b11111;
-            vb = 5'b11111;
         end else begin
-            vr = vpos[6:2];
-            vb = hpos[6:2];
-            vg = 0;
+            vr = vpos[8:4];
+            vg = hpos[8:4];
+            vb = 0;
         end
     end
     //assign vb = {vpos[8:7], hpos[9:7]};

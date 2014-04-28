@@ -71,7 +71,7 @@ class ControllerHub(object):
         start_byte = self.ser.read(1)
         if start_byte != '\xaf':
             print repr(start_byte)
-            print len(self.stream.read(1024))
+            print len(self.stream.read(1024, timeout=0))
             assert 0
         assert start_byte == '\xaf', repr(start_byte)
 

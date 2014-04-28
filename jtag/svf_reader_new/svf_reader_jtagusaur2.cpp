@@ -62,6 +62,7 @@ void jtag_pulse(unsigned char nibble) {
         unsigned char gotten = (PINC >> 2) & 1;
         unsigned char diff = gotten ^ (nibble & 1);
         if (diff) {
+            SWRITE(0x03);
             fail();
         }
     }
