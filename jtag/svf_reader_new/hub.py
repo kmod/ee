@@ -69,10 +69,10 @@ class ControllerHub(object):
         self.ser.setRTS(1)
 
         start_byte = self.ser.read(1)
-        if start_byte != '\xaf':
-            print repr(start_byte)
-            print repr(self.stream.read(1024, timeout=0))
-            assert 0
+        while start_byte != '\xaf':
+            assert start_byte == '\xff', repr(start_byte)
+            start_byte = self.ser.read(1)
+
         assert start_byte == '\xaf', repr(start_byte)
 
         num_endpoints = self.stream.readUInt(1)

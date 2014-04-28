@@ -71,6 +71,10 @@ module main(
             vr = 0;
             vg = 0;
             vb = 0;
+        end else if (mb_a[0]) begin
+            vr = vpos[8:4];
+            vb = hpos[8:4];
+            vg = 0;
         end else begin
             vr = vpos[8:4];
             vg = hpos[8:4];

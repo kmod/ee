@@ -1,4 +1,5 @@
 import sys
+import time
 
 from hub import ControllerHub
 
@@ -32,7 +33,12 @@ if __name__ == "__main__":
         args = l.split()
         cmd, args = args[0], args[1:]
 
-        if cmd in ('pinmode', 'mode'):
+        if cmd in ("sleep", "wait"):
+            amount, = args
+            amount = float(amount)
+            time.sleep(amount)
+
+        elif cmd in ('pinmode', 'mode'):
             port, pin, dir = args
             port = port.upper()
             assert port in "BCD"
