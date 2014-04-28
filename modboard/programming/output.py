@@ -308,8 +308,8 @@ def doOutput(assem, rn, of):
 
     with Rewriter(os.path.join(build_dir, "prog_reset_all.batch")) as f:
         impact_setup(f, "prog_reset_all.svf", "reset_", None)
-        for i in xrange(len(chain)):
-            if isinstance(chain[i], RouterDef):
+        for i, (boardname, jobj) in enumerate(chain):
+            if isinstance(jobj, RouterDef):
                 impact_prog(f, i)
         impact_end(f)
     print >>of, "%s/prog_reset_all.svf: %s/prog_reset_all.batch %s" % (build_dir, build_dir, ' '.join(reset_jeds))

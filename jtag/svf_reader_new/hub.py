@@ -71,7 +71,7 @@ class ControllerHub(object):
         start_byte = self.ser.read(1)
         if start_byte != '\xaf':
             print repr(start_byte)
-            print len(self.stream.read(1024, timeout=0))
+            print repr(self.stream.read(1024, timeout=0))
             assert 0
         assert start_byte == '\xaf', repr(start_byte)
 
@@ -85,7 +85,7 @@ class ControllerHub(object):
 
     def openEndpoint(self, endpoint_id):
         assert self._open_endpoint == None
-        assert endpoint_id in self.supported_endpoints
+        assert endpoint_id in self.supported_endpoints, self.supported_endpoints
 
         self.stream.writeUInt(2, endpoint_id)
         self.stream.flush()
