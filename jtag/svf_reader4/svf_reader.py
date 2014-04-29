@@ -264,6 +264,11 @@ def read_svf_file(fn):
     tdr_tdo = 0
     tdr_mask = 0
 
+    sdr_mask = 0
+    sdr_length = 0
+    sir_mask = 0
+    sir_length = 0
+
     tick_micros = None
 
     if fn == '-':
@@ -381,10 +386,15 @@ def read_svf_file(fn):
         elif cmd == "SIR" or cmd == "SDR":
             assert "TDI" in args
 
+            if cmd == "SIR":
+                prev_mask, prev_length = sir_mask, sir_length
+            else:
+                prev_mask, prev_length = sdr_mask, sdr_length
+
             length = int(args[0])
             tdi = None
             tdo = 0
-            mask = (1<<length) - 1
+            mask = None
             for i in xrange(1, len(args), 2):
                 if args[i] == "TDI":
                     tdi = int(args[i+1][1:-1], 16)
@@ -396,6 +406,17 @@ def read_svf_file(fn):
                     pass
                 else:
                     raise Exception(args[i])
+
+            if mask is None:
+                if length == prev_length:
+                    mask = prev_mask
+                else:
+                    mask = (1 << length) - 1
+
+            if cmd == "SIR":
+                sir_mask, sir_length = mask, length
+            else:
+                sdr_mask, sdr_length = mask, length
 
             if cmd == "SIR":
                 ctlr.goto("irshift")

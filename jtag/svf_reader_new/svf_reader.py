@@ -274,6 +274,11 @@ def read_svf_file(fn):
     tdr_tdo = 0
     tdr_mask = 0
 
+    sdr_mask = 0
+    sdr_length = 0
+    sir_mask = 0
+    sir_length = 0
+
     tick_micros = None
 
     if fn == '-':
@@ -294,16 +299,19 @@ def read_svf_file(fn):
 
         bytes_read += len(l)
 
+        l = l.strip()
+
+        if l.startswith('//'):
+            print l
+            continue
+
         l = l.split('//')[0].strip()
         if not l:
             continue
 
         cur.append(l)
 
-        if bytes_read < 10000:
-            print l
-        else:
-            print "%d/%d (%.1f%%)" % (bytes_read, size, 100.0 * bytes_read / size)
+        print "%d/%d (%.1f%%)" % (bytes_read, size, 100.0 * bytes_read / size)
 
         if not l.endswith(';'):
             continue
@@ -313,6 +321,9 @@ def read_svf_file(fn):
 
         assert l.endswith(';')
         l = l[:-1]
+
+        if len(l) < 120:
+            print l
 
         tokens = l.split()
         cmd, args = tokens[0], tokens[1:]
@@ -393,24 +404,45 @@ def read_svf_file(fn):
             # TODO should follow the spec about how TDO and MASK behave if they're not specified
             # (the same as for hir/hdr/tir/tdr)
 
-            assert "TDO" in args, l
-            assert "MASK" in args, l
+            if cmd == "SIR":
+                prev_mask, prev_length = sir_mask, sir_length
+            else:
+                prev_mask, prev_length = sdr_mask, sdr_length
 
             length = int(args[0])
             tdi = None
-            tdo = 0
-            mask = (1<<length)-1
+            tdo = None
+            mask = None
+            _mask = 0
             for i in xrange(1, len(args), 2):
                 if args[i] == "TDI":
                     tdi = int(args[i+1][1:-1], 16)
                 elif args[i] == "TDO":
                     tdo = int(args[i+1][1:-1], 16)
                 elif args[i] == "MASK":
-                    mask = int(args[i+1][1:-1], 16)
+                    _mask = mask = int(args[i+1][1:-1], 16)
                 elif args[i] == "SMASK":
                     pass
                 else:
                     raise Exception(args[i])
+
+            if tdo is None:
+                mask = 0
+                tdo = 0
+            else:
+                if mask is None:
+                    if length == prev_length:
+                        mask = prev_mask
+                    else:
+                        mask = (1 << length) - 1
+
+                if cmd == "SIR":
+                    sir_mask, sir_length = mask, length
+                else:
+                    sdr_mask, sdr_length = mask, length
+
+            if mask != _mask:
+                print "new mask:", hex(mask)
 
             if cmd == "SIR":
                 ctlr.goto("irshift")
