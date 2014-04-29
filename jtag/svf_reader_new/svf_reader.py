@@ -140,6 +140,9 @@ class JtagController(object):
         return self.jtag_stream.join()
 
     def sleep_micros(self, micros):
+        if micros > 100000:
+            print "Sleeping for %.1fs" % (micros / 1000000.0)
+
         assert self.state in ("drpause", "idle", "irpause"), self.state
         npulses = self.jtag_stream.pulses_for_micros(micros)
         for i in xrange(npulses):
@@ -387,10 +390,16 @@ def read_svf_file(fn):
         elif cmd == "SIR" or cmd == "SDR":
             assert "TDI" in args
 
+            # TODO should follow the spec about how TDO and MASK behave if they're not specified
+            # (the same as for hir/hdr/tir/tdr)
+
+            assert "TDO" in args, l
+            assert "MASK" in args, l
+
+            length = int(args[0])
             tdi = None
             tdo = 0
-            mask = 0
-            length = int(args[0])
+            mask = (1<<length)-1
             for i in xrange(1, len(args), 2):
                 if args[i] == "TDI":
                     tdi = int(args[i+1][1:-1], 16)
@@ -416,8 +425,7 @@ def read_svf_file(fn):
                 mask = (((tdr_mask << length) + mask) << hdr_length) + hdr_mask
                 length += hdr_length + tdr_length
 
-            # with print_lock:
-                # print length, hex(tdi), hex(tdo), hex(mask)
+            # print length, hex(tdi), hex(tdo), hex(mask)
 
             ctlr.send(length, tdi, mask, tdo)
             # ctlr.join()

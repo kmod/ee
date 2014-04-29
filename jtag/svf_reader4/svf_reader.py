@@ -30,6 +30,10 @@ class JtagController(object):
         self.ctlr._write(s)
 
     def sleep_micros(self, micros):
+        if micros > 100000:
+            with print_lock:
+                print "Sleeping for %.1fs" % (micros / 1000000.0)
+
         assert self.state in ("drpause", "idle", "irpause"), self.state
 
         # start = time.time()
@@ -377,10 +381,10 @@ def read_svf_file(fn):
         elif cmd == "SIR" or cmd == "SDR":
             assert "TDI" in args
 
+            length = int(args[0])
             tdi = None
             tdo = 0
-            mask = 0
-            length = int(args[0])
+            mask = (1<<length) - 1
             for i in xrange(1, len(args), 2):
                 if args[i] == "TDI":
                     tdi = int(args[i+1][1:-1], 16)

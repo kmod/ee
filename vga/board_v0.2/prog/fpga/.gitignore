@@ -17,3 +17,4 @@ ipcore_dir/tmp
 !filter.filter
 !iseconfig
 !iseconfig/main.xreport
+!make_mcs.batch

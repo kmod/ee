@@ -45,13 +45,17 @@ module main(
 	dcm #(.D(3), .M(5)) dcm(.CLK_IN(input_clk), .CLK_OUT(pixel_clk));
 
     reg [0:0] ctr;
-    reg [14:0] vpos;
-    reg [14:0] hpos;
+    reg [10:0] vpos;
+    reg [11:0] hpos;
 
     // http://tinyvga.com/vga-timing/1280x800@60Hz
     assign hsync = (hpos < 1344 || hpos >= 1480); // active low
     assign vsync = !(vpos < 801 || vpos >= 804); // active *high*
     assign blank = (hpos >= 1280 || vpos >= 800); // active high
+
+    reg [14:0] framebuf[159:0][99:0];
+    wire [14:0] pixval;
+    assign pixval = framebuf[hpos/8][vpos/8];
 
     always @(posedge pixel_clk) begin
         /*ctr <= ctr + 1;
@@ -63,6 +67,10 @@ module main(
             hpos <= 0;
             if (vpos == 827) vpos <= 0;
             else vpos <= vpos + 1;
+        end
+
+        if (led_ctr[22:0] == 0) begin
+            framebuf[hpos/8][vpos/8] <= 15'h7fff;
         end
     end
 
@@ -79,6 +87,8 @@ module main(
             vr = vpos[8:4];
             vg = hpos[8:4];
             vb = 0;
+        //end else begin
+            //{vr, vg, vb} = pixval;
         end
     end
     //assign vb = {vpos[8:7], hpos[9:7]};

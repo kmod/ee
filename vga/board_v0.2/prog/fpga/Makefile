@@ -19,3 +19,7 @@ $(CWD)main.ncd: $(CWD)main_map.ncd
 $(CWD)main.bit: $(CWD)main.ncd
 	cd $(CWD); $(ISE_BIN)/bitgen -intstyle ise -f main.ut main.ncd -m -filter filter.filter
 	touch $(CWD)did_bitgen
+
+$(CWD)main.mcs: $(CWD)main.bit $(CWD)make_mcs.batch
+	cd $(CWD); $(ISE_BIN)/impact -batch make_mcs.batch || (rm -f main.mcs; false)
+	touch $(CWD)did_mcs
