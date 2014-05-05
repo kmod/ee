@@ -16,12 +16,15 @@ class JtagAutoStream(object):
         self.nibble = None
         self.expected_acks = 0
 
-        self.EST_SPEED = hub.baud_rate * 2
+        pulses_per_baud = 0.2
+        pulses_per_sec = hub.baud_rate * pulses_per_baud
+        self.micros_per_pulse = 1000000.0 / pulses_per_sec
 
     def pulses_for_micros(self, micros):
-        micros_per_pulse = (1000000.0 + self.EST_SPEED - 1) / self.EST_SPEED
-        npulses = int((micros + micros_per_pulse + 1) / micros_per_pulse)
-        npulses = max(npulses, 5)
+        npulses = int((micros + self.micros_per_pulse - 1) / self.micros_per_pulse)
+        npulses = max(npulses, 50)
+        print >>sys.stderr, micros, npulses
+        # return max(micros, 2000)
         return npulses
 
     def close(self):
@@ -52,15 +55,18 @@ class JtagAutoStream(object):
                 assert c == '\x00', repr(c)
                 self.expected_acks -= 1
 
-        if self.expected_acks > max_acks_outstanding:
+        while self.expected_acks > max_acks_outstanding:
             nmore = self.expected_acks - max_acks_outstanding
             print "Waiting for %d more acks..." % nmore
-            s = self.f.read(nmore)
+            s = self.f.read(nmore, timeout=0)
+            if not s:
+                s = self.f.read(1)
+
             for c in s:
                 assert c == '\x00', repr(c)
                 self.expected_acks -= 1
 
-            assert 0 <= self.expected_acks <= max_acks_outstanding
+        assert 0 <= self.expected_acks <= max_acks_outstanding, (self.expected_acks, max_acks_outstanding)
 
     def flush(self):
         self._flush_buf()
@@ -83,6 +89,8 @@ class JtagAutoStream(object):
     def join(self):
         self.flush()
         self._wait_for_acks(0)
+        s = self.f.read(1024, timeout=0)
+        assert not s, (len(s), repr(s))
 
 class JtagController(object):
     def __init__(self, jtag_stream):
@@ -135,6 +143,8 @@ class JtagController(object):
             self.state = "irexit1"
         else:
             self.state = "drexit1"
+
+        # self.jtag_stream._wait_for_acks(0)
 
     def join(self):
         return self.jtag_stream.join()
