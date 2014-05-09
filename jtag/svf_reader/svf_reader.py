@@ -21,6 +21,7 @@ class JtagController(object):
         self.est_buf = 0
         self.EST_SPEED = 15000.0
         self.last_est = time.time()
+        self.pending_bits = 0
 
         if use_verify_thread:
             self._verify_queue = Queue.Queue(maxsize=2)
@@ -73,6 +74,15 @@ class JtagController(object):
             self._write(chr((self.buf << 4) | data))
             self.buf = None
         self.npulses += 1
+
+        if get_tdo:
+            with print_lock:
+                # assert self.pending_bits >= 0
+                self.pending_bits += 1
+            while self.pending_bits >= 512:
+                # print "Slowing down, %d bits pending" % self.pending_bits
+                time.sleep(0.01)
+
         # if self.npulses % 1000 == 0:
             # time.sleep(0.01)
 
@@ -85,17 +95,21 @@ class JtagController(object):
         # self.join()
 
     def _verify_thread(self):
+        nmismatches = 0
         while True:
             nbits, tdo, mask = self._verify_queue.get()
             print "waiting for %d bits" % nbits
 
             hex_digits = [0] * ((nbits + 3) / 4)
             for i in xrange(nbits):
-                if i and i % 10000 == 0:
-                    with print_lock:
-                        print "i =", i, self.ctlr.q.qsize()
+                # if i and i % 10000 == 0:
+                    # with print_lock:
+                        # print "i =", i, self.ctlr.q.qsize()
                 # print i, nbits
                 c = self.ctlr.q.get()
+                with print_lock:
+                    self.pending_bits -= 1
+                    # assert self.pending_bits >= 0
                 if c != '\0':
                     hex_digits[i/4] |= (1 << (i%4))
 
@@ -109,10 +123,19 @@ class JtagController(object):
                         print "Gotten:     ", bin(got_tdo)[2:].rjust(nbits, '0')
                         print "Expected:   ", bin(tdo)[2:].rjust(nbits, '0')
                         print "Care-mask:  ", bin(mask)[2:].rjust(nbits, '0')
-                else:
-                    with print_lock:
-                        print "Mismatch -- too long to print, but %d/%d bits different" % (bin(mismatch).count('1'), nbits)
-                raise Exception()
+                with print_lock:
+                    print "Mismatch -- too long to print, but %d/%d bits different" % (bin(mismatch).count('1'), nbits)
+                    with open("gotten%d.out" % nmismatches, 'w') as f:
+                        f.write(bin(got_tdo)[2:].rjust(nbits, '0'))
+                    with open("expected%d.out" % nmismatches, 'w') as f:
+                        f.write(bin(tdo)[2:].rjust(nbits, '0'))
+                    with open("mask%d.out" % nmismatches, 'w') as f:
+                        f.write(bin(mask)[2:].rjust(nbits, '0'))
+                    print "Written to gotten.out, expected.out, and mask.out"
+                nmismatches += 1
+                # raise Exception()
+                # os._exit(-1)
+                # raise Exception()
             self._verify_queue.task_done()
 
     def join(self):
@@ -410,8 +433,8 @@ def read_svf_file(fn):
             # with print_lock:
                 # print length, hex(tdi), hex(tdo), hex(mask)
 
-            ctlr.send(length, tdi, mask)
             ctlr.queue_verify(length, tdo, mask)
+            ctlr.send(length, tdi, mask)
             # ctlr.join()
 
             if cmd == "SIR":
