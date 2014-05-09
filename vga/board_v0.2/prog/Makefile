@@ -19,5 +19,5 @@ clean:
 	- rm -rfv *.mbbuild
 
 .PHONY: prog_fpga
-# prog_fpga: prog_main_vga.fpga_noverify
-prog_fpga: prog_main_vga.fpga
+prog_fpga: prog_main_vga.fpga_noverify
+# prog_fpga: prog_main_vga.fpga
