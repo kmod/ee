@@ -299,7 +299,8 @@ def doOutput(assem, rn, of):
                 impact_prog(f, i)
         impact_end(f)
 
-    SVF_PLAYER = "python ~/Dropbox/ee/jtag/svf_reader_new/svf_reader.py"
+    # SVF_PLAYER = "python ~/Dropbox/ee/jtag/svf_reader_new/svf_reader.py"
+    SVF_PLAYER = "python %s/../../jtag/svf_reader_new/svf_reader.py" % os.path.abspath(os.path.dirname(__file__))
 
     print >>of, "%s/prog_all.svf: %s/prog_all.batch %s" % (build_dir, build_dir, ' '.join(jeds))
     print >>of, "\tcd %s; $(ISE_BIN)/impact -batch prog_all.batch || (rm -f prog_all.svf; false)" % (build_dir,)

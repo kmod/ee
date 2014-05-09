@@ -28,8 +28,23 @@ end
 assembly main:
     board backplane_4s_128 bp unconnected
 
-    board vga_v0.2 vga bp.1 fpga.bitstream=../fpga/main.bit
+    board vga_v0.2 vga bp.3 fpga.bitstream=../fpga/main.bit
     board jtagusaur2 jtag bp.2
+
+    assign vga.a0 = jtag.pd8
+
+    assign vga.b0 = jtag.pd2
+    assign vga.b1 = jtag.pd3
+    assign vga.b2 = jtag.pd4
+    assign jtag.pd5 = vga.b3
+end
+
+assembly double:
+    board backplane_4s_128 bp1 unconnected
+    board backplane_4s_128 bp2 bp1.1
+
+    board vga_v0.2 vga bp2.1 fpga.bitstream=../fpga/main.bit
+    board jtagusaur2 jtag bp1.2
 
     assign vga.a0 = jtag.pd8
 
