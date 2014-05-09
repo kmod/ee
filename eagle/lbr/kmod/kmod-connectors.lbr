@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
@@ -1239,7 +1239,7 @@ As used in the PCI-E 6-pin power connector</description>
 <pin name="TDO" x="15.24" y="22.86" length="middle" rot="R180"/>
 <pin name="TMS" x="15.24" y="20.32" length="middle" rot="R180"/>
 <pin name="DSEN" x="15.24" y="17.78" length="middle" rot="R180"/>
-<pin name="GND@2" x="15.24" y="15.24" length="middle" rot="R180"/>
+<pin name="GND@2" x="15.24" y="15.24" length="middle" direction="in" rot="R180"/>
 <pin name="SCL" x="15.24" y="12.7" length="middle" rot="R180"/>
 <pin name="SDA" x="15.24" y="10.16" length="middle" rot="R180"/>
 <pin name="3.3V" x="15.24" y="7.62" length="middle" rot="R180"/>
@@ -1254,10 +1254,10 @@ As used in the PCI-E 6-pin power connector</description>
 <pin name="A1" x="15.24" y="-17.78" length="middle" swaplevel="1" rot="R180"/>
 <pin name="A2" x="15.24" y="-20.32" length="middle" swaplevel="1" rot="R180"/>
 <pin name="A3" x="15.24" y="-22.86" length="middle" swaplevel="1" rot="R180"/>
-<pin name="TDI" x="-15.24" y="22.86" length="middle"/>
+<pin name="TDI" x="-15.24" y="22.86" length="middle" direction="in"/>
 <pin name="TCK" x="-15.24" y="20.32" length="middle"/>
 <pin name="MSEN" x="-15.24" y="17.78" length="middle"/>
-<pin name="GND@1" x="-15.24" y="15.24" length="middle"/>
+<pin name="GND@1" x="-15.24" y="15.24" length="middle" direction="in"/>
 <pin name="!GRST" x="-15.24" y="12.7" length="middle"/>
 <pin name="G0" x="-15.24" y="10.16" length="middle"/>
 <pin name="1.8V" x="-15.24" y="7.62" length="middle"/>
