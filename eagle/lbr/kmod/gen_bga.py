@@ -3,7 +3,7 @@ GRID_SIZE = 16
 BALL_PITCH = 1.0
 
 # from http://www.xilinx.com/support/documentation/user_guides/ug112.pdf#page=88
-SOLDER_LAND = 0.40 
+SOLDER_LAND = 0.40
 MASK_OPENING = 0.50
 
 ROWNAMES = "ABCDEFGHJKLMNPRT"

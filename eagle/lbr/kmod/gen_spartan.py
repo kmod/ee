@@ -3,18 +3,23 @@ cur_x = 0
 x_by_bank = {}
 y_by_bank = {}
 
-for l in open("s3_256.txt"):
+seen = set()
+pins = {}
+
+for l in open("s6_ft256.txt"):
     l = l.split("#")[0].strip()
     if not l:
         continue
-    tokens = l.split()
-    assert len(tokens) == 5, tokens
-    bank, name50, name100, ball, type = tokens
-    if name50 == name100:
-        name = name50
-    else:
-        # assert name50 == "N.C." or (name100.startswith("IO") and name50.startswith("IP")) or name100.startswith(name50), (name50, name100)
-        name = "%s(50:%s)" % (name100, name50)
+    tokens = l.split(' ', 3)
+    assert len(tokens) == 4, tokens
+    bank, name, ball, iobuf = tokens
+
+    pins.setdefault(name, []).append(ball)
+    if bank != "NA" and "VCC" not in name:
+        name = "%s/%s" % (ball, name)
+    elif name in seen:
+        continue
+    seen.add(name)
 
     if bank not in x_by_bank:
         x_by_bank[bank] = cur_x
@@ -24,4 +29,11 @@ for l in open("s3_256.txt"):
     x = x_by_bank[bank]
     y = y_by_bank[bank]
     y_by_bank[bank] += 2.54
-    print """<pin name="%(ball)s/%(name)s" x="%(x)s" y="%(y)s" length="middle"/>""" % dict(x=x, y=y, name=name, ball=ball)
+
+    print """<pin name="%(name)s" x="%(x)s" y="%(y)s" length="middle"/>""" % dict(x=x, y=y, name=name, ball=ball)
+
+print
+print
+
+for name, balls in pins.iteritems():
+    print """<connect gate="G$1" pin="%s" pad="%s"/>""" % (name, ' '.join(balls))

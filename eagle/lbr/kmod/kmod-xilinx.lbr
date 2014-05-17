@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.5" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.025" altunitdist="inch" altunit="inch"/>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
@@ -1585,6 +1585,234 @@ Got the footprint from ref-packages-longpads, and modified according to the Xili
 <text x="53.34" y="25.4" size="2.54" layer="97">BANK2</text>
 <pin name="EP" x="-35.56" y="-10.16" length="middle"/>
 </symbol>
+<symbol name="XC6S{9,16,25}LX-FT256">
+<description>Spartan-6LX FT256, combined LX9/LX16/LX25 schematic</description>
+<pin name="IO_L1P_HSWAPEN_0" x="-38.1" y="27.94" length="middle"/>
+<pin name="IO_L1N_VREF_0" x="-38.1" y="30.48" length="middle"/>
+<pin name="IO_L2P_0" x="-38.1" y="33.02" length="middle"/>
+<pin name="IO_L2N_0" x="-38.1" y="35.56" length="middle"/>
+<pin name="IO_L3P_0" x="-38.1" y="38.1" length="middle"/>
+<pin name="IO_L3N_0" x="-38.1" y="40.64" length="middle"/>
+<pin name="IO_L4P_0" x="-38.1" y="43.18" length="middle"/>
+<pin name="IO_L4N_0" x="-38.1" y="45.72" length="middle"/>
+<pin name="IO_L5P_0" x="-38.1" y="48.26" length="middle"/>
+<pin name="IO_L5N_0" x="-38.1" y="50.8" length="middle"/>
+<pin name="IO_L6P_0" x="-38.1" y="53.34" length="middle"/>
+<pin name="IO_L6N_0" x="-38.1" y="55.88" length="middle"/>
+<pin name="IO_L7P_0" x="-38.1" y="58.42" length="middle"/>
+<pin name="IO_L7N_0" x="-38.1" y="60.96" length="middle"/>
+<pin name="IO_L33P_0" x="-38.1" y="63.5" length="middle"/>
+<pin name="IO_L33N_0" x="-38.1" y="66.04" length="middle"/>
+<pin name="IO_L34P_GCLK19_0" x="-38.1" y="68.58" length="middle"/>
+<pin name="IO_L34N_GCLK18_0" x="-38.1" y="71.12" length="middle"/>
+<pin name="IO_L35P_GCLK17_0" x="-38.1" y="73.66" length="middle"/>
+<pin name="IO_L35N_GCLK16_0" x="-38.1" y="76.2" length="middle"/>
+<pin name="IO_L36P_GCLK15_0" x="-38.1" y="78.74" length="middle"/>
+<pin name="IO_L36N_GCLK14_0" x="-38.1" y="81.28" length="middle"/>
+<pin name="IO_L37P_GCLK13_0" x="-38.1" y="83.82" length="middle"/>
+<pin name="IO_L37N_GCLK12_0" x="-38.1" y="86.36" length="middle"/>
+<pin name="IO_L38P_0" x="-38.1" y="88.9" length="middle"/>
+<pin name="IO_L38N_VREF_0" x="-38.1" y="91.44" length="middle"/>
+<pin name="IO_L39P_0" x="-38.1" y="93.98" length="middle"/>
+<pin name="IO_L39N_0" x="-38.1" y="96.52" length="middle"/>
+<pin name="IO_L40P_0" x="-38.1" y="99.06" length="middle"/>
+<pin name="IO_L40N_0" x="-38.1" y="101.6" length="middle"/>
+<pin name="IO_L62P_0" x="-38.1" y="104.14" length="middle"/>
+<pin name="IO_L62N_VREF_0" x="-38.1" y="106.68" length="middle"/>
+<pin name="IO_L63P_SCP7_0" x="-38.1" y="109.22" length="middle"/>
+<pin name="IO_L63N_SCP6_0" x="-38.1" y="111.76" length="middle"/>
+<pin name="IO_L64P_SCP5_0" x="-38.1" y="114.3" length="middle"/>
+<pin name="IO_L64N_SCP4_0" x="-38.1" y="116.84" length="middle"/>
+<pin name="IO_L65P_SCP3_0" x="-38.1" y="119.38" length="middle"/>
+<pin name="IO_L65N_SCP2_0" x="-38.1" y="121.92" length="middle"/>
+<pin name="IO_L66P_SCP1_0" x="-38.1" y="124.46" length="middle"/>
+<pin name="IO_L66N_SCP0_0" x="-38.1" y="127" length="middle"/>
+<pin name="TCK" x="-88.9" y="127" length="middle"/>
+<pin name="TDI" x="-88.9" y="124.46" length="middle"/>
+<pin name="TMS" x="-88.9" y="121.92" length="middle"/>
+<pin name="TDO" x="-88.9" y="119.38" length="middle"/>
+<pin name="IO_L1P_A25_1" x="40.64" y="-7.62" length="middle"/>
+<pin name="IO_L1N_A24_VREF_1" x="40.64" y="-5.08" length="middle"/>
+<pin name="IO_L29P_A23_M1A13_1" x="40.64" y="-2.54" length="middle"/>
+<pin name="IO_L29N_A22_M1A14_1" x="40.64" y="0" length="middle"/>
+<pin name="IO_L30P_A21_M1RESET_1" x="40.64" y="2.54" length="middle"/>
+<pin name="IO_L30N_A20_M1A11_1" x="40.64" y="5.08" length="middle"/>
+<pin name="IO_L31P_A19_M1CKE_1" x="40.64" y="7.62" length="middle"/>
+<pin name="IO_L31N_A18_M1A12_1" x="40.64" y="10.16" length="middle"/>
+<pin name="IO_L32P_A17_M1A8_1" x="40.64" y="12.7" length="middle"/>
+<pin name="IO_L32N_A16_M1A9_1" x="40.64" y="15.24" length="middle"/>
+<pin name="IO_L33P_A15_M1A10_1" x="40.64" y="17.78" length="middle"/>
+<pin name="IO_L33N_A14_M1A4_1" x="40.64" y="20.32" length="middle"/>
+<pin name="IO_L34P_A13_M1WE_1" x="40.64" y="22.86" length="middle"/>
+<pin name="IO_L34N_A12_M1BA2_1" x="40.64" y="25.4" length="middle"/>
+<pin name="IO_L35P_A11_M1A7_1" x="40.64" y="27.94" length="middle"/>
+<pin name="IO_L35N_A10_M1A2_1" x="40.64" y="30.48" length="middle"/>
+<pin name="IO_L36P_A9_M1BA0_1" x="40.64" y="33.02" length="middle"/>
+<pin name="IO_L36N_A8_M1BA1_1" x="40.64" y="35.56" length="middle"/>
+<pin name="IO_L37P_A7_M1A0_1" x="40.64" y="38.1" length="middle"/>
+<pin name="IO_L37N_A6_M1A1_1" x="40.64" y="40.64" length="middle"/>
+<pin name="IO_L38P_A5_M1CLK_1" x="40.64" y="43.18" length="middle"/>
+<pin name="IO_L38N_A4_M1CLKN_1" x="40.64" y="45.72" length="middle"/>
+<pin name="IO_L39P_M1A3_1" x="40.64" y="48.26" length="middle"/>
+<pin name="IO_L39N_M1ODT_1" x="40.64" y="50.8" length="middle"/>
+<pin name="IO_L40P_GCLK11_M1A5_1" x="40.64" y="53.34" length="middle"/>
+<pin name="IO_L40N_GCLK10_M1A6_1" x="40.64" y="55.88" length="middle"/>
+<pin name="IO_L41P_GCLK9_IRDY1_M1RASN_1" x="40.64" y="58.42" length="middle"/>
+<pin name="IO_L41N_GCLK8_M1CASN_1" x="40.64" y="60.96" length="middle"/>
+<pin name="IO_L42P_GCLK7_M1UDM_1" x="40.64" y="63.5" length="middle"/>
+<pin name="IO_L42N_GCLK6_TRDY1_M1LDM_1" x="40.64" y="66.04" length="middle"/>
+<pin name="IO_L43P_GCLK5_M1DQ4_1" x="40.64" y="68.58" length="middle"/>
+<pin name="IO_L43N_GCLK4_M1DQ5_1" x="40.64" y="71.12" length="middle"/>
+<pin name="IO_L44P_A3_M1DQ6_1" x="40.64" y="73.66" length="middle"/>
+<pin name="IO_L44N_A2_M1DQ7_1" x="40.64" y="76.2" length="middle"/>
+<pin name="IO_L45P_A1_M1LDQS_1" x="40.64" y="78.74" length="middle"/>
+<pin name="IO_L45N_A0_M1LDQSN_1" x="40.64" y="81.28" length="middle"/>
+<pin name="IO_L46P_FCS_B_M1DQ2_1" x="40.64" y="83.82" length="middle"/>
+<pin name="IO_L46N_FOE_B_M1DQ3_1" x="40.64" y="86.36" length="middle"/>
+<pin name="IO_L47P_FWE_B_M1DQ0_1" x="40.64" y="88.9" length="middle"/>
+<pin name="IO_L47N_LDC_M1DQ1_1" x="40.64" y="91.44" length="middle"/>
+<pin name="IO_L48P_HDC_M1DQ8_1" x="40.64" y="93.98" length="middle"/>
+<pin name="IO_L48N_M1DQ9_1" x="40.64" y="96.52" length="middle"/>
+<pin name="IO_L49P_M1DQ10_1" x="40.64" y="99.06" length="middle"/>
+<pin name="IO_L49N_M1DQ11_1" x="40.64" y="101.6" length="middle"/>
+<pin name="IO_L50P_M1UDQS_1" x="40.64" y="104.14" length="middle"/>
+<pin name="IO_L50N_M1UDQSN_1" x="40.64" y="106.68" length="middle"/>
+<pin name="IO_L51P_M1DQ12_1" x="40.64" y="109.22" length="middle"/>
+<pin name="IO_L51N_M1DQ13_1" x="40.64" y="111.76" length="middle"/>
+<pin name="IO_L52P_M1DQ14_1" x="40.64" y="114.3" length="middle"/>
+<pin name="IO_L52N_M1DQ15_1" x="40.64" y="116.84" length="middle"/>
+<pin name="IO_L53P_1" x="40.64" y="119.38" length="middle"/>
+<pin name="IO_L53N_VREF_1" x="40.64" y="121.92" length="middle"/>
+<pin name="IO_L74P_AWAKE_1" x="40.64" y="124.46" length="middle"/>
+<pin name="IO_L74N_DOUT_BUSY_1" x="40.64" y="127" length="middle"/>
+<pin name="SUSPEND" x="-88.9" y="-25.4" length="middle"/>
+<pin name="CMPCS_B_2" x="-38.1" y="-132.08" length="middle"/>
+<pin name="DONE_2" x="-38.1" y="-129.54" length="middle"/>
+<pin name="IO_L1P_CCLK_2" x="-38.1" y="-127" length="middle"/>
+<pin name="IO_L1N_M0_CMPMISO_2" x="-38.1" y="-124.46" length="middle"/>
+<pin name="IO_L2P_CMPCLK_2" x="-38.1" y="-121.92" length="middle"/>
+<pin name="IO_L2N_CMPMOSI_2" x="-38.1" y="-119.38" length="middle"/>
+<pin name="IO_L3P_D0_DIN_MISO_MISO1_2" x="-38.1" y="-116.84" length="middle"/>
+<pin name="IO_L3N_MOSI_CSI_B_MISO0_2" x="-38.1" y="-114.3" length="middle"/>
+<pin name="IO_L12P_D1_MISO2_2" x="-38.1" y="-111.76" length="middle"/>
+<pin name="IO_L12N_D2_MISO3_2" x="-38.1" y="-109.22" length="middle"/>
+<pin name="IO_L13P_M1_2" x="-38.1" y="-106.68" length="middle"/>
+<pin name="IO_L13N_D10_2" x="-38.1" y="-104.14" length="middle"/>
+<pin name="IO_L14P_D11_2" x="-38.1" y="-101.6" length="middle"/>
+<pin name="IO_L14N_D12_2" x="-38.1" y="-99.06" length="middle"/>
+<pin name="IO_L16P_2" x="-38.1" y="-96.52" length="middle"/>
+<pin name="IO_L16N_VREF_2" x="-38.1" y="-93.98" length="middle"/>
+<pin name="IO_L23P_2" x="-38.1" y="-91.44" length="middle"/>
+<pin name="IO_L23N_2" x="-38.1" y="-88.9" length="middle"/>
+<pin name="IO_L29P_GCLK3_2" x="-38.1" y="-86.36" length="middle"/>
+<pin name="IO_L29N_GCLK2_2" x="-38.1" y="-83.82" length="middle"/>
+<pin name="IO_L30P_GCLK1_D13_2" x="-38.1" y="-81.28" length="middle"/>
+<pin name="IO_L30N_GCLK0_USERCCLK_2" x="-38.1" y="-78.74" length="middle"/>
+<pin name="IO_L31P_GCLK31_D14_2" x="-38.1" y="-76.2" length="middle"/>
+<pin name="IO_L31N_GCLK30_D15_2" x="-38.1" y="-73.66" length="middle"/>
+<pin name="IO_L32P_GCLK29_2" x="-38.1" y="-71.12" length="middle"/>
+<pin name="IO_L32N_GCLK28_2" x="-38.1" y="-68.58" length="middle"/>
+<pin name="IO_L47P_2" x="-38.1" y="-66.04" length="middle"/>
+<pin name="IO_L47N_2" x="-38.1" y="-63.5" length="middle"/>
+<pin name="IO_L48P_D7_2" x="-38.1" y="-60.96" length="middle"/>
+<pin name="IO_L48N_RDWR_B_VREF_2" x="-38.1" y="-58.42" length="middle"/>
+<pin name="IO_L49P_D3_2" x="-38.1" y="-55.88" length="middle"/>
+<pin name="IO_L49N_D4_2" x="-38.1" y="-53.34" length="middle"/>
+<pin name="IO_L62P_D5_2" x="-38.1" y="-50.8" length="middle"/>
+<pin name="IO_L62N_D6_2" x="-38.1" y="-48.26" length="middle"/>
+<pin name="IO_L63P_2" x="-38.1" y="-45.72" length="middle"/>
+<pin name="IO_L63N_2" x="-38.1" y="-43.18" length="middle"/>
+<pin name="IO_L64P_D8_2" x="-38.1" y="-40.64" length="middle"/>
+<pin name="IO_L64N_D9_2" x="-38.1" y="-38.1" length="middle"/>
+<pin name="IO_L65P_INIT_B_2" x="-38.1" y="-35.56" length="middle"/>
+<pin name="IO_L65N_CSO_B_2" x="-38.1" y="-33.02" length="middle"/>
+<pin name="PROGRAM_B_2" x="-38.1" y="-30.48" length="middle"/>
+<pin name="IO_L1P_3" x="40.64" y="-165.1" length="middle"/>
+<pin name="IO_L1N_VREF_3" x="40.64" y="-162.56" length="middle"/>
+<pin name="IO_L2P_3" x="40.64" y="-160.02" length="middle"/>
+<pin name="IO_L2N_3" x="40.64" y="-157.48" length="middle"/>
+<pin name="IO_L32P_M3DQ14_3" x="40.64" y="-154.94" length="middle"/>
+<pin name="IO_L32N_M3DQ15_3" x="40.64" y="-152.4" length="middle"/>
+<pin name="IO_L33P_M3DQ12_3" x="40.64" y="-149.86" length="middle"/>
+<pin name="IO_L33N_M3DQ13_3" x="40.64" y="-147.32" length="middle"/>
+<pin name="IO_L34P_M3UDQS_3" x="40.64" y="-144.78" length="middle"/>
+<pin name="IO_L34N_M3UDQSN_3" x="40.64" y="-142.24" length="middle"/>
+<pin name="IO_L35P_M3DQ10_3" x="40.64" y="-139.7" length="middle"/>
+<pin name="IO_L35N_M3DQ11_3" x="40.64" y="-137.16" length="middle"/>
+<pin name="IO_L36P_M3DQ8_3" x="40.64" y="-134.62" length="middle"/>
+<pin name="IO_L36N_M3DQ9_3" x="40.64" y="-132.08" length="middle"/>
+<pin name="IO_L37P_M3DQ0_3" x="40.64" y="-129.54" length="middle"/>
+<pin name="IO_L37N_M3DQ1_3" x="40.64" y="-127" length="middle"/>
+<pin name="IO_L38P_M3DQ2_3" x="40.64" y="-124.46" length="middle"/>
+<pin name="IO_L38N_M3DQ3_3" x="40.64" y="-121.92" length="middle"/>
+<pin name="IO_L39P_M3LDQS_3" x="40.64" y="-119.38" length="middle"/>
+<pin name="IO_L39N_M3LDQSN_3" x="40.64" y="-116.84" length="middle"/>
+<pin name="IO_L40P_M3DQ6_3" x="40.64" y="-114.3" length="middle"/>
+<pin name="IO_L40N_M3DQ7_3" x="40.64" y="-111.76" length="middle"/>
+<pin name="IO_L41P_GCLK27_M3DQ4_3" x="40.64" y="-109.22" length="middle"/>
+<pin name="IO_L41N_GCLK26_M3DQ5_3" x="40.64" y="-106.68" length="middle"/>
+<pin name="IO_L42P_GCLK25_TRDY2_M3UDM_3" x="40.64" y="-104.14" length="middle"/>
+<pin name="IO_L42N_GCLK24_M3LDM_3" x="40.64" y="-101.6" length="middle"/>
+<pin name="IO_L43P_GCLK23_M3RASN_3" x="40.64" y="-99.06" length="middle"/>
+<pin name="IO_L43N_GCLK22_IRDY2_M3CASN_3" x="40.64" y="-96.52" length="middle"/>
+<pin name="IO_L44P_GCLK21_M3A5_3" x="40.64" y="-93.98" length="middle"/>
+<pin name="IO_L44N_GCLK20_M3A6_3" x="40.64" y="-91.44" length="middle"/>
+<pin name="IO_L45P_M3A3_3" x="40.64" y="-88.9" length="middle"/>
+<pin name="IO_L45N_M3ODT_3" x="40.64" y="-86.36" length="middle"/>
+<pin name="IO_L46P_M3CLK_3" x="40.64" y="-83.82" length="middle"/>
+<pin name="IO_L46N_M3CLKN_3" x="40.64" y="-81.28" length="middle"/>
+<pin name="IO_L47P_M3A0_3" x="40.64" y="-78.74" length="middle"/>
+<pin name="IO_L47N_M3A1_3" x="40.64" y="-76.2" length="middle"/>
+<pin name="IO_L48P_M3BA0_3" x="40.64" y="-73.66" length="middle"/>
+<pin name="IO_L48N_M3BA1_3" x="40.64" y="-71.12" length="middle"/>
+<pin name="IO_L49P_M3A7_3" x="40.64" y="-68.58" length="middle"/>
+<pin name="IO_L49N_M3A2_3" x="40.64" y="-66.04" length="middle"/>
+<pin name="IO_L50P_M3WE_3" x="40.64" y="-63.5" length="middle"/>
+<pin name="IO_L50N_M3BA2_3" x="40.64" y="-60.96" length="middle"/>
+<pin name="IO_L51P_M3A10_3" x="40.64" y="-58.42" length="middle"/>
+<pin name="IO_L51N_M3A4_3" x="40.64" y="-55.88" length="middle"/>
+<pin name="IO_L52P_M3A8_3" x="40.64" y="-53.34" length="middle"/>
+<pin name="IO_L52N_M3A9_3" x="40.64" y="-50.8" length="middle"/>
+<pin name="IO_L53P_M3CKE_3" x="40.64" y="-48.26" length="middle"/>
+<pin name="IO_L53N_M3A12_3" x="40.64" y="-45.72" length="middle"/>
+<pin name="IO_L54P_M3RESET_3" x="40.64" y="-43.18" length="middle"/>
+<pin name="IO_L54N_M3A11_3" x="40.64" y="-40.64" length="middle"/>
+<pin name="IO_L55P_M3A13_3" x="40.64" y="-38.1" length="middle"/>
+<pin name="IO_L55N_M3A14_3" x="40.64" y="-35.56" length="middle"/>
+<pin name="IO_L83P_3" x="40.64" y="-33.02" length="middle"/>
+<pin name="IO_L83N_VREF_3" x="40.64" y="-30.48" length="middle"/>
+<pin name="GND" x="-88.9" y="-35.56" length="middle"/>
+<pin name="VCCAUX" x="-88.9" y="132.08" length="middle"/>
+<pin name="VCCINT" x="-88.9" y="-30.48" length="middle"/>
+<pin name="VCCO_0" x="-38.1" y="132.08" length="middle"/>
+<pin name="VCCO_1" x="40.64" y="132.08" length="middle"/>
+<pin name="VCCO_2" x="-38.1" y="-25.4" length="middle"/>
+<pin name="VCCO_3" x="40.64" y="-25.4" length="middle"/>
+<wire x1="45.72" y1="-22.86" x2="88.9" y2="-22.86" width="0.254" layer="94"/>
+<wire x1="88.9" y1="-22.86" x2="88.9" y2="-167.64" width="0.254" layer="94"/>
+<wire x1="88.9" y1="-167.64" x2="45.72" y2="-167.64" width="0.254" layer="94"/>
+<wire x1="45.72" y1="-167.64" x2="45.72" y2="-22.86" width="0.254" layer="94"/>
+<wire x1="-33.02" y1="-22.86" x2="10.16" y2="-22.86" width="0.254" layer="94"/>
+<wire x1="10.16" y1="-22.86" x2="10.16" y2="-137.16" width="0.254" layer="94"/>
+<wire x1="10.16" y1="-137.16" x2="-33.02" y2="-137.16" width="0.254" layer="94"/>
+<wire x1="-33.02" y1="-137.16" x2="-33.02" y2="-22.86" width="0.254" layer="94"/>
+<wire x1="-83.82" y1="134.62" x2="-68.58" y2="134.62" width="0.254" layer="94"/>
+<wire x1="-68.58" y1="134.62" x2="-68.58" y2="116.84" width="0.254" layer="94"/>
+<wire x1="-68.58" y1="116.84" x2="-83.82" y2="116.84" width="0.254" layer="94"/>
+<wire x1="-83.82" y1="116.84" x2="-83.82" y2="134.62" width="0.254" layer="94"/>
+<wire x1="45.72" y1="134.62" x2="88.9" y2="134.62" width="0.254" layer="94"/>
+<wire x1="88.9" y1="134.62" x2="88.9" y2="-10.16" width="0.254" layer="94"/>
+<wire x1="88.9" y1="-10.16" x2="45.72" y2="-10.16" width="0.254" layer="94"/>
+<wire x1="45.72" y1="-10.16" x2="45.72" y2="134.62" width="0.254" layer="94"/>
+<wire x1="-33.02" y1="134.62" x2="10.16" y2="134.62" width="0.254" layer="94"/>
+<wire x1="10.16" y1="134.62" x2="10.16" y2="25.4" width="0.254" layer="94"/>
+<wire x1="10.16" y1="25.4" x2="-33.02" y2="25.4" width="0.254" layer="94"/>
+<wire x1="-33.02" y1="25.4" x2="-33.02" y2="134.62" width="0.254" layer="94"/>
+<wire x1="-83.82" y1="-38.1" x2="-68.58" y2="-38.1" width="0.254" layer="94"/>
+<wire x1="-68.58" y1="-38.1" x2="-68.58" y2="-22.86" width="0.254" layer="94"/>
+<wire x1="-68.58" y1="-22.86" x2="-83.82" y2="-22.86" width="0.254" layer="94"/>
+<wire x1="-83.82" y1="-22.86" x2="-83.82" y2="-38.1" width="0.254" layer="94"/>
+</symbol>
 <symbol name="XC3S{50,100,200}A-FT256">
 <description>Spartan-3A FT256, combined 50/100/200 schematic&lt;br/&gt;
 The 100 and 200 have the same pinouts; the 50 is a subset of the 100/200 with some additional minor differences in the differential pins.</description>
@@ -2784,6 +3012,221 @@ The 128- and 256-macrocell versions seem exactly the same.  The 64-macrocell one
 <connect gate="G$1" pin="T7/IO_L09N_2/GCLK13(50:N.C.)" pad="T7"/>
 <connect gate="G$1" pin="T8/IO_L10N_2/GCLK15" pad="T8"/>
 <connect gate="G$1" pin="T9/IO_L12N_2/GCLK3" pad="T9"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="XC6S{9,16,25}LX-FT256" prefix="IC">
+<gates>
+<gate name="G$1" symbol="XC6S{9,16,25}LX-FT256" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="XILINX_FT256">
+<connects>
+<connect gate="G$1" pin="CMPCS_B_2" pad="L11"/>
+<connect gate="G$1" pin="DONE_2" pad="P13"/>
+<connect gate="G$1" pin="GND" pad="A1 A16 B7 B11 D4 D13 E9 G2 G8 G15 H7 H9 H12 J5 J8 K7 K9 L2 L15 M8 N13 P3 R6 R10 T1 T16"/>
+<connect gate="G$1" pin="IO_L12N_D2_MISO3_2" pad="P12"/>
+<connect gate="G$1" pin="IO_L12P_D1_MISO2_2" pad="N12"/>
+<connect gate="G$1" pin="IO_L13N_D10_2" pad="P11"/>
+<connect gate="G$1" pin="IO_L13P_M1_2" pad="N11"/>
+<connect gate="G$1" pin="IO_L14N_D12_2" pad="P9"/>
+<connect gate="G$1" pin="IO_L14P_D11_2" pad="N9"/>
+<connect gate="G$1" pin="IO_L16N_VREF_2" pad="M10"/>
+<connect gate="G$1" pin="IO_L16P_2" pad="L10"/>
+<connect gate="G$1" pin="IO_L1N_A24_VREF_1" pad="E12"/>
+<connect gate="G$1" pin="IO_L1N_M0_CMPMISO_2" pad="T11"/>
+<connect gate="G$1" pin="IO_L1N_VREF_0" pad="A4"/>
+<connect gate="G$1" pin="IO_L1N_VREF_3" pad="M3"/>
+<connect gate="G$1" pin="IO_L1P_3" pad="M4"/>
+<connect gate="G$1" pin="IO_L1P_A25_1" pad="E13"/>
+<connect gate="G$1" pin="IO_L1P_CCLK_2" pad="R11"/>
+<connect gate="G$1" pin="IO_L1P_HSWAPEN_0" pad="C4"/>
+<connect gate="G$1" pin="IO_L23N_2" pad="T9"/>
+<connect gate="G$1" pin="IO_L23P_2" pad="R9"/>
+<connect gate="G$1" pin="IO_L29N_A22_M1A14_1" pad="B16"/>
+<connect gate="G$1" pin="IO_L29N_GCLK2_2" pad="N8"/>
+<connect gate="G$1" pin="IO_L29P_A23_M1A13_1" pad="B15"/>
+<connect gate="G$1" pin="IO_L29P_GCLK3_2" pad="M9"/>
+<connect gate="G$1" pin="IO_L2N_0" pad="A5"/>
+<connect gate="G$1" pin="IO_L2N_3" pad="N4"/>
+<connect gate="G$1" pin="IO_L2N_CMPMOSI_2" pad="M11"/>
+<connect gate="G$1" pin="IO_L2P_0" pad="B5"/>
+<connect gate="G$1" pin="IO_L2P_3" pad="M5"/>
+<connect gate="G$1" pin="IO_L2P_CMPCLK_2" pad="M12"/>
+<connect gate="G$1" pin="IO_L30N_A20_M1A11_1" pad="G11"/>
+<connect gate="G$1" pin="IO_L30N_GCLK0_USERCCLK_2" pad="T8"/>
+<connect gate="G$1" pin="IO_L30P_A21_M1RESET_1" pad="F12"/>
+<connect gate="G$1" pin="IO_L30P_GCLK1_D13_2" pad="P8"/>
+<connect gate="G$1" pin="IO_L31N_A18_M1A12_1" pad="D16"/>
+<connect gate="G$1" pin="IO_L31N_GCLK30_D15_2" pad="M7"/>
+<connect gate="G$1" pin="IO_L31P_A19_M1CKE_1" pad="D14"/>
+<connect gate="G$1" pin="IO_L31P_GCLK31_D14_2" pad="P7"/>
+<connect gate="G$1" pin="IO_L32N_A16_M1A9_1" pad="F14"/>
+<connect gate="G$1" pin="IO_L32N_GCLK28_2" pad="T7"/>
+<connect gate="G$1" pin="IO_L32N_M3DQ15_3" pad="R1"/>
+<connect gate="G$1" pin="IO_L32P_A17_M1A8_1" pad="F13"/>
+<connect gate="G$1" pin="IO_L32P_GCLK29_2" pad="R7"/>
+<connect gate="G$1" pin="IO_L32P_M3DQ14_3" pad="R2"/>
+<connect gate="G$1" pin="IO_L33N_0" pad="A8"/>
+<connect gate="G$1" pin="IO_L33N_A14_M1A4_1" pad="C16"/>
+<connect gate="G$1" pin="IO_L33N_M3DQ13_3" pad="P1"/>
+<connect gate="G$1" pin="IO_L33P_0" pad="B8"/>
+<connect gate="G$1" pin="IO_L33P_A15_M1A10_1" pad="C15"/>
+<connect gate="G$1" pin="IO_L33P_M3DQ12_3" pad="P2"/>
+<connect gate="G$1" pin="IO_L34N_A12_M1BA2_1" pad="E16"/>
+<connect gate="G$1" pin="IO_L34N_GCLK18_0" pad="A9"/>
+<connect gate="G$1" pin="IO_L34N_M3UDQSN_3" pad="N1"/>
+<connect gate="G$1" pin="IO_L34P_A13_M1WE_1" pad="E15"/>
+<connect gate="G$1" pin="IO_L34P_GCLK19_0" pad="C9"/>
+<connect gate="G$1" pin="IO_L34P_M3UDQS_3" pad="N3"/>
+<connect gate="G$1" pin="IO_L35N_A10_M1A2_1" pad="F16"/>
+<connect gate="G$1" pin="IO_L35N_GCLK16_0" pad="A10"/>
+<connect gate="G$1" pin="IO_L35N_M3DQ11_3" pad="M1"/>
+<connect gate="G$1" pin="IO_L35P_A11_M1A7_1" pad="F15"/>
+<connect gate="G$1" pin="IO_L35P_GCLK17_0" pad="B10"/>
+<connect gate="G$1" pin="IO_L35P_M3DQ10_3" pad="M2"/>
+<connect gate="G$1" pin="IO_L36N_A8_M1BA1_1" pad="G16"/>
+<connect gate="G$1" pin="IO_L36N_GCLK14_0" pad="E8"/>
+<connect gate="G$1" pin="IO_L36N_M3DQ9_3" pad="L1"/>
+<connect gate="G$1" pin="IO_L36P_A9_M1BA0_1" pad="G14"/>
+<connect gate="G$1" pin="IO_L36P_GCLK15_0" pad="E7"/>
+<connect gate="G$1" pin="IO_L36P_M3DQ8_3" pad="L3"/>
+<connect gate="G$1" pin="IO_L37N_A6_M1A1_1" pad="H16"/>
+<connect gate="G$1" pin="IO_L37N_GCLK12_0" pad="C10"/>
+<connect gate="G$1" pin="IO_L37N_M3DQ1_3" pad="K1"/>
+<connect gate="G$1" pin="IO_L37P_A7_M1A0_1" pad="H15"/>
+<connect gate="G$1" pin="IO_L37P_GCLK13_0" pad="E10"/>
+<connect gate="G$1" pin="IO_L37P_M3DQ0_3" pad="K2"/>
+<connect gate="G$1" pin="IO_L38N_A4_M1CLKN_1" pad="H11"/>
+<connect gate="G$1" pin="IO_L38N_M3DQ3_3" pad="J1"/>
+<connect gate="G$1" pin="IO_L38N_VREF_0" pad="C8"/>
+<connect gate="G$1" pin="IO_L38P_0" pad="D8"/>
+<connect gate="G$1" pin="IO_L38P_A5_M1CLK_1" pad="G12"/>
+<connect gate="G$1" pin="IO_L38P_M3DQ2_3" pad="J3"/>
+<connect gate="G$1" pin="IO_L39N_0" pad="A11"/>
+<connect gate="G$1" pin="IO_L39N_M1ODT_1" pad="H14"/>
+<connect gate="G$1" pin="IO_L39N_M3LDQSN_3" pad="H1"/>
+<connect gate="G$1" pin="IO_L39P_0" pad="C11"/>
+<connect gate="G$1" pin="IO_L39P_M1A3_1" pad="H13"/>
+<connect gate="G$1" pin="IO_L39P_M3LDQS_3" pad="H2"/>
+<connect gate="G$1" pin="IO_L3N_0" pad="C5"/>
+<connect gate="G$1" pin="IO_L3N_MOSI_CSI_B_MISO0_2" pad="T10"/>
+<connect gate="G$1" pin="IO_L3P_0" pad="D5"/>
+<connect gate="G$1" pin="IO_L3P_D0_DIN_MISO_MISO1_2" pad="P10"/>
+<connect gate="G$1" pin="IO_L40N_0" pad="D9"/>
+<connect gate="G$1" pin="IO_L40N_GCLK10_M1A6_1" pad="J12"/>
+<connect gate="G$1" pin="IO_L40N_M3DQ7_3" pad="G1"/>
+<connect gate="G$1" pin="IO_L40P_0" pad="F9"/>
+<connect gate="G$1" pin="IO_L40P_GCLK11_M1A5_1" pad="J11"/>
+<connect gate="G$1" pin="IO_L40P_M3DQ6_3" pad="G3"/>
+<connect gate="G$1" pin="IO_L41N_GCLK26_M3DQ5_3" pad="F1"/>
+<connect gate="G$1" pin="IO_L41N_GCLK8_M1CASN_1" pad="K14"/>
+<connect gate="G$1" pin="IO_L41P_GCLK27_M3DQ4_3" pad="F2"/>
+<connect gate="G$1" pin="IO_L41P_GCLK9_IRDY1_M1RASN_1" pad="J13"/>
+<connect gate="G$1" pin="IO_L42N_GCLK24_M3LDM_3" pad="J4"/>
+<connect gate="G$1" pin="IO_L42N_GCLK6_TRDY1_M1LDM_1" pad="K11"/>
+<connect gate="G$1" pin="IO_L42P_GCLK25_TRDY2_M3UDM_3" pad="K3"/>
+<connect gate="G$1" pin="IO_L42P_GCLK7_M1UDM_1" pad="K12"/>
+<connect gate="G$1" pin="IO_L43N_GCLK22_IRDY2_M3CASN_3" pad="H5"/>
+<connect gate="G$1" pin="IO_L43N_GCLK4_M1DQ5_1" pad="J16"/>
+<connect gate="G$1" pin="IO_L43P_GCLK23_M3RASN_3" pad="J6"/>
+<connect gate="G$1" pin="IO_L43P_GCLK5_M1DQ4_1" pad="J14"/>
+<connect gate="G$1" pin="IO_L44N_A2_M1DQ7_1" pad="K16"/>
+<connect gate="G$1" pin="IO_L44N_GCLK20_M3A6_3" pad="H3"/>
+<connect gate="G$1" pin="IO_L44P_A3_M1DQ6_1" pad="K15"/>
+<connect gate="G$1" pin="IO_L44P_GCLK21_M3A5_3" pad="H4"/>
+<connect gate="G$1" pin="IO_L45N_A0_M1LDQSN_1" pad="N16"/>
+<connect gate="G$1" pin="IO_L45N_M3ODT_3" pad="L5"/>
+<connect gate="G$1" pin="IO_L45P_A1_M1LDQS_1" pad="N14"/>
+<connect gate="G$1" pin="IO_L45P_M3A3_3" pad="L4"/>
+<connect gate="G$1" pin="IO_L46N_FOE_B_M1DQ3_1" pad="M16"/>
+<connect gate="G$1" pin="IO_L46N_M3CLKN_3" pad="E1"/>
+<connect gate="G$1" pin="IO_L46P_FCS_B_M1DQ2_1" pad="M15"/>
+<connect gate="G$1" pin="IO_L46P_M3CLK_3" pad="E2"/>
+<connect gate="G$1" pin="IO_L47N_2" pad="T6"/>
+<connect gate="G$1" pin="IO_L47N_LDC_M1DQ1_1" pad="L16"/>
+<connect gate="G$1" pin="IO_L47N_M3A1_3" pad="K6"/>
+<connect gate="G$1" pin="IO_L47P_2" pad="P6"/>
+<connect gate="G$1" pin="IO_L47P_FWE_B_M1DQ0_1" pad="L14"/>
+<connect gate="G$1" pin="IO_L47P_M3A0_3" pad="K5"/>
+<connect gate="G$1" pin="IO_L48N_M1DQ9_1" pad="P16"/>
+<connect gate="G$1" pin="IO_L48N_M3BA1_3" pad="C2"/>
+<connect gate="G$1" pin="IO_L48N_RDWR_B_VREF_2" pad="T5"/>
+<connect gate="G$1" pin="IO_L48P_D7_2" pad="R5"/>
+<connect gate="G$1" pin="IO_L48P_HDC_M1DQ8_1" pad="P15"/>
+<connect gate="G$1" pin="IO_L48P_M3BA0_3" pad="C3"/>
+<connect gate="G$1" pin="IO_L49N_D4_2" pad="P5"/>
+<connect gate="G$1" pin="IO_L49N_M1DQ11_1" pad="R16"/>
+<connect gate="G$1" pin="IO_L49N_M3A2_3" pad="D1"/>
+<connect gate="G$1" pin="IO_L49P_D3_2" pad="N5"/>
+<connect gate="G$1" pin="IO_L49P_M1DQ10_1" pad="R15"/>
+<connect gate="G$1" pin="IO_L49P_M3A7_3" pad="D3"/>
+<connect gate="G$1" pin="IO_L4N_0" pad="A6"/>
+<connect gate="G$1" pin="IO_L4P_0" pad="B6"/>
+<connect gate="G$1" pin="IO_L50N_M1UDQSN_1" pad="T15"/>
+<connect gate="G$1" pin="IO_L50N_M3BA2_3" pad="B1"/>
+<connect gate="G$1" pin="IO_L50P_M1UDQS_1" pad="R14"/>
+<connect gate="G$1" pin="IO_L50P_M3WE_3" pad="C1"/>
+<connect gate="G$1" pin="IO_L51N_M1DQ13_1" pad="T13"/>
+<connect gate="G$1" pin="IO_L51N_M3A4_3" pad="G5"/>
+<connect gate="G$1" pin="IO_L51P_M1DQ12_1" pad="T14"/>
+<connect gate="G$1" pin="IO_L51P_M3A10_3" pad="G6"/>
+<connect gate="G$1" pin="IO_L52N_M1DQ15_1" pad="T12"/>
+<connect gate="G$1" pin="IO_L52N_M3A9_3" pad="A2"/>
+<connect gate="G$1" pin="IO_L52P_M1DQ14_1" pad="R12"/>
+<connect gate="G$1" pin="IO_L52P_M3A8_3" pad="B2"/>
+<connect gate="G$1" pin="IO_L53N_M3A12_3" pad="F3"/>
+<connect gate="G$1" pin="IO_L53N_VREF_1" pad="L13"/>
+<connect gate="G$1" pin="IO_L53P_1" pad="L12"/>
+<connect gate="G$1" pin="IO_L53P_M3CKE_3" pad="F4"/>
+<connect gate="G$1" pin="IO_L54N_M3A11_3" pad="E3"/>
+<connect gate="G$1" pin="IO_L54P_M3RESET_3" pad="E4"/>
+<connect gate="G$1" pin="IO_L55N_M3A14_3" pad="F5"/>
+<connect gate="G$1" pin="IO_L55P_M3A13_3" pad="F6"/>
+<connect gate="G$1" pin="IO_L5N_0" pad="E6"/>
+<connect gate="G$1" pin="IO_L5P_0" pad="F7"/>
+<connect gate="G$1" pin="IO_L62N_D6_2" pad="L7"/>
+<connect gate="G$1" pin="IO_L62N_VREF_0" pad="A12"/>
+<connect gate="G$1" pin="IO_L62P_0" pad="B12"/>
+<connect gate="G$1" pin="IO_L62P_D5_2" pad="L8"/>
+<connect gate="G$1" pin="IO_L63N_2" pad="T4"/>
+<connect gate="G$1" pin="IO_L63N_SCP6_0" pad="A13"/>
+<connect gate="G$1" pin="IO_L63P_2" pad="P4"/>
+<connect gate="G$1" pin="IO_L63P_SCP7_0" pad="C13"/>
+<connect gate="G$1" pin="IO_L64N_D9_2" pad="N6"/>
+<connect gate="G$1" pin="IO_L64N_SCP4_0" pad="E11"/>
+<connect gate="G$1" pin="IO_L64P_D8_2" pad="M6"/>
+<connect gate="G$1" pin="IO_L64P_SCP5_0" pad="F10"/>
+<connect gate="G$1" pin="IO_L65N_CSO_B_2" pad="T3"/>
+<connect gate="G$1" pin="IO_L65N_SCP2_0" pad="A14"/>
+<connect gate="G$1" pin="IO_L65P_INIT_B_2" pad="R3"/>
+<connect gate="G$1" pin="IO_L65P_SCP3_0" pad="B14"/>
+<connect gate="G$1" pin="IO_L66N_SCP0_0" pad="D12"/>
+<connect gate="G$1" pin="IO_L66P_SCP1_0" pad="D11"/>
+<connect gate="G$1" pin="IO_L6N_0" pad="A7"/>
+<connect gate="G$1" pin="IO_L6P_0" pad="C7"/>
+<connect gate="G$1" pin="IO_L74N_DOUT_BUSY_1" pad="M14"/>
+<connect gate="G$1" pin="IO_L74P_AWAKE_1" pad="M13"/>
+<connect gate="G$1" pin="IO_L7N_0" pad="C6"/>
+<connect gate="G$1" pin="IO_L7P_0" pad="D6"/>
+<connect gate="G$1" pin="IO_L83N_VREF_3" pad="A3"/>
+<connect gate="G$1" pin="IO_L83P_3" pad="B3"/>
+<connect gate="G$1" pin="PROGRAM_B_2" pad="T2"/>
+<connect gate="G$1" pin="SUSPEND" pad="P14"/>
+<connect gate="G$1" pin="TCK" pad="C14"/>
+<connect gate="G$1" pin="TDI" pad="C12"/>
+<connect gate="G$1" pin="TDO" pad="E14"/>
+<connect gate="G$1" pin="TMS" pad="A15"/>
+<connect gate="G$1" pin="VCCAUX" pad="E5 F8 F11 G10 H6 J10 L6 L9"/>
+<connect gate="G$1" pin="VCCINT" pad="G7 G9 H8 H10 J7 J9 K8 K10"/>
+<connect gate="G$1" pin="VCCO_0" pad="B4 B9 B13 D7 D10"/>
+<connect gate="G$1" pin="VCCO_1" pad="D15 G13 J15 K13 N15 R13"/>
+<connect gate="G$1" pin="VCCO_2" pad="N7 N10 R4 R8"/>
+<connect gate="G$1" pin="VCCO_3" pad="D2 G4 J2 K4 N2"/>
 </connects>
 <technologies>
 <technology name=""/>
