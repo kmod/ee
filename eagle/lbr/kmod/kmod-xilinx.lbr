@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
@@ -1627,10 +1627,10 @@ Got the footprint from ref-packages-longpads, and modified according to the Xili
 <pin name="IO_L65N_SCP2_0" x="-38.1" y="121.92" length="middle"/>
 <pin name="IO_L66P_SCP1_0" x="-38.1" y="124.46" length="middle"/>
 <pin name="IO_L66N_SCP0_0" x="-38.1" y="127" length="middle"/>
-<pin name="TCK" x="-88.9" y="127" length="middle"/>
-<pin name="TDI" x="-88.9" y="124.46" length="middle"/>
-<pin name="TMS" x="-88.9" y="121.92" length="middle"/>
-<pin name="TDO" x="-88.9" y="119.38" length="middle"/>
+<pin name="TCK" x="-88.9" y="127" length="middle" direction="in"/>
+<pin name="TDI" x="-88.9" y="124.46" length="middle" direction="in"/>
+<pin name="TMS" x="-88.9" y="121.92" length="middle" direction="in"/>
+<pin name="TDO" x="-88.9" y="119.38" length="middle" direction="out"/>
 <pin name="IO_L1P_A25_1" x="40.64" y="-7.62" length="middle"/>
 <pin name="IO_L1N_A24_VREF_1" x="40.64" y="-5.08" length="middle"/>
 <pin name="IO_L29P_A23_M1A13_1" x="40.64" y="-2.54" length="middle"/>
@@ -1685,7 +1685,7 @@ Got the footprint from ref-packages-longpads, and modified according to the Xili
 <pin name="IO_L53N_VREF_1" x="40.64" y="121.92" length="middle"/>
 <pin name="IO_L74P_AWAKE_1" x="40.64" y="124.46" length="middle"/>
 <pin name="IO_L74N_DOUT_BUSY_1" x="40.64" y="127" length="middle"/>
-<pin name="SUSPEND" x="-88.9" y="-25.4" length="middle"/>
+<pin name="SUSPEND" x="-88.9" y="-25.4" length="middle" direction="in"/>
 <pin name="CMPCS_B_2" x="-38.1" y="-132.08" length="middle"/>
 <pin name="DONE_2" x="-38.1" y="-129.54" length="middle"/>
 <pin name="IO_L1P_CCLK_2" x="-38.1" y="-127" length="middle"/>
@@ -1726,7 +1726,7 @@ Got the footprint from ref-packages-longpads, and modified according to the Xili
 <pin name="IO_L64N_D9_2" x="-38.1" y="-38.1" length="middle"/>
 <pin name="IO_L65P_INIT_B_2" x="-38.1" y="-35.56" length="middle"/>
 <pin name="IO_L65N_CSO_B_2" x="-38.1" y="-33.02" length="middle"/>
-<pin name="PROGRAM_B_2" x="-38.1" y="-30.48" length="middle"/>
+<pin name="PROGRAM_B_2" x="-38.1" y="-30.48" length="middle" direction="in"/>
 <pin name="IO_L1P_3" x="40.64" y="-165.1" length="middle"/>
 <pin name="IO_L1N_VREF_3" x="40.64" y="-162.56" length="middle"/>
 <pin name="IO_L2P_3" x="40.64" y="-160.02" length="middle"/>
@@ -1781,21 +1781,21 @@ Got the footprint from ref-packages-longpads, and modified according to the Xili
 <pin name="IO_L55N_M3A14_3" x="40.64" y="-35.56" length="middle"/>
 <pin name="IO_L83P_3" x="40.64" y="-33.02" length="middle"/>
 <pin name="IO_L83N_VREF_3" x="40.64" y="-30.48" length="middle"/>
-<pin name="GND" x="-88.9" y="-35.56" length="middle"/>
-<pin name="VCCAUX" x="-88.9" y="132.08" length="middle"/>
-<pin name="VCCINT" x="-88.9" y="-30.48" length="middle"/>
-<pin name="VCCO_0" x="-38.1" y="132.08" length="middle"/>
-<pin name="VCCO_1" x="40.64" y="132.08" length="middle"/>
-<pin name="VCCO_2" x="-38.1" y="-25.4" length="middle"/>
-<pin name="VCCO_3" x="40.64" y="-25.4" length="middle"/>
+<pin name="GND" x="-88.9" y="-35.56" length="middle" direction="in"/>
+<pin name="VCCAUX" x="-88.9" y="132.08" length="middle" direction="in"/>
+<pin name="VCCINT" x="-88.9" y="-30.48" length="middle" direction="in"/>
+<pin name="VCCO_0" x="-38.1" y="132.08" length="middle" direction="in"/>
+<pin name="VCCO_1" x="40.64" y="132.08" length="middle" direction="in"/>
+<pin name="VCCO_2" x="-38.1" y="-25.4" length="middle" direction="in"/>
+<pin name="VCCO_3" x="40.64" y="-25.4" length="middle" direction="in"/>
 <wire x1="45.72" y1="-22.86" x2="88.9" y2="-22.86" width="0.254" layer="94"/>
 <wire x1="88.9" y1="-22.86" x2="88.9" y2="-167.64" width="0.254" layer="94"/>
 <wire x1="88.9" y1="-167.64" x2="45.72" y2="-167.64" width="0.254" layer="94"/>
 <wire x1="45.72" y1="-167.64" x2="45.72" y2="-22.86" width="0.254" layer="94"/>
 <wire x1="-33.02" y1="-22.86" x2="10.16" y2="-22.86" width="0.254" layer="94"/>
-<wire x1="10.16" y1="-22.86" x2="10.16" y2="-137.16" width="0.254" layer="94"/>
-<wire x1="10.16" y1="-137.16" x2="-33.02" y2="-137.16" width="0.254" layer="94"/>
-<wire x1="-33.02" y1="-137.16" x2="-33.02" y2="-22.86" width="0.254" layer="94"/>
+<wire x1="10.16" y1="-22.86" x2="10.16" y2="-134.62" width="0.254" layer="94"/>
+<wire x1="10.16" y1="-134.62" x2="-33.02" y2="-134.62" width="0.254" layer="94"/>
+<wire x1="-33.02" y1="-134.62" x2="-33.02" y2="-22.86" width="0.254" layer="94"/>
 <wire x1="-83.82" y1="134.62" x2="-68.58" y2="134.62" width="0.254" layer="94"/>
 <wire x1="-68.58" y1="134.62" x2="-68.58" y2="116.84" width="0.254" layer="94"/>
 <wire x1="-68.58" y1="116.84" x2="-83.82" y2="116.84" width="0.254" layer="94"/>

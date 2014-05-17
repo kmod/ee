@@ -28,7 +28,7 @@ for l in open("s6_ft256.txt"):
 
     x = x_by_bank[bank]
     y = y_by_bank[bank]
-    y_by_bank[bank] += 2.54
+    y_by_bank[bank] -= 2.54
 
     print """<pin name="%(name)s" x="%(x)s" y="%(y)s" length="middle"/>""" % dict(x=x, y=y, name=name, ball=ball)
 
