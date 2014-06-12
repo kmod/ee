@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="6.5.0">
+<eagle version="6.4">
 <drawing>
 <settings>
 <setting alwaysvectorfont="yes"/>
@@ -3250,6 +3250,12 @@ Standard 8-pin 0.1" header. Use with straight break away headers (SKU : PRT-0011
 <text x="-78.74" y="109.22" size="0.762" layer="97">See http://www.xilinx.com/support/documentation/user_guides/ug380.pdf#page=42
 for reference design</text>
 <text x="-104.14" y="58.42" size="0.762" layer="97" rot="R90">To add delay to init_b</text>
+<text x="96.52" y="119.38" size="3.556" layer="97">Planned revisions:
+- better reset logic, either from button or MB
+- sdram pads are on the short side
+- connect the oscillator to a GCLK pin
+- add buffers to the jtag pins
+- use a supported flash part</text>
 </plain>
 <instances>
 <instance part="U$1" gate="G$1" x="12.7" y="-78.74"/>
