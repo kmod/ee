@@ -32,8 +32,25 @@ module main(
     output reg [4:0] vg,
     output reg [4:0] vb,
     inout wire vsync,
-    inout wire hsync
+    inout wire hsync,
+
+    output wire flash_mosi,
+    output wire flash_cso_b,
+    output wire flash_cclk,
+    input wire flash_miso,
+    output wire flash_hold,
+    output wire flash_wp
+
     );
+
+    assign flash_wp = 1'b1;
+    assign flash_hold = 1'b1;
+
+    assign flash_mosi = mb_b[0];
+    assign flash_cso_b = mb_b[1];
+    assign flash_cclk = mb_b[2];
+    assign mb_b[3] = flash_miso;
+
 
     reg [31:0] led_ctr;
     always @(posedge pixel_clk) begin

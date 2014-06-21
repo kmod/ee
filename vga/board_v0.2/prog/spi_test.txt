@@ -1,0 +1,24 @@
+# pinmap (avr/mb):
+# pd3 - d0
+# pd4 - d1
+# pb0 - d2
+# pd5 - d3
+# pd2 - c0
+# pb2 - b1
+# pb3 - b2
+# pb4 - b3
+# pb5 - b0
+#
+# pd2 - mosi
+# pd3 - cso_b
+# pd4 - cclk
+# pd5 - miso (input)
+mode b 0 o
+set b 0 0
+
+mode d 2 o
+mode d 3 o
+mode d 4 o
+mode d 5 i
+
+read d

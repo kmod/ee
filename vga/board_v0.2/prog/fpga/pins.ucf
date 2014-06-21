@@ -47,3 +47,10 @@ Net "vb<1>" LOC = "P44" | IOSTANDARD = "LVCMOS33";
 Net "vb<0>" LOC = "P43" | IOSTANDARD = "LVCMOS33";
 Net "hsync" LOC = "P41" | IOSTANDARD = "LVCMOS33";
 Net "vsync" LOC = "P40" | IOSTANDARD = "LVCMOS33";
+
+Net "flash_mosi" LOC = "P64" | IOSTANDARD = "LVCMOS33";
+Net "flash_miso" LOC = "P65" | IOSTANDARD = "LVCMOS33";
+Net "flash_cclk" LOC = "P70" | IOSTANDARD = "LVCMOS33";
+Net "flash_cso_b" LOC = "P38" | IOSTANDARD = "LVCMOS33";
+Net "flash_hold" LOC = "P61" | IOSTANDARD = "LVCMOS33";
+Net "flash_wp" LOC = "P62" | IOSTANDARD = "LVCMOS33";

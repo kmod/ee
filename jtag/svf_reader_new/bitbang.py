@@ -3,6 +3,26 @@ import time
 
 from hub import ControllerHub
 
+class BitbangController(object):
+    def __init__(self, stream):
+        self.stream = stream
+
+    def writeBit(self, addr, bitnum, val):
+        data = 'w' + chr((addr << 4) + (bitnum << 1) + val)
+        self.stream.write(data)
+
+        check = self.stream.read(1)
+        assert check == '\x00', repr(check)
+
+    def read(self, addr):
+        data = 'r' + chr(addr)
+
+        self.stream.write(data)
+        check = self.stream.read(1)
+        assert check == '\x00', repr(check)
+        val = ord(self.stream.read(1))
+        return val
+
 PORT_IDS = {
         "DDRB" : 0,
         "DDRC" : 1,
@@ -15,9 +35,10 @@ PORT_IDS = {
         "PORTD" : 8,
         }
 
-if __name__ == "__main__":
+def main():
     hub = ControllerHub(br=1000000)
     stream = hub.openEndpoint(0x1000)
+    ctlr = BitbangController(stream)
 
     while True:
         l = sys.stdin.readline()
@@ -49,13 +70,8 @@ if __name__ == "__main__":
 
             port_id = PORT_IDS["DDR" + port]
 
-            data = 'w' + chr((port_id << 4) + (pin << 1) + val)
-            stream.write(data)
-
-            check = stream.read(1)
-            assert check == '\x00', repr(check)
-
-        elif cmd in ('set', 'read'):
+            ctlr.writeBit(port_id, pin, val)
+        elif cmd in ('set', 'write'):
             port, pin, val = args
             port = port.upper()
             assert port in "BCD"
@@ -66,26 +82,16 @@ if __name__ == "__main__":
 
             port_id = PORT_IDS["PORT" + port]
 
-            data = 'w' + chr((port_id << 4) + (pin << 1) + val)
-            stream.write(data)
-
-            check = stream.read(1)
-            assert check == '\x00', repr(check)
-
+            ctlr.writeBit(port_id, pin, val);
         elif cmd == "read":
             port, = args
             port = port.upper()
             assert port in "BCD"
 
             port_id = PORT_IDS["PIN" + port]
-            data = 'r' + chr(port_id)
 
-            stream.write(data)
-            check = stream.read(1)
-            assert check == '\x00', repr(check)
-            val = ord(stream.read(1))
+            val = ctlr.read(port_id)
             print "0b%s" % bin(val)[2:].rjust(8, '0')
-
         elif cmd == "debug":
             b, = args
             b = int(b, 0)
@@ -93,3 +99,6 @@ if __name__ == "__main__":
 
         else:
             raise Exception(cmd, args)
+
+if __name__ == "__main__":
+    main()
