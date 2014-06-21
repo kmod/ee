@@ -1588,45 +1588,45 @@ Got the footprint from ref-packages-longpads, and modified according to the Xili
 <symbol name="XC6S{9,16,25}LX-FT256">
 <description>Spartan-6LX FT256, combined LX9/LX16/LX25 schematic</description>
 <pin name="IO_L1P_HSWAPEN_0" x="-55.88" y="127" length="middle"/>
-<pin name="IO_L1N_VREF_0" x="-55.88" y="121.92" length="middle" swaplevel="1"/>
-<pin name="IO_L2P_0" x="-55.88" y="119.38" length="middle" swaplevel="1"/>
-<pin name="IO_L2N_0" x="-55.88" y="116.84" length="middle" swaplevel="1"/>
-<pin name="IO_L3P_0" x="-55.88" y="114.3" length="middle" swaplevel="1"/>
-<pin name="IO_L3N_0" x="-55.88" y="111.76" length="middle" swaplevel="1"/>
-<pin name="IO_L4P_0" x="-55.88" y="109.22" length="middle" swaplevel="1"/>
-<pin name="IO_L4N_0" x="-55.88" y="106.68" length="middle" swaplevel="1"/>
-<pin name="IO_L5P_0" x="-55.88" y="104.14" length="middle" swaplevel="1"/>
-<pin name="IO_L5N_0" x="-55.88" y="101.6" length="middle" swaplevel="1"/>
-<pin name="IO_L6P_0" x="-55.88" y="99.06" length="middle" swaplevel="1"/>
-<pin name="IO_L6N_0" x="-55.88" y="96.52" length="middle" swaplevel="1"/>
-<pin name="IO_L7P_0" x="-55.88" y="93.98" length="middle" swaplevel="1"/>
-<pin name="IO_L7N_0" x="-55.88" y="91.44" length="middle" swaplevel="1"/>
-<pin name="IO_L33P_0" x="-55.88" y="88.9" length="middle" swaplevel="1"/>
-<pin name="IO_L33N_0" x="-55.88" y="86.36" length="middle" swaplevel="1"/>
-<pin name="IO_L34P_GCLK19_0" x="-55.88" y="83.82" length="middle" swaplevel="1"/>
-<pin name="IO_L34N_GCLK18_0" x="-55.88" y="81.28" length="middle" swaplevel="1"/>
-<pin name="IO_L35P_GCLK17_0" x="-55.88" y="78.74" length="middle" swaplevel="1"/>
-<pin name="IO_L35N_GCLK16_0" x="-55.88" y="76.2" length="middle" swaplevel="1"/>
-<pin name="IO_L36P_GCLK15_0" x="-55.88" y="73.66" length="middle" swaplevel="1"/>
-<pin name="IO_L36N_GCLK14_0" x="-55.88" y="71.12" length="middle" swaplevel="1"/>
-<pin name="IO_L37P_GCLK13_0" x="-55.88" y="68.58" length="middle" swaplevel="1"/>
-<pin name="IO_L37N_GCLK12_0" x="-55.88" y="66.04" length="middle" swaplevel="1"/>
-<pin name="IO_L38P_0" x="-55.88" y="63.5" length="middle" swaplevel="1"/>
-<pin name="IO_L38N_VREF_0" x="-55.88" y="60.96" length="middle" swaplevel="1"/>
-<pin name="IO_L39P_0" x="-55.88" y="58.42" length="middle" swaplevel="1"/>
-<pin name="IO_L39N_0" x="-55.88" y="55.88" length="middle" swaplevel="1"/>
-<pin name="IO_L40P_0" x="-55.88" y="53.34" length="middle" swaplevel="1"/>
-<pin name="IO_L40N_0" x="-55.88" y="50.8" length="middle" swaplevel="1"/>
-<pin name="IO_L62P_0" x="-55.88" y="48.26" length="middle" swaplevel="1"/>
-<pin name="IO_L62N_VREF_0" x="-55.88" y="45.72" length="middle" swaplevel="1"/>
-<pin name="IO_L63P_SCP7_0" x="-55.88" y="43.18" length="middle" swaplevel="1"/>
-<pin name="IO_L63N_SCP6_0" x="-55.88" y="40.64" length="middle" swaplevel="1"/>
-<pin name="IO_L64P_SCP5_0" x="-55.88" y="38.1" length="middle" swaplevel="1"/>
-<pin name="IO_L64N_SCP4_0" x="-55.88" y="35.56" length="middle" swaplevel="1"/>
-<pin name="IO_L65P_SCP3_0" x="-55.88" y="33.02" length="middle" swaplevel="1"/>
-<pin name="IO_L65N_SCP2_0" x="-55.88" y="30.48" length="middle" swaplevel="1"/>
-<pin name="IO_L66P_SCP1_0" x="-55.88" y="27.94" length="middle" swaplevel="1"/>
-<pin name="IO_L66N_SCP0_0" x="-55.88" y="25.4" length="middle" swaplevel="1"/>
+<pin name="IO_L1N_VREF_0" x="-55.88" y="121.92" length="middle"/>
+<pin name="IO_L2P_0" x="-55.88" y="119.38" length="middle"/>
+<pin name="IO_L2N_0" x="-55.88" y="116.84" length="middle"/>
+<pin name="IO_L3P_0" x="-55.88" y="114.3" length="middle"/>
+<pin name="IO_L3N_0" x="-55.88" y="111.76" length="middle"/>
+<pin name="IO_L4P_0" x="-55.88" y="109.22" length="middle"/>
+<pin name="IO_L4N_0" x="-55.88" y="106.68" length="middle"/>
+<pin name="IO_L5P_0" x="-55.88" y="104.14" length="middle"/>
+<pin name="IO_L5N_0" x="-55.88" y="101.6" length="middle"/>
+<pin name="IO_L6P_0" x="-55.88" y="99.06" length="middle"/>
+<pin name="IO_L6N_0" x="-55.88" y="96.52" length="middle"/>
+<pin name="IO_L7P_0" x="-55.88" y="93.98" length="middle"/>
+<pin name="IO_L7N_0" x="-55.88" y="91.44" length="middle"/>
+<pin name="IO_L33P_0" x="-55.88" y="88.9" length="middle"/>
+<pin name="IO_L33N_0" x="-55.88" y="86.36" length="middle"/>
+<pin name="IO_L34P_GCLK19_0" x="-55.88" y="83.82" length="middle"/>
+<pin name="IO_L34N_GCLK18_0" x="-55.88" y="81.28" length="middle"/>
+<pin name="IO_L35P_GCLK17_0" x="-55.88" y="78.74" length="middle"/>
+<pin name="IO_L35N_GCLK16_0" x="-55.88" y="76.2" length="middle"/>
+<pin name="IO_L36P_GCLK15_0" x="-55.88" y="73.66" length="middle"/>
+<pin name="IO_L36N_GCLK14_0" x="-55.88" y="71.12" length="middle"/>
+<pin name="IO_L37P_GCLK13_0" x="-55.88" y="68.58" length="middle"/>
+<pin name="IO_L37N_GCLK12_0" x="-55.88" y="66.04" length="middle"/>
+<pin name="IO_L38P_0" x="-55.88" y="63.5" length="middle"/>
+<pin name="IO_L38N_VREF_0" x="-55.88" y="60.96" length="middle"/>
+<pin name="IO_L39P_0" x="-55.88" y="58.42" length="middle"/>
+<pin name="IO_L39N_0" x="-55.88" y="55.88" length="middle"/>
+<pin name="IO_L40P_0" x="-55.88" y="53.34" length="middle"/>
+<pin name="IO_L40N_0" x="-55.88" y="50.8" length="middle"/>
+<pin name="IO_L62P_0" x="-55.88" y="48.26" length="middle"/>
+<pin name="IO_L62N_VREF_0" x="-55.88" y="45.72" length="middle"/>
+<pin name="IO_L63P_SCP7_0" x="-55.88" y="43.18" length="middle"/>
+<pin name="IO_L63N_SCP6_0" x="-55.88" y="40.64" length="middle"/>
+<pin name="IO_L64P_SCP5_0" x="-55.88" y="38.1" length="middle"/>
+<pin name="IO_L64N_SCP4_0" x="-55.88" y="35.56" length="middle"/>
+<pin name="IO_L65P_SCP3_0" x="-55.88" y="33.02" length="middle"/>
+<pin name="IO_L65N_SCP2_0" x="-55.88" y="30.48" length="middle"/>
+<pin name="IO_L66P_SCP1_0" x="-55.88" y="27.94" length="middle"/>
+<pin name="IO_L66N_SCP0_0" x="-55.88" y="25.4" length="middle"/>
 <pin name="TCK" x="-96.52" y="124.46" length="middle" direction="in"/>
 <pin name="TDI" x="-96.52" y="121.92" length="middle" direction="in"/>
 <pin name="TMS" x="-96.52" y="119.38" length="middle" direction="in"/>

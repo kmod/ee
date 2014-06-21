@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.5" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.025" altunitdist="inch" altunit="inch"/>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
@@ -23,7 +23,7 @@
 <layer number="13" name="Route13" color="4" fill="5" visible="no" active="no"/>
 <layer number="14" name="Route14" color="1" fill="6" visible="no" active="no"/>
 <layer number="15" name="Route15" color="4" fill="6" visible="no" active="no"/>
-<layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
+<layer number="16" name="Bottom" color="1" fill="1" visible="no" active="yes"/>
 <layer number="17" name="Pads" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="18" name="Vias" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="19" name="Unrouted" color="6" fill="1" visible="yes" active="yes"/>
@@ -842,11 +842,11 @@ As used in the PCI-E 6-pin power connector</description>
 <wire x1="-13" y1="4.5" x2="-14" y2="4.5" width="0.005" layer="20"/>
 <wire x1="-14" y1="4.5" x2="-15" y2="5.5" width="0.005" layer="20" curve="-90"/>
 <wire x1="-15" y1="5.5" x2="-15" y2="7" width="0.005" layer="20"/>
-<wire x1="8" y1="4.5" x2="11" y2="4.5" width="0.005" layer="51"/>
-<wire x1="11" y1="4.5" x2="12" y2="3.5" width="0.005" layer="51" curve="-90"/>
-<wire x1="12" y1="3.5" x2="12" y2="-1.5" width="0.005" layer="51"/>
-<wire x1="12" y1="-1.5" x2="13" y2="-2.5" width="0.005" layer="51" curve="90"/>
-<wire x1="13" y1="-2.5" x2="15" y2="-2.5" width="0.005" layer="51"/>
+<wire x1="8" y1="4.5" x2="13" y2="4.5" width="0.005" layer="51"/>
+<wire x1="13" y1="4.5" x2="14" y2="3.5" width="0.005" layer="51" curve="-90"/>
+<wire x1="14" y1="3.5" x2="14" y2="-1.5" width="0.005" layer="51"/>
+<wire x1="14" y1="-1.5" x2="15" y2="-2.5" width="0.005" layer="51" curve="90"/>
+<wire x1="15" y1="-2.5" x2="17" y2="-2.5" width="0.005" layer="51"/>
 </package>
 <package name="MB-V1-X1-CONN">
 <wire x1="-14.65" y1="-4.4" x2="-14.65" y2="4.4" width="0.127" layer="21"/>
@@ -1248,12 +1248,12 @@ I've had this work for Micro-B; I think the footprint is standard though?</descr
 <pin name="SDA" x="15.24" y="10.16" length="middle" rot="R180"/>
 <pin name="3.3V" x="15.24" y="7.62" length="middle" rot="R180"/>
 <pin name="12V@2" x="15.24" y="5.08" length="middle" rot="R180"/>
-<pin name="E0" x="15.24" y="2.54" length="middle" rot="R180"/>
+<pin name="E0" x="15.24" y="2.54" length="middle" swaplevel="2" rot="R180"/>
 <pin name="C0" x="15.24" y="0" length="middle" swaplevel="1" rot="R180"/>
 <pin name="C1" x="15.24" y="-2.54" length="middle" swaplevel="1" rot="R180"/>
 <pin name="C2" x="15.24" y="-7.62" length="middle" swaplevel="1" rot="R180"/>
 <pin name="C3" x="15.24" y="-10.16" length="middle" swaplevel="1" rot="R180"/>
-<pin name="E2" x="15.24" y="-12.7" length="middle" rot="R180"/>
+<pin name="E2" x="15.24" y="-12.7" length="middle" swaplevel="2" rot="R180"/>
 <pin name="A0" x="15.24" y="-15.24" length="middle" swaplevel="1" rot="R180"/>
 <pin name="A1" x="15.24" y="-17.78" length="middle" swaplevel="1" rot="R180"/>
 <pin name="A2" x="15.24" y="-20.32" length="middle" swaplevel="1" rot="R180"/>
@@ -1266,12 +1266,12 @@ I've had this work for Micro-B; I think the footprint is standard though?</descr
 <pin name="G0" x="-15.24" y="10.16" length="middle"/>
 <pin name="1.8V" x="-15.24" y="7.62" length="middle"/>
 <pin name="12V@1" x="-15.24" y="5.08" length="middle"/>
-<pin name="E1" x="-15.24" y="2.54" length="middle"/>
+<pin name="E1" x="-15.24" y="2.54" length="middle" swaplevel="2"/>
 <pin name="D0" x="-15.24" y="0" length="middle" swaplevel="1"/>
 <pin name="D1" x="-15.24" y="-2.54" length="middle" swaplevel="1"/>
 <pin name="D2" x="-15.24" y="-7.62" length="middle" swaplevel="1"/>
 <pin name="D3" x="-15.24" y="-10.16" length="middle" swaplevel="1"/>
-<pin name="E3" x="-15.24" y="-12.7" length="middle"/>
+<pin name="E3" x="-15.24" y="-12.7" length="middle" swaplevel="2"/>
 <pin name="B0" x="-15.24" y="-15.24" length="middle" swaplevel="1"/>
 <pin name="B1" x="-15.24" y="-17.78" length="middle" swaplevel="1"/>
 <pin name="B2" x="-15.24" y="-20.32" length="middle" swaplevel="1"/>
