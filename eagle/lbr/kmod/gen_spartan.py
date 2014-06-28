@@ -35,5 +35,5 @@ for l in open("s6_ft256.txt"):
 print
 print
 
-for name, balls in pins.iteritems():
+for name, balls in sorted(pins.iteritems()):
     print """<connect gate="G$1" pin="%s" pad="%s"/>""" % (name, ' '.join(balls))

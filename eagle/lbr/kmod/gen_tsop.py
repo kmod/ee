@@ -1,6 +1,6 @@
 PIN_COUNT = 66
 PITCH = 0.65
-PAD_CENTER_WIDTH = 11.7
+PAD_CENTER_WIDTH = 11.7 # distance from the center of one pad to the center of one on the opposite side
 
 def sign(x):
     if x >= 0:
