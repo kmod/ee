@@ -95,7 +95,9 @@ ASSIGN A+N NET;
 ASSIGN CS+D 'ERC;';
 
 # kmod:
-Assign F7 'Net';
+Assign F7 'change style continuous; Net';
+Assign S+F7 'change style continuous; bus';
+Assign C+F7 'change style shortdash; change layer symbols; wire';
 Assign AF7 'Label';
 
 MENU '[designlink22.png] Search and order {\
@@ -146,6 +148,10 @@ MENU '[LTspice.png] LT Spice simulation {\
                   Import: RUN ltspice.ulp /I; \
      }'\
 ;
+
+# kmod:
+ASSIGN C+F5 'change layer names; change size 0.07; text >NAME'
+ASSIGN C+F6 'change layer values; change size 0.07; text >VALUE'
 
 PAC:
 Grid mm 0.5 On;
