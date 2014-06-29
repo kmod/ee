@@ -1622,6 +1622,62 @@ We've spent an enormous amount of time creating and checking these footprints an
 </package>
 </packages>
 </library>
+<library name="kmod-connectors">
+<packages>
+<package name="MICROSD-MOLEX-1050270001">
+<description>Molex push-pull microSD connector.  Short length, external pins.&lt;br/&gt;
+Molex part number 1050270001&lt;br/&gt;
+&lt;br/&gt;
+http://www.molex.com/pdm_docs/sd/1050270001_sd.pdf
+&lt;br/&gt;
+http://www.digikey.com/product-detail/en/1050270001/WM6825CT-ND/3045221</description>
+<smd name="SHELL1" x="-5.4" y="-0.6" dx="1.4" dy="1.2" layer="1"/>
+<smd name="SHELL2" x="5.4" y="-0.6" dx="1.4" dy="1.2" layer="1"/>
+<smd name="SHELL3" x="5.4" y="-5.05" dx="1.4" dy="1.2" layer="1"/>
+<smd name="SHELL4" x="-5.4" y="-5.05" dx="1.4" dy="1.2" layer="1"/>
+<smd name="P1" x="3.85" y="-6.65" dx="0.5" dy="1.2" layer="1"/>
+<smd name="P2" x="2.75" y="-6.65" dx="0.5" dy="1.2" layer="1"/>
+<smd name="P3" x="1.65" y="-6.65" dx="0.5" dy="1.2" layer="1"/>
+<smd name="P4" x="0.9" y="-6.65" dx="0.5" dy="1.2" layer="1"/>
+<smd name="G1" x="0.2" y="-6.65" dx="0.5" dy="1.2" layer="1"/>
+<smd name="P5" x="-0.55" y="-6.65" dx="0.5" dy="1.2" layer="1"/>
+<smd name="P6" x="-1.65" y="-6.65" dx="0.5" dy="1.2" layer="1"/>
+<smd name="P7" x="-2.75" y="-6.65" dx="0.5" dy="1.2" layer="1"/>
+<smd name="P8" x="-3.85" y="-6.65" dx="0.5" dy="1.2" layer="1"/>
+<wire x1="-5.62" y1="0" x2="5.62" y2="0" width="0.254" layer="21"/>
+<wire x1="5.62" y1="0" x2="5.62" y2="-6.05" width="0.254" layer="21"/>
+<wire x1="5.62" y1="-6.05" x2="-5.62" y2="-6.05" width="0.254" layer="21"/>
+<wire x1="-5.62" y1="-6.05" x2="-5.62" y2="0" width="0.254" layer="21"/>
+<rectangle x1="-4.05" y1="-7" x2="-3.65" y2="-6" layer="51"/>
+<rectangle x1="-2.95" y1="-7" x2="-2.55" y2="-6" layer="51"/>
+<rectangle x1="-1.85" y1="-7" x2="-1.45" y2="-6" layer="51"/>
+<rectangle x1="-0.75" y1="-7" x2="-0.35" y2="-6" layer="51"/>
+<rectangle x1="0" y1="-7" x2="0.4" y2="-6" layer="51"/>
+<rectangle x1="0.7" y1="-7" x2="1.1" y2="-6" layer="51"/>
+<rectangle x1="1.45" y1="-7" x2="1.85" y2="-6" layer="51"/>
+<rectangle x1="2.55" y1="-7" x2="2.95" y2="-6" layer="51"/>
+<rectangle x1="3.65" y1="-7" x2="4.05" y2="-6" layer="51"/>
+<wire x1="-4.9" y1="-6.2" x2="-4.9" y2="-14" width="0.254" layer="51"/>
+<wire x1="-4.9" y1="-14" x2="-4.9" y2="-14.3" width="0.254" layer="51"/>
+<wire x1="-4.9" y1="-14.3" x2="-4.9" y2="-14.4" width="0.254" layer="51"/>
+<wire x1="-4.9" y1="-14.4" x2="-3.9" y2="-15.4" width="0.254" layer="51" curve="90"/>
+<wire x1="-3.9" y1="-15.4" x2="5.2" y2="-15.4" width="0.254" layer="51"/>
+<wire x1="5.2" y1="-15.4" x2="6.2" y2="-14.4" width="0.254" layer="51" curve="90"/>
+<wire x1="6.2" y1="-14.4" x2="6.2" y2="-14" width="0.254" layer="51"/>
+<wire x1="6.2" y1="-14" x2="6.2" y2="-6.2" width="0.254" layer="51"/>
+<wire x1="6.2" y1="-6.2" x2="5.8" y2="-5.8" width="0.254" layer="51"/>
+<wire x1="-4.9" y1="-14" x2="6.2" y2="-14" width="0.254" layer="51" curve="-30.754302"/>
+<wire x1="-4.9" y1="-14.3" x2="-4.9" y2="-20.5" width="0.127" layer="51" style="shortdash"/>
+<wire x1="-4.9" y1="-20.5" x2="-4.9" y2="-21" width="0.127" layer="51" style="shortdash"/>
+<wire x1="-4.9" y1="-21" x2="-3.9" y2="-22" width="0.127" layer="51" style="shortdash" curve="90"/>
+<wire x1="-3.9" y1="-22" x2="5.2" y2="-22" width="0.127" layer="51" style="shortdash"/>
+<wire x1="5.2" y1="-22" x2="6.2" y2="-21" width="0.127" layer="51" style="shortdash" curve="90"/>
+<wire x1="6.2" y1="-21" x2="6.2" y2="-20.5" width="0.127" layer="51" style="shortdash"/>
+<wire x1="6.2" y1="-20.5" x2="6.2" y2="-14.4" width="0.127" layer="51" style="shortdash"/>
+<wire x1="-4.9" y1="-20.5" x2="6.2" y2="-20.5" width="0.127" layer="51" style="shortdash" curve="-30.754302"/>
+</package>
+</packages>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -1632,22 +1688,20 @@ We've spent an enormous amount of time creating and checking these footprints an
 <class number="0" name="default" width="0" drill="0">
 </class>
 </classes>
-<designrules name="SeeedStudio_mine_4layer *">
-<description language="de">&lt;b&gt;EAGLE Design Rules&lt;/b&gt;
-&lt;p&gt;
-Die Standard-Design-Rules sind so gewählt, dass sie für 
-die meisten Anwendungen passen. Sollte ihre Platine 
-besondere Anforderungen haben, treffen Sie die erforderlichen
-Einstellungen hier und speichern die Design Rules unter 
-einem neuen Namen ab.</description>
-<description language="en">&lt;b&gt;SeeedStudio design rules, 4 layers&lt;/b&gt;&lt;br/&gt;
-Made some modifications: turned on check restrict, increased min via restring to 8mil, turned off layers 2 and 15, and turned on same-signal clearance.&lt;br/&gt;
-Seeed, though not other services, says 8/8 for inner layers.  Can't seem to specify that in eagle, so &lt;b&gt;*be careful*&lt;/b&gt;.</description>
-<description language="zh">&lt;b&gt;Seeed Studio EAGLE Design Rules&lt;/b&gt;
-</description>
+<designrules name="my_SeeedStudio_4layer_DRU_no_angle_20140221 *">
+<description language="en">&lt;b&gt;Seeed 4-layer design rules&lt;/b&gt;
+&lt;br/&gt;Based off of SeeedStudio_4layer_DRU_no_angle_20140221.dru.  Modifications:&lt;ul&gt;
+&lt;li&gt;Turned on check angle, check restrict
+&lt;li&gt;Turned on same-signal checking between smd/pad/vias (6mil)
+&lt;li&gt;Reduced mask gap to 2mil
+&lt;li&gt;Reduced track/space to 6/6; outer layer spec should be 6/6, but I think they set it to 8/8 because inner layers are 8/8.  No way to set that on eagle so &lt;b&gt;*be careful*&lt;/b&gt;.  (actually track is 2mm for now)
+&lt;li&gt;Changed via annular rings to 6mil (they put 4mil but say 6mil on the website, plus all other services say 6mil too)
+&lt;li&gt;Changed drill-to-edge minimum to 10mil
+&lt;li&gt;Changed stop limit (aka tented via threshold) to 12mil
+&lt;/ul&gt;</description>
 <param name="layerSetup" value="(1*2*15*16)"/>
 <param name="mtCopper" value="0.035mm 0.0175mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.0175mm 0.035mm"/>
-<param name="mtIsolate" value="1.5mm 1.1mm 0.2mm 0.15mm 0.2mm 0.15mm 0.2mm 0.15mm 0.2mm 0.15mm 0.2mm 0.15mm 0.2mm 0.15mm 0.2mm"/>
+<param name="mtIsolate" value="0.2mm 0.3mm 0.2mm 0.15mm 0.2mm 0.15mm 0.2mm 0.15mm 0.2mm 0.15mm 0.2mm 0.15mm 0.2mm 0.15mm 0.2mm"/>
 <param name="mdWireWire" value="6mil"/>
 <param name="mdWirePad" value="6mil"/>
 <param name="mdWireVia" value="6mil"/>
@@ -1664,7 +1718,7 @@ Seeed, though not other services, says 8/8 for inner layers.  Can't seem to spec
 <param name="mdSmdStop" value="0mil"/>
 <param name="msWidth" value="6mil"/>
 <param name="msDrill" value="12mil"/>
-<param name="msMicroVia" value="12mil"/>
+<param name="msMicroVia" value="9.99mm"/>
 <param name="msBlindViaRatio" value="0.5"/>
 <param name="rvPadTop" value="0.25"/>
 <param name="rvPadInner" value="0.25"/>
@@ -1698,7 +1752,7 @@ Seeed, though not other services, says 8/8 for inner layers.  Can't seem to spec
 <param name="mlMaxStopFrame" value="2mil"/>
 <param name="mlMinCreamFrame" value="0mil"/>
 <param name="mlMaxCreamFrame" value="0mil"/>
-<param name="mlViaStopLimit" value="25mil"/>
+<param name="mlViaStopLimit" value="12mil"/>
 <param name="srRoundness" value="0"/>
 <param name="srMinRoundness" value="0mil"/>
 <param name="srMaxRoundness" value="0mil"/>
@@ -1711,7 +1765,7 @@ Seeed, though not other services, says 8/8 for inner layers.  Can't seem to spec
 <param name="checkFont" value="1"/>
 <param name="checkRestrict" value="1"/>
 <param name="useDiameter" value="13"/>
-<param name="maxErrors" value="50"/>
+<param name="maxErrors" value="999999"/>
 </designrules>
 <autorouter>
 <pass name="Default">
@@ -1838,17 +1892,39 @@ Seeed, though not other services, says 8/8 for inner layers.  Can't seem to spec
 <attribute name="VOLTAGE" value="6.3V" x="-14" y="47" size="1.778" layer="27" display="off"/>
 <attribute name="PACKAGE" value="0402" x="-14" y="47" size="1.778" layer="27" display="off"/>
 </element>
-<element name="RA1" library="kmod-passives" package="0603-ARV" value="22R" x="37" y="41.2"/>
-<element name="RA2" library="kmod-passives" package="0603-ARV" value="22R" x="35" y="46.2"/>
-<element name="RA3" library="kmod-passives" package="0603-ARV" value="22R" x="32" y="41.2"/>
-<element name="RA4" library="kmod-passives" package="0603-ARV" value="22R" x="29" y="46.2"/>
-<element name="RA5" library="kmod-passives" package="0603-ARV" value="22R" x="27" y="41.2"/>
-<element name="RA7" library="kmod-passives" package="0603-ARV" value="22R" x="17" y="33.2" rot="R90"/>
-<element name="RA8" library="kmod-passives" package="0603-ARV" value="22R" x="12" y="31.2" rot="R90"/>
-<element name="RA9" library="kmod-passives" package="0603-ARV" value="22R" x="17" y="28.2" rot="R90"/>
-<element name="RA10" library="kmod-passives" package="0603-ARV" value="22R" x="12" y="26.2" rot="R90"/>
-<element name="RA11" library="kmod-passives" package="0603-ARV" value="22R" x="17" y="23.2" rot="R90"/>
-<element name="RA12" library="kmod-passives" package="0603-ARV" value="22R" x="12" y="21.2" rot="R90"/>
+<element name="RA1" library="kmod-passives" package="0603-ARV" value="22R" x="37" y="41.2">
+<attribute name="PACKAGE" value="ARRAY" x="37" y="41.2" size="1.778" layer="27" display="off"/>
+</element>
+<element name="RA2" library="kmod-passives" package="0603-ARV" value="22R" x="35" y="46.2">
+<attribute name="PACKAGE" value="ARRAY" x="35" y="46.2" size="1.778" layer="27" display="off"/>
+</element>
+<element name="RA3" library="kmod-passives" package="0603-ARV" value="22R" x="32" y="41.2">
+<attribute name="PACKAGE" value="ARRAY" x="32" y="41.2" size="1.778" layer="27" display="off"/>
+</element>
+<element name="RA4" library="kmod-passives" package="0603-ARV" value="22R" x="29" y="46.2">
+<attribute name="PACKAGE" value="ARRAY" x="29" y="46.2" size="1.778" layer="27" display="off"/>
+</element>
+<element name="RA5" library="kmod-passives" package="0603-ARV" value="22R" x="27" y="41.2">
+<attribute name="PACKAGE" value="ARRAY" x="27" y="41.2" size="1.778" layer="27" display="off"/>
+</element>
+<element name="RA7" library="kmod-passives" package="0603-ARV" value="22R" x="17" y="33.2" rot="R90">
+<attribute name="PACKAGE" value="ARRAY" x="17" y="33.2" size="1.778" layer="27" rot="R90" display="off"/>
+</element>
+<element name="RA8" library="kmod-passives" package="0603-ARV" value="22R" x="12" y="31.2" rot="R90">
+<attribute name="PACKAGE" value="ARRAY" x="12" y="31.2" size="1.778" layer="27" rot="R90" display="off"/>
+</element>
+<element name="RA9" library="kmod-passives" package="0603-ARV" value="22R" x="17" y="28.2" rot="R90">
+<attribute name="PACKAGE" value="ARRAY" x="17" y="28.2" size="1.778" layer="27" rot="R90" display="off"/>
+</element>
+<element name="RA10" library="kmod-passives" package="0603-ARV" value="22R" x="12" y="26.2" rot="R90">
+<attribute name="PACKAGE" value="ARRAY" x="12" y="26.2" size="1.778" layer="27" rot="R90" display="off"/>
+</element>
+<element name="RA11" library="kmod-passives" package="0603-ARV" value="22R" x="17" y="23.2" rot="R90">
+<attribute name="PACKAGE" value="ARRAY" x="17" y="23.2" size="1.778" layer="27" rot="R90" display="off"/>
+</element>
+<element name="RA12" library="kmod-passives" package="0603-ARV" value="22R" x="12" y="21.2" rot="R90">
+<attribute name="PACKAGE" value="ARRAY" x="12" y="21.2" size="1.778" layer="27" rot="R90" display="off"/>
+</element>
 <element name="R5" library="kmod-passives" package="0402-RES" value="22R" x="17" y="37" rot="R180">
 <attribute name="PACKAGE" value="0402" x="17" y="37" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
@@ -2011,7 +2087,9 @@ Seeed, though not other services, says 8/8 for inner layers.  Can't seem to spec
 <attribute name="VOLTAGE" value="6.3V" x="-36.6" y="25.7" size="1.778" layer="27" display="off"/>
 <attribute name="PACKAGE" value="0402" x="-36.6" y="25.7" size="1.778" layer="27" display="off"/>
 </element>
-<element name="RA6" library="kmod-passives" package="0603-ARV" value="49.9R 1%" x="13.1" y="-2.6" rot="R180"/>
+<element name="RA6" library="kmod-passives" package="0603-ARV" value="49.9R 1%" x="13.1" y="-2.6" rot="R180">
+<attribute name="PACKAGE" value="ARRAY" x="13.1" y="-2.6" size="1.778" layer="27" rot="R180" display="off"/>
+</element>
 <element name="C39" library="kmod-passives" package="0402-CAP" value="10pF" x="8.8" y="-3.4">
 <attribute name="VOLTAGE" value="6.3V" x="8.8" y="-3.4" size="1.778" layer="27" display="off"/>
 <attribute name="PACKAGE" value="0402" x="8.8" y="-3.4" size="1.778" layer="27" display="off"/>
@@ -2279,6 +2357,47 @@ Seeed, though not other services, says 8/8 for inner layers.  Can't seem to spec
 <element name="R34" library="kmod-passives" package="0603-RES" value="10k" x="-255" y="-131">
 <attribute name="PACKAGE" value="0603" x="-255" y="-131" size="1.778" layer="27" display="off"/>
 </element>
+<element name="SB16" library="kmod-nonparts" package="SOLDER-BRIDGE-OPEN" value="SOLDER-BRIDGEOPEN" x="-214.5" y="26"/>
+<element name="SB12" library="kmod-nonparts" package="SOLDER-BRIDGE-OPEN" value="SOLDER-BRIDGEOPEN" x="-192.5" y="-17"/>
+<element name="SB13" library="kmod-nonparts" package="SOLDER-BRIDGE-OPEN" value="SOLDER-BRIDGEOPEN" x="-192.5" y="-19.5"/>
+<element name="SB14" library="kmod-nonparts" package="SOLDER-BRIDGE-OPEN" value="SOLDER-BRIDGEOPEN" x="-217.5" y="0.5" rot="R270"/>
+<element name="SB15" library="kmod-nonparts" package="SOLDER-BRIDGE-OPEN" value="SOLDER-BRIDGEOPEN" x="-217.5" y="4.5" rot="R270"/>
+<element name="SB17" library="kmod-nonparts" package="SOLDER-BRIDGE-OPEN" value="SOLDER-BRIDGEOPEN" x="-209.5" y="29"/>
+<element name="U$15" library="kmod-connectors" package="MICROSD-MOLEX-1050270001" value="Molex 1050270001" x="33.05" y="7.85" rot="MR270">
+<attribute name="SWITCH_TYPE" value="N.O. to VDD" x="33.05" y="7.85" size="1.778" layer="28" rot="MR270" display="off"/>
+</element>
+<element name="L9" library="kmod-passives" package="0603" value="CIC10J601(750mA,600R)" x="-267.75" y="-134"/>
+<element name="R35" library="kmod-passives" package="0603-RES" value="330R" x="-267.75" y="-137">
+<attribute name="PACKAGE" value="0603" x="-267.75" y="-137" size="1.778" layer="27" display="off"/>
+</element>
+<element name="C77" library="kmod-passives" package="0402-CAP" value="0.1uF" x="-267.75" y="-140">
+<attribute name="PACKAGE" value="0402" x="-267.75" y="-140" size="1.778" layer="27" display="off"/>
+<attribute name="VOLTAGE" value="6.3V" x="-267.75" y="-140" size="1.778" layer="27" display="off"/>
+</element>
+<element name="R36" library="kmod-passives" package="0603-RES" value="10k" x="-266.5" y="-144.35">
+<attribute name="PACKAGE" value="0603" x="-266.5" y="-144.35" size="1.778" layer="27" display="off"/>
+</element>
+<element name="C78" library="kmod-passives" package="0603-CAP" value="10uF" x="-270.85" y="-143">
+<attribute name="PACKAGE" value="0603" x="-270.85" y="-143" size="1.778" layer="27" display="off"/>
+<attribute name="VOLTAGE" value="6.3V" x="-270.85" y="-143" size="1.778" layer="27" display="off"/>
+</element>
+<element name="RA13" library="kmod-passives" package="0603-ARV" value="47k" x="-274.85" y="-142.1">
+<attribute name="PACKAGE" value="ARRAY" x="-274.85" y="-142.1" size="1.778" layer="27" display="off"/>
+</element>
+<element name="R37" library="kmod-passives" package="0603-RES" value="47k" x="-275.35" y="-146">
+<attribute name="PACKAGE" value="0603" x="-275.35" y="-146" size="1.778" layer="27" display="off"/>
+</element>
+<element name="R38" library="kmod-passives" package="0603-RES" value="47k" x="-275.35" y="-148.35">
+<attribute name="PACKAGE" value="0603" x="-275.35" y="-148.35" size="1.778" layer="27" display="off"/>
+</element>
+<element name="C79" library="kmod-passives" package="0805" value="22uF" x="-275.35" y="-150.7">
+<attribute name="PACKAGE" value="0805" x="-275.35" y="-150.7" size="1.778" layer="27" display="off"/>
+<attribute name="VOLTAGE" value="6.3V" x="-275.35" y="-150.7" size="1.778" layer="27" display="off"/>
+</element>
+<element name="R39" library="kmod-passives" package="0603-RES" value="47k" x="-275" y="-154">
+<attribute name="PACKAGE" value="0603" x="-275" y="-154" size="1.778" layer="27" display="off"/>
+</element>
+<element name="D3" library="SparkFun-DiscreteSemi" package="SOD-523" value="PMEG2010AEB" x="-276" y="-158.5"/>
 </elements>
 <signals>
 <signal name="DDR3_DQ0">
@@ -2778,6 +2897,12 @@ Seeed, though not other services, says 8/8 for inner layers.  Can't seem to spec
 <contactref element="C69" pad="1"/>
 <contactref element="C76" pad="2"/>
 <contactref element="SB9" pad="L1"/>
+<contactref element="C77" pad="2"/>
+<contactref element="R35" pad="1"/>
+<contactref element="R36" pad="1"/>
+<contactref element="C78" pad="2"/>
+<contactref element="C79" pad="2"/>
+<contactref element="U$15" pad="P6"/>
 <wire x1="-202.5" y1="-45.5" x2="-202.5" y2="-48" width="0" layer="19" extent="1-1"/>
 <wire x1="-202.15" y1="-43.5" x2="-202.5" y2="-45.5" width="0" layer="19" extent="1-1"/>
 <wire x1="-202.5" y1="-38.5" x2="-202.15" y2="-43.5" width="0" layer="19" extent="1-1"/>
@@ -2817,6 +2942,11 @@ Seeed, though not other services, says 8/8 for inner layers.  Can't seem to spec
 <wire x1="-239.65" y1="-118" x2="-238.15" y2="-118" width="0" layer="19" extent="1-1"/>
 <wire x1="-243.35" y1="-118" x2="-239.65" y2="-118" width="0" layer="19" extent="1-1"/>
 <wire x1="-253.15" y1="-123.5" x2="-243.35" y2="-118" width="0" layer="19" extent="1-1"/>
+<wire x1="-268.6" y1="-137" x2="-253.15" y2="-123.5" width="0" layer="19" extent="1-1"/>
+<wire x1="-267.1" y1="-140" x2="-268.6" y2="-137" width="0" layer="19" extent="1-1"/>
+<wire x1="-270" y1="-143" x2="-267.1" y2="-140" width="0" layer="19" extent="1-1"/>
+<wire x1="-267.35" y1="-144.35" x2="-270" y2="-143" width="0" layer="19" extent="1-1"/>
+<wire x1="-274.35" y1="-150.7" x2="-270" y2="-143" width="0" layer="19" extent="1-1"/>
 <wire x1="-214.65" y1="34" x2="-226.5" y2="5" width="0" layer="19" extent="1-1"/>
 <wire x1="-218.5" y1="36.1999" x2="-214.65" y2="34" width="0" layer="19" extent="1-1"/>
 <wire x1="-210.65" y1="39" x2="-214.65" y2="34" width="0" layer="19" extent="1-1"/>
@@ -2943,7 +3073,8 @@ Seeed, though not other services, says 8/8 for inner layers.  Can't seem to spec
 <wire x1="14.5" y1="9.5" x2="16" y2="11" width="0" layer="19" extent="1-1"/>
 <wire x1="27.5" y1="10.85" x2="17.5" y2="11.5" width="0" layer="19" extent="1-1"/>
 <wire x1="32.5" y1="10.85" x2="27.5" y2="10.85" width="0" layer="19" extent="1-1"/>
-<wire x1="47.5" y1="-10" x2="32.5" y2="10.85" width="0" layer="19" extent="1-1"/>
+<wire x1="39.7" y1="9.5" x2="32.5" y2="10.85" width="0" layer="19" extent="1-16"/>
+<wire x1="47.5" y1="-10" x2="39.7" y2="9.5" width="0" layer="19" extent="16-16"/>
 </signal>
 <signal name="N$1">
 <contactref element="U$1" pad="017"/>
@@ -2996,6 +3127,13 @@ Seeed, though not other services, says 8/8 for inner layers.  Can't seem to spec
 <contactref element="U$14" pad="042"/>
 <contactref element="SB8" pad="R1"/>
 <contactref element="R34" pad="2"/>
+<contactref element="L9" pad="1"/>
+<contactref element="RA13" pad="8"/>
+<contactref element="RA13" pad="7"/>
+<contactref element="RA13" pad="6"/>
+<contactref element="RA13" pad="5"/>
+<contactref element="R37" pad="2"/>
+<contactref element="R38" pad="2"/>
 <wire x1="-195.6999" y1="-24.45" x2="-202.35" y2="-35.5" width="0" layer="19" extent="1-1"/>
 <wire x1="-198.3001" y1="-22.55" x2="-195.6999" y2="-24.45" width="0" layer="19" extent="1-1"/>
 <wire x1="-192" y1="-24.35" x2="-195.6999" y2="-24.45" width="0" layer="19" extent="1-1"/>
@@ -3009,6 +3147,13 @@ Seeed, though not other services, says 8/8 for inner layers.  Can't seem to spec
 <wire x1="-212.35" y1="39" x2="-217.55" y2="38.8001" width="0" layer="19" extent="1-1"/>
 <wire x1="-230.35" y1="-112.5" x2="-227" y2="-65.5" width="0" layer="19" extent="1-1"/>
 <wire x1="-254.15" y1="-131" x2="-230.35" y2="-112.5" width="0" layer="19" extent="1-1"/>
+<wire x1="-268.6" y1="-134" x2="-254.15" y2="-131" width="0" layer="19" extent="1-1"/>
+<wire x1="-273.65" y1="-141.25" x2="-268.6" y2="-134" width="0" layer="19" extent="1-1"/>
+<wire x1="-274.45" y1="-141.25" x2="-273.65" y2="-141.25" width="0" layer="19" extent="1-1"/>
+<wire x1="-275.25" y1="-141.25" x2="-274.45" y2="-141.25" width="0" layer="19" extent="1-1"/>
+<wire x1="-276.05" y1="-141.25" x2="-275.25" y2="-141.25" width="0" layer="19" extent="1-1"/>
+<wire x1="-274.5" y1="-146" x2="-274.45" y2="-141.25" width="0" layer="19" extent="1-1"/>
+<wire x1="-274.5" y1="-148.35" x2="-274.5" y2="-146" width="0" layer="19" extent="1-1"/>
 <wire x1="-145.3" y1="-66.4" x2="-192" y2="-24.35" width="0" layer="19" extent="1-1"/>
 <wire x1="-144.1" y1="-66.4" x2="-145.3" y2="-66.4" width="0" layer="19" extent="1-1"/>
 <wire x1="-143.7" y1="-66.4" x2="-144.1" y2="-66.4" width="0" layer="19" extent="1-1"/>
@@ -3705,9 +3850,11 @@ Seeed, though not other services, says 8/8 for inner layers.  Can't seem to spec
 <signal name="VCPU_SW">
 <contactref element="U$11" pad="3"/>
 <contactref element="L4" pad="1"/>
-<contactref element="U$14" pad="008"/>
+<contactref element="SB12" pad="L2"/>
+<contactref element="SB12" pad="L1"/>
 <wire x1="-196.1" y1="-19" x2="-195.6999" y2="-22.55" width="0" layer="19" extent="1-1"/>
-<wire x1="-148.6" y1="-70.1" x2="-195.6999" y2="-22.55" width="0" layer="19" extent="1-1"/>
+<wire x1="-193.1" y1="-17" x2="-196.1" y2="-19" width="0" layer="19" extent="1-1"/>
+<wire x1="-192.6" y1="-16.8" x2="-193.1" y2="-17" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="N$81">
 <contactref element="U$11" pad="5"/>
@@ -3716,9 +3863,13 @@ Seeed, though not other services, says 8/8 for inner layers.  Can't seem to spec
 <wire x1="-201.35" y1="-22" x2="-201.35" y2="-23.5" width="0" layer="19" extent="1-1"/>
 <wire x1="-198.3001" y1="-24.45" x2="-201.35" y2="-23.5" width="0" layer="19" extent="1-1"/>
 </signal>
-<signal name="N$79">
+<signal name="VDDR_SW">
 <contactref element="U$12" pad="3"/>
 <contactref element="L5" pad="1"/>
+<contactref element="SB16" pad="L2"/>
+<contactref element="SB16" pad="L1"/>
+<wire x1="-214.6" y1="26.2" x2="-217.9" y2="29" width="0" layer="19" extent="1-16"/>
+<wire x1="-215.1" y1="26" x2="-214.6" y2="26.2" width="0" layer="19" extent="16-16"/>
 <wire x1="-217.55" y1="36.1999" x2="-217.9" y2="29" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="N$83">
@@ -3731,9 +3882,11 @@ Seeed, though not other services, says 8/8 for inner layers.  Can't seem to spec
 <signal name="VINT_SW">
 <contactref element="U$13" pad="3"/>
 <contactref element="L7" pad="1"/>
-<contactref element="U$14" pad="015"/>
+<contactref element="SB14" pad="L2"/>
+<contactref element="SB14" pad="L1"/>
 <wire x1="-222" y1="2.1" x2="-222.1999" y2="-0.05" width="0" layer="19" extent="1-1"/>
-<wire x1="-146.9" y1="-72.6" x2="-222.1999" y2="-0.05" width="0" layer="19" extent="1-1"/>
+<wire x1="-217.5" y1="1.1" x2="-222" y2="2.1" width="0" layer="19" extent="1-1"/>
+<wire x1="-217.3" y1="0.6" x2="-217.5" y2="1.1" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="N$85">
 <contactref element="U$13" pad="5"/>
@@ -3742,25 +3895,31 @@ Seeed, though not other services, says 8/8 for inner layers.  Can't seem to spec
 <wire x1="-224.85" y1="2" x2="-224.8001" y2="-1.95" width="0" layer="19" extent="1-1"/>
 <wire x1="-224.85" y1="3" x2="-224.85" y2="2" width="0" layer="19" extent="1-1"/>
 </signal>
-<signal name="N$88">
+<signal name="VDDR_U">
 <contactref element="L5" pad="2"/>
 <contactref element="R22" pad="2"/>
 <contactref element="C60" pad="1"/>
 <contactref element="R26" pad="2"/>
+<contactref element="SB17" pad="L2"/>
+<contactref element="SB17" pad="L1"/>
 <wire x1="-229" y1="36.5" x2="-226.15" y2="32" width="0" layer="19" extent="1-1"/>
 <wire x1="-217.85" y1="34" x2="-226.15" y2="32" width="0" layer="19" extent="1-1"/>
 <wire x1="-215.1" y1="29" x2="-217.85" y2="34" width="0" layer="19" extent="1-1"/>
+<wire x1="-210.1" y1="29" x2="-215.1" y2="29" width="0" layer="19" extent="1-1"/>
+<wire x1="-209.6" y1="29.2" x2="-210.1" y2="29" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="VCPU_U">
 <contactref element="L4" pad="2"/>
 <contactref element="R20" pad="2"/>
 <contactref element="C59" pad="1"/>
 <contactref element="R27" pad="2"/>
-<contactref element="U$14" pad="010"/>
+<contactref element="SB13" pad="L2"/>
+<contactref element="SB13" pad="L1"/>
 <wire x1="-201.5" y1="-19" x2="-202.65" y2="-22" width="0" layer="19" extent="1-1"/>
 <wire x1="-198.9" y1="-19" x2="-201.5" y2="-19" width="0" layer="19" extent="1-1"/>
 <wire x1="-198.35" y1="-16" x2="-198.9" y2="-19" width="0" layer="19" extent="1-1"/>
-<wire x1="-148.6" y1="-70.9" x2="-198.9" y2="-19" width="0" layer="19" extent="1-1"/>
+<wire x1="-193.1" y1="-19.5" x2="-198.9" y2="-19" width="0" layer="19" extent="1-1"/>
+<wire x1="-192.6" y1="-19.3" x2="-193.1" y2="-19.5" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="VINT_U">
 <contactref element="L7" pad="2"/>
@@ -3768,12 +3927,14 @@ Seeed, though not other services, says 8/8 for inner layers.  Can't seem to spec
 <contactref element="L6" pad="1"/>
 <contactref element="C58" pad="1"/>
 <contactref element="R28" pad="2"/>
-<contactref element="U$14" pad="017"/>
+<contactref element="SB15" pad="L2"/>
+<contactref element="SB15" pad="L1"/>
 <wire x1="-224.5" y1="5" x2="-226.15" y2="3" width="0" layer="19" extent="1-1"/>
 <wire x1="-222" y1="4.9" x2="-224.5" y2="5" width="0" layer="19" extent="1-1"/>
 <wire x1="-219.5" y1="4.85" x2="-222" y2="4.9" width="0" layer="19" extent="1-1"/>
-<wire x1="-196.65" y1="-14" x2="-219.5" y2="4.85" width="0" layer="19" extent="1-1"/>
-<wire x1="-146.1" y1="-72.6" x2="-196.65" y2="-14" width="0" layer="19" extent="1-1"/>
+<wire x1="-217.5" y1="5.1" x2="-219.5" y2="4.85" width="0" layer="19" extent="1-1"/>
+<wire x1="-217.3" y1="4.6" x2="-217.5" y2="5.1" width="0" layer="19" extent="1-1"/>
+<wire x1="-196.65" y1="-14" x2="-217.3" y2="4.6" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="N$91">
 <contactref element="L3" pad="P$2"/>
@@ -3790,9 +3951,6 @@ Seeed, though not other services, says 8/8 for inner layers.  Can't seem to spec
 </signal>
 <signal name="N$92">
 <contactref element="U$1" pad="157"/>
-</signal>
-<signal name="N$93">
-<contactref element="U$1" pad="158"/>
 </signal>
 <signal name="N$95">
 <contactref element="U$1" pad="080"/>
@@ -3829,14 +3987,22 @@ Seeed, though not other services, says 8/8 for inner layers.  Can't seem to spec
 <contactref element="R31" pad="1"/>
 <wire x1="-228.85" y1="-90.5" x2="-143.3" y2="-66.4" width="0" layer="19" extent="1-1"/>
 </signal>
-<signal name="AXP209_SCK">
+<signal name="TWI0-SCK">
 <contactref element="U$14" pad="002"/>
+<contactref element="U$1" pad="101"/>
+<wire x1="29.2" y1="14.5" x2="-148.6" y2="-67.7" width="0" layer="19" extent="1-1"/>
 </signal>
-<signal name="AXP209_SDA">
+<signal name="TWI0-SDA">
 <contactref element="U$14" pad="001"/>
+<contactref element="U$1" pad="102"/>
+<wire x1="29.6" y1="14.5" x2="-148.6" y2="-67.3" width="0" layer="19" extent="1-1"/>
 </signal>
-<signal name="AXP209_IRQ">
+<signal name="NMI_N">
 <contactref element="U$14" pad="048"/>
+<contactref element="U$1" pad="158"/>
+<contactref element="R39" pad="1"/>
+<wire x1="-275.85" y1="-154" x2="-147.7" y2="-66.4" width="0" layer="19" extent="1-1"/>
+<wire x1="43.7" y1="26.6" x2="-147.7" y2="-66.4" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="IPSOUT">
 <contactref element="U$14" pad="034"/>
@@ -3948,7 +4114,127 @@ Seeed, though not other services, says 8/8 for inner layers.  Can't seem to spec
 <wire x1="-255.1" y1="-128.3" x2="-231.85" y2="-107" width="0" layer="19" extent="1-1"/>
 <wire x1="-255.6" y1="-128.5" x2="-255.1" y2="-128.3" width="0" layer="19" extent="1-1"/>
 </signal>
+<signal name="N$78">
+<contactref element="U$14" pad="008"/>
+<contactref element="SB12" pad="R2"/>
+<contactref element="SB12" pad="R1"/>
+<wire x1="-191.9" y1="-17" x2="-148.6" y2="-70.1" width="0" layer="19" extent="1-1"/>
+<wire x1="-192.4" y1="-17.2" x2="-191.9" y2="-17" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="N$79">
+<contactref element="U$14" pad="010"/>
+<contactref element="SB13" pad="R2"/>
+<contactref element="SB13" pad="R1"/>
+<wire x1="-191.9" y1="-19.5" x2="-148.6" y2="-70.9" width="0" layer="19" extent="1-1"/>
+<wire x1="-192.4" y1="-19.7" x2="-191.9" y2="-19.5" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="N$88">
+<contactref element="U$14" pad="015"/>
+<contactref element="SB14" pad="R2"/>
+<contactref element="SB14" pad="R1"/>
+<contactref element="SB16" pad="R2"/>
+<contactref element="SB16" pad="R1"/>
+<wire x1="-217.5" y1="-0.1" x2="-146.9" y2="-72.6" width="0" layer="19" extent="1-1"/>
+<wire x1="-217.7" y1="0.4" x2="-217.5" y2="-0.1" width="0" layer="19" extent="1-1"/>
+<wire x1="-214.4" y1="25.8" x2="-217.7" y2="0.4" width="0" layer="19" extent="1-16"/>
+<wire x1="-213.9" y1="26" x2="-214.4" y2="25.8" width="0" layer="19" extent="16-16"/>
+</signal>
+<signal name="N$89">
+<contactref element="U$14" pad="017"/>
+<contactref element="SB15" pad="R2"/>
+<contactref element="SB15" pad="R1"/>
+<contactref element="SB17" pad="R2"/>
+<contactref element="SB17" pad="R1"/>
+<wire x1="-217.5" y1="3.9" x2="-146.1" y2="-72.6" width="0" layer="19" extent="1-1"/>
+<wire x1="-217.7" y1="4.4" x2="-217.5" y2="3.9" width="0" layer="19" extent="1-1"/>
+<wire x1="-209.4" y1="28.8" x2="-217.7" y2="4.4" width="0" layer="19" extent="1-1"/>
+<wire x1="-208.9" y1="29" x2="-209.4" y2="28.8" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="SD_D2">
+<contactref element="U$15" pad="P1"/>
+<contactref element="RA13" pad="1"/>
+<contactref element="U$1" pad="113"/>
+<wire x1="39.7" y1="4" x2="-276.05" y2="-142.95" width="0" layer="19" extent="1-1"/>
+<wire x1="34" y1="14.5" x2="39.7" y2="4" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="SD_D3">
+<contactref element="U$15" pad="P2"/>
+<contactref element="RA13" pad="2"/>
+<contactref element="U$1" pad="112"/>
+<wire x1="39.7" y1="5.1" x2="-275.25" y2="-142.95" width="0" layer="19" extent="1-1"/>
+<wire x1="33.6" y1="14.5" x2="39.7" y2="5.1" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="SD_CMD">
+<contactref element="U$15" pad="P3"/>
+<contactref element="U$1" pad="111"/>
+<contactref element="RA13" pad="3"/>
+<wire x1="33.2" y1="14.5" x2="-274.45" y2="-142.95" width="0" layer="19" extent="1-1"/>
+<wire x1="39.7" y1="6.2" x2="33.2" y2="14.5" width="0" layer="19" extent="1-16"/>
+</signal>
+<signal name="SD_CLK">
+<contactref element="U$15" pad="P5"/>
+<contactref element="RA13" pad="4"/>
+<contactref element="U$1" pad="110"/>
+<wire x1="39.7" y1="8.4" x2="-273.65" y2="-142.95" width="0" layer="19" extent="1-1"/>
+<wire x1="32.8" y1="14.5" x2="39.7" y2="8.4" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="N$108">
+<contactref element="L9" pad="2"/>
+<contactref element="C78" pad="1"/>
+<contactref element="C79" pad="1"/>
+<contactref element="U$15" pad="P4"/>
+<wire x1="-271.7" y1="-143" x2="-276.35" y2="-150.7" width="0" layer="19" extent="1-1"/>
+<wire x1="-266.9" y1="-134" x2="-271.7" y2="-143" width="0" layer="19" extent="1-1"/>
+<wire x1="39.7" y1="6.95" x2="-266.9" y2="-134" width="0" layer="19" extent="1-16"/>
+</signal>
+<signal name="SD_D0">
+<contactref element="U$15" pad="P7"/>
+<contactref element="R38" pad="1"/>
+<contactref element="U$1" pad="108"/>
+<wire x1="39.7" y1="10.6" x2="-276.2" y2="-148.35" width="0" layer="19" extent="1-1"/>
+<wire x1="32" y1="14.5" x2="39.7" y2="10.6" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="SD_D1">
+<contactref element="U$15" pad="P8"/>
+<contactref element="R37" pad="1"/>
+<contactref element="U$1" pad="107"/>
+<wire x1="39.7" y1="11.7" x2="-276.2" y2="-146" width="0" layer="19" extent="1-1"/>
+<wire x1="31.6" y1="14.5" x2="39.7" y2="11.7" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="SD_CD">
+<contactref element="U$15" pad="G1"/>
+<contactref element="R36" pad="2"/>
+<contactref element="U$1" pad="155"/>
+<wire x1="39.7" y1="7.65" x2="-265.65" y2="-144.35" width="0" layer="19" extent="1-16"/>
+<wire x1="43.7" y1="25.4" x2="39.7" y2="7.65" width="0" layer="19" extent="1-16"/>
+</signal>
+<signal name="N$112">
+<contactref element="U$15" pad="SHELL2"/>
+<contactref element="U$15" pad="SHELL4"/>
+<contactref element="U$15" pad="SHELL1"/>
+<contactref element="U$15" pad="SHELL3"/>
+<contactref element="R35" pad="2"/>
+<contactref element="C77" pad="1"/>
+<wire x1="-266.9" y1="-137" x2="-268.4" y2="-140" width="0" layer="19" extent="1-1"/>
+<wire x1="38.1" y1="13.25" x2="-266.9" y2="-137" width="0" layer="19" extent="1-1"/>
+<wire x1="33.65" y1="13.25" x2="38.1" y2="13.25" width="0" layer="19" extent="1-1"/>
+<wire x1="38.1" y1="2.45" x2="38.1" y2="13.25" width="0" layer="19" extent="1-1"/>
+<wire x1="33.65" y1="2.45" x2="38.1" y2="2.45" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="N$93">
+<contactref element="R39" pad="2"/>
+</signal>
 </signals>
+<errors>
+<approved hash="19,1,ba4d0f848dbb3b82"/>
+<approved hash="19,1,893a3c79be34070f"/>
+<approved hash="19,1,5c109d27136bde24"/>
+<approved hash="19,1,609daea82096ed53"/>
+<approved hash="19,1,099b2408a6dd87c6"/>
+<approved hash="19,1,26cbd3dc5d0aa495"/>
+<approved hash="19,1,c107f6c2740e4f7b"/>
+<approved hash="19,1,f67a990317c7740e"/>
+</errors>
 </board>
 </drawing>
 </eagle>

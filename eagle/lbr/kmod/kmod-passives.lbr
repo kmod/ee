@@ -498,7 +498,9 @@ Got from http://www.yuden.co.jp/ut/product/category/inductor/NR6028T3R0N.pdf; I 
 <connect gate="D" pin="2" pad="5"/>
 </connects>
 <technologies>
-<technology name=""/>
+<technology name="">
+<attribute name="PACKAGE" value="ARRAY" constant="no"/>
+</technology>
 </technologies>
 </device>
 </devices>

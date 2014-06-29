@@ -31,6 +31,7 @@ Assign F3 'Group';
 Assign F4 'Delete';
 Assign F5 'Name';
 Assign F6 'Value';
+Assign C+F6 'Package';
 ASSIGN C+V PASTE;
 ASSIGN C+1 WINDOW 1.2;
 ASSIGN C+2 WINDOW 0.833;
