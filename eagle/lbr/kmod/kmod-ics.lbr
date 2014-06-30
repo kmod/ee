@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.025" altunitdist="inch" altunit="inch"/>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
@@ -1051,6 +1051,30 @@ Just based off the Spansion S25FL</description>
 <pin name="BCBUS7" x="22.86" y="-43.18" length="middle" rot="R180"/>
 <pin name="AGND" x="-22.86" y="-40.64" length="middle" direction="in"/>
 </symbol>
+<symbol name="LOAD_SWITCH_ILIMIT">
+<pin name="IN" x="-15.24" y="2.54" length="middle"/>
+<pin name="EN" x="-15.24" y="-2.54" length="middle"/>
+<pin name="GND" x="0" y="-7.62" length="short" rot="R90"/>
+<pin name="ISET" x="15.24" y="-2.54" length="middle" rot="R180"/>
+<pin name="OUT" x="15.24" y="2.54" length="middle" rot="R180"/>
+<wire x1="-10.16" y1="5.08" x2="10.16" y2="5.08" width="0.254" layer="94"/>
+<wire x1="10.16" y1="5.08" x2="10.16" y2="-5.08" width="0.254" layer="94"/>
+<wire x1="10.16" y1="-5.08" x2="-10.16" y2="-5.08" width="0.254" layer="94"/>
+<wire x1="-10.16" y1="-5.08" x2="-10.16" y2="5.08" width="0.254" layer="94"/>
+<text x="-7.62" y="5.588" size="1.778" layer="95">&gt;NAME</text>
+<text x="1.524" y="-7.62" size="1.778" layer="96">&gt;VALUE</text>
+</symbol>
+<symbol name="POR_ACTIVE_LOW">
+<pin name="VDD" x="-15.24" y="2.54" length="middle"/>
+<pin name="GND" x="-15.24" y="-2.54" length="middle"/>
+<pin name="N_RESET" x="15.24" y="0" length="middle" rot="R180"/>
+<wire x1="-10.16" y1="5.08" x2="10.16" y2="5.08" width="0.254" layer="94"/>
+<wire x1="10.16" y1="5.08" x2="10.16" y2="-5.08" width="0.254" layer="94"/>
+<wire x1="10.16" y1="-5.08" x2="-10.16" y2="-5.08" width="0.254" layer="94"/>
+<wire x1="-10.16" y1="-5.08" x2="-10.16" y2="5.08" width="0.254" layer="94"/>
+<text x="-7.62" y="5.842" size="1.778" layer="95">&gt;NAME</text>
+<text x="-7.62" y="-7.62" size="1.778" layer="96">&gt;VALUE</text>
+</symbol>
 </symbols>
 <devicesets>
 <deviceset name="MMA8652FC">
@@ -1601,6 +1625,46 @@ Similar to the 74*157, but with just a single gate.  This is the pinout used by 
 <connect gate="G$1" pin="VPLL" pad="9"/>
 <connect gate="G$1" pin="VREGIN" pad="50"/>
 <connect gate="G$1" pin="VREGOUT" pad="49"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="LOAD_SWITCH_ILIMIT" uservalue="yes">
+<description>Current-limited high-side load switch&lt;br/&gt;
+Such as for USB vbus.  Note: active-high enable.</description>
+<gates>
+<gate name="G$1" symbol="LOAD_SWITCH_ILIMIT" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="SOT23-5">
+<connects>
+<connect gate="G$1" pin="EN" pad="4"/>
+<connect gate="G$1" pin="GND" pad="2"/>
+<connect gate="G$1" pin="IN" pad="5"/>
+<connect gate="G$1" pin="ISET" pad="3"/>
+<connect gate="G$1" pin="OUT" pad="1"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="POR_ACTIVE_LOW" uservalue="yes">
+<description>Power-on-reset unit with active-low reset.&lt;br/&gt;
+Make sure to check the pinouts -- there doesn't seem to be a standard one.</description>
+<gates>
+<gate name="G$1" symbol="POR_ACTIVE_LOW" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="SOT23-3">
+<connects>
+<connect gate="G$1" pin="GND" pad="2"/>
+<connect gate="G$1" pin="N_RESET" pad="1"/>
+<connect gate="G$1" pin="VDD" pad="3"/>
 </connects>
 <technologies>
 <technology name=""/>

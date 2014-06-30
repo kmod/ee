@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.025" altunitdist="inch" altunit="inch"/>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
@@ -1957,7 +1957,6 @@ LEAD_WIDTH = 0.25&lt;/pre&gt;</description>
 <rectangle x1="-3.45" y1="4.175" x2="-3.05" y2="4.425" layer="51" rot="R90"/>
 <smd name="064" x="-3.75" y="4.7" dx="1.2" dy="0.3" layer="1" rot="R90"/>
 <rectangle x1="-3.95" y1="4.175" x2="-3.55" y2="4.425" layer="51" rot="R90"/>
-<circle x="-5.5" y="5" radius="0.5" width="0.254" layer="21"/>
 <smd name="PAD" x="0" y="0" dx="7.3" dy="7.3" layer="1"/>
 <pad name="P$1" x="0" y="0" drill="1.905"/>
 <pad name="P$2" x="0" y="3" drill="0.3048"/>
@@ -1976,6 +1975,11 @@ LEAD_WIDTH = 0.25&lt;/pre&gt;</description>
 <pad name="P$15" x="1.5" y="1.5" drill="0.3048"/>
 <pad name="P$16" x="1.5" y="-1.5" drill="0.3048"/>
 <pad name="P$17" x="-1.5" y="-1.5" drill="0.3048"/>
+<polygon width="0.005" layer="21">
+<vertex x="-4.25" y="4.25"/>
+<vertex x="-4.25" y="3"/>
+<vertex x="-3" y="4.25"/>
+</polygon>
 </package>
 <package name="HTSOP8">
 <description>&lt;b&gt;Small Outline Package&lt;/b&gt;
@@ -2694,18 +2698,18 @@ STM32 Line, F4 subline, F407 model, R=64-pin (only TQFP)</description>
 <pin name="070/DDR3_RST" x="-35.56" y="-73.66" length="middle" rot="R180"/>
 <pin name="071/DDR3_A7" x="-35.56" y="-33.02" length="middle" rot="R180"/>
 <pin name="072/DDR3_ODT" x="-35.56" y="-76.2" length="middle" rot="R180"/>
-<pin name="074/HPOUTL" x="-106.68" y="-5.08" length="middle"/>
-<pin name="075/HPBP" x="-106.68" y="-7.62" length="middle"/>
-<pin name="076/V33_HP" x="-106.68" y="-2.54" length="middle"/>
-<pin name="077/HPCOM" x="-106.68" y="-10.16" length="middle"/>
-<pin name="078/HPOUTR" x="-106.68" y="-12.7" length="middle"/>
+<pin name="074/HPOUTL" x="-106.68" y="-12.7" length="middle"/>
+<pin name="075/HPBP" x="-106.68" y="-15.24" length="middle"/>
+<pin name="076/V33_HP" x="-106.68" y="-10.16" length="middle"/>
+<pin name="077/HPCOM" x="-106.68" y="-17.78" length="middle"/>
+<pin name="078/HPOUTR" x="-106.68" y="-20.32" length="middle"/>
 <pin name="079/AGND" x="-106.68" y="40.64" length="middle"/>
-<pin name="080/VRP" x="-106.68" y="30.48" length="middle"/>
+<pin name="080/VRP" x="-106.68" y="25.4" length="middle"/>
 <pin name="081/AVCC" x="-106.68" y="43.18" length="middle"/>
-<pin name="082/VRA2" x="-106.68" y="27.94" length="middle"/>
-<pin name="083/VRA1" x="-106.68" y="25.4" length="middle"/>
-<pin name="084/MICIN1" x="-106.68" y="-22.86" length="middle"/>
-<pin name="085/VMIC" x="-106.68" y="-20.32" length="middle"/>
+<pin name="082/VRA2" x="-106.68" y="22.86" length="middle"/>
+<pin name="083/VRA1" x="-106.68" y="20.32" length="middle"/>
+<pin name="084/MICIN1" x="-106.68" y="-27.94" length="middle"/>
+<pin name="085/VMIC" x="-106.68" y="-25.4" length="middle"/>
 <pin name="086/LRADC" x="-106.68" y="-33.02" length="middle"/>
 <pin name="087/TPX2" x="-106.68" y="-35.56" length="middle"/>
 <pin name="088/TPY2" x="-106.68" y="-38.1" length="middle"/>
@@ -2719,13 +2723,13 @@ STM32 Line, F4 subline, F407 model, R=64-pin (only TQFP)</description>
 <pin name="096/UDP1" x="-106.68" y="-71.12" length="middle"/>
 <pin name="097/V33_USB" x="-106.68" y="50.8" length="middle"/>
 <pin name="VDD_INT" x="-106.68" y="60.96" length="middle"/>
-<pin name="099/NC" x="-106.68" y="7.62" length="middle"/>
+<pin name="099/NC" x="-106.68" y="-5.08" length="middle"/>
 <pin name="101/TWI0-SCK/PB0" x="40.64" y="2.54" length="middle"/>
 <pin name="102/TWI0-SDA/PB1" x="40.64" y="0" length="middle"/>
 <pin name="103/PB2/EINT16" x="40.64" y="-2.54" length="middle"/>
 <pin name="104/PB4/EINT18" x="40.64" y="-7.62" length="middle"/>
-<pin name="105/PB15" x="40.64" y="-12.7" length="middle"/>
-<pin name="106/PB16" x="40.64" y="-15.24" length="middle"/>
+<pin name="105/TWI1_SCK/PB15" x="40.64" y="-12.7" length="middle"/>
+<pin name="106/TWI1_SDA/PB16" x="40.64" y="-15.24" length="middle"/>
 <pin name="107/SDC0_D1/PF0" x="40.64" y="60.96" length="middle"/>
 <pin name="108/SDC0_D0/PF1" x="40.64" y="58.42" length="middle"/>
 <pin name="110/SDC0_CLK/PF2" x="40.64" y="55.88" length="middle"/>
@@ -2772,11 +2776,11 @@ STM32 Line, F4 subline, F407 model, R=64-pin (only TQFP)</description>
 <pin name="153/PG2/EINT2" x="40.64" y="-33.02" length="middle"/>
 <pin name="154/PG1/EINT1" x="40.64" y="-30.48" length="middle"/>
 <pin name="155/PG0/EINT0" x="40.64" y="-27.94" length="middle"/>
-<pin name="157/UBOOT" x="-106.68" y="17.78" length="middle"/>
-<pin name="158/NMI_N" x="-106.68" y="15.24" length="middle"/>
-<pin name="159/RESET_N" x="-106.68" y="12.7" length="middle"/>
-<pin name="160/PB18" x="40.64" y="-17.78" length="middle"/>
-<pin name="161/PB17" x="40.64" y="-20.32" length="middle"/>
+<pin name="157/UBOOT" x="-106.68" y="10.16" length="middle"/>
+<pin name="158/NMI_N" x="-106.68" y="7.62" length="middle"/>
+<pin name="159/RESET_N" x="-106.68" y="5.08" length="middle"/>
+<pin name="160/TWI2_SCK/PB18" x="40.64" y="-17.78" length="middle"/>
+<pin name="161/TWI2_SDA/PB17" x="40.64" y="-20.32" length="middle"/>
 <pin name="162/NDQS/PC19" x="134.62" y="-43.18" length="middle" rot="R180"/>
 <pin name="165/NDQ7/SDC2_D7/PC15" x="134.62" y="-40.64" length="middle" rot="R180"/>
 <pin name="166/NDQ6/SDC2_D6/PC14" x="134.62" y="-38.1" length="middle" rot="R180"/>
@@ -3631,8 +3635,8 @@ Based off a 512Mb part</description>
 <connect gate="G$1" pin="102/TWI0-SDA/PB1" pad="102"/>
 <connect gate="G$1" pin="103/PB2/EINT16" pad="103"/>
 <connect gate="G$1" pin="104/PB4/EINT18" pad="104"/>
-<connect gate="G$1" pin="105/PB15" pad="105"/>
-<connect gate="G$1" pin="106/PB16" pad="106"/>
+<connect gate="G$1" pin="105/TWI1_SCK/PB15" pad="105"/>
+<connect gate="G$1" pin="106/TWI1_SDA/PB16" pad="106"/>
 <connect gate="G$1" pin="107/SDC0_D1/PF0" pad="107"/>
 <connect gate="G$1" pin="108/SDC0_D0/PF1" pad="108"/>
 <connect gate="G$1" pin="110/SDC0_CLK/PF2" pad="110"/>
@@ -3682,8 +3686,8 @@ Based off a 512Mb part</description>
 <connect gate="G$1" pin="157/UBOOT" pad="157"/>
 <connect gate="G$1" pin="158/NMI_N" pad="158"/>
 <connect gate="G$1" pin="159/RESET_N" pad="159"/>
-<connect gate="G$1" pin="160/PB18" pad="160"/>
-<connect gate="G$1" pin="161/PB17" pad="161"/>
+<connect gate="G$1" pin="160/TWI2_SCK/PB18" pad="160"/>
+<connect gate="G$1" pin="161/TWI2_SDA/PB17" pad="161"/>
 <connect gate="G$1" pin="162/NDQS/PC19" pad="162"/>
 <connect gate="G$1" pin="165/NDQ7/SDC2_D7/PC15" pad="165"/>
 <connect gate="G$1" pin="166/NDQ6/SDC2_D6/PC14" pad="166"/>
