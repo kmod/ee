@@ -15,6 +15,7 @@ ASSIGN C+G GROUP;
 ASSIGN C+D DELETE;
 ASSIGN C+W WIRE;
 ASSIGN C+I INFO;
+ASSIGN CS+I PINSWAP;
 ASSIGN C+T TEXT;
 ASSIGN CS+N NAME;
 ASSIGN CS+P POLYGON;
@@ -38,7 +39,7 @@ ASSIGN C+2 WINDOW 0.833;
 
 BRD:
 Grid mm 0.5 on alt mm 0.01;
-Set snap_length 0.1mm;
+Set snap_length 0.2mm;
 ASSIGN C+E ERRORS;
 ASSIGN CS+D 'DRC;';  # Executes DRC without opening DRC dialog. For dialog sk
 # ASSIGN CS+D DRC;    # Opens DRC dialog.
@@ -50,6 +51,14 @@ ASSIGN C+H HOLE;
 ASSIGN CS+S SMASH;
 ASSIGN A+S SIGNAL;
 
+ASSIGN AC+1 'DISPLAY vias pads top tdocu torigins tplace trestrict tkeepout tnames tvalues -bottom -bdocu -borigins -bplace -brestrict -bkeepout -bnames -bvalues ?? -route2 -route15';
+# Not sure why eagle / my computer / my keyboard doesn't like hotkeys on the '2' key...
+ASSIGN AC+2 'DISPLAY vias pads -top -tdocu -torigins -tplace -trestrict -tkeepout -tnames -tvalues bottom bdocu borigins bplace brestrict bkeepout bnames bvalues ?? -route2 -route15';
+ASSIGN AC+3 'DISPLAY vias pads top tdocu torigins tplace trestrict tkeepout tnames tvalues bottom bdocu borigins bplace brestrict bkeepout bnames bvalues ?? -route2 route15';
+ASSIGN AC+4 'DISPLAY vias pads top tdocu torigins tplace trestrict tkeepout tnames tvalues bottom bdocu borigins bplace brestrict bkeepout bnames bvalues ?? route2 route15';
+ASSIGN C+3 'DISPLAY ?? -route2 -route15';
+ASSIGN ACS+4 'DISPLAY -vias -pads -top -tdocu -torigins -tplace -trestrict -tkeepout -tnames -tvalues -bottom -bdocu -borigins -bplace -brestrict -bkeepout -bnames -bvalues ?? -route2 -route15';
+
 MENU '[designlink22.png] Search and order : Run designlink-order.ulp -general;'\
      '[pcb-service.png] PCB Service : Run pcb-service.ulp;';
 
@@ -60,11 +69,11 @@ Set color_layer 21 16; #Set tPlace to white
 Set color_layer 22 14; #Set bPlace to yellow
 Set color_layer 51 6; #Set tDocu to mellow yellow
 
-# Set palette 20 0xFFBF7A00; # orange
-# Set palette 28 0xFFFFAA00; # orange highlight
-# Set color_layer 2 20; # set route2 to orange
+Set palette 20 0xFFBF7A00; # orange
+Set palette 28 0xFFFFAA00; # orange highlight
+Set color_layer 2 20; # set route2 to orange
 # Set fill_layer 2 5; # stronger crosshatch
-# Set color_layer 15 20; # set route15 to teal
+Set color_layer 15 5; # set route15 to magenta
 # Set fill_layer 15 5; # stronger crosshatch
 
 # # Assign F7 'Ripup; Move';
@@ -77,7 +86,8 @@ Set color_layer 51 6; #Set tDocu to mellow yellow
 Assign F7 ROUTE;
 Assign F8 RIPUP;
 Assign C+R Ratsnest;
-Assign CS+R 'Ratsnest; Ripup @; route';
+# Assign CS+R 'Ratsnest; Ripup @; route';
+Assign CS+R 'Ripup @; route';
 Assign AF7 'Ripup @;';
 Assign S+F7 'ROUTE 6 mil';
 Assign CS+F7 'ROUTE 10 mil';

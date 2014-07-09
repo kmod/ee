@@ -1,4 +1,4 @@
-description[en] = <b>Seeed 4-layer design rules</b>\n<br/>Based off of SeeedStudio_4layer_DRU_no_angle_20140221.dru.  Modifications:<ul>\n<li>Turned on check angle, check restrict\n<li>Turned on same-signal checking between smd/pad/vias (6mil)\n<li>Reduced mask gap to 2mil\n<li>Reduced track/space to 6/6; outer layer spec should be 6/6, but I think they set it to 8/8 because inner layers are 8/8.  No way to set that on eagle so <b>*be careful*</b>. \n<li>Changed via annular rings to 6mil (they put 4mil but say 6mil on the website, plus all other services say 6mil too)\n<li>Changed drill-to-edge minimum to 10mil\n<li>Changed stop limit (aka tented via threshold) to 12mil\n</ul>
+description[en] = <b>Seeed 4-layer design rules</b>\n<br/>Based off of SeeedStudio_4layer_DRU_no_angle_20140221.dru.  Modifications:<ul>\n<li>Turned on check angle, check restrict\n<li>Turned on same-signal checking between smd/pad/vias (6mil)\n<li>Reduced mask gap to 2mil\n<li>Reduced track/space to 6/6; outer layer spec should be 6/6, but I think they set it to 8/8 because inner layers are 8/8.  No way to set that on eagle so <b>*be careful*</b>. \n<li>Changed via annular rings to 6mil (they put 4mil but say 6mil on the website, plus all other services say 6mil too)\n<li>Changed drill-to-edge minimum to 10mil\n<li>Changed stop limit (aka tented via threshold) to 12mil\n<li>Changed "copper/dimension" 10mil->15mil, since that's what OSH park says.\n</ul>
 layerSetup = (1*2*15*16)
 mtCopper = 0.035mm 0.0175mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.0175mm 0.035mm
 mtIsolate = 0.2mm 0.3mm 0.2mm 0.15mm 0.2mm 0.15mm 0.2mm 0.15mm 0.2mm 0.15mm 0.2mm 0.15mm 0.2mm 0.15mm 0.2mm
@@ -13,7 +13,7 @@ mdSmdVia = 6mil
 mdSmdSmd = 6mil
 mdViaViaSameLayer = 8mil
 mnLayersViaInSmd = 2
-mdCopperDimension = 10mil
+mdCopperDimension = 15mil
 mdDrill = 10mil
 mdSmdStop = 0mil
 msWidth = 6mil

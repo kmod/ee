@@ -932,7 +932,7 @@ Just based off the Spansion S25FL</description>
 <text x="2.54" y="5.08" size="2.032" layer="96">&gt;VALUE</text>
 </symbol>
 <symbol name="FT230X">
-<pin name="5V" x="-15.24" y="10.16" length="middle"/>
+<pin name="3.3V/5V" x="-15.24" y="10.16" length="middle"/>
 <pin name="D+" x="-15.24" y="7.62" length="middle"/>
 <pin name="D-" x="-15.24" y="5.08" length="middle"/>
 <pin name="!RESET" x="-15.24" y="-2.54" length="middle"/>
@@ -1520,8 +1520,8 @@ Similar to the 74*157, but with just a single gate.  This is the pinout used by 
 <connect gate="G$1" pin="!CTS" pad="6"/>
 <connect gate="G$1" pin="!RESET" pad="11"/>
 <connect gate="G$1" pin="!RTS" pad="2"/>
+<connect gate="G$1" pin="3.3V/5V" pad="12"/>
 <connect gate="G$1" pin="3V3OUT" pad="10"/>
-<connect gate="G$1" pin="5V" pad="12"/>
 <connect gate="G$1" pin="CBUS0" pad="15"/>
 <connect gate="G$1" pin="CBUS1" pad="14"/>
 <connect gate="G$1" pin="CBUS2" pad="7"/>

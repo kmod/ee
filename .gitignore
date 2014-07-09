@@ -21,6 +21,8 @@
 *.gts
 *.g2l
 *.g3l
+*.gbp
+*.gtp
 
 *.GBL
 *.GBO

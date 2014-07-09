@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="6.4">
+<eagle version="6.5.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -63,6 +63,7 @@
 <layer number="53" name="tGND_GNDA" color="7" fill="9" visible="no" active="no"/>
 <layer number="54" name="bGND_GNDA" color="1" fill="9" visible="no" active="no"/>
 <layer number="56" name="wert" color="7" fill="1" visible="no" active="no"/>
+<layer number="57" name="tCAD" color="7" fill="1" visible="no" active="no"/>
 <layer number="91" name="Nets" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="92" name="Busses" color="1" fill="1" visible="yes" active="yes"/>
 <layer number="93" name="Pins" color="2" fill="1" visible="yes" active="yes"/>
@@ -71,6 +72,7 @@
 <layer number="96" name="Values" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="97" name="Info" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="98" name="Guide" color="6" fill="1" visible="yes" active="yes"/>
+<layer number="99" name="SpiceOrder" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="100" name="Muster" color="7" fill="1" visible="no" active="no"/>
 <layer number="101" name="Patch_Top" color="12" fill="4" visible="yes" active="yes"/>
 <layer number="102" name="Vscore" color="7" fill="1" visible="yes" active="yes"/>
@@ -84,6 +86,7 @@
 <layer number="110" name="110" color="7" fill="1" visible="no" active="no"/>
 <layer number="111" name="111" color="7" fill="1" visible="no" active="no"/>
 <layer number="112" name="tSilk" color="7" fill="1" visible="no" active="no"/>
+<layer number="113" name="IDFDebug" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="116" name="Patch_BOT" color="9" fill="4" visible="yes" active="yes"/>
 <layer number="118" name="Rect_Pads" color="7" fill="1" visible="no" active="no"/>
 <layer number="121" name="_tsilk" color="7" fill="1" visible="yes" active="yes"/>
@@ -97,8 +100,12 @@
 <layer number="131" name="tAdjust" color="7" fill="1" visible="no" active="no"/>
 <layer number="132" name="bAdjust" color="7" fill="1" visible="no" active="no"/>
 <layer number="144" name="Drill_legend" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="150" name="Notes" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="151" name="HeatSink" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="152" name="_bDocu" color="7" fill="1" visible="no" active="no"/>
+<layer number="153" name="FabDoc1" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="154" name="FabDoc2" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="155" name="FabDoc3" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="199" name="Contour" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="200" name="200bmp" color="1" fill="10" visible="yes" active="yes"/>
 <layer number="201" name="201bmp" color="2" fill="10" visible="yes" active="yes"/>
@@ -1737,22 +1744,51 @@ Copied this from SparkFun's through-hole A plug, realized it was totally differe
 <pad name="S1" x="0" y="-6.57" drill="2.3" rot="R270"/>
 <pad name="S2" x="0" y="6.57" drill="2.3" rot="R270"/>
 <text x="5.85" y="-2.7" size="1.27" layer="25" rot="R90">&gt;NAME</text>
-<wire x1="3.8" y1="6.55" x2="-10.3" y2="6.55" width="0.254" layer="21"/>
-<wire x1="-10.3" y1="6.55" x2="-10.3" y2="-6.55" width="0.254" layer="21"/>
-<wire x1="-10.3" y1="-6.55" x2="3.8" y2="-6.55" width="0.254" layer="21"/>
+<wire x1="3.8" y1="6.55" x2="-2.3" y2="6.55" width="0.254" layer="21"/>
+<wire x1="-10.3" y1="6.55" x2="-10.3" y2="-6.55" width="0.254" layer="51"/>
+<wire x1="-2.3" y1="-6.55" x2="3.8" y2="-6.55" width="0.254" layer="21"/>
 <wire x1="3.8" y1="-6.55" x2="3.8" y2="6.55" width="0.254" layer="21"/>
-<wire x1="-3" y1="4.5" x2="-9.5" y2="3.5" width="0.254" layer="21"/>
-<wire x1="-9.5" y1="3.5" x2="-9.5" y2="2" width="0.254" layer="21"/>
-<wire x1="-9.5" y1="2" x2="-3" y2="1" width="0.254" layer="21"/>
-<wire x1="-3" y1="-1" x2="-9.5" y2="-2" width="0.254" layer="21"/>
-<wire x1="-9.5" y1="-2" x2="-9.5" y2="-3.5" width="0.254" layer="21"/>
-<wire x1="-9.5" y1="-3.5" x2="-3" y2="-4.5" width="0.254" layer="21"/>
-<wire x1="-8" y1="3.5" x2="-8" y2="2" width="0.254" layer="21"/>
-<wire x1="-8" y1="-2" x2="-8" y2="-3.5" width="0.254" layer="21"/>
+<wire x1="-3" y1="4.5" x2="-9.5" y2="3.5" width="0.254" layer="51"/>
+<wire x1="-9.5" y1="3.5" x2="-9.5" y2="2" width="0.254" layer="51"/>
+<wire x1="-9.5" y1="2" x2="-3" y2="1" width="0.254" layer="51"/>
+<wire x1="-3" y1="-1" x2="-9.5" y2="-2" width="0.254" layer="51"/>
+<wire x1="-9.5" y1="-2" x2="-9.5" y2="-3.5" width="0.254" layer="51"/>
+<wire x1="-9.5" y1="-3.5" x2="-3" y2="-4.5" width="0.254" layer="51"/>
+<wire x1="-8" y1="3.5" x2="-8" y2="2" width="0.254" layer="51"/>
+<wire x1="-8" y1="-2" x2="-8" y2="-3.5" width="0.254" layer="51"/>
 <wire x1="-13.5" y1="9" x2="7.5" y2="9" width="0.254" layer="39"/>
 <wire x1="7.5" y1="9" x2="7.5" y2="-9" width="0.254" layer="39"/>
 <wire x1="7.5" y1="-9" x2="-13.5" y2="-9" width="0.254" layer="39"/>
 <wire x1="-13.5" y1="-9" x2="-13.5" y2="9" width="0.254" layer="39"/>
+<wire x1="-2.2" y1="6.55" x2="-10.3" y2="6.55" width="0.254" layer="51"/>
+<wire x1="-10.3" y1="-6.55" x2="-2.2" y2="-6.55" width="0.254" layer="51"/>
+</package>
+<package name="RJ45">
+<description>RJ45 jack.&lt;br/&gt;
+Originally from sparkfun but had to do a bunch of work.&lt;br/&gt;
+Not sure if there are standardized footprints; this one was designed for http://media.digikey.com/pdf/Data%20Sheets/WIZnet%20PDFs/RB1-125BAG1A_ApprovalSheet.pdf</description>
+<wire x1="-7.62" y1="10.83" x2="7.62" y2="10.83" width="0.2032" layer="21"/>
+<wire x1="-7.62" y1="-5.39" x2="-7.62" y2="10.83" width="0.2032" layer="21"/>
+<wire x1="7.62" y1="10.83" x2="7.62" y2="-5.39" width="0.2032" layer="21"/>
+<wire x1="-7.62" y1="-5.5" x2="-7.62" y2="-10.9" width="0.2032" layer="51"/>
+<wire x1="-7.62" y1="-10.9" x2="7.62" y2="-10.9" width="0.2032" layer="51"/>
+<wire x1="7.62" y1="-10.9" x2="7.62" y2="-5.5" width="0.2032" layer="51"/>
+<pad name="8" x="4.445" y="8.89" drill="1" diameter="1.8796"/>
+<pad name="7" x="3.175" y="6.35" drill="1" diameter="1.8796"/>
+<pad name="6" x="1.905" y="8.89" drill="1" diameter="1.8796"/>
+<pad name="4" x="-0.635" y="8.89" drill="1" diameter="1.8796"/>
+<pad name="2" x="-3.175" y="8.89" drill="1" diameter="1.8796"/>
+<pad name="5" x="0.635" y="6.35" drill="1" diameter="1.8796"/>
+<pad name="3" x="-1.905" y="6.35" drill="1" diameter="1.8796"/>
+<pad name="1" x="-4.445" y="6.35" drill="1" diameter="1.8796"/>
+<hole x="-5.715" y="0" drill="3.25"/>
+<hole x="5.715" y="0" drill="3.25"/>
+<pad name="S2" x="7.875" y="3.05" drill="1.6"/>
+<pad name="S1" x="-7.875" y="3.05" drill="1.6"/>
+<pad name="L1" x="6.325" y="-3.38" drill="0.89" diameter="1.8796"/>
+<pad name="L2" x="3.785" y="-4.9" drill="0.89" diameter="1.8796"/>
+<pad name="L3" x="-3.785" y="-3.38" drill="0.89" diameter="1.8796"/>
+<pad name="L4" x="-6.325" y="-4.9" drill="0.89" diameter="1.8796"/>
 </package>
 </packages>
 <symbols>
@@ -2344,6 +2380,56 @@ Copied this from SparkFun's through-hole A plug, realized it was totally differe
 <pin name="VBUS" x="-2.54" y="2.54" visible="pad" length="short"/>
 <pin name="GND" x="-2.54" y="0" visible="pad" length="short"/>
 <pin name="SHELL" x="2.54" y="-2.54" visible="pad" length="short" rot="R90"/>
+</symbol>
+<symbol name="RJ45-ETHERNET">
+<wire x1="-7.62" y1="-17.78" x2="5.08" y2="-17.78" width="0.254" layer="94"/>
+<wire x1="5.08" y1="-17.78" x2="5.08" y2="15.24" width="0.254" layer="94"/>
+<wire x1="5.08" y1="15.24" x2="-7.62" y2="15.24" width="0.254" layer="94"/>
+<wire x1="-7.62" y1="15.24" x2="-7.62" y2="-17.78" width="0.254" layer="94"/>
+<text x="-7.62" y="15.748" size="1.778" layer="95">&gt;Name</text>
+<text x="-7.62" y="-20.32" size="1.778" layer="95">&gt;Value</text>
+<pin name="TP" x="-12.7" y="12.7" length="middle"/>
+<pin name="TN" x="-12.7" y="10.16" length="middle"/>
+<pin name="COM" x="-12.7" y="7.62" length="middle"/>
+<pin name="RN" x="-12.7" y="2.54" length="middle"/>
+<pin name="RP" x="-12.7" y="5.08" length="middle"/>
+<pin name="LYP" x="-12.7" y="-2.54" length="middle"/>
+<pin name="LYN" x="-12.7" y="-5.08" length="middle"/>
+<pin name="LGP" x="-12.7" y="-7.62" length="middle"/>
+<pin name="LGN" x="-12.7" y="-10.16" length="middle"/>
+<wire x1="0" y1="-2.54" x2="1.524" y2="-2.54" width="0.254" layer="94"/>
+<wire x1="1.524" y1="-2.54" x2="1.524" y2="-3.302" width="0.254" layer="94"/>
+<wire x1="1.524" y1="-3.302" x2="1.016" y2="-3.302" width="0.254" layer="94"/>
+<wire x1="1.016" y1="-3.302" x2="1.524" y2="-4.064" width="0.254" layer="94"/>
+<wire x1="1.524" y1="-4.064" x2="2.032" y2="-3.302" width="0.254" layer="94"/>
+<wire x1="2.032" y1="-3.302" x2="1.524" y2="-3.302" width="0.254" layer="94"/>
+<wire x1="1.016" y1="-4.064" x2="1.524" y2="-4.064" width="0.254" layer="94"/>
+<wire x1="1.524" y1="-4.064" x2="2.032" y2="-4.064" width="0.254" layer="94"/>
+<wire x1="1.524" y1="-4.064" x2="1.524" y2="-5.08" width="0.254" layer="94"/>
+<wire x1="1.524" y1="-5.08" x2="0" y2="-5.08" width="0.254" layer="94"/>
+<wire x1="2.54" y1="-3.302" x2="3.048" y2="-2.794" width="0.254" layer="94"/>
+<wire x1="3.048" y1="-2.794" x2="2.794" y2="-2.794" width="0.254" layer="94"/>
+<wire x1="3.048" y1="-2.794" x2="3.048" y2="-3.048" width="0.254" layer="94"/>
+<wire x1="2.54" y1="-4.064" x2="3.048" y2="-3.556" width="0.254" layer="94"/>
+<wire x1="3.048" y1="-3.556" x2="2.794" y2="-3.556" width="0.254" layer="94"/>
+<wire x1="3.048" y1="-3.556" x2="3.048" y2="-3.81" width="0.254" layer="94"/>
+<wire x1="0" y1="-7.62" x2="1.524" y2="-7.62" width="0.254" layer="94"/>
+<wire x1="1.524" y1="-7.62" x2="1.524" y2="-8.382" width="0.254" layer="94"/>
+<wire x1="1.524" y1="-8.382" x2="1.016" y2="-8.382" width="0.254" layer="94"/>
+<wire x1="1.016" y1="-8.382" x2="1.524" y2="-9.144" width="0.254" layer="94"/>
+<wire x1="1.524" y1="-9.144" x2="2.032" y2="-8.382" width="0.254" layer="94"/>
+<wire x1="2.032" y1="-8.382" x2="1.524" y2="-8.382" width="0.254" layer="94"/>
+<wire x1="1.016" y1="-9.144" x2="1.524" y2="-9.144" width="0.254" layer="94"/>
+<wire x1="1.524" y1="-9.144" x2="2.032" y2="-9.144" width="0.254" layer="94"/>
+<wire x1="1.524" y1="-9.144" x2="1.524" y2="-10.16" width="0.254" layer="94"/>
+<wire x1="1.524" y1="-10.16" x2="0" y2="-10.16" width="0.254" layer="94"/>
+<wire x1="2.54" y1="-8.382" x2="3.048" y2="-7.874" width="0.254" layer="94"/>
+<wire x1="3.048" y1="-7.874" x2="2.794" y2="-7.874" width="0.254" layer="94"/>
+<wire x1="3.048" y1="-7.874" x2="3.048" y2="-8.128" width="0.254" layer="94"/>
+<wire x1="2.54" y1="-9.144" x2="3.048" y2="-8.636" width="0.254" layer="94"/>
+<wire x1="3.048" y1="-8.636" x2="2.794" y2="-8.636" width="0.254" layer="94"/>
+<wire x1="3.048" y1="-8.636" x2="3.048" y2="-8.89" width="0.254" layer="94"/>
+<pin name="SHIELD" x="-12.7" y="-15.24" length="middle"/>
 </symbol>
 </symbols>
 <devicesets>
@@ -3440,6 +3526,30 @@ Copied this from SparkFun's through-hole A plug, realized it was totally differe
 <connect gate="G$1" pin="GND" pad="GND"/>
 <connect gate="G$1" pin="SHELL" pad="S1 S2"/>
 <connect gate="G$1" pin="VBUS" pad="VBUS"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="RJ45-ETHERNET">
+<gates>
+<gate name="G$1" symbol="RJ45-ETHERNET" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="RJ45">
+<connects>
+<connect gate="G$1" pin="COM" pad="3 6"/>
+<connect gate="G$1" pin="LGN" pad="L4"/>
+<connect gate="G$1" pin="LGP" pad="L3"/>
+<connect gate="G$1" pin="LYN" pad="L2"/>
+<connect gate="G$1" pin="LYP" pad="L1"/>
+<connect gate="G$1" pin="RN" pad="8"/>
+<connect gate="G$1" pin="RP" pad="7"/>
+<connect gate="G$1" pin="SHIELD" pad="S1 S2"/>
+<connect gate="G$1" pin="TN" pad="2"/>
+<connect gate="G$1" pin="TP" pad="1"/>
 </connects>
 <technologies>
 <technology name=""/>
