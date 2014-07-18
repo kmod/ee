@@ -37,3 +37,6 @@
 eagle.epf
 *.map
 *.bin
+
+# SketchUp backup files:
+*.skb

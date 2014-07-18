@@ -142,6 +142,9 @@ Fine for multimeter measurements or 30AWG wire but pretty small.</description>
 <description>&lt;p&gt;Solder point for 18AWG wire&lt;p/&gt;
 Made this myself based on nominal wire diameter (0.05" vs 0.0403"); which was way too small for stranded wire.  Haven't tested the 0.075 version.</description>
 <pad name="P$1" x="0" y="0" drill="1.905"/>
+<circle x="0" y="0" radius="2.4892" width="0.1016" layer="39"/>
+<text x="0" y="-2.5" size="0.9144" layer="21" ratio="12" align="bottom-center">&gt;VALUE</text>
+<text x="0" y="-2.5" size="0.9144" layer="22" ratio="12" rot="MR0" align="bottom-center">&gt;VALUE</text>
 </package>
 <package name="HOLE_12AWG">
 <description>&lt;p&gt;Solder point for 12AWG wire&lt;p/&gt;
@@ -166,44 +169,54 @@ Haven't tested this; the bldc "18AWG" holes were slightly oversized for 22AWG wi
 <smd name="P$1" x="0" y="0" dx="4" dy="3" layer="1" cream="no"/>
 <smd name="P$2" x="0" y="0" dx="4" dy="3" layer="16" cream="no"/>
 </package>
-<package name="SOLDER-BRIDGE-OPEN">
+<package name="SB-0402">
 <description>Solder bridge; no cream, so normally-open&lt;br/&gt;
 24mil wide, so theoretically good for 1.4A.  With wide connecting traces and good amount of solder, I'm sure this can be exceeded especially since the shortness would be small.  There's also the 40mil variant.&lt;br/&gt;
 This is the same size as an 0402 footprint and in theory an 0402 part would fit on this, though bridging might be an issue.</description>
-<smd name="L1" x="-0.6" y="0" dx="0.4" dy="0.6" layer="1" stop="no" cream="no"/>
-<smd name="R1" x="0.6" y="0" dx="0.4" dy="0.6" layer="1" stop="no" cream="no"/>
+<smd name="L1" x="-0.7" y="0" dx="0.6" dy="0.7" layer="1" stop="no" cream="no"/>
+<smd name="R1" x="0.7" y="0" dx="0.6" dy="0.7" layer="1" stop="no" cream="no"/>
 <rectangle x1="-0.85" y1="-0.35" x2="0.85" y2="0.35" layer="29"/>
-<smd name="L2" x="-0.1" y="0.2" dx="0.6" dy="0.2" layer="1" stop="no" cream="no"/>
-<smd name="R2" x="0.1" y="-0.2" dx="0.6" dy="0.2" layer="1" stop="no" cream="no"/>
+<smd name="L2" x="-0.25" y="0.2" dx="0.3" dy="0.2" layer="1" stop="no" cream="no"/>
+<smd name="R2" x="0.25" y="-0.2" dx="0.3" dy="0.2" layer="1" stop="no" cream="no"/>
 <text x="0" y="0.5" size="0.6096" layer="21" ratio="12" align="bottom-center">&gt;VALUE</text>
-<wire x1="-0.95" y1="0.55" x2="0.95" y2="0.55" width="0.1" layer="39"/>
-<wire x1="0.95" y1="0.55" x2="0.95" y2="-0.55" width="0.1" layer="39"/>
-<wire x1="0.95" y1="-0.55" x2="-0.95" y2="-0.55" width="0.1" layer="39"/>
-<wire x1="-0.95" y1="-0.55" x2="-0.95" y2="0.55" width="0.1" layer="39"/>
+<wire x1="-1.15" y1="0.45" x2="1.15" y2="0.45" width="0.1" layer="39"/>
+<wire x1="1.15" y1="0.45" x2="1.15" y2="-0.45" width="0.1" layer="39"/>
+<wire x1="1.15" y1="-0.45" x2="-1.15" y2="-0.45" width="0.1" layer="39"/>
+<wire x1="-1.15" y1="-0.45" x2="-1.15" y2="0.45" width="0.1" layer="39"/>
+<wire x1="0.55" y1="0.3" x2="0.2" y2="0.3" width="0.005" layer="51"/>
+<wire x1="0.2" y1="0.3" x2="-0.2" y2="0.3" width="0.005" layer="51"/>
+<wire x1="-0.2" y1="0.3" x2="-0.55" y2="0.3" width="0.005" layer="51"/>
+<wire x1="-0.55" y1="0.3" x2="-0.55" y2="-0.3" width="0.005" layer="51"/>
+<wire x1="-0.55" y1="-0.3" x2="-0.2" y2="-0.3" width="0.005" layer="51"/>
+<wire x1="-0.2" y1="-0.3" x2="0.2" y2="-0.3" width="0.005" layer="51"/>
+<wire x1="0.2" y1="-0.3" x2="0.55" y2="-0.3" width="0.005" layer="51"/>
+<wire x1="0.55" y1="-0.3" x2="0.55" y2="0.3" width="0.005" layer="51"/>
+<wire x1="0.2" y1="0.3" x2="0.2" y2="-0.3" width="0.005" layer="51"/>
+<wire x1="-0.2" y1="0.3" x2="-0.2" y2="-0.3" width="0.005" layer="51"/>
 </package>
 <package name="TRACE-CUT">
-<smd name="L1" x="-0.65" y="0" dx="0.5" dy="0.6" layer="1" stop="no" cream="no"/>
-<smd name="R1" x="0.65" y="0" dx="0.5" dy="0.6" layer="1" stop="no" cream="no"/>
-<rectangle x1="-0.5" y1="-0.4" x2="0.5" y2="0.4" layer="29"/>
+<smd name="L1" x="-0.65" y="0" dx="0.7" dy="0.7" layer="1" stop="no" cream="no"/>
+<smd name="R1" x="0.65" y="0" dx="0.7" dy="0.7" layer="1" stop="no" cream="no"/>
+<rectangle x1="-1.1" y1="-0.5" x2="1.1" y2="0.5" layer="29"/>
 <text x="0" y="0.5" size="0.6096" layer="21" ratio="12" align="bottom-center">&gt;VALUE</text>
-<rectangle x1="-0.4" y1="-0.1" x2="0.4" y2="0.1" layer="1"/>
-<wire x1="-1.05" y1="0.55" x2="1.05" y2="0.55" width="0.1" layer="39"/>
-<wire x1="1.05" y1="0.55" x2="1.05" y2="-0.55" width="0.1" layer="39"/>
-<wire x1="1.05" y1="-0.55" x2="-1.05" y2="-0.55" width="0.1" layer="39"/>
-<wire x1="-1.05" y1="-0.55" x2="-1.05" y2="0.55" width="0.1" layer="39"/>
+<rectangle x1="-0.3" y1="-0.1" x2="0.3" y2="0.1" layer="1"/>
+<wire x1="-1.25" y1="0.65" x2="1.25" y2="0.65" width="0.1" layer="39"/>
+<wire x1="1.25" y1="0.65" x2="1.25" y2="-0.65" width="0.1" layer="39"/>
+<wire x1="1.25" y1="-0.65" x2="-1.25" y2="-0.65" width="0.1" layer="39"/>
+<wire x1="-1.25" y1="-0.65" x2="-1.25" y2="0.65" width="0.1" layer="39"/>
 </package>
 <package name="HOLE_VIA">
 <pad name="P$1" x="0" y="0" drill="0.381" shape="octagon"/>
 </package>
-<package name="SOLDER-BRIDGE-OPEN-LARGE">
+<package name="SB-0603">
 <description>Solder bridge; no cream, so normally-open&lt;br/&gt;
 Wider (40mil) variant, theoretically rated for 2.1A.&lt;br/&gt;
 Designed to also accomodate an 0603 part, though that's entirely untested.  tDocu lines show the farthest that the pads can come in and how far they typically go out.</description>
 <smd name="L1" x="-0.95" y="0" dx="0.9" dy="1" layer="1" stop="no" cream="no"/>
 <smd name="R1" x="0.95" y="0" dx="0.9" dy="1" layer="1" stop="no" cream="no"/>
 <rectangle x1="-1.45" y1="-0.55" x2="1.45" y2="0.55" layer="29"/>
-<smd name="L2" x="-0.2" y="0.325" dx="0.6" dy="0.35" layer="1" stop="no" cream="no"/>
-<smd name="R2" x="0.2" y="-0.325" dx="0.6" dy="0.35" layer="1" stop="no" cream="no"/>
+<smd name="L2" x="-0.3" y="0.325" dx="0.4" dy="0.35" layer="1" stop="no" cream="no"/>
+<smd name="R2" x="0.3" y="-0.325" dx="0.4" dy="0.35" layer="1" stop="no" cream="no"/>
 <text x="0" y="0.7" size="0.6096" layer="21" ratio="12" align="bottom-center">&gt;VALUE</text>
 <wire x1="-1.7" y1="0.7" x2="1.7" y2="0.7" width="0.1" layer="39"/>
 <wire x1="1.7" y1="0.7" x2="1.7" y2="-0.7" width="0.1" layer="39"/>
@@ -503,25 +516,25 @@ Designed to also accomodate an 0603 part, though that's entirely untested.  tDoc
 <gate name="G$1" symbol="SOLDER-BRIDGE" x="0" y="0"/>
 </gates>
 <devices>
-<device name="OPEN" package="SOLDER-BRIDGE-OPEN">
+<device name="0402" package="SB-0402">
 <connects>
 <connect gate="G$1" pin="P$1" pad="L1 L2"/>
 <connect gate="G$1" pin="P$2" pad="R1 R2"/>
 </connects>
 <technologies>
 <technology name="">
-<attribute name="PACKAGE" value="24mil" constant="no"/>
+<attribute name="PACKAGE" value="0402" constant="no"/>
 </technology>
 </technologies>
 </device>
-<device name="OPEN-WIDE" package="SOLDER-BRIDGE-OPEN-LARGE">
+<device name="0603" package="SB-0603">
 <connects>
 <connect gate="G$1" pin="P$1" pad="L1 L2"/>
 <connect gate="G$1" pin="P$2" pad="R1 R2"/>
 </connects>
 <technologies>
 <technology name="">
-<attribute name="PACKAGE" value="40mil" constant="no"/>
+<attribute name="PACKAGE" value="0603" constant="no"/>
 </technology>
 </technologies>
 </device>

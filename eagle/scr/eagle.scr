@@ -109,7 +109,9 @@ ASSIGN CS+D 'ERC;';
 Assign F7 'change style continuous; Net';
 Assign S+F7 'change style continuous; bus';
 Assign C+F7 'change style shortdash; change layer symbols; wire';
+#ASSIGN A+F7 'change layer symbols; change size 0.17; text'
 Assign AF7 'Label';
+ASSIGN C+F5 'change layer info; change size 0.07; text \(NC\)'
 
 MENU '[designlink22.png] Search and order {\
                                           General : Run designlink-order.ulp -general; |\

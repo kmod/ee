@@ -1,6 +1,6 @@
 TYPE = "QFN"
-PIN_COUNT = 48
-PITCH = 0.4
+PIN_COUNT = 32
+PITCH = 0.5
 
 # I've seen 1.6mm recommended; I think the more important parameter is how much is sticks out past the end
 PAD_LENGTH = {"QFN":1.2, "QFP":1.6}[TYPE]
@@ -20,9 +20,9 @@ PITCH_TO_WIDTH = {
 PAD_PAST_END = {"QFN":0.7, "QFP":0.5}[TYPE]
 
 # just for drawing purposes:
-LEAD_INNER_WIDTH = 5.2
-LEAD_OUTER_WIDTH = 6.0
-LEAD_WIDTH = 0.20
+LEAD_INNER_WIDTH = 4.0
+LEAD_OUTER_WIDTH = 5.0
+LEAD_WIDTH = 0.24
 
 assert PIN_COUNT % 4 == 0
 
@@ -82,5 +82,5 @@ for i in xrange(PIN_COUNT):
 
     rot = 'rot="R90" ' if which_line % 2 == 1 else ''
 
-    print """<smd name="%03d" x="%f" y="%f" dx="%f" dy="%f" layer="1" %s/>""" % (i+1, x, y, PAD_LENGTH, pad_width, rot)
+    print """<smd name="%d" x="%f" y="%f" dx="%f" dy="%f" layer="1" %s/>""" % (i+1, x, y, PAD_LENGTH, pad_width, rot)
     print """<rectangle x1="%f" y1="%f" x2="%f" y2="%f" layer="51" %s/>""" % (lx - lead_length / 2, ly - LEAD_WIDTH / 2, lx + lead_length / 2, ly + LEAD_WIDTH / 2, rot)
