@@ -1,0 +1,2 @@
+verilog work "main.v"
+verilog work "../../../../fpga_libs/util.v"
