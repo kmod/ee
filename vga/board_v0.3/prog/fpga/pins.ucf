@@ -1,0 +1,8 @@
+Net "input_clk" LOC = "A9" | IOSTANDARD = "LVCMOS33";
+Net "input_clk" TNM_NET = sys_clk_pin;
+TIMESPEC TS_sys_clk_pin = PERIOD sys_clk_pin 50000 kHz;
+Net "input_clk" CLOCK_DEDICATED_ROUTE = FALSE;
+
+Net "leds<0>" LOC = "A8" | IOSTANDARD = "LVCMOS33";
+Net "leds<1>" LOC = "A7" | IOSTANDARD = "LVCMOS33";
+Net "leds<2>" LOC = "A6" | IOSTANDARD = "LVCMOS33";

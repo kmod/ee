@@ -497,7 +497,15 @@ def idcode_to_name(code):
         ('xc2c64a_vq100', 0x6e5c093, 0xfffffff),
         ('xc2c64a_vq44', 0x6e5e093, 0xfffffff),
 
+        ('xc6slx4', 0x4000093, 0xfffffff),
         ('xc6slx9', 0x4001093, 0xfffffff),
+        ('xc6slx16', 0x4002093, 0xfffffff),
+        ('xc6slx25', 0x4004093, 0xfffffff),
+        ('xc6slx45', 0x4008093, 0xfffffff),
+        ('xc6slx75', 0x400e093, 0xfffffff),
+        ('xc6slx100', 0x4011093, 0xfffffff),
+        ('xc6slx150', 0x401d093, 0xfffffff),
+        ('xc6slx_unknown', 0x4000093, 0xfe00fff),
     ]
 
     for name, idcode, mask in IDCODES:
@@ -526,6 +534,60 @@ if __name__ == "__main__":
         MAX_BYPASS_INST = MAX_INSTRUCTION_LEN * MAX_CHAIN_SIZE
 
         ctlr = JtagController(use_verify_thread=False)
+
+        print "blind interrogation:"
+        # "blind interrogation": devices that support IDCODE are supposed to start with that
+        # otherwise they start with BYPASS
+        ctlr.goto("reset")
+        ctlr.goto("drshift")
+        max_dr_len = (MAX_CHAIN_SIZE + 1) * 32
+        ctlr.send(max_dr_len, (1 << max_dr_len) - 1, 0x0)
+        ctlr.flush()
+
+        r = 0
+        for i in xrange(max_dr_len):
+            c = ord(ctlr.ctlr.q.get())
+            r |= c << i
+        while r:
+            if r & 1:
+                idcode = r & 0xffffffff
+                if idcode == 0xffffffff:
+                    break
+                print "Device found:", idcode_to_name(idcode)
+                r >>= 32
+            else:
+                print "Non-idcode device found"
+                r >>= 1
+
+
+        ctlr.goto("reset")
+        ctlr.goto("irshift")
+        ctlr.send(MAX_BYPASS_INST, (1 << MAX_BYPASS_INST) - 1, 0x0)
+        ctlr.flush()
+        r1 = 0
+        for i in xrange(MAX_BYPASS_INST):
+            c = ord(ctlr.ctlr.q.get())
+            r1 |= c << i
+        ctlr.goto("idle")
+        ctlr.goto("irshift")
+        ctlr.send(MAX_BYPASS_INST, 0, 0x0)
+        ctlr.flush()
+        r0 = 0
+        for i in xrange(MAX_BYPASS_INST):
+            c = ord(ctlr.ctlr.q.get())
+            r0 |= c << i
+        r = r0 ^ r1
+        assert r1, "Disconnected chain identified"
+
+        irlen = 0
+        while r & 1 == 0:
+            irlen += 1
+            r >>= 1
+        print "Total instruction register length: %d" % irlen
+
+
+        print
+        print "Doing old method..."
         ctlr.goto("reset")
         ctlr.goto("idle")
 
@@ -607,7 +669,7 @@ if __name__ == "__main__":
                 idcode &= (1<<32) - 1
 
                 idcode_str = idcode_to_name(idcode)
-                if idcode_str and 'unknown' not in idcode_str:
+                if idcode_str and 'unknown IDCODE' not in idcode_str:
                     print idcode_str
                     identified_instr_lens.append(idcode_len)
                     break

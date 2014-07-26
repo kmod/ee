@@ -488,6 +488,7 @@ def read_svf_file(fn):
     stream.close()
 
 def idcode_to_name(code):
+    1/0, "this file is out of date, look at svf_reader4/svf_reader4.py"
     IDCODES = [
         ('xc2c128_cp132', 0x6d8b093, 0xfffffff),
         ('xc2c128_cv100', 0x86d8e093, 0xffffffff),
