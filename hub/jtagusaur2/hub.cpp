@@ -62,11 +62,12 @@ void jtag_pulse(byte nibble) {
     if (nibble & 0x02) {
         byte gotten = (PINC >> 2) & 1;
         byte diff = gotten ^ (nibble & 1);
-        //if (diff) {
-            //SWRITE(0x03);
-            //fail();
-        //}
+        if (diff) {
+            SWRITE(0x03);
+            fail();
+        }
     }
+
 }
 
 void jtag_auto() {
@@ -91,6 +92,35 @@ void jtag_auto() {
         }
 
         SWRITE(0x00);
+    }
+}
+
+void jtag_interactive() {
+    while (true) {
+        unsigned char recv = SREAD();
+
+        PORTD |= _BV(6);
+        PORTD &= ~_BV(7);
+
+        PORTC = (PORTC & ~0x03) | ((recv >> 2) & 0x03);
+        asm("nop"); asm("nop"); asm("nop"); asm("nop");
+        asm("nop"); asm("nop"); asm("nop"); asm("nop");
+        asm("nop"); asm("nop"); asm("nop"); asm("nop");
+        asm("nop"); asm("nop"); asm("nop"); asm("nop");
+        PORTC &= ~_BV(3);
+        asm("nop"); asm("nop"); asm("nop"); asm("nop");
+        asm("nop"); asm("nop"); asm("nop"); asm("nop");
+        asm("nop"); asm("nop"); asm("nop"); asm("nop");
+        asm("nop"); asm("nop"); asm("nop"); asm("nop");
+        PORTC |= _BV(3);
+
+        PORTD &= ~_BV(6);
+        PORTD |= _BV(7);
+
+        if (recv & 0x02) {
+            unsigned char to_send = (PINC >> 2) & 1;
+            SWRITE(to_send);
+        }
     }
 }
 
@@ -180,27 +210,33 @@ int main() {
     }
     SWRITE(0xaf); // magic cookie
 
-    SWRITE(0x02); // num endpoints
+    SWRITE(0x03); // num endpoints
 
     SWRITE(0x10); SWRITE(0x00); // bitbang
     SWRITE(0x30); SWRITE(0x01); // JTAG_AUTO
+    SWRITE(0x30); SWRITE(0x81); // JTAG_INTERACTIVE
 
     while (true) {
         byte c1 = SREAD();
         byte c2 = SREAD();
 
         if (c1 == 0x30) {
-            if (c2 != 0x01) {
-                SWRITE(0x02);
-                SWRITE(c2);
-                fail();
+            if (c2 == 0x01) {
+                SWRITE(0x00);
+                SWRITE(0x00);
+
+                jtag_auto();
+                continue;
+            } else if (c2 == 0x81) {
+                SWRITE(0x00);
+                SWRITE(0x00);
+
+                jtag_interactive();
+                continue;
             }
-
-            SWRITE(0x00);
-            SWRITE(0x00);
-
-            jtag_auto();
-            continue;
+            SWRITE(0x02);
+            SWRITE(c2);
+            fail();
         }
 
         if (c1 = 0x10) {
