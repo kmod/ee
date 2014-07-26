@@ -112,6 +112,7 @@ Assign C+F7 'change style shortdash; change layer symbols; wire';
 #ASSIGN A+F7 'change layer symbols; change size 0.17; text'
 Assign AF7 'Label';
 ASSIGN C+F5 'change layer info; change size 0.07; text \(NC\)'
+ASSIGN S+F5 'change layer symbols; change size 0.17; text'
 
 MENU '[designlink22.png] Search and order {\
                                           General : Run designlink-order.ulp -general; |\

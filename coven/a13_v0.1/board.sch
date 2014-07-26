@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="6.4">
+<eagle version="6.5.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -2039,7 +2039,7 @@ From SparkFun.  Seems to work pretty well.</description>
 <rectangle x1="-0.1999" y1="-0.3" x2="0.1999" y2="0.3" layer="35"/>
 <rectangle x1="-0.2032" y1="-0.3556" x2="0.2032" y2="0.3556" layer="21"/>
 </package>
-<package name="0805">
+<package name="0805-CAP">
 <description>0805 capacitor&lt;br/&gt;
 Copied from SparkFun, added tDocu and widened pads (they were only as wide as the component).&lt;br/&gt;
 Added restrict and widened pads again.  It was solderable but the pads were'nt even as long as the 0603 package.</description>
@@ -2088,10 +2088,11 @@ Seemed pretty big before, so narrowed the pads (kept them long), and decreased k
 <smd name="1" x="-0.85" y="0" dx="1.1" dy="1" layer="1"/>
 <smd name="2" x="0.85" y="0" dx="1.1" dy="1" layer="1"/>
 <text x="-0.889" y="0.762" size="0.4064" layer="25" font="vector">&gt;NAME</text>
-<text x="-1.016" y="-1.143" size="0.4064" layer="27" font="vector">&gt;VALUE</text>
+<text x="-0.216" y="-1.143" size="0.4064" layer="27" font="vector" align="bottom-right">&gt;VALUE</text>
 <rectangle x1="-0.8382" y1="-0.4699" x2="-0.3381" y2="0.4801" layer="51"/>
 <rectangle x1="0.3302" y1="-0.4699" x2="0.8303" y2="0.4801" layer="51"/>
 <rectangle x1="-0.1999" y1="-0.3" x2="0.1999" y2="0.3" layer="35"/>
+<text x="0.084" y="-1.143" size="0.4064" layer="27" font="vector">&gt;VOLTAGE</text>
 </package>
 <package name="C0201">
 <description>Source: http://www.avxcorp.com/docs/catalogs/cx5r.pdf&lt;br/&gt;
@@ -2332,7 +2333,7 @@ Standard 0603 ceramic capacitor, and 0.1" leaded capacitor.</description>
 <gate name="G$1" symbol="CAP" x="0" y="0"/>
 </gates>
 <devices>
-<device name="0805" package="0805">
+<device name="0805" package="0805-CAP">
 <connects>
 <connect gate="G$1" pin="1" pad="1"/>
 <connect gate="G$1" pin="2" pad="2"/>
@@ -4408,7 +4409,7 @@ Make sure to check the pinouts -- there doesn't seem to be a standard one.</desc
 <part name="R15" library="kmod-passives" deviceset="RESISTOR" device="0603" value="330R"/>
 <part name="LLNK" library="kmod-passives" deviceset="LED" device="0603" value="GRN"/>
 <part name="SUPPLY8" library="kmod-nonparts" deviceset="3.3V" device=""/>
-<part name="R16" library="kmod-passives" deviceset="RESISTOR" device="0603" value="680R"/>
+<part name="R16" library="kmod-passives" deviceset="RESISTOR" device="0603" value="1k"/>
 <part name="LIND" library="kmod-passives" deviceset="LED" device="0603" value="BLU"/>
 <part name="GND22" library="kmod-nonparts" deviceset="GND" device=""/>
 <part name="SB3" library="kmod-nonparts" deviceset="SOLDER-BRIDGE" device="OPEN" value="NCLKEN"/>
@@ -4417,8 +4418,8 @@ Make sure to check the pinouts -- there doesn't seem to be a standard one.</desc
 <part name="SUPPLY9" library="kmod-nonparts" deviceset="3.3V" device=""/>
 <part name="SB5" library="kmod-nonparts" deviceset="SOLDER-BRIDGE" device="OPEN" value="CLKOUT"/>
 <part name="SUPPLY11" library="kmod-nonparts" deviceset="3.3V" device=""/>
-<part name="R17" library="kmod-passives" deviceset="RESISTOR" device="0603" value="330R"/>
-<part name="L3V3" library="kmod-passives" deviceset="LED" device="0603" value="YLW"/>
+<part name="R17" library="kmod-passives" deviceset="RESISTOR" device="0603" value="680R"/>
+<part name="L3V3" library="kmod-passives" deviceset="LED" device="0603" value="GRN"/>
 <part name="GND25" library="kmod-nonparts" deviceset="GND" device=""/>
 <part name="SUPPLY12" library="kmod-nonparts" deviceset="3.3V" device=""/>
 <part name="U$10" library="kmod-testing" deviceset="BD9D321" device="EFJ"/>
@@ -4558,7 +4559,7 @@ Make sure to check the pinouts -- there doesn't seem to be a standard one.</desc
 <part name="D1" library="kmod-discretesemi" deviceset="DIODE-SCHOTTKY" device="SOD523" value="RB521S30"/>
 <part name="R44" library="kmod-passives" deviceset="RESISTOR" device="0603" value="100k"/>
 <part name="GND70" library="kmod-nonparts" deviceset="GND" device=""/>
-<part name="R45" library="kmod-passives" deviceset="RESISTOR" device="0603" value="2.2k"/>
+<part name="R45" library="kmod-passives" deviceset="RESISTOR" device="0603" value="4.7k"/>
 <part name="L12V" library="kmod-passives" deviceset="LED" device="0603" value="YLW"/>
 <part name="GND71" library="kmod-nonparts" deviceset="GND" device=""/>
 <part name="D2" library="kmod-discretesemi" deviceset="DIODE-SCHOTTKY" device="SOD523" value="RB521S30"/>
@@ -4599,7 +4600,7 @@ Make sure to check the pinouts -- there doesn't seem to be a standard one.</desc
 <part name="GND106" library="kmod-nonparts" deviceset="GND" device=""/>
 <part name="GND107" library="kmod-nonparts" deviceset="GND" device=""/>
 <part name="GND109" library="kmod-nonparts" deviceset="GND" device=""/>
-<part name="R46" library="kmod-passives" deviceset="RESISTOR" device="0603" value="680R"/>
+<part name="R46" library="kmod-passives" deviceset="RESISTOR" device="0603" value="1k"/>
 <part name="L0" library="kmod-passives" deviceset="LED" device="0603" value="WHT"/>
 <part name="GND110" library="kmod-nonparts" deviceset="GND" device=""/>
 <part name="U$17" library="kmod-ics" deviceset="POR_ACTIVE_LOW" device="" value="RT9818C-29GV"/>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="6.4">
+<eagle version="6.5.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.5" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.025" altunitdist="inch" altunit="inch"/>
+<grid distance="0.1" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.025" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
@@ -292,10 +292,11 @@ Got from http://www.yuden.co.jp/productdata/catalog/en/wound04_e.pdf / http://ww
 <smd name="1" x="-0.85" y="0" dx="1.1" dy="1" layer="1"/>
 <smd name="2" x="0.85" y="0" dx="1.1" dy="1" layer="1"/>
 <text x="-0.889" y="0.762" size="0.4064" layer="25" font="vector">&gt;NAME</text>
-<text x="-1.016" y="-1.143" size="0.4064" layer="27" font="vector">&gt;VALUE</text>
+<text x="-0.216" y="-1.143" size="0.4064" layer="27" font="vector" align="bottom-right">&gt;VALUE</text>
 <rectangle x1="-0.8382" y1="-0.4699" x2="-0.3381" y2="0.4801" layer="51"/>
 <rectangle x1="0.3302" y1="-0.4699" x2="0.8303" y2="0.4801" layer="51"/>
 <rectangle x1="-0.1999" y1="-0.3" x2="0.1999" y2="0.3" layer="35"/>
+<text x="0.084" y="-1.143" size="0.4064" layer="27" font="vector">&gt;VOLTAGE</text>
 </package>
 <package name="0603">
 <wire x1="-1.723" y1="0.733" x2="1.723" y2="0.733" width="0.0508" layer="39"/>
@@ -383,6 +384,43 @@ Got from http://www.yuden.co.jp/ut/product/category/inductor/NR6028T3R0N.pdf; I 
 <rectangle x1="-0.1999" y1="-0.4001" x2="0.1999" y2="0.4001" layer="35"/>
 <rectangle x1="-0.3" y1="-0.5" x2="0.3" y2="0.5" layer="21"/>
 </package>
+<package name="SRF2012A">
+<description>SRF2012A common-mode choke&lt;br/&gt;
+http://www.bourns.com/data/global/pdfs/SRF2012A.pdf</description>
+<wire x1="1" y1="0.6" x2="0.4" y2="0.6" width="0.0508" layer="51"/>
+<wire x1="0.4" y1="0.6" x2="-0.4" y2="0.6" width="0.0508" layer="51"/>
+<wire x1="-0.4" y1="0.6" x2="-1" y2="0.6" width="0.0508" layer="51"/>
+<wire x1="-1" y1="0.6" x2="-1" y2="0.2" width="0.0508" layer="51"/>
+<wire x1="-1" y1="0.2" x2="-1" y2="-0.2" width="0.0508" layer="51"/>
+<wire x1="-1" y1="-0.2" x2="-1" y2="-0.6" width="0.0508" layer="51"/>
+<wire x1="-1" y1="-0.6" x2="-0.4" y2="-0.6" width="0.0508" layer="51"/>
+<wire x1="-0.4" y1="-0.6" x2="0.4" y2="-0.6" width="0.0508" layer="51"/>
+<wire x1="0.4" y1="-0.6" x2="1" y2="-0.6" width="0.0508" layer="51"/>
+<wire x1="1" y1="-0.6" x2="1" y2="-0.2" width="0.0508" layer="51"/>
+<wire x1="1" y1="-0.2" x2="1" y2="0.2" width="0.0508" layer="51"/>
+<wire x1="1" y1="0.2" x2="1" y2="0.6" width="0.0508" layer="51"/>
+<wire x1="0.4" y1="-0.6" x2="0.4" y2="-0.2" width="0.0508" layer="51"/>
+<wire x1="0.4" y1="-0.2" x2="1" y2="-0.2" width="0.0508" layer="51"/>
+<wire x1="1" y1="0.2" x2="0.4" y2="0.2" width="0.0508" layer="51"/>
+<wire x1="0.4" y1="0.2" x2="0.4" y2="0.6" width="0.0508" layer="51"/>
+<wire x1="-0.4" y1="0.6" x2="-0.4" y2="0.2" width="0.0508" layer="51"/>
+<wire x1="-0.4" y1="0.2" x2="-1" y2="0.2" width="0.0508" layer="51"/>
+<wire x1="-1" y1="-0.2" x2="-0.4" y2="-0.2" width="0.0508" layer="51"/>
+<wire x1="-0.4" y1="-0.2" x2="-0.4" y2="-0.6" width="0.0508" layer="51"/>
+<smd name="1" x="-1" y="0.4" dx="0.9" dy="0.4" layer="1"/>
+<smd name="2" x="1" y="0.4" dx="0.9" dy="0.4" layer="1"/>
+<smd name="3" x="1" y="-0.4" dx="0.9" dy="0.4" layer="1"/>
+<smd name="4" x="-1" y="-0.4" dx="0.9" dy="0.4" layer="1"/>
+<wire x1="-1" y1="0.7" x2="1" y2="0.7" width="0.1524" layer="21"/>
+<wire x1="-1" y1="-0.7" x2="1" y2="-0.7" width="0.1524" layer="21"/>
+<wire x1="-0.4" y1="-0.5" x2="-0.2" y2="0.5" width="0.1524" layer="21"/>
+<wire x1="-0.1" y1="-0.5" x2="0.1" y2="0.5" width="0.1524" layer="21"/>
+<wire x1="0.2" y1="-0.5" x2="0.4" y2="0.5" width="0.1524" layer="21"/>
+<rectangle x1="-1" y1="0.2" x2="-0.4" y2="0.6" layer="51"/>
+<rectangle x1="0.4" y1="0.2" x2="1" y2="0.6" layer="51"/>
+<rectangle x1="0.4" y1="-0.6" x2="1" y2="-0.2" layer="51"/>
+<rectangle x1="-1" y1="-0.6" x2="-0.4" y2="-0.2" layer="51"/>
+</package>
 </packages>
 <symbols>
 <symbol name="LED">
@@ -465,6 +503,32 @@ Got from http://www.yuden.co.jp/ut/product/category/inductor/NR6028T3R0N.pdf; I 
 <text x="0" y="-2.032" size="1.27" layer="96" align="bottom-center">&gt;VALUE</text>
 <pin name="1" x="-7.62" y="0" visible="off" length="short" direction="pas" swaplevel="1"/>
 <pin name="2" x="7.62" y="0" visible="off" length="short" direction="pas" swaplevel="1" rot="R180"/>
+</symbol>
+<symbol name="COMMON-MODE-CHOKE">
+<wire x1="-5.08" y1="2.54" x2="-3.81" y2="1.27" width="0.254" layer="94" curve="90" cap="flat"/>
+<wire x1="-2.54" y1="2.54" x2="-3.81" y2="1.27" width="0.254" layer="94" curve="-90" cap="flat"/>
+<wire x1="-2.54" y1="2.54" x2="-1.27" y2="1.27" width="0.254" layer="94" curve="90" cap="flat"/>
+<wire x1="0" y1="2.54" x2="-1.27" y2="1.27" width="0.254" layer="94" curve="-90" cap="flat"/>
+<wire x1="0" y1="2.54" x2="1.27" y2="1.27" width="0.254" layer="94" curve="90" cap="flat"/>
+<wire x1="2.54" y1="2.54" x2="1.27" y2="1.27" width="0.254" layer="94" curve="-90" cap="flat"/>
+<wire x1="2.54" y1="2.54" x2="3.81" y2="1.27" width="0.254" layer="94" curve="90" cap="flat"/>
+<wire x1="5.08" y1="2.54" x2="3.81" y2="1.27" width="0.254" layer="94" curve="-90" cap="flat"/>
+<text x="-4.318" y="3.048" size="1.778" layer="95">&gt;NAME</text>
+<text x="0" y="-4.572" size="1.27" layer="96" align="bottom-center">&gt;VALUE</text>
+<pin name="1" x="-7.62" y="2.54" visible="off" length="short" direction="pas" swaplevel="1"/>
+<pin name="2" x="7.62" y="2.54" visible="off" length="short" direction="pas" swaplevel="1" rot="R180"/>
+<wire x1="5.08" y1="-2.54" x2="3.81" y2="-1.27" width="0.254" layer="94" curve="90" cap="flat"/>
+<wire x1="2.54" y1="-2.54" x2="3.81" y2="-1.27" width="0.254" layer="94" curve="-90" cap="flat"/>
+<wire x1="2.54" y1="-2.54" x2="1.27" y2="-1.27" width="0.254" layer="94" curve="90" cap="flat"/>
+<wire x1="0" y1="-2.54" x2="1.27" y2="-1.27" width="0.254" layer="94" curve="-90" cap="flat"/>
+<wire x1="0" y1="-2.54" x2="-1.27" y2="-1.27" width="0.254" layer="94" curve="90" cap="flat"/>
+<wire x1="-2.54" y1="-2.54" x2="-1.27" y2="-1.27" width="0.254" layer="94" curve="-90" cap="flat"/>
+<wire x1="-2.54" y1="-2.54" x2="-3.81" y2="-1.27" width="0.254" layer="94" curve="90" cap="flat"/>
+<wire x1="-5.08" y1="-2.54" x2="-3.81" y2="-1.27" width="0.254" layer="94" curve="-90" cap="flat"/>
+<pin name="3" x="7.62" y="-2.54" visible="off" length="short" direction="pas" swaplevel="1" rot="R180"/>
+<pin name="4" x="-7.62" y="-2.54" visible="off" length="short" direction="pas" swaplevel="1"/>
+<wire x1="-5.08" y1="-0.508" x2="5.08" y2="-0.508" width="0.254" layer="94"/>
+<wire x1="5.08" y1="0.508" x2="-5.08" y2="0.508" width="0.254" layer="94"/>
 </symbol>
 </symbols>
 <devicesets>
@@ -680,6 +744,24 @@ These are standard SMD and PTH capacitors. Normally 10uF, 47uF, and 100uF in ele
 <connects>
 <connect gate="G$1" pin="1" pad="1"/>
 <connect gate="G$1" pin="2" pad="2"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="COMMON_MODE_CHOKE" prefix="CH" uservalue="yes">
+<gates>
+<gate name="G$1" symbol="COMMON-MODE-CHOKE" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="SRF2012A">
+<connects>
+<connect gate="G$1" pin="1" pad="1"/>
+<connect gate="G$1" pin="2" pad="2"/>
+<connect gate="G$1" pin="3" pad="3"/>
+<connect gate="G$1" pin="4" pad="4"/>
 </connects>
 <technologies>
 <technology name=""/>

@@ -2451,9 +2451,6 @@ Should be pretty compatible with this: http://www.ti.com/lit/ds/symlink/tca6424a
 <pad name="PAD7" x="0" y="-1" drill="0.381" diameter="0.635"/>
 <pad name="PAD8" x="1" y="0" drill="0.381" diameter="0.635"/>
 <pad name="PAD9" x="-1" y="0" drill="0.381" diameter="0.635"/>
-<pad name="PAD10" x="-1" y="0" drill="0.381" diameter="0.635"/>
-<pad name="PAD11" x="-1" y="-1" drill="0.381" diameter="0.635"/>
-<pad name="PAD12" x="0" y="-1" drill="0.381" diameter="0.635"/>
 </package>
 </packages>
 <symbols>
@@ -3868,7 +3865,7 @@ http://www.digikey.com/product-detail/en/TCA6424ARGJR/296-27844-1-ND/2411683</de
 </device>
 </devices>
 </deviceset>
-<deviceset name="74X3G34" prefix="IC" uservalue="yes">
+<deviceset name="74X3G34" prefix="IC">
 <description>Triple buffer</description>
 <gates>
 <gate name="G$1" symbol="74X3G34" x="0" y="0"/>
@@ -4629,7 +4626,7 @@ http://www.digikey.com/product-detail/en/TCA6424ARGJR/296-27844-1-ND/2411683</de
 <connect gate="G$1" pin="!INT" pad="32"/>
 <connect gate="G$1" pin="!RESET" pad="28"/>
 <connect gate="G$1" pin="ADDR" pad="26"/>
-<connect gate="G$1" pin="GND" pad="25 PAD PAD1 PAD2 PAD3 PAD4 PAD5 PAD6 PAD7 PAD8 PAD9 PAD10 PAD11 PAD12"/>
+<connect gate="G$1" pin="GND" pad="25 PAD PAD1 PAD2 PAD3 PAD4 PAD5 PAD6 PAD7 PAD8 PAD9"/>
 <connect gate="G$1" pin="P00" pad="1"/>
 <connect gate="G$1" pin="P01" pad="2"/>
 <connect gate="G$1" pin="P02" pad="3"/>

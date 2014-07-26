@@ -40,3 +40,6 @@ eagle.epf
 
 # SketchUp backup files:
 *.skb
+
+# these are generated files:
+eagleUp/

@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="3" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.025" altunitdist="inch" altunit="inch"/>
+<grid distance="0.5" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.025" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
@@ -2007,6 +2007,7 @@ Untested!</description>
 <wire x1="-2" y1="-2.4" x2="-2" y2="-2.8" width="0.1524" layer="21"/>
 <wire x1="0" y1="-2.4" x2="0" y2="-3.2" width="0.1524" layer="21"/>
 <circle x="-10.5" y="2.5" radius="0.5" width="0.3" layer="21"/>
+<text x="-9.5" y="-3.5" size="0.762" layer="21" ratio="12" rot="R90">90</text>
 </package>
 <package name="DF40-RCP-90">
 <description>Hirose DF40 90-pin receptacle&lt;br/&gt;
@@ -2219,6 +2220,7 @@ Untested!</description>
 <wire x1="-2" y1="-2.4" x2="-2" y2="-2.8" width="0.1524" layer="21"/>
 <wire x1="0" y1="-2.4" x2="0" y2="-3.2" width="0.1524" layer="21"/>
 <circle x="-11" y="-2.5" radius="0.5" width="0.3" layer="21"/>
+<text x="-10" y="2.5" size="0.762" layer="21" ratio="12" rot="R90">90</text>
 </package>
 <package name="DF40-HDR-80">
 <description>Hirose DF40 80-pin header&lt;br/&gt;
@@ -2414,6 +2416,7 @@ Untested!</description>
 <wire x1="-2" y1="-2.4" x2="-2" y2="-2.8" width="0.1524" layer="21"/>
 <wire x1="0" y1="-2.4" x2="0" y2="-3.2" width="0.1524" layer="21"/>
 <circle x="-10" y="2.5" radius="0.5" width="0.3" layer="21"/>
+<text x="-9" y="-3" size="0.762" layer="21" ratio="12" rot="R90">80</text>
 </package>
 <package name="DF40-RCP-80">
 <description>Hirose DF40 80-pin receptacle &lt;br/&gt;
@@ -2606,6 +2609,7 @@ Untested!</description>
 <wire x1="-2" y1="-2.4" x2="-2" y2="-2.8" width="0.1524" layer="21"/>
 <wire x1="0" y1="-2.4" x2="0" y2="-3.2" width="0.1524" layer="21"/>
 <circle x="-10" y="-2.5" radius="0.5" width="0.3" layer="21"/>
+<text x="-9" y="2.5" size="0.762" layer="21" ratio="12" rot="R90">80</text>
 </package>
 <package name="DF40-RCP-60">
 <description>Hirose DF40 60-pin receptacle&lt;br/&gt;
@@ -2755,6 +2759,7 @@ Untested!</description>
 <wire x1="-2" y1="-2.4" x2="-2" y2="-2.8" width="0.1524" layer="21"/>
 <wire x1="0" y1="-2.4" x2="0" y2="-3.2" width="0.1524" layer="21"/>
 <circle x="-8" y="-2.5" radius="0.5" width="0.3" layer="21"/>
+<text x="-7" y="2.5" size="0.762" layer="21" ratio="12" rot="R90">60</text>
 </package>
 <package name="DF40-HDR-60">
 <description>Hirose DF40 60-pin header&lt;br/&gt;
@@ -2905,6 +2910,7 @@ Untested!</description>
 <wire x1="-2" y1="-2.4" x2="-2" y2="-2.8" width="0.1524" layer="21"/>
 <wire x1="0" y1="-2.4" x2="0" y2="-3.2" width="0.1524" layer="21"/>
 <circle x="-7.5" y="2.5" radius="0.5" width="0.3" layer="21"/>
+<text x="-7" y="-3" size="0.762" layer="21" ratio="12" rot="R90">60</text>
 </package>
 <package name="ATX-24-VERT">
 <description>Mini-Fit Jr. 5566 24-pin vertical header&lt;br/&gt;
@@ -3167,6 +3173,59 @@ Apparently the power LEDs can ofter be bidirectional?  Doesn't seem to be the ca
 <text x="-2.54" y="-5.08" size="0.762" layer="21" font="vector" ratio="12" align="bottom-center">-</text>
 <text x="-2.54" y="2.54" size="0.762" layer="21" font="vector" ratio="12" rot="R180" align="bottom-center">-</text>
 <text x="5.08" y="-5.08" size="0.762" layer="21" font="vector" ratio="12" align="bottom-center">NC</text>
+</package>
+<package name="ATX-24-VERT-NOPEGS">
+<description>Mini-Fit Jr. 5566 / TE VAL-U-LOK 24-pin vertical header, without board pegs&lt;br/&gt;
+Suitable for ATX 24 pin connectors&lt;br/&gt;
+
+Verified the footprint for these parts&lt;br/&gt;
+http://www.digikey.com/product-detail/en/2-1586037-4/A30613-ND/701618&lt;br/&gt;
+http://www.digikey.com/product-detail/en/0039281243/WM3811-ND/356033&lt;br/&gt;
+
+Which have these drawings:&lt;br/&gt;
+http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&amp;DocNm=1586037&amp;DocType=Customer+Drawing&amp;DocLang=English&lt;br/&gt;
+http://www.molex.com/pdm_docs/sd/039281243_sd.pdf&lt;br/&gt;
+
+&lt;br/&gt;
+The right-angle connector specifies a 1.8mm drill but the vertical one specifies a 1.4mm drill, so just using a 1.8mm drill for now.</description>
+<pad name="1" x="23.1" y="-5.5" drill="1.8"/>
+<pad name="2" x="18.9" y="-5.5" drill="1.8"/>
+<pad name="3" x="14.7" y="-5.5" drill="1.8"/>
+<pad name="4" x="10.5" y="-5.5" drill="1.8"/>
+<pad name="5" x="6.3" y="-5.5" drill="1.8"/>
+<pad name="6" x="2.1" y="-5.5" drill="1.8"/>
+<pad name="7" x="-2.1" y="-5.5" drill="1.8"/>
+<pad name="8" x="-6.3" y="-5.5" drill="1.8"/>
+<pad name="9" x="-10.5" y="-5.5" drill="1.8"/>
+<pad name="10" x="-14.7" y="-5.5" drill="1.8"/>
+<pad name="11" x="-18.9" y="-5.5" drill="1.8"/>
+<pad name="12" x="-23.1" y="-5.5" drill="1.8"/>
+<pad name="13" x="23.1" y="0" drill="1.8"/>
+<pad name="14" x="18.9" y="0" drill="1.8"/>
+<pad name="15" x="14.7" y="0" drill="1.8"/>
+<pad name="16" x="10.5" y="0" drill="1.8"/>
+<pad name="17" x="6.3" y="0" drill="1.8"/>
+<pad name="18" x="2.1" y="0" drill="1.8"/>
+<pad name="19" x="-2.1" y="0" drill="1.8"/>
+<pad name="20" x="-6.3" y="0" drill="1.8"/>
+<pad name="21" x="-10.5" y="0" drill="1.8"/>
+<pad name="22" x="-14.7" y="0" drill="1.8"/>
+<pad name="23" x="-18.9" y="0" drill="1.8"/>
+<pad name="24" x="-23.1" y="0" drill="1.8"/>
+<wire x1="25.8" y1="1.85" x2="6" y2="1.85" width="0.254" layer="21"/>
+<wire x1="6" y1="1.85" x2="-6" y2="1.85" width="0.254" layer="21"/>
+<wire x1="-6" y1="1.85" x2="-25.8" y2="1.85" width="0.254" layer="21"/>
+<wire x1="-25.8" y1="-2.95" x2="-25.8" y2="-7.75" width="0.254" layer="21"/>
+<wire x1="-25.8" y1="-7.75" x2="25.8" y2="-7.75" width="0.254" layer="21"/>
+<wire x1="25.8" y1="-7.75" x2="25.8" y2="-6.3" width="0.254" layer="21"/>
+<wire x1="25.8" y1="-6.3" x2="25.8" y2="-4.8" width="0.254" layer="21"/>
+<wire x1="25.8" y1="-4.8" x2="25.8" y2="-2.95" width="0.254" layer="21"/>
+<wire x1="25.8" y1="-2.95" x2="25.8" y2="1.85" width="0.254" layer="21"/>
+<wire x1="6" y1="4.05" x2="-6" y2="4.05" width="0.254" layer="21"/>
+<wire x1="25.8" y1="-4.8" x2="25.8" y2="-6.3" width="0.254" layer="21" curve="-180"/>
+<wire x1="-6" y1="4.05" x2="-6" y2="1.85" width="0.254" layer="21"/>
+<wire x1="6" y1="4.05" x2="6" y2="1.85" width="0.254" layer="21"/>
+<wire x1="-25.8" y1="1.85" x2="-25.8" y2="-2.95" width="0.254" layer="21"/>
 </package>
 </packages>
 <symbols>
@@ -5804,12 +5863,27 @@ Apparently the power LEDs can ofter be bidirectional?  Doesn't seem to be the ca
 </device>
 </devices>
 </deviceset>
-<deviceset name="ATX-PWR">
+<deviceset name="ATX-PWR" prefix="C">
 <gates>
 <gate name="G$1" symbol="ATX-PWR" x="0" y="0"/>
 </gates>
 <devices>
 <device name="VERT" package="ATX-24-VERT">
+<connects>
+<connect gate="G$1" pin="!PS_ON" pad="16"/>
+<connect gate="G$1" pin="-12V" pad="14"/>
+<connect gate="G$1" pin="12V" pad="10 11"/>
+<connect gate="G$1" pin="3.3V" pad="1 2 12 13"/>
+<connect gate="G$1" pin="5V" pad="4 6 21 22 23"/>
+<connect gate="G$1" pin="5V_STBY" pad="9"/>
+<connect gate="G$1" pin="GND" pad="3 5 7 15 17 18 19 24"/>
+<connect gate="G$1" pin="PWR_OK" pad="8"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="VERT-NOPEGS" package="ATX-24-VERT-NOPEGS">
 <connects>
 <connect gate="G$1" pin="!PS_ON" pad="16"/>
 <connect gate="G$1" pin="-12V" pad="14"/>
