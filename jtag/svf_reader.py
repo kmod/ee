@@ -1,140 +1,53 @@
 import os
 import sys
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
-
-import Queue
-import threading
 import time
 
-from debugger.controller import Controller
-
-print_lock = threading.Lock()
+from hub.hub import ControllerHub
+from hub.controllers import JtagAutoController
 
 class JtagController(object):
-    def __init__(self, use_verify_thread):
+    def __init__(self, jtag_stream):
+        self.jtag_stream = jtag_stream
+
         self.state = None
-        self.ctlr = Controller(autoflush=0, br=1000000)
-
         self.npulses = 0
-        self.EST_SPEED = 100000.0
-        self.bufbuf = ''
 
-        if use_verify_thread:
-            self._verify_queue = Queue.Queue(maxsize=4)
-
-            t = threading.Thread(target=self._verify_thread)
-            t.setDaemon(True)
-            t.start()
-
-    def _write(self, s):
-        self.ctlr._write(s)
-
-    def sleep_micros(self, micros):
-        if micros > 100000:
-            with print_lock:
-                print "Sleeping for %.1fs" % (micros / 1000000.0)
-
-        assert self.state in ("drpause", "idle", "irpause"), self.state
-
-        # start = time.time()
-        micros_per_pulse = 1000000.0 / (self.EST_SPEED)
-        npulses = int((micros + micros_per_pulse + 1) / micros_per_pulse)
-        npulses = max(npulses, 5)
-        # print "Doing %d pulses" % npulses
-        for i in xrange(npulses):
-            self.pulse(0, 0, get_tdo=False)
-        # print time.time() - start
-
-    def flush(self):
-        # assert not self.bufbuf
-        self._write(self.bufbuf)
-        self.bufbuf = ""
-        self.ctlr.flush()
-        # time.sleep(0.001)
-
-    def pulse(self, tms, tdi, get_tdo=True):
-        # with print_lock:
-            # print "pulse", tms, tdi, get_tdo
-        data = (tms << 3) | (tdi << 2) | (get_tdo << 1)
-        data = chr(data + 16)
-        self.bufbuf += data
-        if len(self.bufbuf) >= 1024:
-            self._write(self.bufbuf)
-            # time.sleep(0.001)
-            self.bufbuf = ""
-        self.npulses += 1
-
-        # if self.npulses % 100 == 0:
-            # time.sleep(0.001)
-
-    def queue_verify(self, nbits, tdo, tdo_mask):
-        return # verifying is broken
-        try:
-            self._verify_queue.put((nbits, tdo, tdo_mask), timeout=0)
-        except Queue.Full:
-            self.flush()
-            self._verify_queue.put((nbits, tdo, tdo_mask), timeout=60)
-        # self.join()
-
-    def _verify_thread(self):
-        while True:
-            nbits, tdo, mask = self._verify_queue.get()
-            print "waiting for %d bits" % nbits
-
-            hex_digits = [0] * ((nbits + 3) / 4)
-            for i in xrange(nbits):
-                if i and i % 10000 == 0:
-                    with print_lock:
-                        print "i =", i, self.ctlr.q.qsize()
-                # print i, nbits
-                c = self.ctlr.q.get()
-                if c != '\0':
-                    hex_digits[i/4] |= (1 << (i%4))
-
-            got_tdo_hex = ''.join(reversed([hex(i)[2] for i in hex_digits]))
-            got_tdo = int(got_tdo_hex, 16)
-
-            mismatch = (got_tdo ^ tdo) & mask
-            if mismatch:
-                if mask < (1<<1000):
-                    with print_lock:
-                        print "Gotten:     ", bin(got_tdo)[2:].rjust(nbits, '0')
-                        print "Expected:   ", bin(tdo)[2:].rjust(nbits, '0')
-                        print "Care-mask:  ", bin(mask)[2:].rjust(nbits, '0')
-                else:
-                    with print_lock:
-                        print "Mismatch -- too long to print, but %d/%d bits different" % (bin(mismatch).count('1'), nbits)
-                        # with open("gotten.out", 'w') as f:
-                            # f.write(bin(got_tdo)[2:].rjust(nbits, '0'))
-                        # with open("expected.out", 'w') as f:
-                            # f.write(bin(tdo)[2:].rjust(nbits, '0'))
-                        # with open("mask.out", 'w') as f:
-                            # f.write(bin(mask)[2:].rjust(nbits, '0'))
-                        # print "Written to gotten.out, expected.out, and mask.out"
-                # raise Exception()
-                os._exit(-1)
-            self._verify_queue.task_done()
-
-    def join(self):
-        self.flush()
-        self._verify_queue.join()
-
-    def send(self, nbits, tdi, tdo_mask):
+    def send(self, nbits, tdi, tdo_mask, tdo):
         assert self.state in ("irshift", "drshift"), self.state
 
-        tdi_hex = hex(tdi)
-        assert tdi_hex.startswith("0x")
-        if tdi_hex.endswith("L"):
-            tdi_hex = tdi_hex[2:-1]
+        tdi_bin = bin(tdi)
+        assert tdi_bin.startswith('0b')
+        if tdi_bin.endswith("L"):
+            tdi_bin = tdi_bin[2:-1]
         else:
-            tdi_hex = tdi_hex[2:]
-        tdi_hex = tdi_hex.rjust((nbits + 3) / 4, '0')
+            tdi_bin = tdi_bin[2:]
+        tdi_bin = tdi_bin.rjust(nbits, '0')
+
+        mask_bin = bin(tdo_mask)
+        assert mask_bin.startswith("0b")
+        if mask_bin.endswith("L"):
+            mask_bin = mask_bin[2:-1]
+        else:
+            mask_bin = mask_bin[2:]
+        mask_bin = mask_bin.rjust(nbits, '0')
+
+        tdo_bin = bin(tdo)
+        assert tdo_bin.startswith("0b")
+        if tdo_bin.endswith("L"):
+            tdo_bin = tdo_bin[2:-1]
+        else:
+            tdo_bin = tdo_bin[2:]
+        tdo_bin = tdo_bin.rjust(nbits, '0')
 
         for i in xrange(nbits):
-            tdi_chr = tdi_hex[-(i/4 + 1)]
-            tdi_bit = (int(tdi_chr, 16) >> (i % 4)) & 1
-            get_tdo = True
-            self.pulse(1 if i == nbits-1 else 0, tdi_bit, get_tdo=get_tdo)
+            tdi_bit = 0 if (tdi_bin[-i-1] == '0') else 1
+            care_bit = 0 if (mask_bin[-i-1] == '0') else 1
+            if care_bit:
+                tdo_bit = 0 if (tdo_bin[-i-1] == '0') else 1
+            else:
+                tdo_bit = 0
+            tms_bit = 1 if i == nbits-1 else 0
+            self.pulse(tms_bit, tdi_bit, care_bit, tdo_bit)
 
             if (nbits - i) % 10000 == 0:
                 print "%d bits left in this command" % (nbits - i,)
@@ -144,95 +57,111 @@ class JtagController(object):
         else:
             self.state = "drexit1"
 
+        self.jtag_stream._wait_for_acks(0)
+
+    def join(self):
+        return self.jtag_stream.join()
+
+    def sleep_micros(self, micros):
+        if micros > 100000:
+            print "Sleeping for %.1fs" % (micros / 1000000.0)
+
+        assert self.state in ("drpause", "idle", "irpause"), self.state
+        self.jtag_stream.sleep_micros(micros)
+
+    def pulse(self, tms, tdi, care, tdo):
+        self.jtag_stream.pulse(tms, tdi, care, tdo)
+        self.npulses += 1
+
     def goto(self, new_state):
         new_state = new_state.lower()
 
         if self.state is None or new_state == "reset":
             for i in xrange(5):
-                self.pulse(1, 0, get_tdo=False)
+                self.pulse(1, 0, 0, 0)
             self.state = "reset"
 
         assert self.state
 
         while new_state != self.state:
             if self.state == "reset":
-                self.pulse(0, 0, get_tdo=False)
+                self.pulse(0, 0, 0, 0)
                 self.state = "idle"
             elif self.state == "idle":
-                self.pulse(1, 0, get_tdo=False)
+                self.pulse(1, 0, 0, 0)
                 self.state = "drselect"
             elif self.state == "irpause":
-                self.pulse(1, 0, get_tdo=False)
+                self.pulse(1, 0, 0, 0)
                 self.state = "irexit2"
             elif self.state == "irexit2":
                 if new_state in ("irupdate", "idle") or new_state.startswith("dr"):
-                    self.pulse(1, 0, get_tdo=False)
+                    self.pulse(1, 0, 0, 0)
                     self.state = "irupdate"
                 elif new_state == "irshift":
-                    self.pulse(0, 0, get_tdo=False)
+                    self.pulse(0, 0, 0, 0)
                     self.state = "irshift"
                 else:
                     raise Exception(new_state)
             elif self.state == "irupdate" or self.state == "drupdate":
                 if new_state == "idle":
-                    self.pulse(0, 0, get_tdo=False)
+                    self.pulse(0, 0, 0, 0)
                     self.state = "idle"
                 else:
-                    self.pulse(1, 0, get_tdo=False)
+                    self.pulse(1, 0, 0, 0)
                     self.state = "drselect"
             elif self.state == "drselect":
                 if new_state.startswith("dr"):
-                    self.pulse(0, 0, get_tdo=False)
+                    self.pulse(0, 0, 0, 0)
                     self.state = "drcapture"
                 else:
-                    self.pulse(1, 0, get_tdo=False)
+                    self.pulse(1, 0, 0, 0)
                     self.state = "irselect"
             elif self.state == "irselect":
                 assert new_state.startswith("ir")
-                self.pulse(0, 0, get_tdo=False)
+                self.pulse(0, 0, 0, 0)
                 self.state = "ircapture"
             elif self.state == "drcapture":
                 if new_state in ("drexit1", "drpause"):
-                    self.pulse(1, 0, get_tdo=False)
+                    self.pulse(1, 0, 0, 0)
                     self.state = "drexit1"
                 elif new_state == "drshift":
-                    self.pulse(0, 0, get_tdo=False)
+                    self.pulse(0, 0, 0, 0)
                     self.state = "drshift"
                 else:
                     raise Exception(new_state)
             elif self.state == "ircapture":
                 if new_state in ("irexit1", "irpause"):
-                    self.pulse(1, 0, get_tdo=False)
+                    self.pulse(1, 0, 0, 0)
                     self.state = "irexit1"
                 elif new_state == "irshift":
-                    self.pulse(0, 0, get_tdo=False)
+                    self.pulse(0, 0, 0, 0)
                     self.state = "irshift"
                 else:
                     raise Exception(new_state)
             elif self.state == "drexit1":
                 if new_state == "drpause":
-                    self.pulse(0, 0, get_tdo=False)
+                    self.pulse(0, 0, 0, 0)
                     self.state = "drpause"
                 elif new_state in ("idle", "drupdate"):
-                    self.pulse(1, 0, get_tdo=False)
+                    self.pulse(1, 0, 0, 0)
                     self.state = "drupdate"
                 else:
                     raise Exception(new_state)
             elif self.state == "irexit1":
                 if new_state == "irpause":
-                    self.pulse(0, 0, get_tdo=False)
+                    self.pulse(0, 0, 0, 0)
                     self.state = "irpause"
                 elif new_state == "idle":
-                    self.pulse(1, 0, get_tdo=False)
+                    self.pulse(1, 0, 0, 0)
                     self.state = "irupdate"
                 else:
                     raise Exception(new_state)
             elif self.state == "drpause":
-                self.pulse(1, 0, get_tdo=False)
+                self.pulse(1, 0, 0, 0)
                 self.state = "drexit2"
             elif self.state == "drexit2":
                 if new_state in ("drupdate", "idle", "irshift"):
-                    self.pulse(1, 0, get_tdo=False)
+                    self.pulse(1, 0, 0, 0)
                     self.state = "drupdate"
                 else:
                     raise Exception(new_state)
@@ -240,7 +169,9 @@ class JtagController(object):
                 raise Exception((self.state, new_state))
 
 def read_svf_file(fn):
-    ctlr = JtagController(use_verify_thread=True)
+    hub = ControllerHub(br=1000000)
+    stream = JtagAutoController(hub=hub)
+    ctlr = JtagController(stream)
 
     start = time.time()
     endir = None
@@ -289,17 +220,19 @@ def read_svf_file(fn):
 
         bytes_read += len(l)
 
+        l = l.strip()
+
+        if l.startswith('//'):
+            print l
+            continue
+
         l = l.split('//')[0].strip()
         if not l:
             continue
 
         cur.append(l)
 
-        with print_lock:
-            if bytes_read < 10000:
-                print l
-            else:
-                print "%d/%d (%.1f%%)" % (bytes_read, size, 100.0 * bytes_read / size)
+        print "%d/%d (%.1f%%)" % (bytes_read, size, 100.0 * bytes_read / size)
 
         if not l.endswith(';'):
             continue
@@ -309,6 +242,8 @@ def read_svf_file(fn):
 
         assert l.endswith(';')
         l = l[:-1]
+
+        print l[:120]
 
         tokens = l.split()
         cmd, args = tokens[0], tokens[1:]
@@ -386,6 +321,9 @@ def read_svf_file(fn):
         elif cmd == "SIR" or cmd == "SDR":
             assert "TDI" in args
 
+            # TODO should follow the spec about how TDO and MASK behave if they're not specified
+            # (the same as for hir/hdr/tir/tdr)
+
             if cmd == "SIR":
                 prev_mask, prev_length = sir_mask, sir_length
             else:
@@ -393,30 +331,38 @@ def read_svf_file(fn):
 
             length = int(args[0])
             tdi = None
-            tdo = 0
+            tdo = None
             mask = None
+            _mask = 0
             for i in xrange(1, len(args), 2):
                 if args[i] == "TDI":
                     tdi = int(args[i+1][1:-1], 16)
                 elif args[i] == "TDO":
                     tdo = int(args[i+1][1:-1], 16)
                 elif args[i] == "MASK":
-                    mask = int(args[i+1][1:-1], 16)
+                    _mask = mask = int(args[i+1][1:-1], 16)
                 elif args[i] == "SMASK":
                     pass
                 else:
                     raise Exception(args[i])
 
-            if mask is None:
-                if length == prev_length:
-                    mask = prev_mask
-                else:
-                    mask = (1 << length) - 1
-
-            if cmd == "SIR":
-                sir_mask, sir_length = mask, length
+            if tdo is None:
+                mask = 0
+                tdo = 0
             else:
-                sdr_mask, sdr_length = mask, length
+                if mask is None:
+                    if length == prev_length:
+                        mask = prev_mask
+                    else:
+                        mask = (1 << length) - 1
+
+                if cmd == "SIR":
+                    sir_mask, sir_length = mask, length
+                else:
+                    sdr_mask, sdr_length = mask, length
+
+            if mask != _mask:
+                print "new mask:", hex(mask)
 
             if cmd == "SIR":
                 ctlr.goto("irshift")
@@ -431,11 +377,9 @@ def read_svf_file(fn):
                 mask = (((tdr_mask << length) + mask) << hdr_length) + hdr_mask
                 length += hdr_length + tdr_length
 
-            # with print_lock:
-                # print length, hex(tdi), hex(tdo), hex(mask)
+            # print length, hex(tdi), hex(tdo), hex(mask)
 
-            ctlr.send(length, tdi, mask)
-            ctlr.queue_verify(length, tdo, mask)
+            ctlr.send(length, tdi, mask, tdo)
             # ctlr.join()
 
             if cmd == "SIR":
@@ -448,11 +392,10 @@ def read_svf_file(fn):
     assert not cur, "trailing command"
 
     ctlr.join()
-    with print_lock:
-        elapsed = time.time() - start
-        print "Took %.1fs to program, sent %d pulses (%.1fkHz)" % (elapsed, ctlr.npulses, ctlr.npulses * 0.001 / elapsed)
-        print "Sent %d bytes, received %d" % (ctlr.ctlr.bytes_written, ctlr.ctlr.bytes_read)
-    ctlr.ctlr.ser.close()
+    elapsed = time.time() - start
+    print "Took %.1fs to program, sent %d pulses (%.1fkHz)" % (elapsed, ctlr.npulses, ctlr.npulses * 0.001 / elapsed)
+    # print "Sent %d bytes, received %d" % (ctlr.ctlr.bytes_written, ctlr.ctlr.bytes_read)
+    stream.close()
 
 def idcode_to_name(code):
     IDCODES = [
@@ -669,7 +612,7 @@ if __name__ == "__main__":
                 idcode &= (1<<32) - 1
 
                 idcode_str = idcode_to_name(idcode)
-                if idcode_str and 'unknown IDCODE' not in idcode_str:
+                if idcode_str and 'unknown' not in idcode_str:
                     print idcode_str
                     identified_instr_lens.append(idcode_len)
                     break
@@ -689,5 +632,6 @@ if __name__ == "__main__":
                 # traceback.print_exc()
         # cProfile.run("run()", "cprofile.stats")
         read_svf_file(fn)
+
 
 

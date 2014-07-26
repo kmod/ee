@@ -1,6 +1,14 @@
+ISE_BIN := /opt/Xilinx/14.7/ISE_DS/ISE/bin/lin64
+ifeq ($(wildcard $(ISE_BIN)),)
+ISE_BIN := /opt/Xilinx/14.6/ISE_DS/ISE/bin/lin64
+endif
+
 CWD := $(dir $(lastword $(MAKEFILE_LIST)))
 
-$(CWD)main.syr: $(CWD)main.v
+xst/projnav.tmp:
+	mkdir -p $@
+
+$(CWD)main.syr: $(CWD)main.v xst/projnav.tmp
 	cd $(CWD); $(ISE_BIN)/xst -intstyle ise -ifn "main.xst" -ofn "main.syr"
 	touch $(CWD)did_xst
 
