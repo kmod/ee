@@ -144,7 +144,7 @@ class JtagController(object):
         else:
             self.state = "drexit1"
 
-        # self.jtag_stream._wait_for_acks(0)
+        self.jtag_stream._wait_for_acks(0)
 
     def join(self):
         return self.jtag_stream.join()
@@ -332,8 +332,7 @@ def read_svf_file(fn):
         assert l.endswith(';')
         l = l[:-1]
 
-        if len(l) < 120:
-            print l
+        print l[:120]
 
         tokens = l.split()
         cmd, args = tokens[0], tokens[1:]

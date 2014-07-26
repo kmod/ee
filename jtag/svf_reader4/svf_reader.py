@@ -529,6 +529,7 @@ if __name__ == "__main__":
             ctlr.flush()
 
     elif fn == "enumerate":
+        1/0
         MAX_CHAIN_SIZE = 8
         MAX_INSTRUCTION_LEN = 8
         MAX_BYPASS_INST = MAX_INSTRUCTION_LEN * MAX_CHAIN_SIZE
