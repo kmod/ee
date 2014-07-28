@@ -332,6 +332,8 @@ def doOutput(assem, rn, of):
                     impact_end(f)
 
                 print >>of, "%s/%s.svf: %s/%s.batch %s" % (build_dir, bn, build_dir, bn, os.path.normpath(os.path.join(build_dir, bitstreamFor(boardname, jobj))))
+                if verify:
+                    print >>of, "\tfalse # verification broken in SVF files!"
                 print >>of, "\tcd %s; $(ISE_BIN)/impact -batch %s.batch || (rm -f %s.svf; false)" % (build_dir, bn, bn)
                 print >>of, "prog_%s_%s.%s%s: %s/%s.svf" % (aname, boardname, jobj.name, "_noverify" if not verify else "", build_dir, bn)
                 print >>of, "\tcd %s; %s %s.svf" % (build_dir, SVF_PLAYER, bn)

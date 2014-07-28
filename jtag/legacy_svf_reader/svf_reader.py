@@ -530,7 +530,73 @@ def idcode_to_name(code):
 if __name__ == "__main__":
     fn = sys.argv[1]
 
-    if fn == "spam":
+    if fn == "server":
+        import socket, struct
+        port = int(sys.argv[2])
+        s = socket.socket()
+        s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        s.bind(("localhost", port))
+        s.listen(3)
+
+        ctlr = JtagController(use_verify_thread=False)
+        ctlr.goto("RESET")
+
+        while True:
+            sock = s.accept()[0]
+            print "socket opened"
+
+            def recvall(n):
+                r = []
+                nread = 0
+                while nread < n:
+                    s = sock.recv(n - nread)
+                    if not s:
+                        raise EOFError()
+
+                    nread += len(s)
+                    r.append(s)
+                return ''.join(r)
+
+            while True:
+                try:
+                    cmd = recvall(5)
+                except EOFError:
+                    print "client disconnected"
+                    break
+
+                if cmd == "shift":
+                    recvall(1) # ':'
+                    nbits = recvall(4)
+                    nbits = struct.unpack('<L', nbits)[0]
+                    print "shifting %d bits" % nbits
+
+                    nbytes = (nbits + 7) // 8
+                    # print "getting %d bytes of tms, then %d bytes of tdi" % (nbytes, nbytes)
+                    tms = recvall(nbytes)
+                    tdi = recvall(nbytes)
+
+                    for i in xrange(nbits):
+                        byte = i // 8
+                        bit = i % 8
+
+                        ctlr.pulse((ord(tms[byte]) >> bit) & 1, (ord(tdi[byte]) >> bit) & 1, get_tdo=True)
+
+                    ctlr.flush()
+                    cur = 0
+                    for i in xrange(nbits):
+                        byte = i // 8
+                        bit = i % 8
+
+                        if i and (i % 8) == 0:
+                            sock.sendall(chr(cur))
+                            cur = 0
+                        c = ord(ctlr.ctlr.q.get())
+                        cur |= c << bit
+                    sock.sendall(chr(cur))
+                else:
+                    raise Exception(repr(cmd))
+
+    elif fn == "spam":
         ctlr = JtagController(use_verify_thread=False)
         ctlr.goto("RESET")
         ctlr.goto("IDLE")
