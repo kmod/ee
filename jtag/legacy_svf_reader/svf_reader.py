@@ -14,7 +14,6 @@ class JtagController(object):
     def __init__(self, use_verify_thread):
         self.state = None
         self.ctlr = Controller(autoflush=0, br=1000000)
-        self.ctlr._write('\x30\x81')
 
         self.npulses = 0
         self.EST_SPEED = 100000.0
@@ -92,7 +91,7 @@ class JtagController(object):
                     with print_lock:
                         print "i =", i, self.ctlr.q.qsize()
                 # print i, nbits
-                c = self.ctlr.q.get()
+                c = self.ctlr.get()
                 if c != '\0':
                     hex_digits[i/4] |= (1 << (i%4))
 
@@ -604,7 +603,7 @@ if __name__ == "__main__":
                         if i and (i % 8) == 0:
                             sock.sendall(chr(cur))
                             cur = 0
-                        c = ord(ctlr.ctlr.q.get())
+                        c = ord(ctlr.ctlr.get())
                         cur |= c << bit
                     sock.sendall(chr(cur))
                 else:
@@ -639,7 +638,7 @@ if __name__ == "__main__":
 
         r = 0
         for i in xrange(max_dr_len):
-            c = ord(ctlr.ctlr.q.get())
+            c = ord(ctlr.ctlr.get())
             r |= c << i
         while r:
             if r & 1:
@@ -659,7 +658,7 @@ if __name__ == "__main__":
         ctlr.flush()
         r1 = 0
         for i in xrange(MAX_BYPASS_INST):
-            c = ord(ctlr.ctlr.q.get())
+            c = ord(ctlr.ctlr.get())
             r1 |= c << i
         ctlr.goto("idle")
         ctlr.goto("irshift")
@@ -667,7 +666,7 @@ if __name__ == "__main__":
         ctlr.flush()
         r0 = 0
         for i in xrange(MAX_BYPASS_INST):
-            c = ord(ctlr.ctlr.q.get())
+            c = ord(ctlr.ctlr.get())
             r0 |= c << i
         r = r0 ^ r1
         assert r1, "Disconnected chain identified"
@@ -688,7 +687,7 @@ if __name__ == "__main__":
         ctlr.send(MAX_BYPASS_INST, (1 << MAX_BYPASS_INST) - 1, 0x0)
         ctlr.flush()
         for i in xrange(MAX_BYPASS_INST):
-            c = ord(ctlr.ctlr.q.get())
+            c = ord(ctlr.ctlr.get())
 
         ctlr.goto("idle")
         ctlr.goto("drshift")
@@ -700,7 +699,7 @@ if __name__ == "__main__":
 
         r = 0
         for i in xrange(DRSHIFT_SIZE):
-            c = ord(ctlr.ctlr.q.get())
+            c = ord(ctlr.ctlr.get())
             r |= c << i
         # print hex(r)
 
@@ -744,7 +743,7 @@ if __name__ == "__main__":
                 ctlr.send(cmd_len, cmd, 0x0)
                 ctlr.flush()
                 for i in xrange(cmd_len):
-                    c = ord(ctlr.ctlr.q.get())
+                    c = ord(ctlr.ctlr.get())
                 ctlr.goto("idle")
 
                 ctlr.goto("drshift")
@@ -755,7 +754,7 @@ if __name__ == "__main__":
                 idcode = 0
                 ctlr.flush()
                 for i in xrange(rtnsize):
-                    c = ord(ctlr.ctlr.q.get())
+                    c = ord(ctlr.ctlr.get())
                     idcode |= c << i
                 # print bin(idcode)
                 idcode >>= (nconnected - 1 - device_idx)
@@ -771,7 +770,7 @@ if __name__ == "__main__":
                 raise Exception("Unable to identify!")
 
 
-        assert ctlr.ctlr.q.qsize() == 0, ctlr.ctlr.q.qsize()
+        ctlr.ctlr.assertDone()
     else:
         # import cProfile
         # def run():
