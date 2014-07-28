@@ -20,7 +20,7 @@ typedef unsigned char byte;
 
 #define F_CPU 16000000
 #define BAUD_RATE 1000000
-#define MYUBRR (F_CPU / 16 / BAUD_RATE ) - 1
+#define MYUBRR ((F_CPU / 16 / BAUD_RATE) - 1)
 
 #define SWRITE(b) do {\
     while ((UCSR0A & _BV(UDRE0)) == 0) {};\

@@ -33,6 +33,9 @@ class Controller(object):
 
         self._started = threading.Event()
 
+        self.bytes_incoming = 0
+        self.lock = threading.Lock()
+
         t = threading.Thread(target=self.read_thread)
         t.setDaemon(True)
         t.start()
@@ -43,6 +46,12 @@ class Controller(object):
             # and gives the magic word
             time.sleep(.1)
         print "Connected"
+
+    def add_incoming(self, nbytes):
+        while self.bytes_incoming > 1050:
+            time.sleep(0.0)
+        with self.lock:
+            self.bytes_incoming += nbytes
 
     def read_thread(self):
         try:
@@ -72,6 +81,9 @@ class Controller(object):
                         self.ser.timeout = 1
                         s = self.ser.read(1)
                     for c in s:
+                        with self.lock:
+                            self.bytes_incoming -= 1
+                            assert self.bytes_incoming >= 0
                         self.bytes_read += 1
                         for callback in self.on_read:
                             callback(c)

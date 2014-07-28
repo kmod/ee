@@ -56,6 +56,8 @@ class JtagController(object):
     def pulse(self, tms, tdi, get_tdo=True):
         # with print_lock:
             # print "pulse", tms, tdi, get_tdo
+        if get_tdo:
+            self.ctlr.add_incoming(1)
         data = (tms << 3) | (tdi << 2) | (get_tdo << 1)
         data = chr(data + 16)
         self.bufbuf += data
@@ -69,13 +71,15 @@ class JtagController(object):
             # time.sleep(0.001)
 
     def queue_verify(self, nbits, tdo, tdo_mask):
-        return # verifying is broken
         try:
             self._verify_queue.put((nbits, tdo, tdo_mask), timeout=0)
         except Queue.Full:
             self.flush()
             self._verify_queue.put((nbits, tdo, tdo_mask), timeout=60)
         # self.join()
+
+    def _count_ones(self, n):
+        return bin(n).count('1')
 
     def _verify_thread(self):
         while True:
@@ -92,6 +96,8 @@ class JtagController(object):
                 if c != '\0':
                     hex_digits[i/4] |= (1 << (i%4))
 
+            print "Got %d bits, care about %d of them" % (nbits, self._count_ones(mask))
+
             got_tdo_hex = ''.join(reversed([hex(i)[2] for i in hex_digits]))
             got_tdo = int(got_tdo_hex, 16)
 
@@ -105,13 +111,13 @@ class JtagController(object):
                 else:
                     with print_lock:
                         print "Mismatch -- too long to print, but %d/%d bits different" % (bin(mismatch).count('1'), nbits)
-                        # with open("gotten.out", 'w') as f:
-                            # f.write(bin(got_tdo)[2:].rjust(nbits, '0'))
-                        # with open("expected.out", 'w') as f:
-                            # f.write(bin(tdo)[2:].rjust(nbits, '0'))
-                        # with open("mask.out", 'w') as f:
-                            # f.write(bin(mask)[2:].rjust(nbits, '0'))
-                        # print "Written to gotten.out, expected.out, and mask.out"
+                        with open("gotten.out", 'w') as f:
+                            f.write(bin(got_tdo)[2:].rjust(nbits, '0'))
+                        with open("expected.out", 'w') as f:
+                            f.write(bin(tdo)[2:].rjust(nbits, '0'))
+                        with open("mask.out", 'w') as f:
+                            f.write(bin(mask)[2:].rjust(nbits, '0'))
+                        print "Written to gotten.out, expected.out, and mask.out"
                 # raise Exception()
                 os._exit(-1)
             self._verify_queue.task_done()
@@ -137,7 +143,7 @@ class JtagController(object):
             get_tdo = True
             self.pulse(1 if i == nbits-1 else 0, tdi_bit, get_tdo=get_tdo)
 
-            if (nbits - i) % 10000 == 0:
+            if (nbits - i) % 100000 == 0:
                 print "%d bits left in this command" % (nbits - i,)
 
         if self.state == "irshift":
@@ -282,6 +288,7 @@ def read_svf_file(fn):
     cur = []
 
     bytes_read = 0
+    next_print = 0
 
     while True:
         l = f.readline()
@@ -300,13 +307,18 @@ def read_svf_file(fn):
             if bytes_read < 10000:
                 print l
             else:
-                print "%d/%d (%.1f%%)" % (bytes_read, size, 100.0 * bytes_read / size)
+                if bytes_read >= next_print:
+                    print "%d/%d (%.1f%%)" % (bytes_read, size, 100.0 * bytes_read / size)
+                    next_print += 100000
+
 
         if not l.endswith(';'):
             continue
         else:
             l = ''.join(cur)
             cur = []
+
+        next_print = 0
 
         assert l.endswith(';')
         l = l[:-1]

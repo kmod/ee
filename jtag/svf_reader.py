@@ -39,6 +39,9 @@ class JtagController(object):
             tdo_bin = tdo_bin[2:]
         tdo_bin = tdo_bin.rjust(nbits, '0')
 
+        ncare = mask_bin.count('1')
+        print "Sending %d bits, care about %d of them" % (nbits, ncare)
+
         for i in xrange(nbits):
             tdi_bit = 0 if (tdi_bin[-i-1] == '0') else 1
             care_bit = 0 if (mask_bin[-i-1] == '0') else 1
@@ -49,7 +52,7 @@ class JtagController(object):
             tms_bit = 1 if i == nbits-1 else 0
             self.pulse(tms_bit, tdi_bit, care_bit, tdo_bit)
 
-            if (nbits - i) % 10000 == 0:
+            if (nbits - i) % 100000 == 0:
                 print "%d bits left in this command" % (nbits - i,)
 
         if self.state == "irshift":
@@ -212,6 +215,7 @@ def read_svf_file(fn):
     cur = []
 
     bytes_read = 0
+    next_print = 0
 
     while True:
         l = f.readline()
@@ -232,7 +236,9 @@ def read_svf_file(fn):
 
         cur.append(l)
 
-        print "%d/%d (%.1f%%)" % (bytes_read, size, 100.0 * bytes_read / size)
+        if bytes_read >= next_print:
+            print "%d/%d (%.1f%%)" % (bytes_read, size, 100.0 * bytes_read / size)
+            next_print += 100000
 
         if not l.endswith(';'):
             continue
@@ -242,6 +248,7 @@ def read_svf_file(fn):
 
         assert l.endswith(';')
         l = l[:-1]
+        next_print = 0
 
         print l[:120]
 
