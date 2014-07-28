@@ -55,7 +55,7 @@ class JtagController(object):
 
     def pulse(self, tms, tdi, get_tdo=True):
         # with print_lock:
-            # print "pulse", tms, tdi, get_tdo
+            # print "pulse", tms, tdi#, get_tdo
         if get_tdo:
             self.ctlr.add_incoming(1)
         data = (tms << 3) | (tdi << 2) | (get_tdo << 1)
@@ -399,6 +399,9 @@ def read_svf_file(fn):
         elif cmd == "SIR" or cmd == "SDR":
             assert "TDI" in args
 
+            # TODO should follow the spec about how TDO and MASK behave if they're not specified
+            # (the same as for hir/hdr/tir/tdr)
+
             if cmd == "SIR":
                 prev_mask, prev_length = sir_mask, sir_length
             else:
@@ -406,30 +409,38 @@ def read_svf_file(fn):
 
             length = int(args[0])
             tdi = None
-            tdo = 0
+            tdo = None
             mask = None
+            _mask = 0
             for i in xrange(1, len(args), 2):
                 if args[i] == "TDI":
                     tdi = int(args[i+1][1:-1], 16)
                 elif args[i] == "TDO":
                     tdo = int(args[i+1][1:-1], 16)
                 elif args[i] == "MASK":
-                    mask = int(args[i+1][1:-1], 16)
+                    _mask = mask = int(args[i+1][1:-1], 16)
                 elif args[i] == "SMASK":
                     pass
                 else:
                     raise Exception(args[i])
 
-            if mask is None:
-                if length == prev_length:
-                    mask = prev_mask
-                else:
-                    mask = (1 << length) - 1
-
-            if cmd == "SIR":
-                sir_mask, sir_length = mask, length
+            if tdo is None:
+                mask = 0
+                tdo = 0
             else:
-                sdr_mask, sdr_length = mask, length
+                if mask is None:
+                    if length == prev_length:
+                        mask = prev_mask
+                    else:
+                        mask = (1 << length) - 1
+
+                if cmd == "SIR":
+                    sir_mask, sir_length = mask, length
+                else:
+                    sdr_mask, sdr_length = mask, length
+
+            if mask != _mask:
+                print "new mask:", hex(mask)
 
             if cmd == "SIR":
                 ctlr.goto("irshift")
@@ -444,8 +455,7 @@ def read_svf_file(fn):
                 mask = (((tdr_mask << length) + mask) << hdr_length) + hdr_mask
                 length += hdr_length + tdr_length
 
-            # with print_lock:
-                # print length, hex(tdi), hex(tdo), hex(mask)
+            # print length, hex(tdi), hex(tdo), hex(mask)
 
             ctlr.send(length, tdi, mask)
             ctlr.queue_verify(length, tdo, mask)
@@ -531,6 +541,9 @@ if __name__ == "__main__":
     fn = sys.argv[1]
 
     if fn == "server":
+        print "Warning: iMPACT's XVC support seems horribly broken when there are multiple devices in the JTAG chain."
+        # TODO perhaps we should do enumeration first and see if there are multiple devices in the chain?
+
         import socket, struct
         port = int(sys.argv[2])
         s = socket.socket()
@@ -574,6 +587,7 @@ if __name__ == "__main__":
                     # print "getting %d bytes of tms, then %d bytes of tdi" % (nbytes, nbytes)
                     tms = recvall(nbytes)
                     tdi = recvall(nbytes)
+                    # print repr(tms), repr(tdi)
 
                     for i in xrange(nbits):
                         byte = i // 8
