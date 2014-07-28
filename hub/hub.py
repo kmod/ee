@@ -56,6 +56,7 @@ class ControllerHub(object):
         self._open_endpoint = None
 
         # Note: signal on board is !RTS
+        print "Resetting board..."
         self.ser.setRTS(0)
         time.sleep(0.100)
 
@@ -68,6 +69,7 @@ class ControllerHub(object):
         self.ser.timeout = None
         self.ser.setRTS(1)
 
+        print "Waiting for board to start up..."
         start_byte = self.ser.read(1)
         while start_byte != '\xaf':
             assert start_byte == '\xff', repr(start_byte)
@@ -82,6 +84,8 @@ class ControllerHub(object):
             assert 0x1000 <= endpoint_id < 0x8000
 
             self.supported_endpoints.add(endpoint_id)
+
+        print "Connected to hub, %d endpoints listed" % num_endpoints
 
     def openEndpoint(self, endpoint_id):
         assert self._open_endpoint == None

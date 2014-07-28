@@ -60,8 +60,6 @@ class JtagController(object):
         else:
             self.state = "drexit1"
 
-        self.jtag_stream._wait_for_acks(0)
-
     def join(self):
         return self.jtag_stream.join()
 
@@ -69,8 +67,9 @@ class JtagController(object):
         if micros > 100000:
             print "Sleeping for %.1fs" % (micros / 1000000.0)
 
-        assert self.state in ("drpause", "idle", "irpause"), self.state
-        self.jtag_stream.sleep_micros(micros)
+        npulses = self.jtag_stream.pulses_for_micros(micros)
+        for i in xrange(npulses):
+            self.pulse(0, 0, 0, 0)
 
     def pulse(self, tms, tdi, care, tdo):
         self.jtag_stream.pulse(tms, tdi, care, tdo)

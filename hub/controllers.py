@@ -39,17 +39,11 @@ class JtagAutoController(object):
         pulses_per_sec = hub.baud_rate * pulses_per_baud
         self.micros_per_pulse = 1000000.0 / pulses_per_sec
 
-    def _pulses_for_micros(self, micros):
+    def pulses_for_micros(self, micros):
         npulses = int((micros + self.micros_per_pulse - 1) / self.micros_per_pulse)
         npulses = max(npulses, 50)
         # print >>sys.stderr, micros, npulses
-        # return max(micros, 2000)
         return npulses
-
-    def sleep_micros(self, micros):
-        npulses = self._pulses_for_micros(micros)
-        for i in xrange(npulses):
-            self.pulse(0, 0, 0, 0)
 
     def close(self):
         pass

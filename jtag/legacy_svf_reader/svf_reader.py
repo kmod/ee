@@ -40,6 +40,7 @@ class JtagController(object):
         micros_per_pulse = 1000000.0 / (self.EST_SPEED)
         npulses = int((micros + micros_per_pulse + 1) / micros_per_pulse)
         npulses = max(npulses, 5)
+        # print >>sys.stderr, micros, npulses
         # print "Doing %d pulses" % npulses
         for i in xrange(npulses):
             self.pulse(0, 0, get_tdo=False)
@@ -458,7 +459,7 @@ def read_svf_file(fn):
 
             ctlr.send(length, tdi, mask)
             ctlr.queue_verify(length, tdo, mask)
-            # ctlr.join()
+            ctlr.join()
 
             if cmd == "SIR":
                 ctlr.goto(endir)
