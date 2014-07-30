@@ -300,7 +300,7 @@ def doOutput(assem, rn, of):
         impact_end(f)
 
     # SVF_PLAYER = "python ~/Dropbox/ee/jtag/svf_reader_new/svf_reader.py"
-    SVF_PLAYER = "PYTHONPATH=%(cd)s/../.. python '%(cd)s/../../jtag/svf_reader.py'" % dict(
+    SVF_PLAYER = "PYTHONPATH='%(cd)s/../..' python '%(cd)s/../../jtag/svf_reader.py'" % dict(
             cd=os.path.abspath(os.path.dirname(__file__))
             )
 

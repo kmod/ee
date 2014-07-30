@@ -46,7 +46,7 @@ assembly main:
     board vga_v0.3 vga bp2.1 fpga.bitstream=../fpga/main.bit
     board jtagusaur2 jtag bp1.2
 
-    # assign vga.a0 = jtag.pd8
+    assign vga.a0 = jtag.pd8
 
     # assign vga.b0 = jtag.pd2
     # assign vga.b1 = jtag.pd3
