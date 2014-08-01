@@ -54,7 +54,8 @@ ASSIGN A+S SIGNAL;
 ASSIGN AC+1 'DISPLAY vias pads top tdocu torigins tplace trestrict tkeepout tnames tvalues -bottom -bdocu -borigins -bplace -brestrict -bkeepout -bnames -bvalues ?? -route2 -route15';
 # Not sure why eagle / my computer / my keyboard doesn't like hotkeys on the '2' key...
 ASSIGN AC+2 'DISPLAY vias pads -top -tdocu -torigins -tplace -trestrict -tkeepout -tnames -tvalues bottom bdocu borigins bplace brestrict bkeepout bnames bvalues ?? -route2 -route15';
-ASSIGN AC+3 'DISPLAY vias pads top tdocu torigins tplace trestrict tkeepout tnames tvalues bottom bdocu borigins bplace brestrict bkeepout bnames bvalues ?? -route2 route15';
+#ASSIGN AC+3 'DISPLAY vias pads top tdocu torigins tplace trestrict tkeepout tnames tvalues bottom bdocu borigins bplace brestrict bkeepout bnames bvalues ?? -route2 route15';
+ASSIGN AC+3 'DISPLAY vias pads top tdocu torigins tplace trestrict tkeepout tnames tvalues bottom bdocu borigins bplace brestrict bkeepout bnames bvalues ?? -route2 -route15';
 ASSIGN AC+4 'DISPLAY vias pads top tdocu torigins tplace trestrict tkeepout tnames tvalues bottom bdocu borigins bplace brestrict bkeepout bnames bvalues ?? route2 route15';
 ASSIGN C+3 'DISPLAY ?? -route2 -route15';
 ASSIGN ACS+4 'DISPLAY -vias -pads -top -tdocu -torigins -tplace -trestrict -tkeepout -tnames -tvalues -bottom -bdocu -borigins -bplace -brestrict -bkeepout -bnames -bvalues ?? -route2 -route15';
