@@ -5,4 +5,4 @@ FAMILY := stm32f30x
 
 OPENOCD := /home/kmod/arm-cross/bin/openocd
 
-include ../common/stm32_bare/Makefile.include
+include ../../common/stm32/Makefile.include

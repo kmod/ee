@@ -1,5 +1,4 @@
 STM32DIR := $(dir $(lastword $(MAKEFILE_LIST)))
-OLD_STM32DIR := $(STM32DIR)/../stm32
 
 define assert_defined
 ifeq ($($1),)
@@ -13,7 +12,7 @@ $(eval $(call assert_defined,FAMILY)) # such as "stm32f30x"
 
 ifeq ($(FAMILY),stm32f30x)
 CPU := cortex-m3
-OPENOCD_CFG := $(OLD_STM32DIR)/STM32F3-openocd.cfg
+OPENOCD_CFG := $(STM32DIR)/$(FAMILY)-openocd.cfg
 else
 $(error Unrecognized family: $(FAMILY))
 endif
