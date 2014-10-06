@@ -9,18 +9,22 @@ endef
 
 $(eval $(call assert_defined,SRCS))
 $(eval $(call assert_defined,PROGRAM_NAME))
-$(eval $(call assert_defined,CPU)) # such as "cortex-m3"
-$(eval $(call assert_defined,FAMILY)) # such as "STM32F3"
+$(eval $(call assert_defined,FAMILY)) # such as "stm32f30x"
 
-FAMILY_LOWER := $(shell echo $(FAMILY) | tr A-Z a-z)
+ifeq ($(FAMILY),stm32f30x)
+CPU := cortex-m3
+OPENOCD_CFG := $(OLD_STM32DIR)/STM32F3-openocd.cfg
+else
+$(error Unrecognized family: $(FAMILY))
+endif
 
 CROSS_COMPILE ?= arm-none-eabi-
 OPENOCD ?= openocd
 
-SRCS += $(STM32DIR)/system_$(FAMILY_LOWER)0x.c
-EXTRA_LINK_OBJS += $(STM32DIR)/startup_$(FAMILY_LOWER)0x.s
+LIB_SRCS := system_$(FAMILY).c
+EXTRA_LINK_OBJS += $(STM32DIR)/startup_$(FAMILY).s
 
-OBJS := $(SRCS:.c=.o)
+OBJS := $(SRCS:.c=.o) $(LIB_SRCS:.c=.o) $(EXTRA_LINK_OBJS)
 
 GDB := $(CROSS_COMPILE)gdb
 CC := $(CROSS_COMPILE)gcc
@@ -30,8 +34,8 @@ OBJCOPY := $(CROSS_COMPILE)objcopy
 CFLAGS := -Wall -Wextra -Wimplicit-function-declaration -Wredundant-decls -Wstrict-prototypes -Wundef -Wshadow -g -fno-common -mcpu=$(CPU) -mthumb -mfloat-abi=hard -MD -D$(FAMILY) -Wfatal-errors -std=c99 -Os
 
 # CFLAGS += -I $(STM32DIR)/StdPeriph/$(FAMILY_LOWER)0x/inc
-CFLAGS += -I $(STM32DIR)/include/$(FAMILY_LOWER)
-CFLAGS += -I $(STM32DIR)/include/$(FAMILY_LOWER)/CMSIS
+CFLAGS += -I $(STM32DIR)/include/$(FAMILY)
+CFLAGS += -I $(STM32DIR)/include/$(FAMILY)/CMSIS
 
 BUILD_DEPS := $(STM32DIR)/$(FAMILY).ld $(STM32DIR)/stm32.ld $(MAKEFILE_LIST)
 
@@ -48,22 +52,25 @@ all: $(PROGRAM_NAME).bin
 $(SRCS:.c=.o): %.o: %.c $(MAKEFILE_LIST)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-$(PROGRAM_NAME).elf: $(OBJS) $(EXTRA_LINK_OBJS) $(BUILD_DEPS)
-	$(CC) -o $(PROGRAM_NAME).elf $(OBJS) $(EXTRA_LINK_OBJS) $(LDFLAGS)
+$(LIB_SRCS:.c=.o): %.o: $(STM32DIR)/%.c $(MAKEFILE_LIST)
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+$(PROGRAM_NAME).elf: $(OBJS) $(BUILD_DEPS)
+	$(CC) -o $(PROGRAM_NAME).elf $(OBJS) $(LDFLAGS)
 
 $(PROGRAM_NAME).bin: $(PROGRAM_NAME).elf $(MAKEFILE_LIST)
 	$(OBJCOPY) -Obinary $(PROGRAM_NAME).elf $(PROGRAM_NAME).bin
 
 .PHONY: flash dfu
 flash: $(PROGRAM_NAME).bin
-	$(OPENOCD) -f $(OLD_STM32DIR)/$(FAMILY)-openocd.cfg -c "init" -c "reset init" -c "flash write_image erase $(PROGRAM_NAME).bin 0x08000000" -c "reset run" -c "shutdown"
+	$(OPENOCD) -f $(OPENOCD_CFG) -c "init" -c "reset init" -c "flash write_image erase $(PROGRAM_NAME).bin 0x08000000" -c "reset run" -c "shutdown"
 
 dfu: $(PROGRAM_NAME).bin
 	sudo dfu-util --device 0483:df11 --alt 0 -D $< -s 0x08000000
-	$(OPENOCD) -f $(OLD_STM32DIR)/$(FAMILY)-openocd.cfg -c "init" -c "reset run" -c "shutdown"
+	$(OPENOCD) -f $(OPENOCD_CFG) -c "init" -c "reset run" -c "shutdown"
 
 clean:
 	rm -f *.elf *.bin *.list *.map *.o *.d *~
 
 dbg:
-	$(GDB) $(PROGRAM_NAME).elf  -ex "target remote | $(OPENOCD) -f $(OLD_STM32DIR)/$(FAMILY)-openocd.cfg -c 'gdb_port pipe'"
+	$(GDB) $(PROGRAM_NAME).elf  -ex "target remote | $(OPENOCD) -f $(OPENOCD_CFG) -c 'gdb_port pipe'"

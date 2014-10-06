@@ -1,8 +1,7 @@
 SRCS := blink.c
 PROGRAM_NAME := blink
 
-CPU := cortex-m3
-FAMILY := STM32F3
+FAMILY := stm32f30x
 
 OPENOCD := /home/kmod/arm-cross/bin/openocd
 
