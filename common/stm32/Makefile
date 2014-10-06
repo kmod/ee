@@ -24,7 +24,7 @@ OPENOCD := $(BINDIR)/openocd
 
 CFLAGS := -Wall -Wextra -Wimplicit-function-declaration -Wredundant-decls -Wstrict-prototypes -Wundef -Wshadow -g -fno-common -mcpu=$(CPU) -mthumb -mfloat-abi=hard -MD -D$(FAMILY) -Wfatal-errors -std=c99 -I. -Os
 
-LDFLAGS := --static -lnosys -T $(STM32DIR)/$(FAMILY).ld -nostartfiles -Wl,--gc-sections -mcpu=$(CPU) -mthumb -mfloat-abi=hard -lm -Wl,-Map=$(PROGRAM_NAME).map -lopencm3_stm32f4
+LDFLAGS := --static -lnosys -T $(STM32DIR)/$(FAMILY).ld -nostartfiles -Wl,--gc-sections -mcpu=$(CPU) -mthumb -mfloat-abi=hard -lm -Wl,-Map=$(PROGRAM_NAME).map -lopencm3_$(FAMILY_LOWER)
 ifeq ($(FAMILY),STM32F4)
 LDFLAGS += -L$(HOME)/arm-cross/arm-none-eabi/lib/fpu
 endif
