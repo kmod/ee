@@ -1,4 +1,5 @@
 STM32DIR := $(dir $(lastword $(MAKEFILE_LIST)))
+OLD_STM32DIR := $(STM32DIR)/../stm32
 
 define assert_defined
 ifeq ($($1),)
@@ -41,7 +42,7 @@ all: $(PROGRAM_NAME).bin
 $(SRCS:.c=.o): %.o: %.c $(MAKEFILE_LIST)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-$(PROGRAM_NAME).elf: $(OBJS) $(STM32DIR)/$(FAMILY).ld $(MAKEFILE_LIST)
+$(PROGRAM_NAME).elf: $(OBJS) $(EXTRA_LINK_OBJS) $(STM32DIR)/$(FAMILY).ld $(MAKEFILE_LIST)
 	$(CC) -o $(PROGRAM_NAME).elf $(OBJS) $(EXTRA_LINK_OBJS) $(LDFLAGS)
 
 $(PROGRAM_NAME).bin: $(PROGRAM_NAME).elf $(MAKEFILE_LIST)
@@ -49,14 +50,14 @@ $(PROGRAM_NAME).bin: $(PROGRAM_NAME).elf $(MAKEFILE_LIST)
 
 .PHONY: flash dfu
 flash: $(PROGRAM_NAME).bin
-	$(OPENOCD) -f $(STM32DIR)/$(FAMILY)-openocd.cfg -c "init" -c "reset init" -c "flash write_image erase $(PROGRAM_NAME).bin 0x08000000" -c "reset run" -c "shutdown"
+	$(OPENOCD) -f $(OLD_STM32DIR)/$(FAMILY)-openocd.cfg -c "init" -c "reset init" -c "flash write_image erase $(PROGRAM_NAME).bin 0x08000000" -c "reset run" -c "shutdown"
 
 dfu: $(PROGRAM_NAME).bin
 	sudo dfu-util --device 0483:df11 --alt 0 -D $< -s 0x08000000
-	$(OPENOCD) -f $(STM32DIR)/$(FAMILY)-openocd.cfg -c "init" -c "reset run" -c "shutdown"
+	$(OPENOCD) -f $(OLD_STM32DIR)/$(FAMILY)-openocd.cfg -c "init" -c "reset run" -c "shutdown"
 
 clean:
 	rm -f *.elf *.bin *.list *.map *.o *.d *~
 
 dbg:
-	$(GDB) $(PROGRAM_NAME).elf  -ex "target remote | $(OPENOCD) -f $(STM32DIR)/$(FAMILY)-openocd.cfg -c 'gdb_port pipe'"
+	$(GDB) $(PROGRAM_NAME).elf  -ex "target remote | $(OPENOCD) -f $(OLD_STM32DIR)/$(FAMILY)-openocd.cfg -c 'gdb_port pipe'"
