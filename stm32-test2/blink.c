@@ -35,12 +35,12 @@ int main(void)
     for (;;)
     {
         // Around 1/4 of a second
-        delay(100000);
+        delay(1000000);
 
         // Turn all pins on
         GPIOE->ODR = ~0;
 
-        delay(100000);
+        delay(1000000);
 
         // Turn all pins off
         GPIOE->ODR = 0;

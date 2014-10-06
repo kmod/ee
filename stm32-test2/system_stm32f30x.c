@@ -1,3 +1,5 @@
+// This file was obtained from stm32f3discovery_fw.zip
+
 /**
   ******************************************************************************
   * @file    system_stm32f30x.c

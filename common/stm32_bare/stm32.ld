@@ -58,6 +58,6 @@ SECTIONS
     } >sram
     
     end = .;
-    PROVIDE( _estack = 0x20010000 );
+    PROVIDE( _estack = ORIGIN(sram) + LENGTH(sram) );
 }
 

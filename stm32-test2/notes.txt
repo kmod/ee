@@ -11,3 +11,14 @@ current status:
 feels like there's either an issue in linking or in the startup code
 
 should probably move the system_* and startup_* files into the common dir and have them managed by that makefile
+
+
+debugging:
+- not sure what those existing commands are, but:
+- /home/kmod/arm-cross/bin/openocd -f ../common/stm32/STM32F3-openocd.cfg
+-- serves a telnet on :4444
+-- serves a gdb remote server on :3333
+- gdb --args blink.elf
+-- target remote localhost:3333
+- on the telnet, do "reset halt" to start it at the beginning
+-- looks like you can do this through gdb using the "mon" command, ie "mon reset halt"
