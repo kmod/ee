@@ -1,0 +1,13 @@
+(TODO: organize these into something more central)
+
+got startup_stm32f30x.s, system_stm32f30x.c from the STM32F3Discovery examples package
+same for ../common/stm32_bare/stm32.ld
+
+current status:
+- flash programming works (copying test.bin from stm32-test works)
+- compiling works (copying blink.o to tut.o works)
+- linking doesn't crash
+
+feels like there's either an issue in linking or in the startup code
+
+should probably move the system_* and startup_* files into the common dir and have them managed by that makefile

@@ -1,0 +1,2 @@
+This is the successor to common/stm32, and is based off of it
+not all the stuff was copied over, to avoid duplication
