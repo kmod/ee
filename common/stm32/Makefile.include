@@ -73,3 +73,6 @@ clean:
 
 dbg:
 	$(GDB) $(PROGRAM_NAME).elf  -ex "target remote | $(OPENOCD) -f $(OPENOCD_CFG) -c 'gdb_port pipe'"
+
+reset:
+	$(OPENOCD) -f $(OPENOCD_CFG) -c "init" -c "reset" -c "shutdown"
