@@ -29,7 +29,7 @@ CFLAGS := -Wall -Wextra -Wimplicit-function-declaration -Wredundant-decls -Wstri
 CFLAGS += -I $(STM32DIR)/include/$(FAMILY_LOWER)
 CFLAGS += -I $(STM32DIR)/include/$(FAMILY_LOWER)/CMSIS
 
-LDFLAGS := --static -lnosys -T $(STM32DIR)/$(FAMILY).ld -nostartfiles -Wl,--gc-sections -mcpu=$(CPU) -mthumb -mfloat-abi=hard -lm -Wl,-Map=$(PROGRAM_NAME).map
+LDFLAGS := --static -nostdlib -lnosys -T $(STM32DIR)/$(FAMILY).ld -nostartfiles -Wl,--gc-sections -mcpu=$(CPU) -mthumb -mfloat-abi=hard -lm -Wl,-Map=$(PROGRAM_NAME).map
 LDFLAGS += -L$(STM32DIR)
 # LDFLAGS += -L/home/kmod/arm-cross/arm-none-eabi/lib
 
