@@ -12,10 +12,14 @@ $(eval $(call assert_defined,PROGRAM_NAME))
 $(eval $(call assert_defined,CPU)) # such as "cortex-m3"
 $(eval $(call assert_defined,FAMILY)) # such as "STM32F3"
 
+FAMILY_LOWER := $(shell echo $(FAMILY) | tr A-Z a-z)
+
 CROSS_COMPILE ?= arm-none-eabi-
 OPENOCD ?= openocd
 
-FAMILY_LOWER := $(shell echo $(FAMILY) | tr A-Z a-z)
+SRCS += $(STM32DIR)/system_$(FAMILY_LOWER)0x.c
+EXTRA_LINK_OBJS += $(STM32DIR)/startup_$(FAMILY_LOWER)0x.s
+
 OBJS := $(SRCS:.c=.o)
 
 GDB := $(CROSS_COMPILE)gdb
@@ -28,6 +32,8 @@ CFLAGS := -Wall -Wextra -Wimplicit-function-declaration -Wredundant-decls -Wstri
 # CFLAGS += -I $(STM32DIR)/StdPeriph/$(FAMILY_LOWER)0x/inc
 CFLAGS += -I $(STM32DIR)/include/$(FAMILY_LOWER)
 CFLAGS += -I $(STM32DIR)/include/$(FAMILY_LOWER)/CMSIS
+
+BUILD_DEPS := $(STM32DIR)/$(FAMILY).ld $(STM32DIR)/stm32.ld $(MAKEFILE_LIST)
 
 LDFLAGS := --static -nostdlib -lnosys -T $(STM32DIR)/$(FAMILY).ld -nostartfiles -Wl,--gc-sections -mcpu=$(CPU) -mthumb -mfloat-abi=hard -lm -Wl,-Map=$(PROGRAM_NAME).map
 LDFLAGS += -L$(STM32DIR)
@@ -42,7 +48,7 @@ all: $(PROGRAM_NAME).bin
 $(SRCS:.c=.o): %.o: %.c $(MAKEFILE_LIST)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-$(PROGRAM_NAME).elf: $(OBJS) $(EXTRA_LINK_OBJS) $(STM32DIR)/$(FAMILY).ld $(MAKEFILE_LIST)
+$(PROGRAM_NAME).elf: $(OBJS) $(EXTRA_LINK_OBJS) $(BUILD_DEPS)
 	$(CC) -o $(PROGRAM_NAME).elf $(OBJS) $(EXTRA_LINK_OBJS) $(LDFLAGS)
 
 $(PROGRAM_NAME).bin: $(PROGRAM_NAME).elf $(MAKEFILE_LIST)

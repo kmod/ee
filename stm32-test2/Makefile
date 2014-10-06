@@ -1,5 +1,4 @@
-SRCS := blink.c system_stm32f30x.c
-EXTRA_LINK_OBJS := startup_stm32f30x.s
+SRCS := blink.c
 PROGRAM_NAME := blink
 
 CPU := cortex-m3
