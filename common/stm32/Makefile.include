@@ -10,18 +10,27 @@ $(eval $(call assert_defined,SRCS))
 $(eval $(call assert_defined,PROGRAM_NAME))
 $(eval $(call assert_defined,FAMILY)) # such as "stm32f30x"
 
+CROSS_COMPILE ?= arm-none-eabi-
+OPENOCD ?= openocd
+
 ifeq ($(FAMILY),stm32f30x)
 CPU := cortex-m3
+EXTRA_LINK_OBJS += $(STM32DIR)/startup_$(FAMILY).s
 OPENOCD_CFG := $(STM32DIR)/$(FAMILY)-openocd.cfg
+
+else ifeq ($(FAMILY),stm32f40x)
+CPU := cortex-m4
+CFLAGS += -DSTM32F40_41xxx
+EXTRA_LINK_OBJS += $(STM32DIR)/startup_stm32f40_41xxx.s
+
+FAMILY := stm32f4xx
+OPENOCD_CFG := $(STM32DIR)/$(FAMILY)-openocd.cfg
+
 else
 $(error Unrecognized family: $(FAMILY))
 endif
 
-CROSS_COMPILE ?= arm-none-eabi-
-OPENOCD ?= openocd
-
 LIB_SRCS := system_$(FAMILY).c
-EXTRA_LINK_OBJS += $(STM32DIR)/startup_$(FAMILY).s
 
 OBJS := $(SRCS:.c=.o) $(LIB_SRCS:.c=.o) $(EXTRA_LINK_OBJS)
 
@@ -30,7 +39,7 @@ CC := $(CROSS_COMPILE)gcc
 LD := $(CROSS_COMPILE)gcc
 OBJCOPY := $(CROSS_COMPILE)objcopy
 
-CFLAGS := -Wall -Wextra -Wimplicit-function-declaration -Wredundant-decls -Wstrict-prototypes -Wundef -Wshadow -g -fno-common -mcpu=$(CPU) -mthumb -mfloat-abi=hard -MD -D$(FAMILY) -Wfatal-errors -std=c99 -Os
+CFLAGS += -Wall -Wextra -Wimplicit-function-declaration -Wredundant-decls -Wstrict-prototypes -Wundef -Wshadow -g -fno-common -mcpu=$(CPU) -mthumb -mfloat-abi=hard -MD -D$(FAMILY) -Wfatal-errors -std=c99 -Os
 
 # CFLAGS += -I $(STM32DIR)/StdPeriph/$(FAMILY_LOWER)0x/inc
 CFLAGS += -I $(STM32DIR)/include/$(FAMILY)
@@ -42,7 +51,7 @@ LDFLAGS := --static -nostdlib -lnosys -T $(STM32DIR)/$(FAMILY).ld -nostartfiles 
 LDFLAGS += -L$(STM32DIR)
 # LDFLAGS += -L/home/kmod/arm-cross/arm-none-eabi/lib
 
-ifeq ($(FAMILY),STM32F4)
+ifeq ($(CPU),cortex-m4)
 LDFLAGS += -L$(HOME)/arm-cross/arm-none-eabi/lib/fpu
 endif
 
