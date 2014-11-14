@@ -467,6 +467,7 @@ if __name__ == "__main__":
     fn = sys.argv[1]
 
     if fn == "spam":
+        raise Exception("This has not been migrated; you can try using legacy_svf_reader")
         ctlr = JtagController(use_verify_thread=False)
         ctlr.goto("RESET")
         ctlr.goto("IDLE")
@@ -478,6 +479,7 @@ if __name__ == "__main__":
             ctlr.flush()
 
     elif fn == "enumerate":
+        raise Exception("This has not been migrated; you can try using legacy_svf_reader")
         MAX_CHAIN_SIZE = 8
         MAX_INSTRUCTION_LEN = 8
         MAX_BYPASS_INST = MAX_INSTRUCTION_LEN * MAX_CHAIN_SIZE

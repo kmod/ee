@@ -43,8 +43,8 @@ assembly main:
     board backplane_4s_128 bp1 unconnected
     board backplane_4s_64 bp2 bp1.1
 
-    board vga_v0.3 vga bp2.1 fpga.bitstream=../fpga/main.bit
-    board jtagusaur2 jtag bp1.2
+    board vga_v0.3 vga bp2.3 fpga.bitstream=../fpga/main.bit
+    board jtagusaur2 jtag bp2.1
 
     assign vga.a0 = jtag.pd8
 
