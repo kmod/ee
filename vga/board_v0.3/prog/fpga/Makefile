@@ -5,14 +5,14 @@ endif
 
 CWD := $(dir $(lastword $(MAKEFILE_LIST)))
 
-xst/projnav.tmp:
+$(CWD)xst/projnav.tmp:
 	mkdir -p $@
 
-$(CWD)main.syr: $(CWD)main.v xst/projnav.tmp
+$(CWD)main.syr $(CWD)main.ngc: $(CWD)main.v $(CWD)xst/projnav.tmp
 	cd $(CWD); $(ISE_BIN)/xst -intstyle ise -ifn "main.xst" -ofn "main.syr"
 	touch $(CWD)did_xst
 
-$(CWD)main.ngd: $(CWD)main.syr $(CWD)pins.ucf
+$(CWD)main.ngd: $(CWD)main.syr $(CWD)main.ngc $(CWD)pins.ucf
 	cd $(CWD); $(ISE_BIN)/ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc pins.ucf -p xc6slx16-ftg256-2 "main.ngc" main.ngd
 	touch $(CWD)did_ngdbuild
 
