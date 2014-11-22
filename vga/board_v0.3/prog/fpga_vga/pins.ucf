@@ -1,0 +1,45 @@
+Net "input_clk" LOC = "A9" | IOSTANDARD = "LVCMOS33";
+Net "input_clk" TNM_NET = sys_clk_pin;
+TIMESPEC TS_sys_clk_pin = PERIOD sys_clk_pin 50000 kHz;
+Net "input_clk" CLOCK_DEDICATED_ROUTE = FALSE;
+
+Net "leds<0>" LOC = "A8" | IOSTANDARD = "LVCMOS33";
+Net "leds<1>" LOC = "A7" | IOSTANDARD = "LVCMOS33";
+Net "leds<2>" LOC = "A6" | IOSTANDARD = "LVCMOS33";
+
+Net "mb_a<0>" LOC = "A12" | IOSTANDARD = "LVCMOS33";
+Net "mb_a<1>" LOC = "D12" | IOSTANDARD = "LVCMOS33";
+Net "mb_a<2>" LOC = "C11" | IOSTANDARD = "LVCMOS33";
+Net "mb_b<0>" LOC = "B12" | IOSTANDARD = "LVCMOS33";
+Net "mb_b<1>" LOC = "A11" | IOSTANDARD = "LVCMOS33";
+Net "mb_b<2>" LOC = "A10" | IOSTANDARD = "LVCMOS33";
+Net "mb_b<3>" LOC = "B10" | IOSTANDARD = "LVCMOS33";
+Net "mb_c<2>" LOC = "A14" | IOSTANDARD = "LVCMOS33";
+Net "mb_c<3>" LOC = "C13" | IOSTANDARD = "LVCMOS33";
+Net "mb_d<2>" LOC = "B14" | IOSTANDARD = "LVCMOS33";
+Net "mb_d<3>" LOC = "A13" | IOSTANDARD = "LVCMOS33";
+
+Net "vr<4>" LOC = "M7" | IOSTANDARD = "LVCMOS33";
+Net "vr<3>" LOC = "P7" | IOSTANDARD = "LVCMOS33";
+Net "vr<2>" LOC = "L7" | IOSTANDARD = "LVCMOS33";
+Net "vr<1>" LOC = "T7" | IOSTANDARD = "LVCMOS33";
+Net "vr<0>" LOC = "T8" | IOSTANDARD = "LVCMOS33";
+Net "vg<4>" LOC = "T5" | IOSTANDARD = "LVCMOS33";
+Net "vg<3>" LOC = "R5" | IOSTANDARD = "LVCMOS33";
+Net "vg<2>" LOC = "T6" | IOSTANDARD = "LVCMOS33";
+Net "vg<1>" LOC = "R7" | IOSTANDARD = "LVCMOS33";
+Net "vg<0>" LOC = "P8" | IOSTANDARD = "LVCMOS33";
+Net "vb<4>" LOC = "N5" | IOSTANDARD = "LVCMOS33";
+Net "vb<3>" LOC = "M6" | IOSTANDARD = "LVCMOS33";
+Net "vb<2>" LOC = "N6" | IOSTANDARD = "LVCMOS33";
+Net "vb<1>" LOC = "P6" | IOSTANDARD = "LVCMOS33";
+Net "vb<0>" LOC = "P5" | IOSTANDARD = "LVCMOS33";
+Net "hsync" LOC = "T4" | IOSTANDARD = "LVCMOS33";
+Net "vsync" LOC = "P4" | IOSTANDARD = "LVCMOS33";
+
+//Net "flash_mosi" LOC = "P64" | IOSTANDARD = "LVCMOS33";
+//Net "flash_miso" LOC = "P65" | IOSTANDARD = "LVCMOS33";
+//Net "flash_cclk" LOC = "P70" | IOSTANDARD = "LVCMOS33";
+//Net "flash_cso_b" LOC = "P38" | IOSTANDARD = "LVCMOS33";
+//Net "flash_hold" LOC = "P61" | IOSTANDARD = "LVCMOS33";
+//Net "flash_wp" LOC = "P62" | IOSTANDARD = "LVCMOS33";

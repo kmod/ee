@@ -1,0 +1,19 @@
+setMode -pff
+addConfigDevice  -name main.mcs
+setSubmode -pffspi
+addDesign -version 0 -name "0"
+addDeviceChain -index 0
+setAttribute -configdevice -attr multibootBpiType -value ""
+setAttribute -configdevice -attr compressed -value "FALSE"
+setAttribute -configdevice -attr autoSize -value "FALSE"
+setAttribute -configdevice -attr fileFormat -value "mcs"
+setAttribute -configdevice -attr fillValue -value "FF"
+setAttribute -configdevice -attr swapBit -value "FALSE"
+setAttribute -configdevice -attr dir -value "UP"
+setAttribute -configdevice -attr multiboot -value "FALSE"
+setAttribute -configdevice -attr spiSelected -value "TRUE"
+addPromDevice -p 1 -size 1024
+addDeviceChain -index 0
+addDevice -p 1 -file main.bit
+generate
+quit
