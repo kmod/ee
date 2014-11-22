@@ -67,6 +67,7 @@ module main(
     // http://tinyvga.com/vga-timing/1280x800@60Hz
     assign hsync = (hpos < 1344 || hpos >= 1480); // active low
     assign vsync = !(vpos < 801 || vpos >= 804); // active *high*
+    wire blank;
     assign blank = (hpos >= 1280 || vpos >= 800); // active high
 
     reg [14:0] framebuf[159:0][99:0];

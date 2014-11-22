@@ -314,3 +314,5 @@ module uart_multibyte_receiver #(parameter CLK_CYCLES=4178, CTR_WIDTH=16, MSG_LO
             if (reset) byte_idx <= 0;
 		end
 endmodule
+
+`default_nettype wire

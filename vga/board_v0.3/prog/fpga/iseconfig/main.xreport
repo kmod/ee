@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2014-11-20T00:58:38</DateModified>
+  <DateModified>2014-11-22T14:30:14</DateModified>
   <ModuleName>main</ModuleName>
   <SummaryTimeStamp>2014-04-20T12:08:24</SummaryTimeStamp>
   <SavedFilePath>/opt/kmod_unenc/ee/vga/board_v0.3/prog/fpga/iseconfig/main.xreport</SavedFilePath>
-  <ImplementationReportsDirectory>/home/kmod/Dropbox/ee/vga/board_v0.2/prog/fpga/</ImplementationReportsDirectory>
+  <ImplementationReportsDirectory>/opt/kmod_unenc/ee/vga/board_v0.3/prog/fpga/</ImplementationReportsDirectory>
   <DateInitialized>2014-04-07T01:54:58</DateInitialized>
   <EnableMessageFiltering>false</EnableMessageFiltering>
   <FilterFile/>

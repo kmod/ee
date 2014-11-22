@@ -20,3 +20,4 @@ ipcore_dir/tmp
 !make_mcs.batch
 !main.prj
 !main.ut
+ipcore_dir/*.log
