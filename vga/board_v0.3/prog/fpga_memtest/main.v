@@ -19,94 +19,46 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module main(
-    output wire [2:0] leds,
-    input wire input_clk,
+    input wire input_clk
 
-    inout wire [2:0] mb_a,
-    inout wire [3:0] mb_b,
-    inout wire [3:2] mb_c,
-    inout wire [3:2] mb_d,
+    , output wire [2:0] leds
 
-    output reg [4:0] vr,
-    output reg [4:0] vg,
-    output reg [4:0] vb,
-    inout wire vsync,
-    inout wire hsync
-
-    //output wire flash_mosi,
-    //output wire flash_cso_b,
-    //output wire flash_cclk,
-    //input wire flash_miso,
-    //output wire flash_hold,
-    //output wire flash_wp
-
+    , inout wire [2:0] mb_a
+    , inout wire [3:0] mb_b
+    , inout wire [3:2] mb_c
+    , inout wire [3:2] mb_d
     );
 
-    //assign flash_wp = 1'b1;
-    //assign flash_hold = 1'b1;
+    wire spi_mosi;
+    wire spi_miso;
+    wire spi_clk;
+    assign spi_mosi = mb_a[0];
+    assign mb_a[1] = spi_miso;
+    assign spi_clk = mb_a[2];
 
-    //assign flash_mosi = mb_b[0];
-    //assign flash_cso_b = mb_b[1];
-    //assign flash_cclk = mb_b[2];
-    //assign mb_b[3] = flash_miso;
+    wire jtag_ledf;
+    assign mb_b[1] = jtag_ledf;
 
+
+
+
+
+
+    assign jtag_ledf = spi_clk;
+
+    /*
+    wire spi_clk_ibufg;
+    IBUFG  u_ibufg_sys_clk
+        (
+         .I  (spi_clk),
+         .O  (spi_clk_ibufg)
+         );
+         */
 
     reg [31:0] led_ctr;
-    always @(posedge pixel_clk) begin
+    always @(posedge spi_clk) begin
         led_ctr <= led_ctr + 1'b1;
     end
-    assign leds = ~led_ctr[26:24];
+    assign leds = ~led_ctr[2:0];
 
-    wire pixel_clk;
-	dcm #(.D(3), .M(5)) dcm(.CLK_IN(input_clk), .CLK_OUT(pixel_clk));
-
-    reg [0:0] ctr;
-    reg [10:0] vpos;
-    reg [11:0] hpos;
-
-    // http://tinyvga.com/vga-timing/1280x800@60Hz
-    assign hsync = (hpos < 1344 || hpos >= 1480); // active low
-    assign vsync = !(vpos < 801 || vpos >= 804); // active *high*
-    wire blank;
-    assign blank = (hpos >= 1280 || vpos >= 800); // active high
-
-    reg [14:0] framebuf[159:0][99:0];
-    wire [14:0] pixval;
-    assign pixval = framebuf[hpos/8][vpos/8];
-
-    always @(posedge pixel_clk) begin
-        /*ctr <= ctr + 1;
-        if (ctr != 0) begin
-            // pass
-        end else */if (hpos != 1679) begin
-            hpos <= hpos + 1;
-        end else begin
-            hpos <= 0;
-            if (vpos == 827) vpos <= 0;
-            else vpos <= vpos + 1;
-        end
-
-        if (led_ctr[22:0] == 0) begin
-            framebuf[hpos/8][vpos/8] <= 15'h7fff;
-        end
-    end
-
-    always @(*) begin
-        if (blank) begin
-            vr = 0;
-            vg = 0;
-            vb = 0;
-        end else if (mb_a[0]) begin
-            vr = vpos[8:4];
-            vb = hpos[8:4];
-            vg = 0;
-        end else begin
-            vr = vpos[8:4];
-            vg = hpos[8:4];
-            vb = 0;
-        //end else begin
-            //{vr, vg, vb} = pixval;
-        end
-    end
-    //assign vb = {vpos[8:7], hpos[9:7]};
 endmodule

@@ -1,6 +1,6 @@
 include Makefile.gen
 
-include fpga/Makefile
+include fpga_memtest/Makefile
 
 ISE_BIN := /opt/Xilinx/14.7/ISE_DS/ISE/bin/lin64
 ifeq ($(wildcard $(ISE_BIN)),)

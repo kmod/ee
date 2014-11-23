@@ -39,15 +39,33 @@ assembly single:
     assign jtag.pd5 = vga.b3
 end
 
-assembly main:
+assembly vga:
     board backplane_4s_128 bp1 unconnected
     board backplane_4s_64 bp2 bp1.1
 
-    board vga_v0.3 vga bp2.3 fpga.bitstream=../fpga/main.bit
+    board vga_v0.3 vga bp2.3 fpga.bitstream=../fpga_vga/main.bit
     board jtagusaur2 jtag bp2.1
 
     assign vga.a0 = jtag.pd8
 
+    # assign vga.b0 = jtag.pd2
+    # assign vga.b1 = jtag.pd3
+    # assign vga.b2 = jtag.pd4
+    # assign jtag.pd5 = vga.b3
+end
+
+assembly memtest:
+    board backplane_4s_128 bp1 unconnected
+    board backplane_4s_64 bp2 bp1.1
+
+    board vga_v0.3 vga bp2.3 fpga.bitstream=../fpga_memtest/main.bit
+    board jtagusaur2 jtag bp2.1
+
+    assign vga.a0 = jtag.mosi
+    assign jtag.miso = vga.a1
+    assign vga.a2 = jtag.sck
+
+    assign jtag.ledf = vga.b1
     # assign vga.b0 = jtag.pd2
     # assign vga.b1 = jtag.pd3
     # assign vga.b2 = jtag.pd4
