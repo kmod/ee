@@ -8,7 +8,8 @@ CWD := $(dir $(lastword $(MAKEFILE_LIST)))
 $(CWD)xst/projnav.tmp:
 	mkdir -p $@
 
-$(CWD)main.syr $(CWD)main.ngc: $(CWD)main.v $(CWD)xst/projnav.tmp
+$(CWD)main.syr $(CWD)main.ngc: $(CWD)main.v
+	$(MAKE) -C $(CWD) xst/projnav.tmp
 	cd $(CWD); $(ISE_BIN)/xst -intstyle ise -ifn "main.xst" -ofn "main.syr"
 	touch $(CWD)did_xst
 

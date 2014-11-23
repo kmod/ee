@@ -33,6 +33,10 @@ class Jtagusaur2BitbangController(object):
             return (val >> self.pin_idx) & 1
 
     def __init__(self, hub):
+        if isinstance(hub, int):
+            # interpreting as a baud rate
+            hub = ControllerHub(hub)
+
         self.ctlr = BitbangController(hub)
 
         self.pins = {}

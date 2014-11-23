@@ -49,6 +49,7 @@ assembly memtest:
     assign vga.a0 = jtag.mosi
     assign jtag.miso = vga.a1
     assign vga.a2 = jtag.sck
+    assign vga.b0 = jtag.pd10
 
     assign jtag.ledf = vga.b1
     # assign vga.b0 = jtag.pd2
