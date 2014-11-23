@@ -22,3 +22,5 @@ ipcore_dir/tmp
 !main.ut
 ipcore_dir/*.log
 !ipcore_dir/mem/user_design/*
+!ipcore_dir/mem/user_design/*/*
+!ipcore_dir/mem/user_design/*/*/*
