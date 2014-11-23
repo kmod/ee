@@ -1,0 +1,56 @@
+include ../../../modboard/programming/defs.mb
+
+board vga_v0.3:
+    pin a0 default=z
+    pin a1 default=z
+    pin a2 default=z
+    pin a3 default=z
+    pin b0 default=z
+    pin b1 default=z
+    pin b2 default=z
+    pin b3 default=z
+    pin c0 default=z
+    pin c1 default=z
+    pin c2 default=z
+    pin c3 default=z
+    pin d0 default=z
+    pin d1 default=z
+    pin d2 default=z
+    pin d3 default=z
+    pin e0 default=z
+    pin e1 default=z
+    pin e2 default=z
+    pin e3 default=z
+
+    jtag_device fpga jtag=1 part=xc6slx16
+end
+
+assembly single:
+    board backplane_4s_128 bp unconnected
+
+    board vga_v0.3 vga bp.3 fpga.bitstream=../fpga/main.bit
+    board jtagusaur2 jtag bp.2
+
+    assign vga.a0 = jtag.pd8
+
+    assign vga.b0 = jtag.pd2
+    assign vga.b1 = jtag.pd3
+    assign vga.b2 = jtag.pd4
+    assign jtag.pd5 = vga.b3
+end
+
+assembly vga:
+    board backplane_4s_128 bp1 unconnected
+    board backplane_4s_64 bp2 bp1.1
+
+    board vga_v0.3 vga bp2.3 fpga.bitstream=../fpga_vga/main.bit
+    board jtagusaur2 jtag bp2.1
+
+    assign vga.a0 = jtag.pd8
+
+    # assign vga.b0 = jtag.pd2
+    # assign vga.b1 = jtag.pd3
+    # assign vga.b2 = jtag.pd4
+    # assign jtag.pd5 = vga.b3
+end
+
