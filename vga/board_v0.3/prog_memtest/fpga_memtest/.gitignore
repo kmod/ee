@@ -21,3 +21,4 @@ ipcore_dir/tmp
 !main.prj
 !main.ut
 ipcore_dir/*.log
+!ipcore_dir/mem/user_design/*
