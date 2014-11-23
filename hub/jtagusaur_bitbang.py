@@ -16,8 +16,33 @@ _PORT_IDS = {
         }
 
 class Jtagusaur2BitbangController(object):
+    class Pin(object):
+        def __init__(self, ctlr, port, pin_idx):
+            self.ctlr = ctlr
+            self.port = port
+            self.pin_idx = pin_idx
+
+        def mode(self, dir):
+            self.ctlr.mode(self.port, self.pin_idx, dir)
+
+        def write(self, val):
+            self.ctlr.write(self.port, self.pin_idx, val)
+
+        def read(self):
+            val = self.ctlr.read(self.port)
+            return (val >> self.pin_idx) & 1
+
     def __init__(self, hub):
         self.ctlr = BitbangController(hub)
+
+        self.pins = {}
+        for port in "BCD":
+            for pin in range(0, 8):
+                pin_obj = self.Pin(self, port, pin)
+                pin_name = "%s%d" % (port, pin)
+
+                setattr(self, pin_name, pin_obj)
+                self.pins[pin_name] = pin_obj
 
     def mode(self, port, pin, dir):
         port = port.upper()
@@ -54,13 +79,15 @@ class Jtagusaur2BitbangController(object):
 def main():
     hub = ControllerHub(br=1000000)
     ctlr = Jtagusaur2BitbangController(hub)
-    ctlr.mode("b", 5, 'o')
-    ctlr.write('b', 5, 0)
+
+    pin = ctlr.B5
+    pin.mode('o')
+    pin.write(0)
     time.sleep(.1)
     for i in xrange(10):
-        ctlr.write('b', 5, 1)
+        pin.write(1)
         time.sleep(0.2)
-        ctlr.write('b', 5, 0)
+        pin.write(0)
         time.sleep(0.2)
 
 if __name__ == "__main__":
