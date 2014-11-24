@@ -63,6 +63,15 @@ def main():
     print read(0)
 
     LED_REGS = [0, 1, 2]
+    CALIB1_REG = 8
+    CALIB3_REG = 9
+
+    print read(CALIB1_REG)
+    print read(CALIB3_REG)
+    # for i in xrange(16):
+        # print i
+        # print read(i)
+    """
     while True:
         for r in LED_REGS:
             write(r, 1)
@@ -70,6 +79,7 @@ def main():
         for r in LED_REGS:
             write(r, 0)
         print read(0)
+    """
 
 if __name__ == "__main__":
     main()
