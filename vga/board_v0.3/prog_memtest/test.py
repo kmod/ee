@@ -3,6 +3,7 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), "../../.."))
 
 import time
+time
 
 from hub.jtagusaur_bitbang import Jtagusaur2BitbangController
 
@@ -20,7 +21,9 @@ def main():
     ss.mode('o')
     sck.write(0)
     ss.write(0)
+    time.sleep(.1)
     ss.write(1)
+    time.sleep(.1)
     ss.write(0)
 
     def sendAll(l):
@@ -35,30 +38,38 @@ def main():
 
     def read(idx):
         print
+        print "read", idx
         print sendAll([0,0,0,0,0,0,0,1])
-        print sendAll([(idx >> (7-i)) & 1 for i in xrange(8)])
-        print sendAll([0,0,0,0,0,0,0,0])
+        byte = idx
+        print sendAll([(byte >> (7-i)) & 1 for i in xrange(8)])
+        r = sendAll([0,0,0,0,0,0,0,0])
+        print r
+        t = 0
+        for b in r:
+            t = (t << 1) + b
+        return t
 
     def write(port, val):
         print
+        print "write", port, val
         assert 0 <= port < 128
         assert val in (0, 1)
 
         print sendAll([0,0,0,0,0,0,1,0])
         byte = (port << 1) + val
-        print bin(byte)
         print sendAll([(byte >> (7-i)) & 1 for i in xrange(8)])
         print sendAll([0,0,0,0,0,0,0,0])
 
-    read(0)
+    print read(0)
 
+    LED_REGS = [0, 1, 2]
     while True:
-        write(4, 0)
-        write(5, 0)
-        write(6, 0)
-        write(4, 1)
-        write(5, 1)
-        write(6, 1)
+        for r in LED_REGS:
+            write(r, 1)
+        print read(0)
+        for r in LED_REGS:
+            write(r, 0)
+        print read(0)
 
 if __name__ == "__main__":
     main()

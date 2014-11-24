@@ -21,7 +21,7 @@
 module main(
     input wire input_clk
 
-    , output reg [2:0] leds
+    , output wire [2:0] leds
 
     , inout wire [2:0] mb_a
     , inout wire [3:0] mb_b
@@ -46,7 +46,7 @@ module main(
 
 
 
-    assign jtag_ledf = spi_clk;
+    assign jtag_ledf = !spi_ss;
 
     /*
     wire spi_clk_ibufg;
@@ -76,6 +76,13 @@ module main(
         else
             spi_ctr <= new_spi_ctr;
     end
+
+
+    reg [15:0] write_bits;
+    assign leds[2:0] = ~write_bits[2:0];
+    wire [15:0] read_bytes [7:0];
+    assign read_bytes[0] = write_bits[7:0];
+    assign read_bytes[1] = write_bits[15:8];
     always @(posedge spi_clk) begin
         spi_in_byte <= new_spi_in_byte;
 
@@ -89,11 +96,13 @@ module main(
                         state <= WRITE;
                 end
                 READ: begin
-                    spi_out_byte <= 8'hab;
+                    spi_out_byte <= read_bytes[new_spi_in_byte[3:0]];
                     state <= IDLE;
                 end
                 WRITE: begin
-                    case ({new_spi_in_byte[7:1], 1'b0})
+                    //case ({new_spi_in_byte[7:1], 1'b0})
+                        write_bits[new_spi_in_byte[4:1]] <= new_spi_in_byte[0];
+                        /*
                         8'b00001000:
                             leds[0] <= new_spi_in_byte[0];
                         8'b00001010:
@@ -102,7 +111,8 @@ module main(
                             leds[2] <= new_spi_in_byte[0];
                         default:
                             spi_out_byte <= 8'h11;
-                    endcase
+                        */
+                    //endcase
                     state <= IDLE;
                 end
             endcase
