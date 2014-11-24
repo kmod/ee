@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 `default_nettype none
 
-module dcm #(parameter M=-1, D=-1)
+module dcm #(parameter M=-1, D=-1, INPUT_BUFFER=1, OUTPUT_BUFFER=1)
  (input wire CLK_IN, output wire CLK_OUT);
     /**
     A wrapper around the Xilinx DCM primitive, since I hate having to
@@ -10,9 +10,12 @@ module dcm #(parameter M=-1, D=-1)
 
   // Input buffering
   //------------------------------------
-  IBUFG clkin1_buf
-   (.O (clkin1),
-    .I (CLK_IN));
+  if (INPUT_BUFFER)
+      IBUFG clkin1_buf
+       (.O (clkin1),
+        .I (CLK_IN));
+  else
+    assign clkin1 = CLK_IN;
 
 
   // Clocking primitive
@@ -68,9 +71,12 @@ module dcm #(parameter M=-1, D=-1)
    (.O (clkfb),
     .I (clk0));
 
-  BUFG clkout1_buf
-   (.O   (CLK_OUT),
-    .I   (clkfx));
+  if (OUTPUT_BUFFER)
+    BUFG clkout1_buf
+     (.O   (CLK_OUT),
+      .I   (clkfx));
+  else
+    assign CLK_OUT = clkfx;
 endmodule
 
 module sseg #(parameter N=18) (

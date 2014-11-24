@@ -27,6 +27,42 @@ module main(
     , inout wire [3:0] mb_b
     , inout wire [3:2] mb_c
     , inout wire [3:2] mb_d
+
+    ,
+   inout  [15:0]                                    mcb1_dram_dq,
+   output [12:0]                                    mcb1_dram_a,
+   output [1:0]                                     mcb1_dram_ba,
+   output                                           mcb1_dram_cke,
+   output                                           mcb1_dram_ras_n,
+   output                                           mcb1_dram_cas_n,
+   output                                           mcb1_dram_we_n,
+   output                                           mcb1_dram_dm,
+   inout                                            mcb1_dram_udqs,
+   inout                                            mcb1_rzq,
+   output                                           mcb1_dram_udm,
+   inout                                            mcb1_dram_dqs,
+   output                                           mcb1_dram_ck,
+   output                                           mcb1_dram_ck_n,
+
+   inout  [15:0]                                    mcb3_dram_dq,
+   output [12:0]                                    mcb3_dram_a,
+   output [2:0]                                     mcb3_dram_ba,
+   output                                           mcb3_dram_ras_n,
+   output                                           mcb3_dram_cas_n,
+   output                                           mcb3_dram_we_n,
+   output                                           mcb3_dram_odt,
+   output                                           mcb3_dram_reset_n,
+   output                                           mcb3_dram_cke,
+   output                                           mcb3_dram_dm,
+   inout                                            mcb3_dram_udqs,
+   inout                                            mcb3_dram_udqs_n,
+   inout                                            mcb3_rzq,
+   inout                                            mcb3_zio,
+   output                                           mcb3_dram_udm,
+   inout                                            mcb3_dram_dqs,
+   inout                                            mcb3_dram_dqs_n,
+   output                                           mcb3_dram_ck,
+   output                                           mcb3_dram_ck_n
     );
 
     // Aliases:
@@ -45,6 +81,52 @@ module main(
     assign jtag_ledf = !spi_ss;
 
 
+    wire c1_calib_done;
+    wire c3_calib_done;
+
+    wire clk1;
+    wire clk3;
+    wire input_clk_bufg;
+    //IBUFG clkin1_buf (.O (input_clk_bufg), .I (input_clk));
+
+    dcm #(.M(3), .D(2), .INPUT_BUFFER(0), .OUTPUT_BUFFER(0)) dcm1(.CLK_IN(input_clk), .CLK_OUT(clk1));
+    dcm #(.M(9), .D(2), .INPUT_BUFFER(0), .OUTPUT_BUFFER(0)) dcm3(.CLK_IN(input_clk), .CLK_OUT(clk3));
+    mem mem(.c1_sys_clk(clk1), .c3_sys_clk(clk3), .c1_calib_done(c1_calib_done), .c3_calib_done(c3_calib_done),
+        .mcb1_dram_dq(mcb1_dram_dq),
+        .mcb1_dram_a(mcb1_dram_a),
+        .mcb1_dram_ba(mcb1_dram_ba),
+        .mcb1_dram_cke(mcb1_dram_cke),
+        .mcb1_dram_ras_n(mcb1_dram_ras_n),
+        .mcb1_dram_cas_n(mcb1_dram_cas_n),
+        .mcb1_dram_we_n(mcb1_dram_we_n),
+        .mcb1_dram_dm(mcb1_dram_dm),
+        .mcb1_dram_udqs(mcb1_dram_udqs),
+        .mcb1_rzq(mcb1_rzq),
+        .mcb1_dram_udm(mcb1_dram_udm),
+        .mcb1_dram_dqs(mcb1_dram_dqs),
+        .mcb1_dram_ck(mcb1_dram_ck),
+        .mcb1_dram_ck_n(mcb1_dram_ck_n),
+
+        .mcb3_dram_dq(mcb3_dram_dq),
+        .mcb3_dram_a(mcb3_dram_a),
+        .mcb3_dram_ba(mcb3_dram_ba),
+        .mcb3_dram_cke(mcb3_dram_cke),
+        .mcb3_dram_ras_n(mcb3_dram_ras_n),
+        .mcb3_dram_cas_n(mcb3_dram_cas_n),
+        .mcb3_dram_we_n(mcb3_dram_we_n),
+        .mcb3_dram_odt(mcb3_dram_odt),
+        .mcb3_dram_reset_n(mcb3_dram_reset_n),
+        .mcb3_dram_dm(mcb3_dram_dm),
+        .mcb3_dram_udqs(mcb3_dram_udqs),
+        .mcb3_dram_udqs_n(mcb3_dram_udqs_n),
+        .mcb3_rzq(mcb3_rzq),
+        .mcb3_zio(mcb3_zio),
+        .mcb3_dram_udm(mcb3_dram_udm),
+        .mcb3_dram_dqs(mcb3_dram_dqs),
+        .mcb3_dram_dqs_n(mcb3_dram_dqs_n),
+        .mcb3_dram_ck(mcb3_dram_ck),
+        .mcb3_dram_ck_n(mcb3_dram_ck_n)
+    );
 
 
     wire [15:0] write_bits;
@@ -54,6 +136,8 @@ module main(
     // "register" definitions:
     assign leds[2:0] = ~write_bits[2:0];
     assign read_bits[7:0] = write_bits[7:0];
+    assign read_bits[8] = c1_calib_done;
+    assign read_bits[9] = c3_calib_done;
 
 endmodule
 

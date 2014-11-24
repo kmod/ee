@@ -8,7 +8,7 @@ CWD := $(dir $(lastword $(MAKEFILE_LIST)))
 $(CWD)xst/projnav.tmp:
 	mkdir -p $@
 
-$(CWD)main.syr $(CWD)main.ngc: $(CWD)main.v
+$(CWD)main.syr $(CWD)main.ngc: $(CWD)main.v $(wildcard $(CWD)../../../../fpga_libs/*.v) $(wildcard $(CWD)ipcore_dir/mem/user_design/rtl/*.v) $(wildcard $(CWD)ipcore_dir/mem/user_design/rtl/*/*.v)
 	$(MAKE) -C $(CWD) xst/projnav.tmp
 	cd $(CWD); $(ISE_BIN)/xst -intstyle ise -ifn "main.xst" -ofn "main.syr"
 	touch $(CWD)did_xst

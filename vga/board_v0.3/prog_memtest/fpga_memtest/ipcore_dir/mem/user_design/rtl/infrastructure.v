@@ -153,11 +153,12 @@ module infrastructure #
       // SINGLE_ENDED input clock input buffers
       //***********************************************************************
 
-      IBUFG  u_ibufg_sys_clk
+      /*IBUFG  u_ibufg_sys_clk
           (
            .I  (sys_clk),
            .O  (sys_clk_ibufg)
-           );
+           );*/
+          assign sys_clk_ibufg = sys_clk;
    end
   endgenerate
 
@@ -189,7 +190,7 @@ module infrastructure #
          .CLKOUT4_DUTY_CYCLE (0.500),
          .CLKOUT5_DUTY_CYCLE (0.500),
          .SIM_DEVICE         ("SPARTAN6"),
-         .COMPENSATION       ("INTERNAL"),
+         .COMPENSATION       ("DCM2PLL"),
          .DIVCLK_DIVIDE      (C_DIVCLK_DIVIDE),
          .CLKFBOUT_MULT      (C_CLKFBOUT_MULT),
          .CLKFBOUT_PHASE     (0.0),
