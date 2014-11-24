@@ -29,33 +29,43 @@ module main(
     , inout wire [3:2] mb_d
     );
 
+    // Aliases:
     wire spi_mosi;
-    reg spi_miso;
+    wire spi_miso;
     wire spi_clk;
     wire spi_ss;
+    wire jtag_ledf;
     assign spi_mosi = mb_a[0];
     assign mb_a[1] = spi_miso;
     assign spi_clk = mb_a[2];
     assign spi_ss = mb_b[0];
-
-    wire jtag_ledf;
     assign mb_b[1] = jtag_ledf;
-
-
-
-
 
 
     assign jtag_ledf = !spi_ss;
 
-    /*
-    wire spi_clk_ibufg;
-    IBUFG  u_ibufg_sys_clk
-        (
-         .I  (spi_clk),
-         .O  (spi_clk_ibufg)
-         );
-         */
+
+
+
+    wire [15:0] write_bits;
+    wire [15:0] read_bits;
+    spi_controller spi_ctlr(.spi_mosi(spi_mosi), .spi_miso(spi_miso), .spi_clk(spi_clk), .spi_ss(spi_ss), .write_bits(write_bits), .read_bits(read_bits));
+
+    // "register" definitions:
+    assign leds[2:0] = ~write_bits[2:0];
+    assign read_bits[7:0] = write_bits[7:0];
+
+endmodule
+
+module spi_controller(
+    input wire spi_mosi,
+    output reg spi_miso,
+    input wire spi_clk,
+    input wire spi_ss,
+
+    output reg [15:0] write_bits,
+    input wire [15:0] read_bits
+    );
 
     reg [2:0] spi_ctr = 0;
     reg [7:0] spi_in_byte;
@@ -78,11 +88,6 @@ module main(
     end
 
 
-    reg [15:0] write_bits;
-    assign leds[2:0] = ~write_bits[2:0];
-    wire [15:0] read_bytes [7:0];
-    assign read_bytes[0] = write_bits[7:0];
-    assign read_bytes[1] = write_bits[15:8];
     always @(posedge spi_clk) begin
         spi_in_byte <= new_spi_in_byte;
 
@@ -96,23 +101,11 @@ module main(
                         state <= WRITE;
                 end
                 READ: begin
-                    spi_out_byte <= read_bytes[new_spi_in_byte[3:0]];
+                    spi_out_byte <= {7'b0, read_bits[new_spi_in_byte[3:0]]};
                     state <= IDLE;
                 end
                 WRITE: begin
-                    //case ({new_spi_in_byte[7:1], 1'b0})
-                        write_bits[new_spi_in_byte[4:1]] <= new_spi_in_byte[0];
-                        /*
-                        8'b00001000:
-                            leds[0] <= new_spi_in_byte[0];
-                        8'b00001010:
-                            leds[1] <= new_spi_in_byte[0];
-                        8'b00001100:
-                            leds[2] <= new_spi_in_byte[0];
-                        default:
-                            spi_out_byte <= 8'h11;
-                        */
-                    //endcase
+                    write_bits[new_spi_in_byte[4:1]] <= new_spi_in_byte[0];
                     state <= IDLE;
                 end
             endcase
@@ -122,13 +115,5 @@ module main(
     always @(negedge spi_clk) begin
         spi_miso <= spi_out_byte[7];
     end
-
-    /*
-    reg [31:0] led_ctr;
-    always @(posedge spi_clk) begin
-        led_ctr <= led_ctr + 1'b1;
-    end
-    assign leds = ~led_ctr[2:0];
-    */
-
 endmodule
+    
