@@ -39,12 +39,13 @@ def main():
     mosi.mode('o')
     sck.mode('o')
     ss.mode('o')
-    sck.write(0)
-    ss.write(0)
-    time.sleep(.1)
     ss.write(1)
-    time.sleep(.1)
+    sck.write(0)
+    # sck.write(1)
+    # sck.write(0)
+    time.sleep(0.01)
     ss.write(0)
+    time.sleep(0.01)
 
     def sendAll(l):
         rtn = 0
@@ -168,17 +169,25 @@ def main():
     # readmem(3)
     # readmem(4)
 
-    def check(start, end):
-        assert(start % 4 == 0)
-        for i in xrange(start, end, 4):
+    def check(l):
+        for i in l:
             print "writing", i
             writemem(i, i)
-        for i in xrange(start, end, 4):
+        for i in l:
             print "checking", i
             v = readmem(i)
             assert v == i, (hex(i), hex(v))
 
-    check(0, 32)
+    def determine_size():
+        for i in xrange(31, 1, -1):
+            addr = 2**i
+            writemem(addr, addr)
+        return readmem(0)
+    # print "memory size: %.1fMB" % (determine_size() * 0.5**20)
+
+    for i in xrange(16, 31):
+        base = (2 ** i)
+        check(range(base, base + 32, 4))
 
     """
     while True:

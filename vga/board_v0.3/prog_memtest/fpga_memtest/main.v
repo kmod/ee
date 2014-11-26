@@ -143,7 +143,19 @@ module main(
 
     dcm #(.M(3), .D(2), .INPUT_BUFFER(0), .OUTPUT_BUFFER(0)) dcm1(.CLK_IN(input_clk), .CLK_OUT(clk1));
     dcm #(.M(9), .D(2), .INPUT_BUFFER(0), .OUTPUT_BUFFER(0)) dcm3(.CLK_IN(input_clk), .CLK_OUT(clk3));
-    mem mem(.c1_sys_clk(clk1), .c3_sys_clk(clk3), .c1_calib_done(c1_calib_done), .c3_calib_done(c3_calib_done),
+    wire c1_rst; // active high
+    wire c3_rst; // active high
+    mem #(
+        .C1_RST_ACT_LOW(0),
+        .C3_RST_ACT_LOW(0)
+    ) mem(
+        .c1_sys_clk(clk1),
+        .c1_sys_rst_i(c1_rst),
+        .c3_sys_clk(clk3),
+        .c3_sys_rst_i(c3_rst),
+        .c1_calib_done(c1_calib_done),
+        .c3_calib_done(c3_calib_done),
+
         .mcb1_dram_dq(mcb1_dram_dq),
         .mcb1_dram_a(mcb1_dram_a),
         .mcb1_dram_ba(mcb1_dram_ba),
@@ -208,6 +220,8 @@ module main(
     assign c1_p0_cmd_clk = spi_clk;
     assign c1_p0_wr_clk = spi_clk;
     assign c1_p0_rd_clk = spi_clk;
+    assign c1_rst = spi_ss;
+    assign c3_rst = spi_ss;
 
 
     reg [15:0] write_bits;
@@ -259,12 +273,6 @@ module spi_controller(
     assign new_spi_in_byte = {spi_in_byte[6:0], spi_mosi};
     wire [2:0] new_spi_ctr;
     assign new_spi_ctr = spi_ctr + 1'b1;
-    always @(posedge spi_clk or posedge spi_ss) begin
-        if (spi_ss)
-            spi_ctr <= 0;
-        else
-            spi_ctr <= new_spi_ctr;
-    end
 
     reg[31:0] mem_addr;
     reg [3:0] mem_ctr;
@@ -290,123 +298,132 @@ module spi_controller(
         end
     end
 
-    always @(posedge spi_clk) begin
-        spi_in_byte <= new_spi_in_byte;
-        spi_out_byte <= {spi_out_byte[6:0], 1'b0};
-
-        if (!spi_ss && new_spi_ctr == 0) begin
-            case (state)
-                IDLE: begin
-                    if (new_spi_in_byte == 8'h01)
-                        state <= READ;
-                    else if (new_spi_in_byte == 8'h02)
-                        state <= WRITE;
-                    else if (new_spi_in_byte == 8'h03) begin
-                        state <= READMEM;
-                        mem_ctr <= 0;
-                    end else if (new_spi_in_byte == 8'h04) begin
-                        state <= WRITEMEM;
-                        mem_ctr <= 0;
+    always @(posedge spi_clk or posedge spi_ss) begin
+        if (spi_ss) begin
+            spi_ctr <= 0;
+            state <= IDLE;
+            spi_out_byte <= 0;
+        end else begin
+            spi_ctr <= new_spi_ctr;
+            spi_in_byte <= new_spi_in_byte;
+            spi_out_byte <= {spi_out_byte[6:0], 1'b0};
+            if (new_spi_ctr == 0) begin
+                case (state)
+                    IDLE: begin
+                        if (new_spi_in_byte == 8'h01)
+                            state <= READ;
+                        else if (new_spi_in_byte == 8'h02)
+                            state <= WRITE;
+                        else if (new_spi_in_byte == 8'h03) begin
+                            state <= READMEM;
+                            mem_ctr <= 0;
+                        end else if (new_spi_in_byte == 8'h04) begin
+                            state <= WRITEMEM;
+                            mem_ctr <= 0;
+                        end
                     end
-                end
-                READ: begin
-                    spi_out_byte <= {7'b0, read_bits[new_spi_in_byte[4:0]]};
-                    state <= IDLE;
-                end
-                WRITE: begin
-                    write_bits[new_spi_in_byte[4:1]] <= new_spi_in_byte[0];
-                    state <= IDLE;
-                end
-                READMEM: begin
-                    mem_ctr <= mem_ctr + 1'b1;
+                    READ: begin
+                        spi_out_byte <= {7'b0, read_bits[new_spi_in_byte[4:0]]};
+                        state <= IDLE;
+                    end
+                    WRITE: begin
+                        write_bits[new_spi_in_byte[4:1]] <= new_spi_in_byte[0];
+                        state <= IDLE;
+                    end
+                    READMEM: begin
+                        mem_ctr <= mem_ctr + 1'b1;
 
-                    case (mem_ctr)
-                        0: begin
-                            mem_addr[31:24] <= new_spi_in_byte;
-                        end
-                        1: begin
-                            mem_addr[23:16] <= new_spi_in_byte;
-                        end
-                        2: begin
-                            mem_addr[15:8] <= new_spi_in_byte;
-                        end
-                        3: begin
-                            mem_addr[7:0] <= new_spi_in_byte;
-                        end
-                        4: begin
-                            // dummy byte for submitting command
-                            spi_out_byte <= 8'b10101010;
-                        end
-                        5: begin
-                            spi_out_byte <= {c1_p0_rd_count, c1_p0_rd_overflow, c1_p0_rd_error};
-                        end
-                        6: begin
-                            spi_out_byte <= c1_p0_rd_data[31:24];
-                        end
-                        7: begin
-                            spi_out_byte <= c1_p0_rd_data[23:16];
-                        end
-                        8: begin
-                            spi_out_byte <= c1_p0_rd_data[15:8];
-                        end
-                        9: begin
-                            spi_out_byte <= c1_p0_rd_data[7:0];
-                            state <= IDLE;
-                        end
-                    endcase
-                end
-                WRITEMEM: begin
-                    mem_ctr <= mem_ctr + 1'b1;
+                        case (mem_ctr)
+                            0: begin
+                                mem_addr[31:24] <= new_spi_in_byte;
+                            end
+                            1: begin
+                                mem_addr[23:16] <= new_spi_in_byte;
+                            end
+                            2: begin
+                                mem_addr[15:8] <= new_spi_in_byte;
+                            end
+                            3: begin
+                                mem_addr[7:0] <= new_spi_in_byte;
+                            end
+                            4: begin
+                                // dummy byte for submitting command
+                                spi_out_byte <= 8'b10101010;
+                            end
+                            5: begin
+                                spi_out_byte <= {c1_p0_rd_count, c1_p0_rd_overflow, c1_p0_rd_error};
+                            end
+                            6: begin
+                                spi_out_byte <= c1_p0_rd_data[31:24];
+                            end
+                            7: begin
+                                spi_out_byte <= c1_p0_rd_data[23:16];
+                            end
+                            8: begin
+                                spi_out_byte <= c1_p0_rd_data[15:8];
+                            end
+                            9: begin
+                                spi_out_byte <= c1_p0_rd_data[7:0];
+                                state <= IDLE;
+                            end
+                        endcase
+                    end
+                    WRITEMEM: begin
+                        mem_ctr <= mem_ctr + 1'b1;
 
-                    case (mem_ctr)
-                        0: begin
-                            c1_p0_wr_data[31:24] <= new_spi_in_byte;
-                            spi_out_byte <= 0;
-                        end
-                        1: begin
-                            c1_p0_wr_data[23:16] <= new_spi_in_byte;
-                            spi_out_byte <= 1;
-                        end
-                        2: begin
-                            c1_p0_wr_data[15:8] <= new_spi_in_byte;
-                            spi_out_byte <= 2;
-                        end
-                        3: begin
-                            c1_p0_wr_data[7:0] <= new_spi_in_byte;
-                            spi_out_byte <= 3;
-                        end
-                        4: begin
-                            mem_addr[31:24] <= new_spi_in_byte;
-                            spi_out_byte <= {c1_p0_wr_count, c1_p0_wr_underrun, c1_p0_wr_error};
-                        end
-                        5: begin
-                            mem_addr[23:16] <= new_spi_in_byte;
-                            spi_out_byte <= {c1_p0_wr_count, c1_p0_wr_underrun, c1_p0_wr_error};
-                        end
-                        6: begin
-                            mem_addr[15:8] <= new_spi_in_byte;
-                            spi_out_byte <= 6;
-                        end
-                        7: begin
-                            mem_addr[7:0] <= new_spi_in_byte;
-                            spi_out_byte <= 7;
-                        end
-                        8: begin
-                            // dummy byte for submitting command
-                            spi_out_byte <= 8'b10101010;
-                        end
-                        9: begin
-                            spi_out_byte <= {c1_p0_wr_count, c1_p0_wr_underrun, c1_p0_wr_error};
-                            state <= IDLE;
-                        end
-                    endcase
-                end
-            endcase
+                        case (mem_ctr)
+                            0: begin
+                                c1_p0_wr_data[31:24] <= new_spi_in_byte;
+                                spi_out_byte <= 0;
+                            end
+                            1: begin
+                                c1_p0_wr_data[23:16] <= new_spi_in_byte;
+                                spi_out_byte <= 1;
+                            end
+                            2: begin
+                                c1_p0_wr_data[15:8] <= new_spi_in_byte;
+                                spi_out_byte <= 2;
+                            end
+                            3: begin
+                                c1_p0_wr_data[7:0] <= new_spi_in_byte;
+                                spi_out_byte <= 3;
+                            end
+                            4: begin
+                                mem_addr[31:24] <= new_spi_in_byte;
+                                spi_out_byte <= {c1_p0_wr_count, c1_p0_wr_underrun, c1_p0_wr_error};
+                            end
+                            5: begin
+                                mem_addr[23:16] <= new_spi_in_byte;
+                                spi_out_byte <= {c1_p0_wr_count, c1_p0_wr_underrun, c1_p0_wr_error};
+                            end
+                            6: begin
+                                mem_addr[15:8] <= new_spi_in_byte;
+                                spi_out_byte <= 6;
+                            end
+                            7: begin
+                                mem_addr[7:0] <= new_spi_in_byte;
+                                spi_out_byte <= 7;
+                            end
+                            8: begin
+                                // dummy byte for submitting command
+                                spi_out_byte <= 8'b10101010;
+                            end
+                            9: begin
+                                spi_out_byte <= {c1_p0_wr_count, c1_p0_wr_underrun, c1_p0_wr_error};
+                                state <= IDLE;
+                            end
+                        endcase
+                    end
+                endcase
+            end
         end
     end
 
-    always @(negedge spi_clk) begin
-        spi_miso <= spi_out_byte[7];
+    always @(negedge spi_clk or posedge spi_ss) begin
+        if (spi_ss)
+            spi_miso <= 0;
+        else
+            spi_miso <= spi_out_byte[7];
     end
 endmodule
     
