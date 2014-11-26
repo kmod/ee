@@ -414,10 +414,10 @@ module spi_controller(
                             end
                         endcase
                     end
-                endcase
-            end
-        end
-    end
+                endcase // case (state)
+            end // if (new_spi_ctr == 0)
+        end // if (!spi_ss)
+    end // always (@posedge spi_clk or posedge spi_ss)
 
     always @(negedge spi_clk or posedge spi_ss) begin
         if (spi_ss)

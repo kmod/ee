@@ -183,11 +183,11 @@ def main():
             addr = 2**i
             writemem(addr, addr)
         return readmem(0)
-    # print "memory size: %.1fMB" % (determine_size() * 0.5**20)
+    print "memory size: %.1fMB" % (determine_size() * 0.5**20)
 
-    for i in xrange(16, 31):
-        base = (2 ** i)
-        check(range(base, base + 32, 4))
+    # for i in xrange(16, 31):
+        # base = (2 ** i)
+        # check(range(base, base + 32, 4))
 
     """
     while True:
