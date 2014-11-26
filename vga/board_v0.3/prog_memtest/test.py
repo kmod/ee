@@ -47,12 +47,12 @@ def main():
     ss.write(0)
 
     def sendAll(l):
-        rtn = []
+        rtn = 0
         for b in l:
             mosi.write(b)
             sck.write(1)
             v = miso.read()
-            rtn.append(v)
+            rtn = (rtn << 1) + v
             sck.write(0)
         return rtn
 
@@ -79,47 +79,70 @@ def main():
         print sendAll([0,0,0,0,0,0,0,0])
 
     def readmem(addr):
-        print
-        print "readmem", addr
-        print sendAll([0,0,0,0,0,0,1,1]) # command
+        """
+        time -1: "cmd" mosi is 0b11, miso is [prev]; fpga changes to READMEM
+        time 0: "ad0" mosi is addr[0], miso is X; fpga clocks in byte 0
+        time 1: "ad1" mosi is addr[1], miso is X; fpga clocks in byte 1
+        time 2: "ad2" mosi is addr[2], miso is X; fpga clocks in byte 2
+        time 3: "ad3" mosi is addr[3], miso is X; fpga clocks in byte 3
+        time 4: "dm0" mosi is X, miso is X; fpga submits command
+        time 5: "dm1" mosi is X, miso is ack; fpga reads status
+        time 6: "dm2" mosi is X, miso is status; fpga reads data[0]
+        time 7: "bt0" mosi is X, miso is data[0]; fpga reads data[1]
+        time 8: "bt1" mosi is X, miso is data[1]; fpga reads data[2]
+        time 9: "bt2" mosi is X, miso is data[2]; fpga reads data[3], pops the read word, goes to IDLE
+        time 10: "bt3" mosi is 0, miso is data[3]; fpga interprets as IDLE command
+        """
 
-        print sendAll([(addr >> i) & 1 for i in xrange(31, 23, -1)]) # addr (BE)
-        print sendAll([(addr >> i) & 1 for i in xrange(23, 15, -1)]) # addr (BE)
-        print sendAll([(addr >> i) & 1 for i in xrange(15, 7, -1)]) # addr (BE)
-        print sendAll([(addr >> i) & 1 for i in xrange(7, -1, -1)]) # addr (BE)
+        sendAll([0,0,0,0,0,0,1,1]) # command
 
-        print sendAll([0,0,0,0,0,0,0,0]) # dummy (for command)
-        print sendAll([0,0,0,0,0,0,0,0]) # dummy (for read latency)
-        print sendAll([0,0,0,0,0,0,0,0]) # byte 0 (BE)
-        print sendAll([0,0,0,0,0,0,0,0]) # byte 1 (BE)
-        print sendAll([0,0,0,0,0,0,0,0]) # byte 2 (BE)
-        print sendAll([0,0,0,0,0,0,0,0]) # byte 3 (BE)
-        print sendAll([0,0,0,0,0,0,0,0]) # extra IDLE command to clock out last byte
+        sendAll([(addr >> i) & 1 for i in xrange(31, 23, -1)]) # addr (BE)
+        sendAll([(addr >> i) & 1 for i in xrange(23, 15, -1)]) # addr (BE)
+        sendAll([(addr >> i) & 1 for i in xrange(15, 7, -1)]) # addr (BE)
+        sendAll([(addr >> i) & 1 for i in xrange(7, -1, -1)]) # addr (BE)
 
-        print sendAll([0,0,0,0,0,0,0,0]) # test
-        print sendAll([0,0,0,0,0,0,0,0]) # test
+        sendAll([0,0,0,0,0,0,0,0]) # dummy (command being submitted)
+        ack = sendAll([0,0,0,0,0,0,0,0]) # dummy (read latency)
+        assert ack == 0b10101010
+        diag = sendAll([0,0,0,0,0,0,0,0]) # diagnostics
+        assert diag == 0b00000100 # 1 byte in the read fifo, no errors
+
+        b0 = sendAll([0,0,0,0,0,0,0,0]) # byte 0 (BE)
+        b1 = sendAll([0,0,0,0,0,0,0,0]) # byte 1 (BE)
+        b2 = sendAll([0,0,0,0,0,0,0,0]) # byte 2 (BE)
+        b3 = sendAll([0,0,0,0,0,0,0,0]) # byte 3 (BE) [IDLE command]
+        return (b0 << 24) + (b1 << 16) + (b2 << 8) + (b3)
 
     def writemem(addr, data):
-        print
-        print "writemem", addr, data
-        print sendAll([0,0,0,0,0,1,0,0]) # command
+        # print
+        # print "writemem", addr, data
+        r = sendAll([0,0,0,0,0,1,0,0]) # command
+        assert r == 0, hex(r)
 
-        print sendAll([(data >> i) & 1 for i in xrange(31, 23, -1)]) # data (BE)
-        print sendAll([(data >> i) & 1 for i in xrange(23, 15, -1)]) # data (BE)
-        print sendAll([(data >> i) & 1 for i in xrange(15, 7, -1)]) # data (BE)
-        print sendAll([(data >> i) & 1 for i in xrange(7, -1, -1)]) # data (BE)
+        r = sendAll([(data >> i) & 1 for i in xrange(31, 23, -1)]) # data (BE)
+        assert r == 0, hex(r)
+        r = sendAll([(data >> i) & 1 for i in xrange(23, 15, -1)]) # data (BE)
+        assert r == 0, hex(r)
+        r = sendAll([(data >> i) & 1 for i in xrange(15, 7, -1)]) # data (BE)
+        assert r == 1, hex(r)
+        r = sendAll([(data >> i) & 1 for i in xrange(7, -1, -1)]) # data (BE)
+        assert r == 2, hex(r)
 
-        print sendAll([(addr >> i) & 1 for i in xrange(31, 23, -1)]) # addr (BE)
-        print sendAll([(addr >> i) & 1 for i in xrange(23, 15, -1)]) # addr (BE)
-        print sendAll([(addr >> i) & 1 for i in xrange(15, 7, -1)]) # addr (BE)
-        print sendAll([(addr >> i) & 1 for i in xrange(7, -1, -1)]) # addr (BE)
+        r = sendAll([(addr >> i) & 1 for i in xrange(31, 23, -1)]) # addr (BE)
+        assert r == 3, hex(r)
+        r = sendAll([(addr >> i) & 1 for i in xrange(23, 15, -1)]) # addr (BE)
+        assert r == 0, hex(r)
+        r = sendAll([(addr >> i) & 1 for i in xrange(15, 7, -1)]) # addr (BE)
+        assert r == 0b00000100, hex(r)
+        r = sendAll([(addr >> i) & 1 for i in xrange(7, -1, -1)]) # addr (BE)
+        assert r == 6, hex(r)
 
-        print sendAll([0,0,0,0,0,0,0,0]) # dummy (for command)
-        print sendAll([0,0,0,0,0,0,0,0]) # dummy (for write latency)
-        print sendAll([0,0,0,0,0,0,0,0]) # extra IDLE command to clock out last byte
-
-        print sendAll([0,0,0,0,0,0,0,0]) # test
-        print sendAll([0,0,0,0,0,0,0,0]) # test
+        r = sendAll([0,0,0,0,0,0,0,0]) # dummy (for command)
+        assert r == 7, hex(r)
+        ack = sendAll([0,0,0,0,0,0,0,0]) # dummy (for write latency)
+        assert ack == 0b10101010, ack
+        diag = sendAll([0,0,0,0,0,0,0,0]) # extra IDLE command to clock out last byte
+        assert diag == 0b00000000 # no bytes in the write fifo, no errors
 
     # print read(0)
 
@@ -145,10 +168,17 @@ def main():
     # readmem(3)
     # readmem(4)
 
-    for i in xrange(0, 1024, 4):
-        writemem(i, i)
-    for i in xrange(0, 1024, 4):
-        readmem(i)
+    def check(start, end):
+        assert(start % 4 == 0)
+        for i in xrange(start, end, 4):
+            print "writing", i
+            writemem(i, i)
+        for i in xrange(start, end, 4):
+            print "checking", i
+            v = readmem(i)
+            assert v == i, (hex(i), hex(v))
+
+    check(0, 32)
 
     """
     while True:
