@@ -3,8 +3,9 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), "../../.."))
 
 import collections
+import functools
+import random
 import time
-time
 
 REGS = dict(
         led0=0,
@@ -79,7 +80,7 @@ def main():
         print sendAll([(byte >> (7-i)) & 1 for i in xrange(8)])
         print sendAll([0,0,0,0,0,0,0,0])
 
-    def readmem(addr):
+    def _readmem(cmd, addr):
         """
         time -1: "cmd" mosi is 0b11, miso is [prev]; fpga changes to READMEM
         time 0: "ad0" mosi is addr[0], miso is X; fpga clocks in byte 0
@@ -95,7 +96,7 @@ def main():
         time 10: "bt3" mosi is 0, miso is data[3]; fpga interprets as IDLE command
         """
 
-        sendAll([0,0,0,0,0,0,1,1]) # command
+        sendAll(cmd) # command
 
         sendAll([(addr >> i) & 1 for i in xrange(31, 23, -1)]) # addr (BE)
         sendAll([(addr >> i) & 1 for i in xrange(23, 15, -1)]) # addr (BE)
@@ -106,7 +107,7 @@ def main():
         ack = sendAll([0,0,0,0,0,0,0,0]) # dummy (read latency)
         assert ack == 0b10101010
         diag = sendAll([0,0,0,0,0,0,0,0]) # diagnostics
-        assert diag == 0b00000100 # 1 byte in the read fifo, no errors
+        assert diag == 0b00000100, bin(diag) # 1 byte in the read fifo, no errors
 
         b0 = sendAll([0,0,0,0,0,0,0,0]) # byte 0 (BE)
         b1 = sendAll([0,0,0,0,0,0,0,0]) # byte 1 (BE)
@@ -114,10 +115,13 @@ def main():
         b3 = sendAll([0,0,0,0,0,0,0,0]) # byte 3 (BE) [IDLE command]
         return (b0 << 24) + (b1 << 16) + (b2 << 8) + (b3)
 
-    def writemem(addr, data):
+    readmem1 = functools.partial(_readmem, [0,0,0,0,0,0,1,1])
+    readmem3 = functools.partial(_readmem, [0,0,0,0,0,1,0,1])
+
+    def _writemem(cmd, addr, data):
         # print
         # print "writemem", addr, data
-        r = sendAll([0,0,0,0,0,1,0,0]) # command
+        r = sendAll(cmd) # command
         assert r == 0, hex(r)
 
         r = sendAll([(data >> i) & 1 for i in xrange(31, 23, -1)]) # data (BE)
@@ -145,6 +149,9 @@ def main():
         diag = sendAll([0,0,0,0,0,0,0,0]) # extra IDLE command to clock out last byte
         assert diag == 0b00000000 # no bytes in the write fifo, no errors
 
+    writemem1 = functools.partial(_writemem, [0,0,0,0,0,1,0,0])
+    writemem3 = functools.partial(_writemem, [0,0,0,0,0,1,1,0])
+
     # print read(0)
 
     LED_REGS = [REGS.led0, REGS.led1, REGS.led2]
@@ -169,6 +176,9 @@ def main():
     # readmem(3)
     # readmem(4)
 
+    readmem, writemem = readmem1, writemem1
+    readmem, writemem = readmem3, writemem3
+
     def check(l):
         for i in l:
             print "writing", i
@@ -177,6 +187,8 @@ def main():
             print "checking", i
             v = readmem(i)
             assert v == i, (hex(i), hex(v))
+
+    check(range(0, 32, 8))
 
     def determine_size():
         for i in xrange(31, 1, -1):
@@ -188,6 +200,15 @@ def main():
     # for i in xrange(16, 31):
         # base = (2 ** i)
         # check(range(base, base + 32, 4))
+
+    for i in xrange(100):
+        val = random.randrange(0, 1<<32)
+        val &= ~3
+
+        addrs = [val]
+        for i in xrange(2, 24):
+            addrs.append(val ^ (1 << i))
+        check(addrs)
 
     """
     while True:
