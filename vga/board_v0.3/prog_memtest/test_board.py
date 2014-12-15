@@ -30,7 +30,7 @@ from hub.jtagusaur_bitbang import Jtagusaur2BitbangController
 
 class Controller(object):
     def __init__(self):
-        self.ctlr = Jtagusaur2BitbangController(1000000)
+        self.ctlr = Jtagusaur2BitbangController(1000000, 16)
 
         self.miso = self.ctlr.B4
         self.mosi = self.ctlr.B3
@@ -164,6 +164,7 @@ class Controller(object):
 def main():
     c = Controller()
 
+    start = time.time()
     print "Doing LED flash"
     for i in xrange(2):
         c.write(REGS.led0, 1)
@@ -172,6 +173,7 @@ def main():
         c.write(REGS.led0, 0)
         c.write(REGS.led1, 0)
         c.write(REGS.led2, 0)
+    elapsed = time.time() - start
 
     def check(name, expected):
         # print name, "=",
@@ -237,7 +239,7 @@ def main():
 
         print "Doing addr checks..."
         wr(0, 0)
-        failed = []
+        failed_addrs = []
         for i in xrange(2, 32):
             print "\033[100D%d" % i,
             sys.stdout.flush()
@@ -246,19 +248,19 @@ def main():
             b = rd(0)
             assert b == 0 or b == addr, (b, addr)
             if b == addr:
-                failed.append(i)
+                failed_addrs.append(i)
                 wr(0, 0)
         print
 
-        if failed:
-            if failed == range(failed[0], 32):
-                # print "Byte address bits %d+ failed" % failed[0]
-                print "Failures consistent with memory being %.1fMB" % (2.0 ** (failed[0] - 20))
+        if failed_addrs:
+            if failed_addrs == range(failed_addrs[0], 32):
+                # print "Byte address bits %d+ failed_addrs" % failed_addrs[0]
+                print "Failures consistent with memory being %.1fMB" % (2.0 ** (failed_addrs[0] - 20))
             else:
                 failed = True
                 print "\033[31mERROR"
                 print "Address line failures detected!\033[0m"
-                for i in failed:
+                for i in failed_addrs:
                     print "Byte address bit %d had no effect" % i
                     print "(Ok if size <= %.1fMB)" % (2.0 ** (addr - 20))
 
@@ -270,13 +272,13 @@ def main():
 
         def check_retain(l):
             for i, addr in enumerate(l):
-                print "\033[100DWriting %d" % i,
+                print "\033[100DWriting %d" % (i+1),
                 sys.stdout.flush()
                 # print "writing", addr
                 wr(addr, addr)
             print
             for i, addr in enumerate(l):
-                print "\033[100DReading %d" % i,
+                print "\033[100DReading %d" % (i+1),
                 sys.stdout.flush()
                 # print "checking", addr
                 v = rd(addr)
@@ -291,7 +293,7 @@ def main():
         if failed:
             print "Failures detected!"
         else:
-            print "\033[32mAll checks passed!\033[0m"
+            print "\033[36;1mAll checks passed!\033[0m"
 
     print
     print "\033[1mDoing DDR3 checks\033[0m"

@@ -3,23 +3,32 @@ import time
 
 BITBANG_ENDPOINT = 0x1000
 class BitbangController(object):
-    def __init__(self, hub):
+    def __init__(self, hub, max_acks_outstanding=0):
         self.hub = hub
         self.stream = self.hub.openEndpoint(BITBANG_ENDPOINT)
+
+        self.max_acks_outstanding = max_acks_outstanding
+        self.acks_outstanding = 0
 
     def writeBit(self, addr, bitnum, val):
         data = 'w' + chr((addr << 4) + (bitnum << 1) + val)
         self.stream.write(data)
 
-        check = self.stream.read(1)
-        assert check == '\x00', repr(check)
+        self.acks_outstanding += 1
+        while self.acks_outstanding > self.max_acks_outstanding:
+            check = self.stream.read(1)
+            assert check == '\x00', repr(check)
+            self.acks_outstanding -= 1
 
     def read(self, addr):
         data = 'r' + chr(addr)
 
         self.stream.write(data)
-        check = self.stream.read(1)
-        assert check == '\x00', repr(check)
+        self.acks_outstanding += 1
+        while self.acks_outstanding:
+            check = self.stream.read(1)
+            assert check == '\x00', repr(check)
+            self.acks_outstanding -= 1
         val = ord(self.stream.read(1))
         return val
 
