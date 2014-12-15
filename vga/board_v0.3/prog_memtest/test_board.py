@@ -180,27 +180,32 @@ def main():
         r = c.read(getattr(REGS, name))
         # print r
         if r != expected:
-            print "ERROR: expected %s=%d, but got %d" % (name, expected, r)
+            print "\033[31mERROR: expected %s=%d, but got %d\033[0m" % (name, expected, r)
+            return 1
+        return 0
 
-    def checkAll():
+    def checkStatuses():
         print "Checking statuses..."
-        check('led0', 0)
-        check('led1', 0)
-        check('led2', 0)
-        check('calib1_done', 1)
-        check('calib3_done', 1)
-        check('cmd_empty', 1)
-        check('cmd_full', 0)
-        check('wr_empty', 1)
-        check('wr_full', 0)
-        check('wr_underrun', 0)
-        check('wr_error', 0)
-        check('rd_empty', 1)
-        check('rd_full', 0)
-        check('rd_overflow', 0)
-        check('rd_error', 0)
+        err = 0
+        err += check('led0', 0)
+        err += check('led1', 0)
+        err += check('led2', 0)
+        err += check('calib1_done', 1)
+        err += check('calib3_done', 1)
+        err += check('cmd_empty', 1)
+        err += check('cmd_full', 0)
+        err += check('wr_empty', 1)
+        err += check('wr_full', 0)
+        err += check('wr_underrun', 0)
+        err += check('wr_error', 0)
+        err += check('rd_empty', 1)
+        err += check('rd_full', 0)
+        err += check('rd_overflow', 0)
+        err += check('rd_error', 0)
+        return err
 
-    checkAll()
+    if checkStatuses():
+        return
 
     def runChecks(rd, wr):
         failed = False
@@ -298,12 +303,15 @@ def main():
     print
     print "\033[1mDoing DDR3 checks\033[0m"
     runChecks(c.readmem3, c.writemem3)
-    checkAll()
+    if checkStatuses():
+        return
 
     print
     print "\033[1mDoing DDR1 checks\033[0m"
     runChecks(c.readmem1, c.writemem1)
-    checkAll()
+    if checkStatuses():
+        return
+
     return
 
 if __name__ == "__main__":
