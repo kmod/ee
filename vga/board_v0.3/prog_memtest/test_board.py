@@ -146,7 +146,7 @@ class Controller(object):
         ack = self.sendAll([0,0,0,0,0,0,0,0]) # dummy (for write latency)
         assert ack == 0b10101010, ack
         diag = self.sendAll([0,0,0,0,0,0,0,0]) # extra IDLE command to clock out last byte
-        assert diag == 0b00000000 # no bytes in the write fifo, no errors
+        assert diag == 0b00000000, bin(diag) # no bytes in the write fifo, no errors
 
     def readmem1(self, addr):
         return self._readmem([0,0,0,0,0,0,1,1], addr)
@@ -205,7 +205,8 @@ def main():
         return err
 
     if checkStatuses():
-        return
+        pass
+        # return
 
     def runChecks(rd, wr):
         failed = False
@@ -258,7 +259,7 @@ def main():
         print
 
         if failed_addrs:
-            if failed_addrs == range(failed_addrs[0], 32):
+            if failed_addrs == range(failed_addrs[0], 32) and failed_addrs[0] > 20:
                 # print "Byte address bits %d+ failed_addrs" % failed_addrs[0]
                 print "Failures consistent with memory being %.1fMB" % (2.0 ** (failed_addrs[0] - 20))
             else:
