@@ -141,6 +141,31 @@ module main(
       wire		c1_p0_rd_overflow;
       wire		c1_p0_rd_error;
 
+      wire		c3_p0_cmd_clk;
+      reg		c3_p0_cmd_en;
+      reg [2:0]	c3_p0_cmd_instr;
+      reg [5:0]	c3_p0_cmd_bl;
+      reg [29:0]	c3_p0_cmd_byte_addr;
+      wire		c3_p0_cmd_empty;
+      wire		c3_p0_cmd_full;
+      wire		c3_p0_wr_clk;
+      reg		c3_p0_wr_en;
+      wire [3:0]	c3_p0_wr_mask;
+      reg [31:0]	c3_p0_wr_data;
+      wire		c3_p0_wr_full;
+      wire		c3_p0_wr_empty;
+      wire [6:0]	c3_p0_wr_count;
+      wire		c3_p0_wr_underrun;
+      wire		c3_p0_wr_error;
+      wire		c3_p0_rd_clk;
+      reg		c3_p0_rd_en;
+      wire [31:0]	c3_p0_rd_data;
+      wire		c3_p0_rd_full;
+      wire		c3_p0_rd_empty;
+      wire [6:0]	c3_p0_rd_count;
+      wire		c3_p0_rd_overflow;
+      wire		c3_p0_rd_error;
+
     dcm #(.M(3), .D(2), .INPUT_BUFFER(0), .OUTPUT_BUFFER(0)) dcm1(.CLK_IN(input_clk), .CLK_OUT(clk1));
     dcm #(.M(9), .D(2), .INPUT_BUFFER(0), .OUTPUT_BUFFER(0)) dcm3(.CLK_IN(input_clk), .CLK_OUT(clk3));
     wire c1_rst; // active high
@@ -214,13 +239,41 @@ module main(
         .c1_p0_rd_empty(c1_p0_rd_empty),
         .c1_p0_rd_count(c1_p0_rd_count),
         .c1_p0_rd_overflow(c1_p0_rd_overflow),
-        .c1_p0_rd_error(c1_p0_rd_error)
+        .c1_p0_rd_error(c1_p0_rd_error),
+
+        .c3_p0_cmd_clk(c3_p0_cmd_clk),
+        .c3_p0_cmd_en(c3_p0_cmd_en),
+        .c3_p0_cmd_instr(c3_p0_cmd_instr),
+        .c3_p0_cmd_bl(c3_p0_cmd_bl),
+        .c3_p0_cmd_byte_addr(c3_p0_cmd_byte_addr),
+        .c3_p0_cmd_empty(c3_p0_cmd_empty),
+        .c3_p0_cmd_full(c3_p0_cmd_full),
+        .c3_p0_wr_clk(c3_p0_wr_clk),
+        .c3_p0_wr_en(c3_p0_wr_en),
+        .c3_p0_wr_mask(c3_p0_wr_mask),
+        .c3_p0_wr_data(c3_p0_wr_data),
+        .c3_p0_wr_full(c3_p0_wr_full),
+        .c3_p0_wr_empty(c3_p0_wr_empty),
+        .c3_p0_wr_count(c3_p0_wr_count),
+        .c3_p0_wr_underrun(c3_p0_wr_underrun),
+        .c3_p0_wr_error(c3_p0_wr_error),
+        .c3_p0_rd_clk(c3_p0_rd_clk),
+        .c3_p0_rd_en(c3_p0_rd_en),
+        .c3_p0_rd_data(c3_p0_rd_data),
+        .c3_p0_rd_full(c3_p0_rd_full),
+        .c3_p0_rd_empty(c3_p0_rd_empty),
+        .c3_p0_rd_count(c3_p0_rd_count),
+        .c3_p0_rd_overflow(c3_p0_rd_overflow),
+        .c3_p0_rd_error(c3_p0_rd_error)
     );
 
     assign c1_p0_cmd_clk = spi_clk;
     assign c1_p0_wr_clk = spi_clk;
     assign c1_p0_rd_clk = spi_clk;
     assign c1_rst = spi_ss;
+    assign c3_p0_cmd_clk = spi_clk;
+    assign c3_p0_wr_clk = spi_clk;
+    assign c3_p0_rd_clk = spi_clk;
     assign c3_rst = spi_ss;
 
 
@@ -267,6 +320,8 @@ module spi_controller(
     localparam WRITE = 2;
     localparam READMEM = 3;
     localparam WRITEMEM = 4;
+    localparam READMEM3 = 5;
+    localparam WRITEMEM3 = 6;
     reg [3:0] state = IDLE;
 
     wire [7:0] new_spi_in_byte;
@@ -287,6 +342,13 @@ module spi_controller(
         c1_p0_rd_en = 0;
         c1_p0_wr_en = 0;
 
+        c3_p0_cmd_instr = 3'b001; // READ
+        c3_p0_cmd_bl = 0;
+        c3_p0_cmd_byte_addr = mem_addr;
+        c3_p0_cmd_en = 0;
+        c3_p0_rd_en = 0;
+        c3_p0_wr_en = 0;
+
         if (state == READMEM) begin
             c1_p0_cmd_instr = 3'b001; // READ
             c1_p0_cmd_en = (mem_ctr == 4) && (new_spi_ctr == 0);
@@ -295,6 +357,14 @@ module spi_controller(
             c1_p0_cmd_instr = 3'b000; // WRITE
             c1_p0_cmd_en = (mem_ctr == 8) && (new_spi_ctr == 0);
             c1_p0_wr_en = (mem_ctr == 4) && (new_spi_ctr == 0);
+        end else if (state == READMEM3) begin
+            c3_p0_cmd_instr = 3'b001; // READ
+            c3_p0_cmd_en = (mem_ctr == 4) && (new_spi_ctr == 0);
+            c3_p0_rd_en = (mem_ctr == 9) && (new_spi_ctr == 0);
+        end else if (state == WRITEMEM3) begin
+            c3_p0_cmd_instr = 3'b000; // WRITE
+            c3_p0_cmd_en = (mem_ctr == 8) && (new_spi_ctr == 0);
+            c3_p0_wr_en = (mem_ctr == 4) && (new_spi_ctr == 0);
         end
     end
 
@@ -319,6 +389,12 @@ module spi_controller(
                             mem_ctr <= 0;
                         end else if (new_spi_in_byte == 8'h04) begin
                             state <= WRITEMEM;
+                            mem_ctr <= 0;
+                        end else if (new_spi_in_byte == 8'h05) begin
+                            state <= READMEM3;
+                            mem_ctr <= 0;
+                        end else if (new_spi_in_byte == 8'h06) begin
+                            state <= WRITEMEM3;
                             mem_ctr <= 0;
                         end
                     end
@@ -410,6 +486,90 @@ module spi_controller(
                             end
                             9: begin
                                 spi_out_byte <= {c1_p0_wr_count, c1_p0_wr_underrun, c1_p0_wr_error};
+                                state <= IDLE;
+                            end
+                        endcase
+                    end
+                    READMEM3: begin
+                        mem_ctr <= mem_ctr + 1'b1;
+
+                        case (mem_ctr)
+                            0: begin
+                                mem_addr[31:24] <= new_spi_in_byte;
+                            end
+                            1: begin
+                                mem_addr[23:16] <= new_spi_in_byte;
+                            end
+                            2: begin
+                                mem_addr[15:8] <= new_spi_in_byte;
+                            end
+                            3: begin
+                                mem_addr[7:0] <= new_spi_in_byte;
+                            end
+                            4: begin
+                                // dummy byte for submitting command
+                                spi_out_byte <= 8'b10101010;
+                            end
+                            5: begin
+                                spi_out_byte <= {c3_p0_rd_count, c3_p0_rd_overflow, c3_p0_rd_error};
+                            end
+                            6: begin
+                                spi_out_byte <= c3_p0_rd_data[31:24];
+                            end
+                            7: begin
+                                spi_out_byte <= c3_p0_rd_data[23:16];
+                            end
+                            8: begin
+                                spi_out_byte <= c3_p0_rd_data[15:8];
+                            end
+                            9: begin
+                                spi_out_byte <= c3_p0_rd_data[7:0];
+                                state <= IDLE;
+                            end
+                        endcase
+                    end
+                    WRITEMEM3: begin
+                        mem_ctr <= mem_ctr + 1'b1;
+
+                        case (mem_ctr)
+                            0: begin
+                                c3_p0_wr_data[31:24] <= new_spi_in_byte;
+                                spi_out_byte <= 0;
+                            end
+                            1: begin
+                                c3_p0_wr_data[23:16] <= new_spi_in_byte;
+                                spi_out_byte <= 1;
+                            end
+                            2: begin
+                                c3_p0_wr_data[15:8] <= new_spi_in_byte;
+                                spi_out_byte <= 2;
+                            end
+                            3: begin
+                                c3_p0_wr_data[7:0] <= new_spi_in_byte;
+                                spi_out_byte <= 3;
+                            end
+                            4: begin
+                                mem_addr[31:24] <= new_spi_in_byte;
+                                spi_out_byte <= {c3_p0_wr_count, c3_p0_wr_underrun, c3_p0_wr_error};
+                            end
+                            5: begin
+                                mem_addr[23:16] <= new_spi_in_byte;
+                                spi_out_byte <= {c3_p0_wr_count, c3_p0_wr_underrun, c3_p0_wr_error};
+                            end
+                            6: begin
+                                mem_addr[15:8] <= new_spi_in_byte;
+                                spi_out_byte <= 6;
+                            end
+                            7: begin
+                                mem_addr[7:0] <= new_spi_in_byte;
+                                spi_out_byte <= 7;
+                            end
+                            8: begin
+                                // dummy byte for submitting command
+                                spi_out_byte <= 8'b10101010;
+                            end
+                            9: begin
+                                spi_out_byte <= {c3_p0_wr_count, c3_p0_wr_underrun, c3_p0_wr_error};
                                 state <= IDLE;
                             end
                         endcase

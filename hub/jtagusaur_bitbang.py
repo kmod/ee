@@ -32,12 +32,12 @@ class Jtagusaur2BitbangController(object):
             val = self.ctlr.read(self.port)
             return (val >> self.pin_idx) & 1
 
-    def __init__(self, hub):
+    def __init__(self, hub, max_acks_outstanding=0):
         if isinstance(hub, int):
             # interpreting as a baud rate
             hub = ControllerHub(hub)
 
-        self.ctlr = BitbangController(hub)
+        self.ctlr = BitbangController(hub, max_acks_outstanding=max_acks_outstanding)
 
         self.pins = {}
         for port in "BCD":

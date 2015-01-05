@@ -44,3 +44,4 @@ eagle.epf
 # these are generated files:
 eagleUp/
 *.pyc
+*.sw?
