@@ -252,7 +252,7 @@ Half the size (20mil vs 40mil) of the 22AWG holes; 28AWG has half the diameter s
 <wire x1="0" y1="6.5" x2="0" y2="3" width="0.254" layer="21"/>
 </package>
 <package name="SCREW_5MM">
-<text x="0" y="7.5" size="0.9144" layer="21" ratio="12" align="bottom-center">&gt;VALUE</text>
+<text x="0" y="7.5" size="1.6256" layer="21" ratio="12" align="bottom-center">&gt;VALUE</text>
 <wire x1="-2.5" y1="7" x2="2.5" y2="7" width="0.254" layer="51"/>
 <wire x1="2.5" y1="7" x2="2.5" y2="-4.5" width="0.254" layer="51"/>
 <wire x1="2.5" y1="-4.5" x2="2.5" y2="-5" width="0.254" layer="51"/>

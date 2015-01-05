@@ -2276,90 +2276,90 @@ The 128- and 256-macrocell versions seem exactly the same.  The 64-macrocell one
 <wire x1="40.64" y1="20.32" x2="40.64" y2="-86.36" width="0.254" layer="94"/>
 <wire x1="40.64" y1="-86.36" x2="25.4" y2="-86.36" width="0.254" layer="94"/>
 <wire x1="25.4" y1="-86.36" x2="25.4" y2="20.32" width="0.254" layer="94"/>
-<pin name="P7" x="20.32" y="2.54" length="middle"/>
-<pin name="P8" x="20.32" y="5.08" length="middle"/>
-<pin name="P1/GTS2" x="20.32" y="-10.16" length="middle"/>
-<pin name="P6" x="20.32" y="0" length="middle"/>
-<pin name="P99/GSR" x="20.32" y="-12.7" length="middle"/>
-<pin name="P9" x="20.32" y="7.62" length="middle"/>
-<pin name="P4/GTS1" x="20.32" y="-2.54" length="middle"/>
-<pin name="P3/GTS0" x="20.32" y="-5.08" length="middle"/>
-<pin name="P2/GTS3" x="20.32" y="-7.62" length="middle"/>
-<pin name="P97" x="20.32" y="-15.24" length="middle"/>
-<pin name="P10" x="20.32" y="10.16" length="middle"/>
-<pin name="P11" x="20.32" y="12.7" length="middle"/>
-<pin name="P12" x="20.32" y="15.24" length="middle"/>
-<pin name="P96/NC" x="20.32" y="-17.78" length="middle"/>
-<pin name="P13" x="20.32" y="17.78" length="middle"/>
-<pin name="P15" x="-12.7" y="15.24" length="middle"/>
-<pin name="P34" x="-12.7" y="-20.32" length="middle"/>
-<pin name="P14" x="-12.7" y="17.78" length="middle"/>
-<pin name="P17" x="-12.7" y="10.16" length="middle"/>
-<pin name="P33" x="-12.7" y="-17.78" length="middle"/>
-<pin name="P16" x="-12.7" y="12.7" length="middle"/>
-<pin name="P24/CDRST" x="-12.7" y="-2.54" length="middle"/>
-<pin name="P28/DGE" x="-12.7" y="-7.62" length="middle"/>
-<pin name="P29" x="-12.7" y="-10.16" length="middle"/>
-<pin name="P32" x="-12.7" y="-15.24" length="middle"/>
-<pin name="P18" x="-12.7" y="7.62" length="middle"/>
-<pin name="P19" x="-12.7" y="5.08" length="middle"/>
-<pin name="P22/GCK0" x="-12.7" y="2.54" length="middle"/>
-<pin name="P23/GCK1" x="-12.7" y="0" length="middle"/>
-<pin name="P27/GCK2" x="-12.7" y="-5.08" length="middle"/>
-<pin name="P30" x="-12.7" y="-12.7" length="middle"/>
+<pin name="P7" x="20.32" y="2.54" length="middle" swaplevel="1"/>
+<pin name="P8" x="20.32" y="5.08" length="middle" swaplevel="1"/>
+<pin name="P1/GTS2" x="20.32" y="-10.16" length="middle" swaplevel="1"/>
+<pin name="P6" x="20.32" y="0" length="middle" swaplevel="1"/>
+<pin name="P99/GSR" x="20.32" y="-12.7" length="middle" swaplevel="1"/>
+<pin name="P9" x="20.32" y="7.62" length="middle" swaplevel="1"/>
+<pin name="P4/GTS1" x="20.32" y="-2.54" length="middle" swaplevel="1"/>
+<pin name="P3/GTS0" x="20.32" y="-5.08" length="middle" swaplevel="1"/>
+<pin name="P2/GTS3" x="20.32" y="-7.62" length="middle" swaplevel="1"/>
+<pin name="P97" x="20.32" y="-15.24" length="middle" swaplevel="1"/>
+<pin name="P10" x="20.32" y="10.16" length="middle" swaplevel="1"/>
+<pin name="P11" x="20.32" y="12.7" length="middle" swaplevel="1"/>
+<pin name="P12" x="20.32" y="15.24" length="middle" swaplevel="1"/>
+<pin name="P96/NC" x="20.32" y="-17.78" length="middle" swaplevel="1"/>
+<pin name="P13" x="20.32" y="17.78" length="middle" swaplevel="1"/>
+<pin name="P15" x="-12.7" y="15.24" length="middle" swaplevel="1"/>
+<pin name="P34" x="-12.7" y="-20.32" length="middle" swaplevel="1"/>
+<pin name="P14" x="-12.7" y="17.78" length="middle" swaplevel="1"/>
+<pin name="P17" x="-12.7" y="10.16" length="middle" swaplevel="1"/>
+<pin name="P33" x="-12.7" y="-17.78" length="middle" swaplevel="1"/>
+<pin name="P16" x="-12.7" y="12.7" length="middle" swaplevel="1"/>
+<pin name="P24/CDRST" x="-12.7" y="-2.54" length="middle" swaplevel="1"/>
+<pin name="P28/DGE" x="-12.7" y="-7.62" length="middle" swaplevel="1"/>
+<pin name="P29" x="-12.7" y="-10.16" length="middle" swaplevel="1"/>
+<pin name="P32" x="-12.7" y="-15.24" length="middle" swaplevel="1"/>
+<pin name="P18" x="-12.7" y="7.62" length="middle" swaplevel="1"/>
+<pin name="P19" x="-12.7" y="5.08" length="middle" swaplevel="1"/>
+<pin name="P22/GCK0" x="-12.7" y="2.54" length="middle" swaplevel="1"/>
+<pin name="P23/GCK1" x="-12.7" y="0" length="middle" swaplevel="1"/>
+<pin name="P27/GCK2" x="-12.7" y="-5.08" length="middle" swaplevel="1"/>
+<pin name="P30" x="-12.7" y="-12.7" length="middle" swaplevel="1"/>
 <text x="-7.62" y="20.32" size="2.54" layer="97">BANK1</text>
 <text x="25.4" y="20.32" size="2.54" layer="97">BANK2</text>
 <text x="-55.88" y="15.24" size="2.54" layer="95">&gt;NAME</text>
 <text x="-55.88" y="10.16" size="2.54" layer="96">&gt;VALUE</text>
-<pin name="P36" x="-12.7" y="-25.4" length="middle"/>
-<pin name="P35" x="-12.7" y="-22.86" length="middle"/>
-<pin name="P39" x="-12.7" y="-30.48" length="middle"/>
-<pin name="P37" x="-12.7" y="-27.94" length="middle"/>
-<pin name="P44/NC" x="-12.7" y="-43.18" length="middle"/>
-<pin name="P49" x="-12.7" y="-48.26" length="middle"/>
-<pin name="P50" x="-12.7" y="-50.8" length="middle"/>
-<pin name="P53" x="-12.7" y="-55.88" length="middle"/>
-<pin name="P40" x="-12.7" y="-33.02" length="middle"/>
-<pin name="P41" x="-12.7" y="-35.56" length="middle"/>
-<pin name="P42" x="-12.7" y="-38.1" length="middle"/>
-<pin name="P43" x="-12.7" y="-40.64" length="middle"/>
-<pin name="P46/NC" x="-12.7" y="-45.72" length="middle"/>
-<pin name="P52" x="-12.7" y="-53.34" length="middle"/>
-<pin name="P94" x="20.32" y="-22.86" length="middle"/>
-<pin name="P77" x="20.32" y="-58.42" length="middle"/>
-<pin name="P95/NC" x="20.32" y="-20.32" length="middle"/>
-<pin name="P92" x="20.32" y="-27.94" length="middle"/>
-<pin name="P78" x="20.32" y="-55.88" length="middle"/>
-<pin name="P93/NC" x="20.32" y="-25.4" length="middle"/>
-<pin name="P86/NC" x="20.32" y="-40.64" length="middle"/>
-<pin name="P82/NC" x="20.32" y="-45.72" length="middle"/>
-<pin name="P81" x="20.32" y="-48.26" length="middle"/>
-<pin name="P79" x="20.32" y="-53.34" length="middle"/>
-<pin name="P91" x="20.32" y="-30.48" length="middle"/>
-<pin name="P90" x="20.32" y="-33.02" length="middle"/>
-<pin name="P89" x="20.32" y="-35.56" length="middle"/>
-<pin name="P87/NC" x="20.32" y="-38.1" length="middle"/>
-<pin name="P85/NC" x="20.32" y="-43.18" length="middle"/>
-<pin name="P80/NC" x="20.32" y="-50.8" length="middle"/>
-<pin name="P65/NC" x="20.32" y="-83.82" length="middle"/>
-<pin name="P66/NC" x="20.32" y="-81.28" length="middle"/>
-<pin name="P73/NC" x="20.32" y="-66.04" length="middle"/>
-<pin name="P71" x="20.32" y="-71.12" length="middle"/>
-<pin name="P70" x="20.32" y="-73.66" length="middle"/>
-<pin name="P67" x="20.32" y="-78.74" length="middle"/>
-<pin name="P76" x="20.32" y="-60.96" length="middle"/>
-<pin name="P74" x="20.32" y="-63.5" length="middle"/>
-<pin name="P72" x="20.32" y="-68.58" length="middle"/>
-<pin name="P68" x="20.32" y="-76.2" length="middle"/>
-<pin name="P58" x="-12.7" y="-66.04" length="middle"/>
-<pin name="P56" x="-12.7" y="-63.5" length="middle"/>
-<pin name="P55" x="-12.7" y="-60.96" length="middle"/>
-<pin name="P54/NC" x="-12.7" y="-58.42" length="middle"/>
-<pin name="P60" x="-12.7" y="-71.12" length="middle"/>
-<pin name="P59/NC" x="-12.7" y="-68.58" length="middle"/>
-<pin name="P63/NC" x="-12.7" y="-76.2" length="middle"/>
-<pin name="P61" x="-12.7" y="-73.66" length="middle"/>
-<pin name="P64" x="-12.7" y="-78.74" length="middle"/>
+<pin name="P36" x="-12.7" y="-25.4" length="middle" swaplevel="1"/>
+<pin name="P35" x="-12.7" y="-22.86" length="middle" swaplevel="1"/>
+<pin name="P39" x="-12.7" y="-30.48" length="middle" swaplevel="1"/>
+<pin name="P37" x="-12.7" y="-27.94" length="middle" swaplevel="1"/>
+<pin name="P44/NC" x="-12.7" y="-43.18" length="middle" swaplevel="1"/>
+<pin name="P49" x="-12.7" y="-48.26" length="middle" swaplevel="1"/>
+<pin name="P50" x="-12.7" y="-50.8" length="middle" swaplevel="1"/>
+<pin name="P53" x="-12.7" y="-55.88" length="middle" swaplevel="1"/>
+<pin name="P40" x="-12.7" y="-33.02" length="middle" swaplevel="1"/>
+<pin name="P41" x="-12.7" y="-35.56" length="middle" swaplevel="1"/>
+<pin name="P42" x="-12.7" y="-38.1" length="middle" swaplevel="1"/>
+<pin name="P43" x="-12.7" y="-40.64" length="middle" swaplevel="1"/>
+<pin name="P46/NC" x="-12.7" y="-45.72" length="middle" swaplevel="1"/>
+<pin name="P52" x="-12.7" y="-53.34" length="middle" swaplevel="1"/>
+<pin name="P94" x="20.32" y="-22.86" length="middle" swaplevel="1"/>
+<pin name="P77" x="20.32" y="-58.42" length="middle" swaplevel="1"/>
+<pin name="P95/NC" x="20.32" y="-20.32" length="middle" swaplevel="1"/>
+<pin name="P92" x="20.32" y="-27.94" length="middle" swaplevel="1"/>
+<pin name="P78" x="20.32" y="-55.88" length="middle" swaplevel="1"/>
+<pin name="P93/NC" x="20.32" y="-25.4" length="middle" swaplevel="1"/>
+<pin name="P86/NC" x="20.32" y="-40.64" length="middle" swaplevel="1"/>
+<pin name="P82/NC" x="20.32" y="-45.72" length="middle" swaplevel="1"/>
+<pin name="P81" x="20.32" y="-48.26" length="middle" swaplevel="1"/>
+<pin name="P79" x="20.32" y="-53.34" length="middle" swaplevel="1"/>
+<pin name="P91" x="20.32" y="-30.48" length="middle" swaplevel="1"/>
+<pin name="P90" x="20.32" y="-33.02" length="middle" swaplevel="1"/>
+<pin name="P89" x="20.32" y="-35.56" length="middle" swaplevel="1"/>
+<pin name="P87/NC" x="20.32" y="-38.1" length="middle" swaplevel="1"/>
+<pin name="P85/NC" x="20.32" y="-43.18" length="middle" swaplevel="1"/>
+<pin name="P80/NC" x="20.32" y="-50.8" length="middle" swaplevel="1"/>
+<pin name="P65/NC" x="20.32" y="-83.82" length="middle" swaplevel="1"/>
+<pin name="P66/NC" x="20.32" y="-81.28" length="middle" swaplevel="1"/>
+<pin name="P73/NC" x="20.32" y="-66.04" length="middle" swaplevel="1"/>
+<pin name="P71" x="20.32" y="-71.12" length="middle" swaplevel="1"/>
+<pin name="P70" x="20.32" y="-73.66" length="middle" swaplevel="1"/>
+<pin name="P67" x="20.32" y="-78.74" length="middle" swaplevel="1"/>
+<pin name="P76" x="20.32" y="-60.96" length="middle" swaplevel="1"/>
+<pin name="P74" x="20.32" y="-63.5" length="middle" swaplevel="1"/>
+<pin name="P72" x="20.32" y="-68.58" length="middle" swaplevel="1"/>
+<pin name="P68" x="20.32" y="-76.2" length="middle" swaplevel="1"/>
+<pin name="P58" x="-12.7" y="-66.04" length="middle" swaplevel="1"/>
+<pin name="P56" x="-12.7" y="-63.5" length="middle" swaplevel="1"/>
+<pin name="P55" x="-12.7" y="-60.96" length="middle" swaplevel="1"/>
+<pin name="P54/NC" x="-12.7" y="-58.42" length="middle" swaplevel="1"/>
+<pin name="P60" x="-12.7" y="-71.12" length="middle" swaplevel="1"/>
+<pin name="P59/NC" x="-12.7" y="-68.58" length="middle" swaplevel="1"/>
+<pin name="P63/NC" x="-12.7" y="-76.2" length="middle" swaplevel="1"/>
+<pin name="P61" x="-12.7" y="-73.66" length="middle" swaplevel="1"/>
+<pin name="P64" x="-12.7" y="-78.74" length="middle" swaplevel="1"/>
 </symbol>
 </symbols>
 <devicesets>
