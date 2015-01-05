@@ -811,7 +811,7 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="PACKAGE" value="0805" x="44" y="17" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="VOLTAGE" value="6.3V" x="44" y="17" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
-<element name="C7" library="kmod-passives" package="0805-CAP" value="10uF" x="39" y="25" rot="R270">
+<element name="C7" library="kmod-passives" package="0805-CAP" value="22uF" x="39" y="25" rot="R270">
 <attribute name="PACKAGE" value="0805" x="39" y="25" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="VOLTAGE" value="6.3V" x="39" y="25" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
@@ -826,7 +826,7 @@ Please make sure your boards conform to these design rules.</description>
 <element name="Q1" library="SparkFun-DiscreteSemi" package="SOT23" value="IRFML8244" x="33" y="22.5" rot="R90">
 <attribute name="PROD_ID" value="TRANS-00830" x="16" y="3" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
-<element name="R6" library="kmod-passives" package="0603-RES" value="6.7k" x="20" y="4" rot="R270">
+<element name="R6" library="kmod-passives" package="0603-RES" value="6.8k" x="20" y="4" rot="R270">
 <attribute name="PACKAGE" value="0603" x="32" y="34" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
 <element name="L2" library="kmod-passives" package="0603_LED" value="RED" x="16" y="4"/>
@@ -862,7 +862,7 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="PACKAGE" value="0402" x="30.5" y="18" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="VOLTAGE" value="6.3V" x="30.5" y="18" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
-<element name="L3" library="kmod-passives" package="NR60XX" value="NR5040T4R7N" x="34.5" y="13" rot="R90"/>
+<element name="L3" library="kmod-passives" package="NR60XX" value="NR6028T4R7M" x="34.5" y="13" rot="R90"/>
 <element name="R18" library="kmod-passives" package="0603-RES" value="33k 1%" x="36.5" y="7" rot="R90">
 <attribute name="PACKAGE" value="0603" x="53.5" y="-4" size="1.778" layer="27" rot="R90" display="off"/>
 </element>

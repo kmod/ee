@@ -4376,7 +4376,7 @@ http://rohmfs.rohm.com/en/products/databook/datasheet/ic/power/switching_regulat
 <part name="SUPPLY6" library="kmod-nonparts" deviceset="1.8V" device=""/>
 <part name="GND8" library="kmod-nonparts" deviceset="GND" device=""/>
 <part name="C6" library="kmod-passives" deviceset="CAP" device="0805" value="10uF"/>
-<part name="C7" library="kmod-passives" deviceset="CAP" device="0805" value="10uF"/>
+<part name="C7" library="kmod-passives" deviceset="CAP" device="0805" value="22uF"/>
 <part name="SUPPLY7" library="kmod-nonparts" deviceset="1.8V" device=""/>
 <part name="U$9" library="kmod-ics" deviceset="VREG" device="SOT223" value="NCP1117"/>
 <part name="CONN3" library="kmod-nonparts" deviceset="CONNECTOR" device="18AWG"/>
@@ -4387,7 +4387,7 @@ http://rohmfs.rohm.com/en/products/databook/datasheet/ic/power/switching_regulat
 <part name="CONN6" library="kmod-nonparts" deviceset="CONNECTOR" device="SCREW_2.5MM" value="GND"/>
 <part name="SB1" library="kmod-nonparts" deviceset="SOLDER-BRIDGE" device="0603" value="12V_CS"/>
 <part name="Q1" library="SparkFun-DiscreteSemi" deviceset="MOSFET-NCHANNEL" device="BSS138" value="IRFML8244"/>
-<part name="R6" library="kmod-passives" deviceset="RESISTOR" device="0603" value="6.7k"/>
+<part name="R6" library="kmod-passives" deviceset="RESISTOR" device="0603" value="6.8k"/>
 <part name="L2" library="kmod-passives" deviceset="LED" device="0603" value="RED"/>
 <part name="D1" library="SparkFun-DiscreteSemi" deviceset="DIODE" device="SOD" value="1N4148"/>
 <part name="GND2" library="kmod-nonparts" deviceset="GND" device=""/>
@@ -4412,7 +4412,7 @@ http://rohmfs.rohm.com/en/products/databook/datasheet/ic/power/switching_regulat
 <part name="GND27" library="kmod-nonparts" deviceset="GND" device=""/>
 <part name="GND28" library="kmod-nonparts" deviceset="GND" device=""/>
 <part name="C49" library="kmod-passives" deviceset="CAP" device="0402-CAP" value="5pF-100pF;optional"/>
-<part name="L3" library="kmod-passives" deviceset="INDUCTOR" device="NR60XX" value="NR5040T4R7N"/>
+<part name="L3" library="kmod-passives" deviceset="INDUCTOR" device="NR60XX" value="NR6028T4R7M"/>
 <part name="R18" library="kmod-passives" deviceset="RESISTOR" device="0603" value="33k 1%"/>
 <part name="R19" library="kmod-passives" deviceset="RESISTOR" device="0603" value="10k 1%"/>
 <part name="GND29" library="kmod-nonparts" deviceset="GND" device=""/>
