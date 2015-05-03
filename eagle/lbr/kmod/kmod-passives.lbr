@@ -422,6 +422,25 @@ http://www.bourns.com/data/global/pdfs/SRF2012A.pdf</description>
 <rectangle x1="0.4" y1="-0.6" x2="1" y2="-0.2" layer="51"/>
 <rectangle x1="-1" y1="-0.6" x2="-0.4" y2="-0.2" layer="51"/>
 </package>
+<package name="LTST-C19F">
+<description>Package for Lite-On's RGB LED&lt;br/&gt;
+Footprint from the datasheet http://optoelectronics.liteon.com/upload/download/DS22-2001-076/S_110_LTST-C19FD1WT.pdf</description>
+<wire x1="-1.05" y1="0.8" x2="1.05" y2="0.8" width="0.2" layer="21"/>
+<wire x1="1.05" y1="0.8" x2="1.05" y2="-0.8" width="0.2" layer="21"/>
+<wire x1="-1.05" y1="0.8" x2="-1.05" y2="-0.8" width="0.2" layer="21"/>
+<wire x1="-1.05" y1="-0.8" x2="1.05" y2="-0.8" width="0.2" layer="21"/>
+<smd name="1" x="0.9" y="0.8" dx="1.4" dy="1.1" layer="1"/>
+<smd name="2" x="-0.9" y="0.8" dx="1.4" dy="1.1" layer="1"/>
+<smd name="3" x="-0.9" y="-0.8" dx="1.4" dy="1.1" layer="1"/>
+<smd name="4" x="0.9" y="-0.8" dx="1.4" dy="1.1" layer="1"/>
+<polygon width="0.2" layer="21">
+<vertex x="1" y="0.4"/>
+<vertex x="-0.2" y="-0.8"/>
+<vertex x="1" y="-0.8"/>
+</polygon>
+<rectangle x1="0.1" y1="-0.7" x2="0.6" y2="-0.5" layer="51"/>
+<text x="-1.2" y="1.5" size="0.5" layer="25">&gt;NAME</text>
+</package>
 </packages>
 <symbols>
 <symbol name="LED">
@@ -530,6 +549,77 @@ http://www.bourns.com/data/global/pdfs/SRF2012A.pdf</description>
 <pin name="4" x="-7.62" y="-2.54" visible="off" length="short" direction="pas" swaplevel="1"/>
 <wire x1="-5.08" y1="-0.508" x2="5.08" y2="-0.508" width="0.254" layer="94"/>
 <wire x1="5.08" y1="0.508" x2="-5.08" y2="0.508" width="0.254" layer="94"/>
+</symbol>
+<symbol name="RGB-CA">
+<wire x1="-3.81" y1="2.54" x2="-5.08" y2="0" width="0.254" layer="94"/>
+<wire x1="-5.08" y1="0" x2="-6.35" y2="2.54" width="0.254" layer="94"/>
+<wire x1="-3.81" y1="0" x2="-5.08" y2="0" width="0.254" layer="94"/>
+<wire x1="-5.08" y1="0" x2="-6.35" y2="0" width="0.254" layer="94"/>
+<wire x1="-3.81" y1="2.54" x2="-5.08" y2="2.54" width="0.254" layer="94"/>
+<wire x1="-5.08" y1="2.54" x2="-6.35" y2="2.54" width="0.254" layer="94"/>
+<wire x1="-7.112" y1="1.778" x2="-8.509" y2="0.381" width="0.1524" layer="94"/>
+<wire x1="-6.985" y1="0.635" x2="-8.382" y2="-0.762" width="0.1524" layer="94"/>
+<polygon width="0.1524" layer="94">
+<vertex x="-8.509" y="0.381"/>
+<vertex x="-8.128" y="1.27"/>
+<vertex x="-7.62" y="0.762"/>
+</polygon>
+<polygon width="0.1524" layer="94">
+<vertex x="-8.382" y="-0.762"/>
+<vertex x="-8.001" y="0.127"/>
+<vertex x="-7.493" y="-0.381"/>
+</polygon>
+<wire x1="1.27" y1="2.54" x2="0" y2="0" width="0.254" layer="94"/>
+<wire x1="0" y1="0" x2="-1.27" y2="2.54" width="0.254" layer="94"/>
+<wire x1="1.27" y1="0" x2="0" y2="0" width="0.254" layer="94"/>
+<wire x1="0" y1="0" x2="-1.27" y2="0" width="0.254" layer="94"/>
+<wire x1="1.27" y1="2.54" x2="0" y2="2.54" width="0.254" layer="94"/>
+<wire x1="0" y1="2.54" x2="-1.27" y2="2.54" width="0.254" layer="94"/>
+<wire x1="-2.032" y1="1.778" x2="-3.429" y2="0.381" width="0.1524" layer="94"/>
+<wire x1="-1.905" y1="0.635" x2="-3.302" y2="-0.762" width="0.1524" layer="94"/>
+<polygon width="0.1524" layer="94">
+<vertex x="-3.429" y="0.381"/>
+<vertex x="-3.048" y="1.27"/>
+<vertex x="-2.54" y="0.762"/>
+</polygon>
+<polygon width="0.1524" layer="94">
+<vertex x="-3.302" y="-0.762"/>
+<vertex x="-2.921" y="0.127"/>
+<vertex x="-2.413" y="-0.381"/>
+</polygon>
+<wire x1="6.35" y1="2.54" x2="5.08" y2="0" width="0.254" layer="94"/>
+<wire x1="5.08" y1="0" x2="3.81" y2="2.54" width="0.254" layer="94"/>
+<wire x1="6.35" y1="0" x2="5.08" y2="0" width="0.254" layer="94"/>
+<wire x1="5.08" y1="0" x2="3.81" y2="0" width="0.254" layer="94"/>
+<wire x1="6.35" y1="2.54" x2="5.08" y2="2.54" width="0.254" layer="94"/>
+<wire x1="5.08" y1="2.54" x2="3.81" y2="2.54" width="0.254" layer="94"/>
+<wire x1="3.048" y1="1.778" x2="1.651" y2="0.381" width="0.1524" layer="94"/>
+<wire x1="3.175" y1="0.635" x2="1.778" y2="-0.762" width="0.1524" layer="94"/>
+<polygon width="0.1524" layer="94">
+<vertex x="1.651" y="0.381"/>
+<vertex x="2.032" y="1.27"/>
+<vertex x="2.54" y="0.762"/>
+</polygon>
+<polygon width="0.1524" layer="94">
+<vertex x="1.778" y="-0.762"/>
+<vertex x="2.159" y="0.127"/>
+<vertex x="2.667" y="-0.381"/>
+</polygon>
+<wire x1="-5.08" y1="5.08" x2="0" y2="5.08" width="0.254" layer="94"/>
+<wire x1="0" y1="5.08" x2="5.08" y2="5.08" width="0.254" layer="94"/>
+<wire x1="-5.08" y1="5.08" x2="-5.08" y2="2.54" width="0.254" layer="94"/>
+<wire x1="0" y1="2.54" x2="0" y2="5.08" width="0.254" layer="94"/>
+<wire x1="5.08" y1="5.08" x2="5.08" y2="2.54" width="0.254" layer="94"/>
+<pin name="R" x="-5.08" y="-5.08" visible="pad" length="middle" direction="pas" rot="R90"/>
+<pin name="G" x="0" y="-5.08" visible="pad" length="middle" direction="pas" rot="R90"/>
+<pin name="B" x="5.08" y="-5.08" visible="pad" length="middle" direction="pas" rot="R90"/>
+<pin name="CA" x="0" y="10.16" visible="pad" length="middle" direction="pas" rot="R270"/>
+<text x="-7.62" y="-2.54" size="1.778" layer="94">R</text>
+<text x="-2.54" y="-2.54" size="1.778" layer="94">G</text>
+<text x="2.54" y="-2.54" size="1.778" layer="94">B</text>
+<text x="0.508" y="6.858" size="1.778" layer="94">CA</text>
+<text x="-12.7" y="7.62" size="1.778" layer="95">&gt;NAME</text>
+<text x="-12.7" y="5.08" size="1.778" layer="96">&gt;VALUE</text>
 </symbol>
 </symbols>
 <devicesets>
@@ -763,6 +853,24 @@ These are standard SMD and PTH capacitors. Normally 10uF, 47uF, and 100uF in ele
 <connect gate="G$1" pin="2" pad="2"/>
 <connect gate="G$1" pin="3" pad="3"/>
 <connect gate="G$1" pin="4" pad="4"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="LED_RGB" prefix="L" uservalue="yes">
+<gates>
+<gate name="G$1" symbol="RGB-CA" x="0" y="-2.54"/>
+</gates>
+<devices>
+<device name="" package="LTST-C19F">
+<connects>
+<connect gate="G$1" pin="B" pad="1"/>
+<connect gate="G$1" pin="CA" pad="4"/>
+<connect gate="G$1" pin="G" pad="3"/>
+<connect gate="G$1" pin="R" pad="2"/>
 </connects>
 <technologies>
 <technology name=""/>
