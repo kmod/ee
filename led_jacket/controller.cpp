@@ -5,7 +5,7 @@
 //}
 
 #define LED PIN_SPI_SCK
-#define IN PIN_A5
+#define IN PIN_A0
 
 void setup() {
     pinMode(LED, OUTPUT);
